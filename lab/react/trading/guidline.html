@@ -1,0 +1,255 @@
+
+<!doctype html>
+<html class="no-js" lang="en-US">
+<head>
+<title>React Guidline</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/example.css">
+
+</head> 
+<body>
+<div class="layout">
+	<header role="banner">
+		<div class="layout-inner">
+			<h1>Guidline</h1>
+			<nav id="navigation-menu" role="navigation">
+				<div id="menu-holder" class="item-wrapper">
+					<a href="" class="navigation-item -main-menu">Menu</a>
+
+					<ul class="item-widget">
+						<li class="item-wrapper">
+							<a href="" class="navigation-item -main-menu-trading">Trading</a>
+						</li>
+						<li class="item-wrapper">
+							<a href="" class="navigation-item -main-menu-buying">Buying</a>
+						</li>
+						<li class="item-wrapper">
+							<a href="" class="navigation-item -main-menu-gift">Gift</a>
+						</li>
+						<li class="item-wrapper">
+							<a href="" class="navigation-item -main-menu-saling">Saling</a>
+						</li>
+					</ul>
+				</div>
+				<div id="profile-holder" class="item-wrapper">
+					<a href="" class="navigation-item -my-profile">Kiet Ve Tran</a>
+				</div>
+			</nav>
+		</div>		
+		<div class="filter-menu">
+			<div class="layout-inner">
+				<ul class="menu-list">
+					<li>
+						<a href="" onClick="return false;">Filter menu</a>
+					</li>
+					<li>
+						<a href="" onClick="return false;">Filter menu</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<main role="main">
+		<div class="layout-inner">
+			<ul id="content-wrapper">
+				<li>
+					<h2>Color</h2>
+					<div class="content">
+						<span class="color-holder -bg-basic"></span>
+						<span class="color-holder -bg-color"></span>
+					</div>
+					<div class="content">
+						<span class="color-holder -blue"></span>
+						<span class="color-holder -blue-dark"></span>
+						<span class="color-holder -blue-light"></span>
+					</div>
+					<div class="content">
+						<span class="color-holder -green"></span>
+						<span class="color-holder -green-dark"></span>
+						<span class="color-holder -green-light"></span>
+					</div>
+					<div class="content">
+						<span class="color-holder -grey"></span>
+						<span class="color-holder -grey-dark"></span>
+						<span class="color-holder -grey-light"></span>
+						<span class="color-holder -black"></span>
+						<span class="color-holder -black-dark"></span>
+					</div>
+					<div class="content">
+						<span class="color-holder -sand"></span>
+						<span class="color-holder -red"></span>
+						<span class="color-holder -purple"></span>
+						<span class="color-holder -purple-dark"></span>
+						<span class="color-holder -orange"></span>
+						<span class="color-holder -yellow"></span>
+					</div>
+				</li>
+				<li>
+					<h2>Typography</h2>
+					<div class="content">
+						<h2>H1 - headline1</h2>
+						<h2>H2 - headline2</h2>
+						<h3>H3 - headline3</h3>
+						<h4>H4 - headline4</h4>
+					</div>
+				</li>
+
+				<li>
+					<h2>Breadcrumb</h2>
+					<div class="content">        
+			            <ul class="breadcrumb" aria-label="breadcrumb navigation" role="navigation">
+			                <li><a href="">Home</a></li>
+			                <li><a href="">News</a></li>
+			                <li><a href="">Article</a></li>
+			            </ul>
+					</div>
+				</li>
+
+				<li>
+					<h2>Button</h2>
+					<div class="content -button-view">
+			            <button class="action-btn -arrow-left">Submit</button>
+			            <button class="action-btn">Submit</button>
+			            <button class="action-btn -arrow-right">Submit</button>
+			            <span>&nbsp;</span>
+			            <button class="action-btn -arrow-left -active-bounce">click-bounce</button>
+			        </div>
+			        <div class="content -button-view">
+			            <button class="primary-btn -arrow-left">Save</button>
+			            <button class="primary-btn">Save</button>
+			            <button class="primary-btn -arrow-right">Save</button>
+			            <span>&nbsp;</span>
+			            <button class="primary-btn -active-bounce">Click-bounce</button>
+			        </div>
+			        <div class="content -button-view">
+			            <button class="secondary-btn -arrow-left">Cancel</button>
+			            <button class="secondary-btn">Cancel</button>
+			            <button class="secondary-btn -arrow-right">Cancel</button>
+			            <span>&nbsp;</span>
+			            <button class="secondary-btn -arrow-right -active-bounce">Click-bounce</button>
+			        </div>
+				</li>
+
+				<li>
+					<h2>Numberlist</h2>
+					<div class="content">
+						<h3>Tab</h3>
+			            <ol class="number-list -tab" role="tablist">
+			                <li role="presentation">
+			                    <a href="#" role="tab" aria-selected="false" aria-controls="number-list-panel-01" onClick="event.preventDefault();">
+			                        Tommy Nilsen
+			                    </a>
+			                </li>
+			                <li class="active" role="presentation">
+			                    <a href="#" role="tab" aria-selected="true" aria-controls="number-list-panel-01" onClick="event.preventDefault();">
+			                        Tine Sofie Mikkelsen
+			                    </a>
+			                </li>
+			                <li role="presentation">
+			                    <a href="#" role="tab" aria-selected="false" aria-controls="number-list-panel-01" onClick="event.preventDefault();">
+			                        Christoffer Pettersen
+			                    </a>
+			                </li>
+			                <li role="presentation">
+			                    <a href="#" role="tab" aria-selected="false" aria-controls="number-list-panel-01" onClick="event.preventDefault();">
+			                        Julie Johannesen
+			                    </a>
+			                </li>
+			                <li role="presentation">
+			                    <a href="#" role="tab" aria-selected="false" aria-controls="number-list-panel-01" onClick="event.preventDefault();">
+			                        Sebastian Olsen
+			                    </a>
+			                </li>
+			            </ol>
+			        </div>
+					<div class="content">        
+						<h3>List</h3>
+			            <ol class="number-list">
+			                <li>One two three</li>
+			                <li>Four five six</li>
+			                <li>Seven eight nine ten</li>
+			            </ol>
+					</div>
+				</li>
+
+				<li>
+					<h2>Slider</h2>
+					<div id="standard-slider">
+						
+					  <div role="application" class="slider-wrapper">
+					    <div id="sr1" class="slider-track">
+					      <a tabindex="0" aria-controls="sr1-text" aria-labelledby="volum-label"  aria-valuenow="0" aria-valuemax="100" aria-valuemin="0" role="slider" class="slider-btn">0</a>
+					      <span class="slider-tail"></span>
+					    </div>
+					  </div>
+					</div>
+				</li>
+
+				<li>
+					<h2>Ingredients</h2>
+					<div id="ingredients"></div>
+				</li>
+
+				<li>
+					<h2>Timeline</h2>
+					<div id="timeline-test"class="content"></div>
+				</li>
+
+				<!---->
+				<li>
+					<h2>Form</h2>
+					<div id="form-test" class="_overflow-hidden">
+						<!--
+						<div class="form-row">
+							<div class="row-content -label-wrapper">
+								<div class="content-holder">
+									<a aria-controls="personnumber-information" href="" class="info-btn" role="button">
+										Informasjon om personnummer
+									</a>
+									<label for="personnumber" data-shortname="">
+										<span>Personnummer</span>
+										<span class="help-text">11 siffer</span>
+									</label>
+								</div>
+							</div>          
+							<div id="personnumber-information" class="row-content -info-wrapper" role="region" aria-expanded="false">
+								<div class="content-holder">
+									<div class="text-holder">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+									Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+									et tortor quis sem tempus accumsan eu vitae mi.
+									</div>
+								</div>
+							</div>
+							<div class="row-content -input-wrapper">
+								<input id="personnumber" name="personnumber" type="tel" required="" spellcheck="false" autocomplete="off" data-rule="personnumber parent-target[.input-wrapper]" maxlength="12" aria-required="true" class="input-field">
+							</div>
+						</div>
+						-->
+					</div>
+					<div>&nbsp;</div>
+				</li>
+			</ul>
+		</div>
+	</main>
+
+	<footer role="contentinfo">
+		<div class="layout-inner">
+			<div id="mail-me">
+				<a href="mailto:kietvetran@gmail.com">kietvetran@gmail.com</a>
+			</div>
+		</div>		
+	</footer>
+</div>
+<script type="text/javascript" src="./js/example.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html>
+

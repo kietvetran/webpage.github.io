@@ -1,0 +1,53 @@
+body {
+}
+
+.content {
+	padding: 20px 0;
+}
+
+.content.-button-view > * {
+	margin-top: 5px;
+}
+
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+/*****************************************************************************/
+#content-wrapper {
+	/*
+	background: #fff none repeat 0 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	*/
+}
+
+#content-wrapper > li {
+	border-top: 1px solid #ccc;
+	padding: 20px 0;
+}
+
+#content-wrapper > li:first-child {
+	border: 0 none;	
+}
+
+
+/*****************************************************************************/
+
+.test-list {
+	list-style: none;
+}
+
+.test-list li {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.test-list li.yes {
+	filter: alpha(opacity=50);
+	opacity: .5;
+}
