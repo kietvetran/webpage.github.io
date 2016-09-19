@@ -1,0 +1,33 @@
+.checkmark-list(){
+    li {
+        display: block;
+        margin: 0;
+        padding-bottom: 10px;
+        [class*="icon-"]{
+            display: table-cell;
+
+            &:before {
+                color: @blue-flat;
+                position: relative;
+                top: 8px;
+                font-size: 169%;
+                padding: 0 10px;
+            }
+            @media(min-width: @screen-sm){
+                vertical-align: middle;
+                &:before {
+                    top: 4px;
+                }
+            }
+        }
+        .text-wrap{
+            display: table-cell;
+            width: 100%;
+
+            @media(min-width: @screen-sm){
+                vertical-align: middle;
+                padding: 0;
+            }
+        }
+    }
+}

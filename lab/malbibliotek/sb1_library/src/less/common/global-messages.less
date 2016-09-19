@@ -1,0 +1,135 @@
+.global-message {
+  .content {
+    max-width: @screen-lg;
+    margin: auto;
+    position: relative;
+
+    .content-text {
+      line-height: normal;
+      padding-right: 20px;
+      font-size: 14px;
+      display: table-cell;
+      vertical-align: middle;
+      @media (min-width: @screen-lg) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .icon-message-type {
+    display: table-cell;
+    vertical-align: middle;
+    &:before{
+      font-size:40px;
+      position: relative;
+      top: 7px;
+      left: -11px;
+    }
+  }
+
+  .message-common {
+    width: 100%;
+    display: block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  .messages {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+  }
+
+  .icon-close-common {
+    cursor: pointer;
+    &:before{
+      position: absolute;
+      top: 5px;
+      right: 14px;
+      font-size: 30px;
+      color: fade(black, 40%);
+
+      @media (min-width: @screen-md) {
+        right: 50px;
+      }
+
+      @media (min-width: @screen-lg) {
+        right: 10px;
+        font-size: 35px;
+      }
+    }
+
+    &:hover {
+      &:before{
+        color: @black-gray;
+      }
+    }
+  }
+
+  .li-information-message-blue {
+    .message-common;
+    color: @black-gray;
+    background-color: @light-royal;
+
+    .icon-message-type {
+      .icon-info-circle();
+    }
+
+    .icon-close {
+      .icon-close-common;
+    }
+  }
+
+  .li-information-message-grey {
+    .message-common;
+    color: @white;
+    background-color: @gray-dark;
+
+    .icon-message-type {
+      .icon-info-circle();
+      &:before{
+        color: @white;
+      }
+    }
+
+    .icon-close {
+      .icon-close-common;
+      &:before{
+        color: lighten(@black-gray, 40%);
+      }
+      &:hover {
+        &:before{
+          color: @black-gray;
+        }
+      }
+    }
+  }
+
+  .li-alert-red-message {
+    .message-common;
+    background-color: @red-alert;
+    color: @black-gray;
+
+    .icon-message-type {
+      .icon-warning-circle();
+    }
+
+    .icon-close {
+      .icon-close-common;
+    }
+  }
+
+  .li-alert-green-message {
+    .message-common;
+    color: @black-gray;
+    background-color: @green-alert;
+
+    .icon-message-type {
+      .icon-check-circle();
+    }
+
+    .icon-close {
+      .icon-close-common;
+    }
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - note</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+<style>
+
+main {
+  display: block;
+  max-width: 1280px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.remember_list_empty {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  display: none;
+}
+
+.no_list .remember_list_empty {
+  display: block;
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+</head> 
+<body>
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main style="overflow:hidden; height: 900px; margin-top: 100px;">
+  <div class="tip-wrapper center">
+    <div class="icon-wrapper">
+      <div class="icon-circle">
+        <picture>
+          <img src="./icons/tips.svg" alt="tips.svg" class="inline-svg icon responsive">
+        </picture>
+      </div>
+    </div>
+    <div class="tip-content">
+      Takk! Vi har mottat din søknad. En av våre rådgivere til ta 
+      kontakt med deg i løpet av førstkommende arbeidsdag.
+    </div>
+  </div>
+
+  <h1 style="text-align:center;padding:100px 0 30px 0">Min Huskeliste</h1>
+  <div class="remember_list_empty">tomt</div>
+  <ul class="sb1_remember_card_wrapper">
+    <li>
+      <article class="sb1_remember_card">
+        <div class="card_content">     
+          <h3>Boligforsikring</h3>
+          <p class="lead" title="Garanterer deg en erstatning som som dekker kostnadene ved å reparere eller bygge tilsvarende bygning ved totalskade">
+            Garanterer deg en erstatning som som dekker kostnadene ved å 
+            reparere eller bygge tilsvarende bygning ved totalskade
+          </p>
+          <div class="toggle_wrapper">
+            <a href="#" class="toggle_expander"></a>
+          </div>
+        </div>
+        <div class="card_content">
+          <div class="note_description">
+            <div class="sb1_step_counter">
+              <h4>Påbegynt</h4>
+              <div class="sb1_progress">    
+                <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:95%">
+                  <span class="sr">Steg 1 av 7</span>
+                </div>
+              </div>
+            </div>
+            <ul class="tool_wrapper">
+              <li>
+                <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+              </li>
+              <li>
+                <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+              </li>
+            </ul>
+          </div>    
+        </div>
+      </article>
+    </li>
+  </ul>
+</main>
+<!--<footer>Footer</footer>-->
+<script>
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+function eraseCookie( name ) {return createCookie( name, '', -1 ); }
+
+var size = $( '.sb1_remember_card').each( function(i,d){
+  $(d).SB1rememberCard({
+    'continueCallback' : function() {
+      window.location.href = '../house_insurance/index.html';
+    },
+    'discardCallback' : function() {
+      $('body').addClass('no_list');
+      eraseCookie('h_m_i');
+    }
+  });
+}).size();
+
+$('.sb1_remember_card_wrapper').addClass(
+ 'count_'+size +(size>3? ' is_many' : '')
+);
+</script>
+</body>
+</html>

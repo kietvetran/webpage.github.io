@@ -1,0 +1,202 @@
+@font-face {
+	font-family: 'icons';
+	src: url('../fonts/icons.eot');
+	src: url('../fonts/icons.eot?#iefix') format('eot'),
+		url('../fonts/icons.woff') format('woff'),
+		url('../fonts/icons.ttf') format('truetype'),
+		url('../fonts/icons.svg#icons') format('svg');
+}
+
+.icon-base-pseudo {
+	font-family: 'icons';
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	// speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+	text-decoration: none;
+	text-transform: none;
+    color: @blue-royal;
+}
+
+.icon-char(@filename) {
+	@arrow_down: '\E001';
+	@arrow_left: '\E002';
+	@arrow_right: '\E003';
+	@arrow_up: '\E004';
+	@become_customer: '\E005';
+	@buy_groceries: '\E006';
+	@calculator: '\E007';
+	@calendar: '\E008';
+	@car: '\E009';
+	@card: '\E00A';
+	@chat: '\E00B';
+	@check: '\E00C';
+	@close: '\E00D';
+	@customer_support: '\E00E';
+	@facebook: '\E00F';
+	@house: '\E010';
+	@hundred: '\E011';
+	@insurance: '\E012';
+	@key: '\E013';
+	@life_insurance: '\E014';
+	@login: '\E015';
+	@meeting_with_advisor: '\E016';
+	@menu: '\E017';
+	@mobile: '\E018';
+	@payment: '\E019';
+	@pension: '\E01A';
+	@phone: '\E01B';
+	@public_transport: '\E01C';
+	@report_damage: '\E01D';
+	@saving: '\E01E';
+	@school: '\E01F';
+	@search: '\E020';
+	@tip: '\E021';
+	@travel: '\E022';
+	@use_card: '\E023';
+	@young: '\E024';
+	
+	content: @@filename;
+}
+
+.icon(@filename, @insert: before) {
+	@pseudo-selector: ~':@{insert}';
+
+	&@{pseudo-selector} {
+		&:extend(.icon-base-pseudo);
+		.icon-char(@filename);
+	}
+}
+
+.icon-arrow_down {
+	.icon(arrow_down);
+}
+.icon-arrow_left {
+	.icon(arrow_left);
+}
+.icon-arrow_right {
+	.icon(arrow_right);
+}
+.icon-arrow_up {
+	.icon(arrow_up);
+}
+.icon-become_customer {
+	.icon(become_customer);
+}
+.icon-buy_groceries {
+	.icon(buy_groceries);
+}
+.icon-calculator {
+	.icon(calculator);
+}
+.icon-calendar {
+	.icon(calendar);
+}
+.icon-car {
+	.icon(car);
+}
+.icon-card {
+	.icon(card);
+}
+.icon-chat {
+	.icon(chat);
+}
+.icon-check {
+	.icon(check);
+}
+.icon-close {
+	.icon(close);
+}
+.icon-customer_support {
+	.icon(customer_support);
+}
+.icon-facebook {
+	.icon(facebook);
+}
+.icon-house {
+	.icon(house);
+}
+.icon-hundred {
+	.icon(hundred);
+}
+.icon-insurance {
+	.icon(insurance);
+}
+.icon-key {
+	.icon(key);
+}
+.icon-life_insurance {
+	.icon(life_insurance);
+}
+.icon-login {
+	.icon(login);
+}
+.icon-meeting_with_advisor {
+	.icon(meeting_with_advisor);
+}
+.icon-menu {
+	.icon(menu);
+}
+.icon-mobile {
+	.icon(mobile);
+}
+.icon-payment {
+	.icon(payment);
+}
+.icon-pension {
+	.icon(pension);
+}
+.icon-phone {
+	.icon(phone);
+}
+.icon-public_transport {
+	.icon(public_transport);
+}
+.icon-report_damage {
+	.icon(report_damage);
+}
+.icon-saving {
+	.icon(saving);
+}
+.icon-school {
+	.icon(school);
+}
+.icon-search {
+	.icon(search);
+}
+.icon-tip {
+	.icon(tip);
+}
+.icon-travel {
+	.icon(travel);
+}
+.icon-use_card {
+	.icon(use_card);
+}
+.icon-young {
+	.icon(young);
+}
+
+
+.icon-small {
+    font-size: 16px;
+}
+.icon-medium {
+    font-size: 32px;
+}
+.icon-large {
+    font-size: 80px;
+    height: 66px;
+
+    @media (min-width: @screen-md) {
+        font-size: 100px;
+        height: 80px;
+    }
+}
+
+.icon-center {
+    display: block;
+    text-align: center;
+}

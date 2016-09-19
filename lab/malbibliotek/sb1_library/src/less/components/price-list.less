@@ -1,0 +1,123 @@
+.price-list-container {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    h2 {
+        text-align: center;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}
+.price-list-filter {
+    > .price-filter-title {
+        text-align: center;
+        color: @blue-royal;
+    }
+    > ul {
+        display: block;
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        margin: 20px 0 60px 0;
+        > .price-filter {
+            display: inline-block;
+            > a {
+                display: inline-block;
+                padding: 5px 20px;
+                margin: 5px;
+                color: @blue-royal;
+                border: 2px solid @gray-light;
+                border-radius: 25px;
+                font-family: 'MuseoSansRounded-700';
+                font-size: 16px;
+                text-transform: uppercase;
+                &:hover,
+                &.active {
+                    background-color: @blue-royal;
+                    color: @white;
+                    border: 2px solid @blue-royal;
+                }
+            }
+        }
+    }
+}
+.price-list{
+    margin-bottom: 10px;
+    .price-title {
+        display: block;
+        font-family: "MuseoSansRounded-500";
+        color: @blue-royal;
+        background-color: @blue-light-night;
+        font-size: 18px;
+        line-height: 22px;
+        cursor: pointer;
+        position: relative;
+        border-radius: 3px;
+        padding: 20px 45px 20px 25px;
+        @media (min-width: @screen-tablet) {
+            padding: 20px 45px 20px 25px;
+        }
+
+        .icon-arrow_down();
+        &:before {
+            transition: transform 300ms, color 300ms;
+            color: @blue-royal;
+            position: absolute;
+            font-size: 34px;
+            right: 20px;
+            top: 20px;
+
+            @media (min-width: @screen-tablet) {
+                right: 20px;
+                top: 20px;
+            }
+        }
+
+        &:focus:before,
+        &:hover:before {
+            color: inherit;
+        }
+
+        &:hover,
+        &:focus {
+            color: @white;
+            background-color: @blue-royal;
+            &:before {
+                color: inherit;
+            }
+            .price-content {
+                display: block;
+            }
+        }
+    }
+    &.active > .price-title {
+        color: @white;
+        background-color: @blue-royal;
+        &:before {
+            transform: rotateX(180deg);
+            color: inherit;
+        }
+        .price-content {
+            display: block;
+        }
+    }
+
+    .price-content {
+        display: none;
+        padding: 0 25px;
+        table {
+            table-layout: fixed;
+            td {
+                width: 100%;
+                padding: 15px 0;
+                border-bottom: 1px solid @gray-light;
+                overflow: hidden;
+                &:last-child {
+                    text-align: right;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

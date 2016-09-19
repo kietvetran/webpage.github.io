@@ -1,0 +1,77 @@
+.sec-find-us {
+  > .search-results-wrap {
+    width: 100%;
+    margin: auto;
+    @media (min-width: @screen-md){
+      width: 80%;
+    }
+    > .search-results {
+      text-align: left;
+      > .result-row-find-us {
+        padding: 20px 0;
+        &:first-child {
+          border-top: 1px solid @gray-light;
+        }
+        border-bottom: 1px solid @gray-light;
+        > .result-title {
+          display: block;
+          color: @blue-royal;
+          position: relative;
+          padding: 0 40px;
+          .icon-arrow_down();
+          &:before {
+            transition: transform 300ms, color 300ms;
+            color: @blue-flat;
+            position: absolute;
+            font-size: 34px;
+            right: 0;
+            top: 0;
+          }
+          &:focus:before,
+          &:hover:before {
+            color: inherit;
+          }
+          [class*="icon-"] {
+            &:before {
+              position: absolute;
+              left: 0;
+              vertical-align: middle;
+              font-size: 225%;
+            }
+          }
+        }
+        > .result-top {
+          padding: 0 40px;
+          > .result-type{
+            float: left;
+          }
+          > .result-time{
+            float: right;
+          }
+        }
+        > .result-description {
+          display: none;
+          padding: 20px 40px 10px 40px;
+            > .result-services {
+                margin-left: -17px;
+                padding: 20px 0;
+            }
+        }
+
+        &.active {
+          > .result-title {
+            &:before {
+              transform: rotateX(180deg);
+              color: inherit;
+            }
+          }
+        }
+        .result-top,
+        .result-description {
+          font-family: 'MuseoSans-500';
+          color: @gray-dark;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.video {
+
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    .responsive-parent {
+
+        width: 100%;
+        height: 100%;
+        margin: auto;
+
+        @media (min-width: @screen-sm) {
+
+            width: 50%;
+        }
+    }
+
+    .video-wrap {
+        
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */ 
+        height: 0;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .video-image-wrap {
+        
+        img {
+            width: 120px;
+        }                
+    }
+}

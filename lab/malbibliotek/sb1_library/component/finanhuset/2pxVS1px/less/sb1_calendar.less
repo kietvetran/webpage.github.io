@@ -1,0 +1,300 @@
+.sb1_calendar_widget {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -2px;
+  margin: 3px 0 0 0;
+  visibility: hidden;
+  opacity: 0; 
+  filter: alpha(opacity=0);  
+  background-color: @white;
+
+  /*
+  opacity: 1; 
+  filter: alpha(opacity=100);  
+  visibility: visible;
+  */
+
+  -webkit-transition: opacity .2s ease-in-out;                  
+  -moz-transition: opacity .2s ease-in-out;                 
+  -o-transition: opacity .2s ease-in-out;   
+  -ms-transition: opacity .2s ease-in-out;         
+  transition: opacity .2s ease-in-out; 
+
+  &.display_multiple {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;    
+  }
+
+  &.force_visible {
+    visibility: visible;
+  }
+
+  &.sb1_show {
+    opacity: 1; 
+    filter: alpha(opacity=100);  
+    z-index: 15;  
+    visibility: visible;    
+  }
+
+  &.view_count_2 {
+    width: 523px;
+  }  
+
+  .sb1_calendar_table_wrapper {
+    float: left;
+    width: 265px;
+    position: relative;
+    margin-left: 10px;
+    overflow: hidden;
+    /*box-shadow: 0 0 3px #ccc; */
+
+    &:first-child {
+      margin-left: 0;
+    }   
+  }
+
+  &.included_icon_top {
+    margin-top: 30px;
+  }
+
+  &.other_controller {
+    .icon_top {
+      left: 50%;
+      margin-left: 45px;
+    }    
+  }
+
+  .icon_top {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 40px;
+    &:before {  
+      font-size: 50px;
+    }
+  }
+
+  .sb1_calendar_shortcut_warpper {
+    clear: both;
+    float: left;
+    width: 100%;
+    padding: 5px 0;
+
+    .sb1_calendar_shortcut_item {
+      display: inline-block;
+      padding: 0;
+      margin: 0 10px 0 0;
+      font-size: 16px;
+
+      &.sb1_active {
+        &, &:hover, &:focus {
+          color: @blue-royal;
+        }
+      }
+    }
+  }
+}
+
+table.sb1_calendar_table {
+  border-collapse: collapse;
+  border-spacing: 0; 
+  font-family: 'MuseoSans-500';
+  font-size: 15px;
+  color: #666;
+  line-height: 18px;  
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  left: 0;
+  background: #fff none repeat 0 0;
+  -webkit-transition: left .4s ease-in-out;                  
+  -moz-transition: left .4s ease-in-out;                 
+  -o-transition: left .4s ease-in-out;   
+  -ms-transition: left .4s ease-in-out;         
+  transition: left .4s ease-in-out;
+
+  tr.sb1_calendar_table_header {
+    td {
+      border-color: transparent;
+    }
+
+    &:first-child {
+      /*background-color: @sand-fifty;*/
+      background-color: @blue-flat;
+      td {
+        /*color: @blue-royal;*/
+        color: @white;
+        font-size: 21px;
+        &, > a {
+          line-height: 50px;
+        }
+      }
+    }
+  }
+
+  td {
+    text-align: center;
+    vertical-align: middle;
+    width: 35px;
+
+    .week_name, .month_name {
+    }
+
+    > span, > a {
+      display: block;
+      position: relative;      
+      padding: 2px;
+    }
+
+    .week_name {
+      padding-top: 15px;
+      padding-bottom: 5px; 
+      color: @blue-royal;
+    }
+
+    a {
+      text-decoration: none;
+      margin: 0;
+      border: 0 none;
+      font-size: 16px;
+      font-family: 'MuseoSans-500';
+
+      &.is_today {
+        &, &:visited {
+          color: @blue-royal;
+        }
+        &:after {
+          content: " ";
+          position: absolute;
+          left: 6px;
+          right: 6px;
+          bottom: 4px;
+          border-bottom: 2px solid @blue-royal;
+        }
+
+        &:hover {
+          &:before {
+            content: " ";
+            position: absolute;
+            left: 2px;
+            right: 2px;
+            top: 2px;
+            bottom: 2px;
+            border: 1px solid @blue-royal-light-fifty;
+          }
+        }
+      }
+
+      &, &:visited {
+        text-decoration: none;
+        color: @blue-royal-light-wcag;
+      }
+
+      &.sb1_calendar_table_navigator.sb1_disabled,
+      &.sb1_calendar_table_item.out_of_month,
+      &.sb1_calendar_table_item.sb1_disabled {
+        cursor: default;
+        font-family: 'MuseoSans-300';
+        &, &:hover, &:focus {
+          color: @gray;
+
+          &:before {
+            color: @gray;
+          }
+
+          &:after {
+            display: none;
+          }
+        }
+      }
+
+      &.sb1_calendar_table_item {
+        &.sb1_focus, &:focus, &:hover {
+          color: @blue-royal;
+          &:after {
+            content: " ";
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            bottom: 4px;
+            border-bottom: 2px solid @blue-royal; 
+          }
+        }
+      }
+
+      &.sb1_selected {
+        background-color: @blue-royal-light-fifty;
+        color: @blue-royal;
+
+        &.out_of_month, &.sb1_disabled {
+          background-color: @gray-light;  
+          font-family: 'MuseoSans-500';
+        }
+      }
+
+      &.sb1_calendar_table_navigator {
+        font-size: 40px;
+        &:before {
+          /*color: @blue-royal-light-wcag;*/
+          color: @white;
+        }
+
+        &:hover, &:focus {
+          &:before {
+            /*color: @blue-royal;*/
+            color: @blue-royal-light-fifty;
+          }
+        }        
+      }
+
+      /*
+      &.sb1_calendar_table_navigator {
+        position: relative;
+        height: 100%;
+
+        &:before {
+          content: " ";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          border-style: solid;
+          border-width: 8px;
+          margin-top: -9px;          
+        }
+
+        &.previous {
+          &.sb1_disabled:hover:before,
+          &:before {
+            border-color: transparent #999 transparent transparent;
+            margin-left: -14px;
+          }
+
+          &.sb1_focus:before,
+          &:hover:before,
+          &:focus:before {
+            border-right-color: #0075d2;
+          }
+        }
+
+        &.next {
+          &.sb1_disabled:hover:before,
+          &:before {
+            border-color: transparent transparent transparent #999;
+            margin-left: -3px;
+          }
+
+          &.sb1_focus:before,
+          &:hover:before,
+          &:focus:before {
+            border-left-color: #0075d2;
+          }
+        }
+      }
+      */
+    }
+  }
+}

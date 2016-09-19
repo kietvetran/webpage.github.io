@@ -1,0 +1,60 @@
+.multistep-form {
+    .form-content {
+        input,
+        textarea,
+        .sb1_dropdown_btn {
+            border: 1px solid transparent;
+        }
+        label {
+            color: @white;
+        }
+        .input-checkbox {
+            + label {
+                background-image: none, url("../images/checkbox/dark_checkbox_regular.svg");
+                &.radio-label {
+                    color: @white;
+                }
+                &:after {
+                    background: transparent url("../images/checkbox/dark_checkmark_active.svg") no-repeat center center;
+                }
+                &:hover {
+                    background-image: none, url("../images/checkbox/dark_checkbox_hover.svg");
+                }
+            }
+            &:checked {
+                +label {
+                    background-image: none, url("../images/checkbox/dark_checkbox_hover.svg");
+                }
+            }
+            &:disabled {
+                + label {
+                    background-image: none, url("../images/checkbox/dark_checkbox_disabled.svg");
+                }
+            }
+        }
+        .input-radio {
+            + label {
+                background-image: none, url("../images/radiobutton/dark_radiobutton_regular.svg");
+                &.radio-label {
+                    color: @white;
+                }
+                &:after {
+                    background: transparent url("../images/radiobutton/dark_radiobutton_active_dot.svg") no-repeat center center;
+                }
+                &:hover {
+                    background-image: none, url("../images/radiobutton/dark_radiobutton_hover.svg");
+                }
+            }
+            &:checked {
+                +label {
+                    background-image: none, url("../images/radiobutton/dark_radiobutton_hover.svg");
+                }
+            }
+            &:disabled {
+                + label {
+                    background-image: none, url("../images/radiobutton/dark_radiobutton_disabled.svg");
+                }
+            }
+        }
+    }
+}

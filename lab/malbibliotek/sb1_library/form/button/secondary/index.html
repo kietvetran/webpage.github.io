@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+li {
+	float: left;
+}
+li, .headline {
+	padding: 0 10px 10px 0;
+	margin: 0;
+}
+
+.wrapper {
+	overflow: hidden;
+	clear: both;
+	margin-top: 15px;
+}
+
+.wrapper:first-child {
+	margin-top: 0;
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<div class="headline">Vanlig knapp</div>
+	<ul>
+		<li><button class="secondary-btn">Endre spareavtale</button></li>
+		<li><a href="#" role="button" class="secondary-btn">Forrige</a></li>
+		<li><input class="secondary-btn" value="Salg" type="submit"></li>
+	</ul>
+</div>
+<div class="wrapper">
+	<div class="headline">Knapp med pil</div>
+	<ul>
+		<li><button class="secondary-btn arrow-left">A</button></li>
+		<li><button class="secondary-btn arrow-right">B</button></li>
+	</ul>
+</div>
+</body>
+</html>

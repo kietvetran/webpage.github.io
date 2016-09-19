@@ -1,0 +1,57 @@
+.price-and-terms {
+    text-align: center;
+    margin: 0 auto;
+
+    @media (min-width: @screen-sm) {
+        width: 70%;
+    }
+    @media (min-width: @screen-md) {
+        width: 60%;
+    }
+
+    .terms {
+        padding-left: 25px;
+        .bullet-list;
+        &:only-child {
+            padding-left: 0;
+        }
+    }
+    .price {
+        .before-text {
+            &:extend(h4);
+        }
+        &.price-large {
+            .after-text,
+            .number-text {
+                &:extend(.large-text);
+            }
+        }
+        &.price-medium {
+            .after-text,
+            .number-text {
+                &:extend(h1);
+            }
+        }
+        &.price-small {
+            .after-text,
+            .number-text {
+                &:extend(h2);
+            }
+        }
+    }
+
+    @media (min-width: @screen-sm) {
+        .wrap {
+            > * {
+                display: inline-block;
+                vertical-align: middle;
+                text-align: left;
+            }
+        }
+        .terms {
+            margin: 0;
+            padding-left: 40px;
+        }
+    }
+
+}

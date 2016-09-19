@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SB1 - Nettbank - PM</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./style/font_face.css">
+<link rel="stylesheet" type="text/css" href="./style/main.css">
+<link rel="stylesheet" type="text/css" href="./style/register_payment_section.css">
+<link rel="stylesheet" type="text/css" href="./style/deposit_account_section.css">
+<link rel="stylesheet" type="text/css" href="./style/maturity_section.css">
+<link rel="stylesheet" type="text/css" href="./style/account_movement.css">
+<link rel="stylesheet" type="text/css" href="./style/force.css">
+<link rel="stylesheet" type="text/css" href="./style/nn_private.css">
+
+<script type="text/javascript" src="./javascript/account.js"></script>
+<!--<script type="text/javascript" src="./javascript/country.js"></script>-->
+<script type="text/javascript" src="./javascript/maturity.js"></script>
+<script type="text/javascript" src="./javascript/movement.js"></script>
+
+<script type="text/javascript" src="./javascript/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./javascript/general.js"></script>
+<script type="text/javascript" src="./javascript/main.js"></script>
+<script type="text/javascript" src="./javascript/nn_private.js"></script>
+
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+<script type="text/javascript" src="./js/sb1_slider_button.js"></script>
+<script type="text/javascript" src="./js/sb1_calendar.js"></script>
+
+</head>
+<body>
+	<div id="layout" class="">
+    <div id="banner" role="banner">
+      <div class="banner_content layout_wrapper">
+        <a href="index.html" class="banner_logo">
+          <picture>
+            <img src="img/logo.svg" alt="">
+          </picture>
+        </a>
+        <div id="banner_switcher">
+            <a href="#" class="banner_switcher_private active">Private</a>
+            <a href="#" class="banner_switcher_business">Bedrift</a>            
+        </div>
+          <div class="banner_tool">
+            <a href="#" class="profile_btn_wrapper"><span class="icon-consultant"><span>Meg</span></span></a>
+            <a href="#" class="search_btn_wrapper"><span class="icon-search search_btn"><span>Søk</span></span></a>
+            <a href="#" class="login_btn">Logg ut</a>
+          </div>
+          <nav id="top_menu" role="navigation" aria-label="Primary" tabindex="-1">
+            <ul>
+              <li><a href="dagligbruk.html">Daglig bruk<span class="icon-arrow_right"></span></a></li>
+              <li><a href="lan.html">Låne<span class="icon-arrow_right"></span></a></li>
+              <li><a href="sparing.html">Spare<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="forsikring.html">Forsikre<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="eiendom.html">Eiendom<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="tema.html">Tema<span class="icon-arrow_right"></span></a></li>
+              <li><a href="kunderservice.html">Kundeservice<span class="icon-arrow_right"></span></a></li>    
+            </ul>
+          </nav>            
+          <div id="banner_contact">
+            <div><a class="icon-phone" href="tel:0740">0740</a></div>
+            <ul>
+                <li><a href="#">Om oss</a></li>
+                <li><a href="#">Eiendomsmegler 1</a></li>
+                <li><a href="#">Private banking</a></li>
+                <li><a href="#">Sparebank 1 Markets</a></li>
+            </ul>
+          </div>          
+      </div>
+      <a href="#" class="hamburger-wrapper">
+        <div class="inner-wrapper">
+          <div class="hamburger"></div>
+        </div>
+      </a>  
+    </div>		
+		<header id="header">
+			<div class="row">
+				<div class="top">
+					<div><a href="#"><img src="img/frame/logo.gif"></a></div>
+					<nav id="primary_navigation">
+						<a href="#" id="primary_navigation_toggler">Meny</a>
+						<div class="menutab_wrapper">
+							<ul role="menu" class="menutab">
+								<li><a href="#" class="navigation_link tab">Privat</a></li>
+								<li><a href="#" class="navigation_link tab">Bedrift</a></li>
+								<li><a href="#" class="navigation_link tab">Valuta Renter</a></li>
+								<li><a href="#" class="navigation_link tab">Private Banking</a></li>
+								<li><a href="#" class="navigation_link tab">Om oss IR</a></li>
+								<li><a href="#" class="navigation_link tab">EiendomsMegler 1</a></li>
+								<li class="selected"><a href="#" class="navigation_link tab">Min oversikt</a></li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<div class="middle" id="main_navigation_wrapper">
+					<div class="collection">
+						<div class="search_field_wrapper">
+							<input id="search_field" type="text">
+							<button>søk</button>
+						</div>
+						<nav id="main_navigation">
+							<a href="#" id="main_navigation_toggler">Produkt</a>
+							<div class="menubar_wrapper">
+								<ul role="meu" class="menubar">
+									<li class="payment account card merging_blue_line_controll">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betaling</a>
+									</li>
+									<li class="payment merging_blue_line_controll_hide">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betaling</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betale regninger</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':'register_payment_section','style':'transfer'}">Overføre mellom egne kontoer</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Overføre fra kredittkort til konto</a></li>
+													<li>
+														<a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Betale regninger utland</a>
+														<div class="menubar_sub_holder">
+															<div class="menubar_sub_wrapper">
+																<ul role="menu" class="menubar_sub">
+																	<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Betale regninger utland</a></li>
+																	<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Mottakerregister utland</a></li>
+																</ul>
+															</div>
+														</div>													
+													</li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Mottakerregister utland</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Utførte betalinger</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Mottakerregister</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':'maturity_section'}">Forfallsregister</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Betalingsavtaler</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">eFaktura</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">eFakturautstedere</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">eFakturaarkiv</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Opprett BankAxess</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Lading</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'payment','page':''}">Betalingsinnstillinger</a></li>
+												</ul>
+											</div>										
+										</div>
+									</li>
+									<li class="account merging_blue_line_controll_hide">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'account','page':'account_movement_section'}">Konto</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':'account_movement_section'}">Kontobevegelser</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Kontoutskrift</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Kontodetaljer</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Opprett konto</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Årsoppgave</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Kontoinnstillinger</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Kontokreditter</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Søk i arkivet</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'account','page':''}">Disponenter</a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="card merging_blue_line_controll_hide">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'card','page':''}">Kort</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Mine kort</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Erstatte bankkort</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Regionsperre</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Hent PIN-kode til kort</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Bestille nytt bankkort</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'card','page':''}">Søke om kredittkort</a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="loan">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'loan','page':'my_loan_section'}">Lån</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'loan','page':'other_loan_section'}">Søk om lån</a></li>
+												</ul>
+											</div>										
+										</div>
+									</li>
+									<li class="insurance">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'insurance','page':'my_insurance_section'}">Forsikring</a>
+									</li>
+									<li class="saving">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'saving','page':'my_saving_section'}">Sparing</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'my_saving_section'}">Spareprodukter</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'fund_saving_section'}">Banksparing</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'pension_saving_section'}">Pensjon</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'investor_saving_section'}">VPS investor</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'stock_saving_section'}">Aksjer</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':''}">Bestille aksjetjeneste</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'saving','page':'bsu_saving_section'}">Boligsparing for ungdom</a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<!--<li><a href="#" class="navigation_link category">Fond</a></li>-->
+									<li class="property">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'property','page':'my_property_section'}">Eiendom</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'property','page':'agent_property_section'}">Megler</a></li>
+												</ul>
+											</div>										
+										</div>										
+									</li>
+									<li class="mobile">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'mobile','page':''}">Mobil</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li>
+														<a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">SMS-tjenester</a>
+														<div class="menubar_sub_wrapper">
+															<ul role="menu" class="menubar_sub">
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">SMS-bank</a></li>
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">SMS-varsling</a></li>
+															</ul>
+														</div>														
+
+													</li>
+													<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Mobilbank</a></li>
+													<li>
+														<a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">BankID på mobil</a>
+														<div class="menubar_sub_wrapper">
+															<ul role="menu" class="menubar_sub">
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Bestille</a></li>
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Sperre</a></li>
+															</ul>
+														</div>
+													</li>
+													<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Engangskode på mobil</a></li>
+													<li>
+														<a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Koder og passord</a>
+														<div class="menubar_sub_wrapper">
+															<ul role="menu" class="menubar_sub">
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Kode SMS- og telefonbank</a></li>
+																<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Passord mobilbank</a></li>
+															</ul>
+														</div>
+													</li>
+													<li><a href="#" class="page_link" data-rule="{'category':'mobile','page':''}">Telefonbank</a></li>
+												</ul>
+											</div>	
+										</div>
+									</li>
+									<li class="mailbox">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'mailbox','page':''}">Postkasse</a>
+										<div class="menubar_sub_holder">
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'mailbox','page':''}">Innboks</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'mailbox','page':''}">Bestillingsskjemaer</a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="setting">
+										<a href="#" class="navigation_link category page_link" data-rule="{'category':'setting','page':''}">Innstillinger</a>
+											<div class="menubar_sub_holder">										
+											<div class="menubar_sub_wrapper">
+												<ul role="menu" class="menubar_sub">
+													<li><a href="#" class="page_link" data-rule="{'category':'setting','page':''}">Personopplysninger</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'setting','page':''}">Bestille BankID på mobil</a></li>
+													<li><a href="#" class="page_link" data-rule="{'category':'setting','page':''}">Sperre BankID på mobil</a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<div class="bottom" id="sub_navigation_wrapper">
+					<div class="separation_sidebar_wrapper">
+						<div class="separation_sidebar">
+							<div id="navigation_sign">
+								<h1 class="title ellipsis">
+									<span class="merging_blue_line_controll">
+										<span class="category_controll payment account card">Betaling</span>
+									</span>
+									<span class="merging_blue_line_controll_hide">
+										<span class="category_controll payment">Betaling</span>
+										<span class="category_controll account">Min oversikt</span>
+										<span class="category_controll card">Kort</span>
+									</span>
+									<span class="category_controll loan">Lån</span>
+									<span class="category_controll insurance">Forsikring</span>
+									<span class="category_controll saving">Sparing</span>
+									<span class="category_controll fund">Fond</span>
+									<span class="category_controll property">Eiendom</span>
+								</h1>
+								<div class="name ellipsis">Siri Olsen Corneliussen</div>
+							</div>
+						</div>
+						<div class="separation_content">
+							<nav id="sub_navigation">			
+								<div class="merging_blue_line_controll">
+									<ul role="menu" class="submenu payment account card category_controll expanding_controll">
+										<li><a href="#" class="navigation_link sub_nav pay page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betale</a></li>
+										<li><a href="#" class="navigation_link sub_nav transfer page_link" data-rule="{'category':'payment','page':'register_payment_section','style':'transfer'}">Overføre</a></li>
+										<li><a href="#" class="navigation_link sub_nav accounts page_link" data-rule="{'category':'payment','page':'accounts_payment_section'}">Mine konti</a></li>
+										<li><a href="#" class="navigation_link sub_nav cards page_link" data-rule="{'category':'payment','page':'cards_payment_section'}">Mine kort</a></li>
+										<li><a href="#" class="navigation_link sub_nav maturity page_link" data-rule="{'category':'payment','page':'maturity_section'}">Forfall</a></li>
+										<li><a href="#" class="navigation_link sub_nav history page_link" data-rule="{'category':'payment','page':'history_payment_section'}">Historikk</a></li>
+										<li><a href="#" class="navigation_link sub_nav agreement page_link" data-rule="{'category':'payment','page':'2agreement_payment_section'}">Avtale</a></li>
+										<li><a href="#" class="navigation_link sub_nav receiver page_link" data-rule="{'category':'payment','page':'receiver_payment_section'}">Mottakere</a></li>
+									</ul>
+
+									<ul role="menu" class="submenu payment account card category_controll">
+										<li><a href="#" class="navigation_link sub_nav pay page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betale og overføre</a></li>
+										<li><a href="#" class="navigation_link sub_nav accounts page_link" data-rule="{'category':'payment','page':'accounts_payment_section'}">Mine konti</a></li>
+										<li><a href="#" class="navigation_link sub_nav cards page_link" data-rule="{'category':'payment','page':'cards_payment_section'}">Mine kort</a></li>
+										<li><a href="#" class="navigation_link sub_nav maturity page_link" data-rule="{'category':'payment','page':'maturity_section'}">Forfall</a></li>
+										<li><a href="#" class="navigation_link sub_nav history page_link" data-rule="{'category':'payment','page':'history_payment_section'}">Historikk</a></li>
+										<li><a href="#" class="navigation_link sub_nav agreement page_link" data-rule="{'category':'payment','page':'2agreement_payment_section'}">Avtale</a></li>
+									</ul>									
+								</div>												
+								<div class="merging_blue_line_controll_hide">
+									<ul role="menu" class="submenu payment category_controll">
+										<li><a href="#" class="navigation_link sub_nav pay page_link" data-rule="{'category':'payment','page':'register_payment_section'}">Betale</a></li>
+										<li><a href="#" class="navigation_link sub_nav transfer page_link" data-rule="{'category':'payment','page':'register_payment_section','style':'transfer'}">Overføre</a></li>
+										<li><a href="#" class="navigation_link sub_nav maturity page_link" data-rule="{'category':'payment','page':'maturity_section'}">Forfall</a></li>
+										<li><a href="#" class="navigation_link sub_nav invoice page_link" data-rule="{'category':'payment','page':'invoice_payment_section'}">eFaktura</a></li>
+										<li><a href="#" class="navigation_link sub_nav agreement page_link" data-rule="{'category':'payment','page':'agreement_payment_section'}">Avtale</a></li>
+										<li><a href="#" class="navigation_link sub_nav receiver page_link" data-rule="{'category':'payment','page':'receiver_payment_section'}">Mottakere</a></li>
+									</ul>
+									<ul role="menu" class="submenu account category_controll">
+										<li><a href="#" class="navigation_link sub_nav pay page_link" data-rule="{'category':'account','page':'register_payment_section'}">Betale</a></li>
+										<li><a href="#" class="navigation_link sub_nav transfer page_link" data-rule="{'category':'account','page':'register_payment_section','style':'transfer'}">Overføre</a></li>
+										<li><a href="#" class="navigation_link sub_nav maturity page_link" data-rule="{'category':'account','page':'maturity_section'}">Forfall</a></li>
+										<li><a href="#" class="navigation_link sub_nav invoice page_link" data-rule="{'category':'account','page':'invoice_payment_section'}">eFaktura</a></li>
+										<li><a href="#" class="navigation_link sub_nav card page_link" data-rule="{'category':'account','page':'card_account_section'}">Kort</a></li>
+										<li><a href="#" class="navigation_link sub_nav dialog page_link" data-rule="{'category':'account','page':'dialog_payment_section'}">Dialog</a></li>
+									</ul>
+									<ul role="menu" class="submenu card category_controll">
+										<li><a href="#" class="navigation_link sub_nav card">Mine kort</a></li>
+										<li><a href="#" class="navigation_link sub_nav new_card">Nytt bankkort</a></li>
+										<li><a href="#" class="navigation_link sub_nav new_credit_card">Nytt kredittkort</a></li>
+										<li><a href="#" class="navigation_link sub_nav region_stopper">Regionsperre</a></li>
+										<li><a href="#" class="navigation_link sub_nav block_card">Sperre kort</a></li>
+									</ul>
+								</div>
+								<ul role="menu" class="submenu saving category_controll">
+									<li><a href="#" class="navigation_link sub_nav saving page_link" data-rule="{'category':'saving','page':'my_saving_section'}">Min Sparing</a></li>
+									<li><a href="#" class="navigation_link sub_nav fund page_link" data-rule="{'category':'saving','page':'fund_saving_section'}">Fond</a></li>
+									<li><a href="#" class="navigation_link sub_nav stock page_link" data-rule="{'category':'saving','page':'stock_saving_section'}">Aksjer</a></li>
+									<li><a href="#" class="navigation_link sub_nav pension page_link" data-rule="{'category':'saving','page':'pension_saving_section'}">Pensjon</a></li>
+									<li><a href="#" class="navigation_link sub_nav investor page_link" data-rule="{'category':'saving','page':'investor_saving_section'}">VPS Investor</a></li>
+									<li><a href="#" class="navigation_link sub_nav bsu page_link" data-rule="{'category':'saving','page':'bsu_saving_section'}">BSU</a></li>
+								</ul>
+								<ul role="menu" class="submenu loan category_controll">
+									<li><a href="#" class="navigation_link sub_nav loan page_link" data-rule="{'category':'loan','page':'my_loan_section'}">Min lån</a></li>
+									<li><a href="#" class="navigation_link sub_nav house page_link" data-rule="{'category':'loan','page':'house_loan_section'}">Bolig og hytte</a></li>
+									<li><a href="#" class="navigation_link sub_nav car page_link" data-rule="{'category':'loan','page':'car_loan_section'}">Bil og MC</a></li>
+									<li><a href="#" class="navigation_link sub_nav boat page_link" data-rule="{'category':'loan','page':'boat_loan_section'}">Båt</a></li>
+									<li><a href="#" class="navigation_link sub_nav gift page_link" data-rule="{'category':'loan','page':'gift_loan_section'}">Forbrukslån</a></li>
+									<li><a href="#" class="navigation_link sub_nav other page_link" data-rule="{'category':'loan','page':'other_loan_section'}">Andre lån</a></li>
+								</ul>
+								<ul role="menu" class="submenu insurance category_controll">
+									<li><a href="#" class="navigation_link sub_nav insurance page_link" data-rule="{'category':'insurance','page':'my_insurance_section'}">Mine forsikring</a></li>
+									<li><a href="#" class="navigation_link sub_nav buy_insurance page_link" data-rule="{'category':'insurance','page':'buy_insurance_insurance_section'}">Kjøp forsikring</a></li>
+									<li><a href="#" class="navigation_link sub_nav damage page_link" data-rule="{'category':'insurance','page':'damage_insurance_section'}">Meld skade</a></li>
+									<li><a href="#" class="navigation_link sub_nav health page_link" data-rule="{'category':'insurance','page':'health_insurance_section'}">Helseerklæring</a></li>
+									<li><a href="#" class="navigation_link sub_nav documents page_link" data-rule="{'category':'insurance','page':'document_insurance_section'}">Documenter</a></li>
+									<li><a href="#" class="navigation_link sub_nav invoice_s page_link" data-rule="{'category':'insurance','page':'invoice_s_insurance_section'}">Faktura</a></li>
+								</ul>
+								<ul role="menu" class="submenu property category_controll">
+									<li><a href="#" class="navigation_link sub_nav property page_link" data-rule="{'category':'property','page':'my_property_section'}">Mine Eiendommer</a></li>
+									<li><a href="#" class="navigation_link sub_nav document page_link" data-rule="{'category':'property','page':'document_property_section'}">Dokumenter</a></li>
+									<li><a href="#" class="navigation_link sub_nav neighbor page_link" data-rule="{'category':'property','page':'neighbor_property_section'}">Ditt nabolag</a></li>
+									<li><a href="#" class="navigation_link sub_nav buy_house page_link" data-rule="{'category':'property','page':'buy_house_property_section'}">Kjøpe</a></li>
+									<li><a href="#" class="navigation_link sub_nav sell page_link" data-rule="{'category':'property','page':'sell_property_section'}">Selge</a></li>
+									<li><a href="#" class="navigation_link sub_nav agent page_link" data-rule="{'category':'property','page':'agent_property_section'}">Megler</a></li>
+								</ul>
+							</nav>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!--END OF HEAD-->
+
+		<main id="main">
+			<div class="separation_sidebar_wrapper">
+				<!-- MAIN SIDEBARE -->
+				<div class="separation_sidebar">
+					<a href="#" id="main_sidebar_toggler"><span></span></a>
+					<div class="total_amount_ath_and">
+						<div class="amount">29 376,00</div>
+						<div class="description">Totalt tilgjengelig (5/5)</div>						
+					</div>
+				  <div class="sb1_accordion_menu account_collection">
+				    <a href="" tabindex="0" role="tab" aria-controls="main_sidebar_panel1" class="sb1_accordion_tab accordion_active" id="main_sidebar_tab1">
+							<h3>Kontoer</h3>
+							<div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div>
+							<div class="accordion_summary_total">
+								<span class="account ellipsis">Sum</span>
+								<span class="amount ellipsis">89 991,00</span>																	
+							</div>
+				    </a>
+				    <div role="tabpanel" aria-labeledby="main_sidebar_tab1" class="sb1_accordion_panel small_size accordion_active" id="main_sidebar_panel1" aria-hidden="true">
+				      <div class="tabpanel_conten">
+								<ul class="account_list">
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">PRIVAT EKSTRA FUNKSJONÆR</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">9001 23 10462</span>
+												<span class="amount ellipsis">99 030,00</span>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">BRUKSKONTO FRI</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4202 22 44951</span>
+												<span class="amount ellipsis">1 100,00</span>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">KONTO M/BONUS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4202 59 42013</span>
+												<span class="amount ellipsis">10,00</span>
+											</div>
+										</a>
+									</li>								
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">BRUKSKONTO FRI2</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4202 59 46914</span>
+												<span class="amount ellipsis">51,00</span>
+											</div>
+										</a>
+									</li>	
+								</ul>
+				      </div>
+				    </div>
+				    <!--
+				    <div class="account_collection_total account_item">
+							<div class="amount_wrapper">
+								<span class="account ellipsis">Sum</span>
+								<span class="amount ellipsis">89 991,00</span>
+							</div>
+				    </div>
+					  -->
+				    <a href="" tabindex="0" role="tab" aria-controls="main_sidebar_panel2" class="sb1_accordion_tab accordion_active" id="main_sidebar_tab2">
+							<h3>Sparing</h3>
+							<div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div>
+							<div class="accordion_summary_total">
+								<span class="account ellipsis">Sum</span>
+								<span class="amount ellipsis">1 991,00</span>																	
+							</div>							
+				    </a>
+				    <div role="tabpanel" aria-labeledby="main_sidebar_tab2" class="sb1_accordion_panel small_size accordion_active" id="main_sidebar_panel2" aria-hidden="true">
+				      <div class="tabpanel_conten">
+								<ul class="account_list">						
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">SPAREKONTO UNGDOM 13-24</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4202 59 46977</span>
+												<span class="amount ellipsis">57 991,00</span>
+											</div>
+										</a>
+									</li>	
+								</ul>
+				      </div>
+				    </div>
+				    <a href="" tabindex="0" role="tab" aria-controls="main_sidebar_panel3" class="sb1_accordion_tab accordion_active" id="main_sidebar_tab3">
+							<h3>Disponerer</h3>
+							<div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div>
+							<div class="accordion_summary_total">
+								<span class="account ellipsis">Sum</span>
+								<span class="amount ellipsis">71 991,00</span>																	
+							</div>
+				    </a>
+				    <div role="tabpanel" aria-labeledby="main_sidebar_tab3" class="sb1_accordion_panel medium_size accordion_active" id="main_sidebar_panel3" aria-hidden="true">
+				      <div class="tabpanel_conten">
+								<ul class="account_list">						
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">Hydro fjerner Norge AS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4415 06 20896</span>
+												<span class="amount ellipsis">74 606,71</span>
+											</div>
+										</a>
+									</li>	
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">Hydro fjerner Norge AS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4415 29 23357</span>
+												<span class="amount ellipsis">42 746,94</span>
+											</div>
+										</a>
+									</li>	
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">Hydro fjerner Norge AS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4415 29 43657</span>
+												<span class="amount ellipsis">66,04</span>
+											</div>
+										</a>
+									</li>	
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">Hydro fjerner Norge AS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4415 29 53399</span>
+												<span class="amount ellipsis">292 999,88</span>
+											</div>
+										</a>
+									</li>	
+									<li>
+										<a href="#" class="account_item">
+											<div class="name ellipsis">Hydro fjerner Norge AS</div>
+											<div class="amount_wrapper">
+												<span class="account ellipsis">4415 29 11188</span>
+												<span class="amount ellipsis">39,00</span>
+											</div>
+										</a>
+									</li>	
+								</ul>									 
+				      </div>         
+				    </div>
+				  </div> 		
+				</div>
+				<!-- END OF MAIN SIDEBARE -->
+				<!-- MAIN CONTAINER -->
+				<div class="separation_content">
+					<div id="msg_row_wrapper">
+						<div class="msg_row">
+							<div class="ellipsis">Sist innlogget: 16. april 2015 kl. 14.19</div>
+							<ul class="msg_tool">
+								<li><a href="#" class="dialog">Dialog</a></li>
+								<li><a href="#" class="logout">Logg&nbsp;ut</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="payment account card category_controll">
+						<!-- register_payment -->
+						<section id="register_payment_section" style="display:none">
+							<form id="payment_register_payment" method="post" action="" novalidate>
+								<h2>Registrer <span>betaling</span><span class="transfer">øverføring</span></h2>
+								<ul class="tab_list right_float merging_blue_line_controll" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="register_payment_section_panel1" role="tab" href="#" id="register_payment_section_tab1">Innland</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="register_payment_section_panel2" role="tab" href="#" id="register_payment_section_tab2">Utland</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="register_payment_section_panel3" role="tab" href="#" id="register_payment_section_tab3">Mellom egne konti</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="register_payment_section_panel4" role="tab" href="#" id="register_payment_section_tab4">Fra kredittkort</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="register_payment_section_tab1" role="tabpanel" aria-hidden="true" id="register_payment_section_panel1">
+									<div class="error_summary_holder"></div>
+									<ul class="form_row_list">
+										<li>
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						              	<!--
+						                <a aria-controls="payment_from_account_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+						                  Informasjon om konto
+						                </a>
+							              -->
+						                <label data-shortname="" for="payment_from_account_name">
+						                	<span>Fra konto?</span>
+						                	<!--<span class="help_text">Konto- navn eller -nr</span>-->
+						                </label>
+						              </div>
+						            </div>          
+						            <div id="payment_from_account_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						              <div class="content_holder">
+						                <div class="text_holder">
+						                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						                  Pellentesque mattis sit amet nisi ac ullamcorper. 
+						                </div>
+						              </div>
+						            </div>
+						            <div class="sb1_row_content sb1_input_wrapper">
+											    <div class="sb1_dropdown_menu account_list _stay_open">
+											      <a role="button" aria-controls="payment_from_account_list" href="#" class="sb1_dropdown_btn" id="payment_from_account_name"></a>
+											      <input type="hidden" name="payment_from_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+											    </div>
+						            </div>
+						          </div>							
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						                <!--
+						                <a aria-controls="payment_to_account_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+						                  Informasjon om konto
+						                </a>
+						              	-->
+						                <label data-shortname="" for="payment_to_account_name">
+						                	<span>Til konto?</span>
+						                	<!--<span class="help_text">Konto- navn eller -nr</span>-->
+						                </label>
+						              </div>
+						            </div>          
+						            <div id="payment_to_account_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						              <div class="content_holder">
+						                <div class="text_holder">
+						                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+						                  et tortor quis sem tempus accumsan eu vitae mi.
+						                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+						                  sapien eu, mollis nisl.
+						                </div>
+						              </div>
+						            </div>
+						            <div class="sb1_row_content sb1_input_wrapper">
+											    <div class="sb1_dropdown_menu account_list">
+											      <a role="button" aria-controls="payment_to_account_list" href="#" class="sb1_dropdown_btn" id="payment_to_account_name"></a>
+											      <input type="hidden" name="payment_to_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+											    </div>
+						            </div>
+						          </div>		
+						        </li>
+						        <li>
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						                <label>
+						                	<span>Beløp?</span>
+						                	<span class="help_text hide">
+						                		<span id="payment_amount_kr">Krone</span>, 
+						                		<span id="payment_amount_or">øre</span></span>
+						                </label>
+						                <label for="maturity_date_from" id="maturity_date_from_label_1">
+						               		Forfallsdato
+						                </label>
+						              </div>
+						            </div>          
+						            <div class="sb1_row_content sb1_input_wrapper">
+						            	<div class="input_unit_wrapper kr_and_or">
+							              <input id="payment_amount_kr_field" name="payment_amount_kr_field" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.input_unit_wrapper]" class="sb1_amount_field">
+							             
+							              <input id="payment_amount_or_field" name="payment_amount_or_field" type="tel" spellcheck="false" autocomplete="off" data-rule="amount[allow_zero_as_empty] parent_target[.sb1_input_wrapper]" maxlength="2" value="00" class="sb1_amount_field amount_or">
+							            </div>
+							            <div class="sb1_calender_field_parent">
+						                <label for="maturity_date_from" id="maturity_date_from_label_2">
+						               		Forfallsdato
+						                </label>
+						            		<div class="sb1_calender_field_wrapper">
+								              <input id="maturity_date_from" name="maturity_date_from" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field">
+								              <span class="icon-calendar"></span>
+														</div>
+													</div>
+						            </div>
+						          </div>
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						                <a aria-controls="payment_kid_number_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+						                  Informasjon om kid nummer
+						                </a>
+						                <label data-shortname="" for="payment_kid_number_name" style="white-space: nowrap;">
+						                	<span>KID / melding</span>
+						                	<span class="help_text">maks 90 tegn</span>
+						                </label>
+						              </div>
+						            </div>          
+						            <div id="payment_kid_number_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						              <div class="content_holder">
+						                <div class="text_holder">
+						                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+						                  et tortor quis sem tempus accumsan eu vitae mi.
+						                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+						                  sapien eu, mollis nisl.
+						                </div>
+						              </div>
+						            </div>
+						            <div class="sb1_row_content sb1_input_wrapper">
+				      	          <input type="text" id="payment_kid_number_name" name="payment_kid_number_name" required spellcheck="false" autocomplete="off" data-rule="kidormsg parent_target[.sb1_input_wrapper]" maxlength="90">
+						            </div>
+						          </div>	
+						          <!--
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						                <label data-shortname="" for="maturity_date_from">Forfallsdato?</label>
+						              </div>
+						            </div>          
+						            <div class="sb1_row_content sb1_input_wrapper sb1_calender_field_wrapper">
+						              <input id="maturity_date_from" name="maturity_date_from" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_input_wrapper]" class="date_calendar_field">
+						              <span class="icon-calendar"></span>
+						            </div>
+						          </div>	
+						          -->	          
+						        </li>
+						        <li>
+
+						        </li>
+						        <li>
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						                <!--
+						                <a aria-controls="payment_payment_fixed_payment_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+						                  Informasjon om fastebalinger
+						                </a>
+						              	-->
+						                <label data-shortname="" id="payment_payment_fixed_payment_name_label">
+						                	<span>Opprette fast betaling?</span>
+						                	<!--<span class="help_text">Velg i kalender</span>-->
+						                </label>
+						              </div>
+						            </div>          
+						            <div id="payment_payment_fixed_payment_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						              <div class="content_holder">
+						                <div class="text_holder">
+						                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+						                  et tortor quis sem tempus accumsan eu vitae mi.
+						                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+						                  sapien eu, mollis nisl.
+						                </div>
+						              </div>
+						            </div>
+						            <div class="sb1_row_content sb1_input_wrapper">
+						              <div class="sb1_dropdown_menu">
+						                <a role="button" aria-controls="payment_fixed_payment_list" href="#" class="sb1_dropdown_btn" aria-labelledby="payment_payment_fixed_payment_name_label">Nei</a>
+						                <input type="hidden" aria-hidden="true" required name="payment_fixed_payment">                         
+						                <ul role="listbox" id="payment_fixed_payment_list" aria-expanded="false" class="sb1_dropdown_list">
+						                  <li class="sb1_dropdown_option selected" role="option" data-value="no">Nei</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="weekly">Ukentlig</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="each14days">Hver 14. dag</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="monthly">Månedlig</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="each3month">Kvatalsvis</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="each6month">Halvårlig</li>
+						                  <li class="sb1_dropdown_option" role="option" data-value="yearly">Årlig</li>
+						                </ul>
+						              </div>
+						            </div>
+						          </div>		
+						          <div class="sb1_form_row">
+						            <div class="sb1_row_content sb1_label_wrapper">
+						              <div class="content_holder">
+						              	<!--
+						                <a aria-controls="payment_payment_receipt_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+						                  Informasjon om Kvittering
+						                </a>
+						                -->              	
+						                <label id="payment_receipt" data-shortname="">
+						                	<span id="payment_receipt_label_text">Kvittering?</span>
+						                	<span class="help_text">Gebyr påløper</span>
+						                </label>
+						              </div>
+						            </div>      
+						            <div id="payment_payment_receipt_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						              <div class="content_holder">
+						                <div class="text_holder">
+						                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+						                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+						                  et tortor quis sem tempus accumsan eu vitae mi.
+						                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+						                  sapien eu, mollis nisl.
+						                </div>
+						              </div>
+						            </div>		                
+						            <div class="sb1_row_content sb1_input_wrapper">
+						            	<div>
+						                <input type="checkbox" class="sb1-input-checkbox" id="yes_payment_receipt" name="no_payment_receipt" value="yes_payment_receipt" data-rule="parent_target[.sb1_input_wrapper]" aria-labelledby="payment_receipt_label_text yes_payment_receipt_label">
+						                <label class="sb1-input-checkbox-label" for="yes_payment_receipt" id="yes_payment_receipt_label">Ja</label>
+						              </div>
+						            </div>
+						          </div>
+						        </li>
+					        <ul>
+				          <div class="error_summary_holder"></div>
+				          <div class="sb1_form_row maximum_width">
+				            <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+				              <button class="action-btn" id="submit_btn">Legg til godkjenning</button>
+				            </div>
+				          </div>
+				        </div>
+				        <div class="panel_item" aria-labelledby="register_payment_section_tab2" role="tabpanel" aria-hidden="true" id="register_payment_section_panel2">
+									<p style="font-style:italic;color:#999">Utland demo</p>
+				        </div>
+				        <div class="panel_item" aria-labelledby="register_payment_section_tab3" role="tabpanel" aria-hidden="true" id="register_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Mellom egne konti demo</p>
+				        </div>
+				        <div class="panel_item" aria-labelledby="register_payment_section_tab4" role="tabpanel" aria-hidden="true" id="register_payment_section_panel4">
+									<p style="font-style:italic;color:#999">Fra kredittkort demo</p>
+				        </div>
+			        </form>
+						</section>
+
+						<!-- END OF deposit_account_section -->
+						<section id="deposit_account_section" style="display:none">
+							<form id="create_deposit_account" method="post" action="" novalidate>
+								<h2>Opprette depositumkonto</h2>
+				        <div class="sb1_accordion_menu allow_first_top_border deposit_account">
+				         
+				          <a href="" tabindex="0" role="tab" aria-controls="panel1" class="sb1_accordion_tab" id="deposit_tab1" aria-label="Steg 1">
+				            <h3 class="ellipsis"><span aria-hidden="true">1 - </span><span>Legg inn personopplysninger</span></h3>
+				            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+				          </a>
+				          <div role="tabpanel" aria-labeledby="deposit_tab1" class="sb1_accordion_panel" id="panel1" aria-hidden="true">
+										<ul class="form_row_list">
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="landlord_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om utleier
+						                  </a>
+						                  <h4>Utleier</h4>
+						                </div>
+						              </div>          
+						              <div id="landlord_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. Nam at massa ante. Morbi ultrices ligula mi, vitae pulvinar nulla lacinia a. Nam quis tincidunt nisl, vitae ullamcorper diam. Cras porttitor, neque a congue tincidunt, ante diam porttitor sem, sit amet fringilla nisi orci et velit. Fusce lorem risus, venenatis at fermentum sed, molestie id massa. Nunc sodales eu lorem ut elementum. Pellentesque sed neque eget velit placerat eleifend. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>
+
+											<li class="person_profile_data">			          	
+						            <div class="sb1_form_row">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <label data-shortname="" for="landlord_person_name">Navn</label>
+						                </div>
+						              </div>          
+						              <div class="sb1_row_content sb1_input_wrapper">
+						              	<div id="landlord_person_name"  class="as_link ellipsis person_name display_accordion_confirmation" data-value="Haakon Halvorsen" data-label="Utleier">Haakon Halvorsen</div>
+
+						              </div>
+						            </div>
+
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							              	<!--
+							                <a aria-controls="landlord_phone_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+							                  Informasjon om mobilnummer
+							                </a>
+								              -->
+							                <label data-shortname="" for="landlord_person_phone">Mobilnummer</label>
+							              </div>
+							            </div>          
+							            <div id="landlord_phone_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+							              <div class="content_holder">
+							                <div class="text_holder">
+							                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							                </div>
+							              </div>
+							            </div>
+							            <div class="sb1_row_content sb1_input_wrapper">
+								            	<div id="landlord_person_phone"  class="as_link ellipsis person_phone display_accordion_confirmation" data-value="992 96 717" data-label="Utleier mobil">992 96 717</div>
+								            	<a class="_input_unit" href="#" id="landlord_change_person_data_link">Endre</a>
+							            </div>
+							          </div>
+						          </li>
+											<li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							              	<!--
+							                <a aria-controls="deposit_account_debit_account_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+							                  Informasjon om belastningskonto
+							                </a>
+							              	-->
+							                <label data-shortname="" for="deposit_account_debit_account_name">
+							                	<span>Konto for belastning av gebyr?</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div id="deposit_account_debit_account_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+							              <div class="content_holder">
+							                <div class="text_holder">
+							                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							                  Pellentesque mattis sit amet nisi ac ullamcorper. 
+							                </div>
+							              </div>
+							            </div>
+							            <div class="sb1_row_content sb1_input_wrapper">
+												    <div class="sb1_dropdown_menu account_list">
+												      <a role="button" aria-controls="deposit_account_debit_account_list" href="#" class="sb1_dropdown_btn display_accordion_confirmation" id="deposit_account_debit_account_name" data-label="Konto for gebyr" data-range="99"></a>
+												      <input type="hidden" name="deposit_account_debit_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+												    </div>
+							            </div>
+							          </div>	
+							        </li>
+
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="tenant_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om leietager
+						                  </a>
+						                  <h4>Leietager</h4>
+						                </div>
+						              </div>          
+						              <div id="tenant_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. Nam at massa ante. Morbi ultrices ligula mi, vitae pulvinar nulla lacinia a. Nam quis tincidunt nisl, vitae ullamcorper diam. Cras porttitor, neque a congue tincidunt, ante diam porttitor sem, sit amet fringilla nisi orci et velit. Fusce lorem risus, venenatis at fermentum sed, molestie id massa. Nunc sodales eu lorem ut elementum. Pellentesque sed neque eget velit placerat eleifend. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>					          
+		
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Fornavn</label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_firstname" name="tenant_firstname" type="text" required spellcheck="false" autocomplete="off" data-rule="text parent_target[.sb1_input_wrapper]" class="display_accordion_confirmation" data-label="Leietaker">
+							            </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Etternavn</label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_lastname" name="tenant_lastname" type="text" required spellcheck="false" autocomplete="off" data-rule="text parent_target[.sb1_input_wrapper]" class="display_accordion_confirmation" data-label="Leietaker">
+							            </div>
+							          </div>	          
+							        </li>
+
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <a aria-controls="tenant_personnumber_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+							                  Informasjon om fødselsnummer
+							                </a>
+							                <label>
+							                	<span>Fødselsnummer</span>
+							                	<span class="help_text">11 siffer</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div id="tenant_personnumber_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+							              <div class="content_holder">
+							                <div class="text_holder">
+							                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+							                  et tortor quis sem tempus accumsan eu vitae mi.
+							                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+							                  sapien eu, mollis nisl.
+							                </div>
+							              </div>
+							            </div>
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_personnumber" name="tenant_personnumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="personnumber parent_target[.sb1_input_wrapper]" maxlength="12" value="111111 11111" class="display_accordion_confirmation" data-label="Leietaker fødselsnummer">
+							            </div>
+							          </div>        
+							        </li>
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Mobilnummer</label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="input_unit_wrapper phonenumber_prefix">
+								              <input id="tenant_phonenumber_prefix" name="tenant_phonenumber_prefix" type="tel" spellcheck="false" autocomplete="off" data-rule="number phonenumberprefix parent_target[.input_unit_wrapper]" maxlength="4" value="+47" class="display_accordion_confirmation" data-label="Leietaker mobil">
+
+								              <input id="tenant_phonenumber" name="tenant_phonenumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="telephone parent_target[.sb1_input_wrapper]" value="41 47 49 47" class="display_accordion_confirmation" data-label="Leietaker mobil">
+								            </div>
+							            </div>
+							          </div>
+
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>
+							                	<span>E-postadresse</span>
+					                			<span class="help_text">Gjeldig</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_email" name="tenant_email" type="text" required spellcheck="false" autocomplete="off" data-rule="email parent_target[.sb1_input_wrapper]" value="kiet@gmail.com" class="display_accordion_confirmation" data-label="Leietaker e-post">
+							            </div>
+							          </div>
+							        </li>
+							        
+							        <!--
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Mobilnummer</label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="input_unit_wrapper phonenumber_prefix">
+								              <input id="tenant_phonenumber_prefix" name="tenant_phonenumber_prefix" type="tel" spellcheck="false" autocomplete="off" data-rule="number phonenumberprefix parent_target[.input_unit_wrapper]" maxlength="4" value="+47" class="display_accordion_confirmation" data-label="Leietaker mobil">
+
+								              <input id="tenant_phonenumber" name="tenant_phonenumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="telephone parent_target[.sb1_input_wrapper]" value="41 47 49 47" class="display_accordion_confirmation" data-label="Leietaker mobil">
+								            </div>
+							            </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Gjenta mobilnummer</label>
+							              </div>
+							            </div> 
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="input_unit_wrapper phonenumber_prefix">
+								              <input id="tenant_phonenumber_prefix_repeat" name="tenant_phonenumber_prefix_repeat" type="tel" spellcheck="false" autocomplete="off" data-rule="number phonenumberprefix parent_target[.input_unit_wrapper]" maxlength="4" value="+47">
+
+								              <input id="tenant_phonenumber_repeat" name="tenant_phonenumber_repeat" type="tel" required spellcheck="false" autocomplete="off" data-rule="telephone parent_target[.sb1_input_wrapper]" value="41 47 49 47">
+								            </div>
+							            </div>
+							          </div>
+							        </li>
+
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>
+							                	<span>E-postadresse</span>
+					                			<span class="help_text">Gjeldig</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_email" name="tenant_email" type="text" required spellcheck="false" autocomplete="off" data-rule="email parent_target[.sb1_input_wrapper]" value="kiet@gmail.com" class="display_accordion_confirmation" data-label="Leietaker e-post">
+							            </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>
+							                	<span>Gjenta e-postadresse</span>
+					                			<span class="help_text">Gjeldig</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <input id="tenant_email_repeat" name="tenant_email_repeat" type="text" required spellcheck="false" autocomplete="off" data-rule="email parent_target[.sb1_input_wrapper]" value="kiet@gmail.com">
+							            </div>
+							          </div>	          
+							        </li>
+											-->
+
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="language_setting_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om språkinnstillinger
+						                  </a>
+						                  <h4>Språkinnstillinger</h4>
+						                </div>
+						              </div>          
+						              <div id="language_setting_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. Nam at massa ante. Morbi ultrices ligula mi, vitae pulvinar nulla lacinia a. Nam quis tincidunt nisl, vitae ullamcorper diam. Cras porttitor, neque a congue tincidunt, ante diam porttitor sem, sit amet fringilla nisi orci et velit. Fusce lorem risus, venenatis at fermentum sed, molestie id massa. Nunc sodales eu lorem ut elementum. Pellentesque sed neque eget velit placerat eleifend. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>					          
+		
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label data-shortname="" id="deposit_language_setting_document_label">
+							                	<span>Språk i avtaledokument</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <div class="sb1_dropdown_menu position_relative">
+							                <a role="button" aria-controls="deposit_language_setting_document_list" href="#" class="sb1_dropdown_btn" aria-labelledby="deposit_language_setting_document_label">Norks bokmål</a>
+							                <input type="hidden" aria-hidden="true" required name="deposit_language_setting">                         
+							                <ul role="listbox" id="deposit_language_setting_document_list" aria-expanded="false" class="sb1_dropdown_list">
+							                  <li class="sb1_dropdown_option selected" role="option" data-value="nb">Norsk bokmål</li>
+							                  <li class="sb1_dropdown_option" role="option" data-value="nn">Norsk nynorsk</li>
+							                  <li class="sb1_dropdown_option" role="option" data-value="en">Engelsk</li>
+							                </ul>
+							              </div>
+							            </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label data-shortname="" id="deposit_language_setting_tenant_label">
+							                	<span>Leietakers språk</span>
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							              <div class="sb1_dropdown_menu position_relative">
+							                <a role="button" aria-controls="deposit_language_setting_tenant_list" href="#" class="sb1_dropdown_btn" aria-labelledby="deposit_language_setting_tenant_label">Norks bokmål</a>
+							                <input type="hidden" aria-hidden="true" required name="deposit_language_setting">                         
+							                <ul role="listbox" id="deposit_language_setting_tenant_list" aria-expanded="false" class="sb1_dropdown_list">
+							                  <li class="sb1_dropdown_option selected" role="option" data-value="nb">Norsk bokmål</li>
+							                  <li class="sb1_dropdown_option" role="option" data-value="nn">Norsk nynorsk</li>
+							                  <li class="sb1_dropdown_option" role="option" data-value="en">Engelsk</li>
+							                </ul>
+							              </div>
+							            </div>
+							          </div>			
+							        </li>
+						          <li>
+						            <div class="sb1_form_row">
+						              <div class="sb1_row_content sb1_input_wrapper">
+						                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+						                <a href="#" class="cancel_process_link">Avbryt</a>
+						              </div>
+						            </div>
+						          </li>
+						        </ul>
+				          </div>
+
+
+				          <a href="" tabindex="0" role="tab" aria-controls="panel2" class="sb1_accordion_tab" id="deposit_tab2" aria-label="Steg 2">
+				            <h3><span aria-hidden="true">2 - </span><span>Legg inn opplysninger fra leiekontrakten</span></h3>
+				            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+				          </a>
+				          <div role="tabpanel" aria-labeledby="deposit_tab2" class="sb1_accordion_panel" id="panel2" aria-hidden="true">
+										<ul class="form_row_list">
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="deposit_renting_object_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om utleieobjekt
+						                  </a>
+						                  <h4>Utleieobjekt</h4>
+						                </div>
+						              </div>          
+						              <div id="deposit_renting_object_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Adresse</label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="input_unit_wrapper house_number">
+								              <input id="deposit_house_renting_address" name="deposit_house_renting_address" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="Kanalveien 19">
+
+								              <input id="deposit_house_renting_address_prefix" name="deposit_house_renting_address_prefix" type="tel" spellcheck="false" autocomplete="off" data-rule="number parent_target[.input_unit_wrapper]" maxlength="4" placeholder="lei.nr">
+								            </div>
+							            </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label>Postnummer og poststed</label>
+							              </div>
+							            </div> 
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="input_unit_wrapper address_postnumer">
+								              <input id="tenant_phonenumber_prefix_repeat" name="tenant_phonenumber_prefix_repeat" type="tel" spellcheck="false" autocomplete="off" data-rule="number parent_target[.input_unit_wrapper]" maxlength="4" value="2004">
+
+								              <input id="tenant_phonenumber_repeat" name="tenant_phonenumber_repeat" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="Lillestrøm">
+								            </div>
+							            </div>
+							          </div>
+							        </li>
+
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="deposit_renting_lease_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om leiekontrakten
+						                  </a>
+						                  <h4>Leiekontrakten</h4>
+						                  <span class="help_text">Vi gjør oppmerksom på at husleiekontrakten skal være signert av begge parter før depositumet settes inn på konto</span>
+						                </div>
+						              </div>          
+						              <div id="deposit_renting_lease_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label for="deposit_amount">Depositum</label>
+							              </div>
+							            </div>          
+						              <div class="sb1_row_content sb1_input_wrapper">
+						                <div class="input_unit_wrapper">
+						                  <input id="deposit_amount" class="_display_accordion_summary display_accordion_confirmation" name="deposit_amount" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kr" value="11 000">
+						                  <span class="input_unit">kr</span>
+						                </div>
+						              </div>
+							          </div>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label data-shortname="" for="deposit_date_for_reting_lease">
+							                	Dato for inngåelse av leiekontrakt
+							                </label>
+							              </div>
+							            </div>          
+							            <div class="sb1_row_content sb1_input_wrapper sb1_calender_field_wrapper">
+							              <input id="deposit_date_for_reting_lease" name="deposit_date_for_reting_lease" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_input_wrapper]" class="date_calendar_field display_accordion_confirmation" value="01.04.2015">
+							              <span class="icon-calendar"></span>
+							            </div>
+							          </div>	        
+							        </li>
+					          
+											<li>
+						            <div class="sb1_form_row maximum_width paragraph">
+						              <div class="sb1_row_content sb1_label_wrapper">
+						                <div class="content_holder">
+						                  <a aria-controls="deposit_account_for_renting_information" href="#" class="sb1_info_btn" role="button">
+						                    Informasjon om konto til husleie
+						                  </a>
+						                  <h4>Konto hvor husleie skal settes inn</h4>
+						                </div>
+						              </div>          
+						              <div id="deposit_account_for_renting_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+						                <div class="content_holder">
+						                  <div class="text_holder">
+						                  	orem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec aliquet arcu, ut tincidunt felis. Sed elementum sapien leo, molestie tincidunt magna dapibus sed. Proin iaculis tristique felis. Aenean elit tellus, rhoncus et mi eget, fringilla pellentesque metus. Nulla tincidunt consectetur iaculis. Nullam in ultricies metus. Nunc aliquet placerat nibh et iaculis. 
+						                  </div>
+						                </div>
+						              </div>
+						            </div>											
+											</li>
+											<li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_label_wrapper">
+							              <div class="content_holder">
+							                <label data-shortname="" for="deposit_rent_money_account_income_name">
+							                	<span>Konto?</span>
+							                </label>
+							              </div>
+							            </div> 
+							            <div class="sb1_row_content sb1_input_wrapper">
+												    <div class="sb1_dropdown_menu account_list position_relative">
+												      <a role="button" aria-controls="deposit_rent_money_account_income_list" href="#" class="sb1_dropdown_btn display_accordion_confirmation" id="deposit_rent_money_account_income_name" data-label="Konto for husleie" data-range="98"></a>
+												      <input type="hidden" name="deposit_rent_money_account_income" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+												    </div>
+							            </div>
+							          </div>	
+							        </li>
+
+						          <li>
+						            <div class="sb1_form_row">
+						              <div class="sb1_row_content sb1_input_wrapper">
+						                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+						                <a href="#" class="cancel_process_link">Avbryt</a>
+						              </div>
+						            </div>
+						          </li>
+						        </ul>
+
+
+				          </div>          
+
+
+				          <a href="" tabindex="0" role="tab" aria-controls="panel3" class="sb1_accordion_tab" id="deposit_tab3" aria-label="Steg 3">
+				            <h3><span aria-hidden="true">3 - </span><span>Bekreft informasjon</span></h3>
+				            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+				          </a>
+				          <div role="tabpanel" aria-labeledby="deposit_tab3" class="sb1_accordion_panel" id="panel3" aria-hidden="true">
+				          	<div class="sb1_accordion_confirmation_holder"></div>
+				          	<ul class="form_row_list" style="margin-top: 30px">
+						          </li>
+						            <div class="sb1_form_row maximum_width">
+						              <div class="sb1_row_content sb1_input_wrapper">
+						                <input type="checkbox" data-rule="parent_target[.sb1_input_wrapper]" value="deposit_agreement_checkbox" name="cdeposit_agreement_checkbox" id="cdeposit_agreement_checkbox" required class="sb1-input-checkbox">
+						                <label for="cdeposit_agreement_checkbox" class="sb1-input-checkbox-label">
+						                  Jeg bekrefter at informasjonen over er korrekt.
+						                </label>
+						              </div>            
+						            </div>
+							        </li>
+							        <li>
+						            <div class="sb1_form_row maximum_width">
+						              <div class="sb1_row_content sb1_input_wrapper">
+						                <button class="sb1_accordion_next_btn action-btn">Signer</button>
+						              </div>
+						            </div>
+						          </li>
+						        </ul>
+					        </div>
+
+
+				          <a href="" tabindex="0" role="tab" aria-controls="panel" class="sb1_accordion_tab" id="deposit_tab4" aria-label="Steg 4">
+				            <h4><span aria-hidden="true">4 - </span><span>Slutt</span></h4>
+				            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+				          </a>
+				          <div role="tabpanel" aria-labeledby="deposit_tab4" class="sb1_accordion_panel" id="panel4" aria-hidden="true">
+				          	<div class="deposit_end_message">
+				          		Bestilling av depositumskonto er opprettet.
+				          	</div>
+				          	<div class="deposit_end_description">
+				          		Bekreftelse på bestilling av depositumskonto finner du i nettbankens 
+				          		<a href="#">postkasse</a>
+				          	</div>
+					        </div>
+				        </div> <!-- end of sb1_accordion_menu -->
+			        </form>
+		          <ul class="deposit_account_info_wrapper">					          	
+		            <li class="deposit_account_info_label">Om tjenesten</li>
+		            <li class="deposit_account_info_link_wrapper">
+		            	<a href="">Pris på tjenesten</a>
+		            	<a href="">Se mer om depositumkonto</a>
+		            	<a href="">Signering av depositumskonto</a>
+		            </li>
+		          </ul>
+						</section>
+		
+						<section id="maturity_section" style="display:none">
+							<h2>Forfallsregister</h2>
+							<ul class="tab_list right_float merging_blue_line_controll" role="tablist" id="">
+								<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="maturity_payment_section_panel1" role="tab" href="#" id="maturity_payment_section_tab1">Kontoer</a></li>
+								<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="maturity_payment_section_panel2" role="tab" href="#" id="maturity_payment_section_tab2">eFaktura</a></li>
+								<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="maturity_payment_section_panel3" role="tab" href="#" id="maturity_payment_section_tab3">Faste overføringer</a></li>
+							</ul>
+							<div class="panel_item selected" aria-labelledby="maturity_payment_section_tab1" role="tabpanel" aria-hidden="true" id="maturity_payment_section_panel1">		
+								<div id="maturity_tool_holder">
+									<form id="maturity_search" method="post" action="" novalidate>
+										<ul class="form_row_list">
+											<li>
+							          <div class="sb1_form_row part_2_of_5 shortcut_holder">
+							          </div>									
+												<div class="sb1_form_row part_3_of_5 calendar_interval">
+							            <div class="sb1_row_content sb1_input_wrapper calendar_interval_holder">
+														<div class="calendar_input_hoder">
+							            		<div class="sb1_calender_field_wrapper">
+									              <input id="maturity_date_from" name="maturity_date_from" type="text" maxlength="10" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field maturity" placeholder="Fra dato">
+									              <span class="icon-calendar"></span>
+															</div>										      	
+							            		<div class="sb1_calender_field_wrapper">
+									              <input id="maturity_date_to" name="maturity_date_to" type="text" maxlength="10" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field maturity" placeholder="Til dato">
+									              <span class="icon-calendar"></span>
+															</div>										      	
+															<button class="maturity_search_btn action-btn">Søk</button>
+														</div>
+													</div>
+												</div>
+							        </li>
+							        <li>
+							          <div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div id="maturity_dd_tool_holder"></div>
+												    <div class="sb1_dropdown_menu account_list _position_relative multiple_selection">
+												      <a role="button" aria-controls="maturity_account_income_list" href="#" class="sb1_dropdown_btn display_accordion_confirmation" id="maturity_account_income_name" data-label="Konto for husleie" data-range="98"></a>
+												      <input type="hidden" name="maturity_account_income[]" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+												    </div>
+							            </div>
+							          </div>									
+												<div class="sb1_form_row">
+							            <div class="sb1_row_content sb1_input_wrapper">
+							            	<div class="sb1_slider_toggler right_position" style="display:block;margin-bottom:50px">
+							            		<input id="maturity_slider_toggler_sms" type="checkbox" class="sb1_slider_toggler_input" aria-labeledby="maturity_slider_toggler_sms_label" >
+							            		<label for="maturity_slider_toggler_sms">
+							            			<span data-on="On" data-off="off" class="item_label"></span>
+							            			<span class="item_btn"></span>
+							            		</label>
+							            		<div id="maturity_slider_toggler_sms_label" class="label_text">
+							            			<span>Send meg SMS hvis en betaling blir avvist.</span>
+							            			<span class="detail" aria-hidden="true">Du betaler for hvor mottatt SMS</span>       			
+							            		</div>
+							            	</div>
+													</div>
+												</div>					        	
+							        </li>    
+							      </ul>
+							    </form>
+								</div>
+								<div id="maturity_table_holder">
+									<div class="maturity_table_wrapper maturity_table_stopped" data-rule="stopped">
+										<h3>Stoppede betalinger og overføringer</h3>
+										<div class="maturity_table_list">
+							      	<ul class="maturity_table header">
+							      		<li class="expire_date"><a href="#" class="maturity_tool_link maturity_sort on_sort" data-rule="stamp">Forfall</a></li>
+							      		<li class="to_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="toN">Til</a></li>
+							      		<li class="from_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="name">Fra</a></li>
+							      		<li class="amount_number"><a href="" class="maturity_tool_link">Beløp</a></li>
+							      		<li class="tool_holder"><a href="">&nbsp;</a></li>
+							      	</ul>
+							      	<div class="list_holder"></div>
+							      </div>
+							      <div class="maturity_table_slider"></div>
+									</div>
+									<div class="maturity_table_wrapper maturity_table_approved" data-rule="approved">
+										<h3>Godkjente betalinger og overføringer</h3>
+						      	<ul class="maturity_table header">
+						      		<li class="expire_date"><a href="#" class="maturity_tool_link maturity_sort on_sort" data-rule="stamp">Forfall</a></li>
+						      		<li class="to_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="toN">Til</a></li>
+						      		<li class="from_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="name">Fra</a></li>
+						      		<li class="amount_number"><a href="" class="maturity_tool_link">Beløp</a></li>
+						      		<li class="tool_holder"><a href="">&nbsp;</a></li>
+						      	</ul>
+						      	<div class="list_holder"></div>
+										<!--<form id="maturity_form_1" method="post" action="" novalidate class="list_holder"></form>-->
+									</div>
+									<div class="maturity_table_wrapper maturity_table_abroad" data-rule="abroad">
+										<h3>Godkjente betalinger til utland</h3>
+						      	<ul class="maturity_table header">
+						      		<li class="expire_date"><a href="#" class="maturity_tool_link maturity_sort on_sort" data-rule="stamp">Forfall</a></li>
+						      		<li class="to_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="toN">Til</a></li>
+						      		<li class="from_account"><a href="" class="maturity_tool_link maturity_sort" data-rule="name">Fra</a></li>
+						      		<li class="amount_number"><a href="" class="maturity_tool_link">Beløp</a></li>
+						      		<li class="tool_holder"><a href="">&nbsp;</a></li>
+						      	</ul>
+						      	<div class="list_holder"></div>
+										<!--<form id="maturity_form_1" method="post" action="" novalidate class="list_holder"></form>-->
+									</div>
+								</div>
+							</div>
+			        <div class="panel_item" aria-labelledby="maturity_payment_section_tab2" role="tabpanel" aria-hidden="true" id="maturity_payment_section_panel2">
+								<p style="font-style:italic;color:#999">eFaktura demo</p>
+			        </div>
+			        <div class="panel_item" aria-labelledby="maturity_payment_section_tab3" role="tabpanel" aria-hidden="true" id="maturity_payment_section_panel3">
+								<p style="font-style:italic;color:#999">Faste overføringer demo</p>
+			        </div>
+						</section>						
+
+						<section id="account_movement_section" style="display:none">
+							<h2>Kontobevegelser</h2>
+							<ul id="account_movement_tabs" role="tablist" class="tab_list right_float">
+								<li role="presentation"><a id="account_movement_tab1" href="#" role="tab" aria-controls="account_movement_panel1" aria-selected="true" class="tab_item selected">Kontobevegelser</a></li>
+								<li role="presentation"><a id="account_movement_tab2" href="#" role="tab" aria-controls="account_movement_panel2" aria-selected="false" class="tab_item">Detaljer</a></li>
+							</ul>
+							<div id="account_movement_panel1" aria-hidden="false" role="tabpanel" aria-labelledby="account_movement_tab1" class="panel_item selected">
+								<div id="account_movement_tool_holder">
+									<form id="account_movement_search" method="post" action="" novalidate>
+									<ul class="form_row_list">
+										<li>
+						          <div class="sb1_form_row part_3_of_5">
+						          	<div class="sb1_row_content sb1_input_wrapper">
+						            	<input id="account_movement_free_text" name="account_movement_free_text" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="" class="">
+						            	<div class="sb1_input_placeholder">Søk etter transaksjoner</div>
+									      </div>
+						          </div>									
+											<div class="sb1_form_row part_2_of_5">
+						            <div class="sb1_row_content sb1_input_wrapper">
+													<div class="amount_input_hoder">
+								             <input id="account_movement_amount" name="account_movement_amount" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="" class="">
+														<button class="account_movement_search_btn action-btn">Søk</button>
+													</div>
+						            	<div class="sb1_input_placeholder">Søk etter beløp</div>
+												</div>
+											</div>
+						        </li>   
+						      </ul>
+						    	</form>
+								</div>
+								<div id="movement_table_holder"></div>
+							</div>
+							<div id="account_movement_panel2" aria-hidden="true" role="tabpanel" aria-labelledby="account_movement_tab2" class="panel_item">
+								<ul class="simple_list">
+									<li><div class="label">Renter</div></li>
+									<li><div class="label">Rentesats</div><div class="text">1,00 %</div></li>
+									<li><div class="label">Renteutgifter</div><div class="text">-1 525,00</div></li>
+									<li><div class="label">Opptjente renter</div><div class="text">0,00</div></li>
+									<li><div class="label">Fjorårets renter</div><div class="text">310,00</div></li>
+								</ul>
+								<ul class="simple_list">
+									<li><div class="label">Beløp</div></li>
+									<li><div class="label">Disponibelt beløp</div><div class="text">4 114,00</div></li>
+									<li><div class="label">Bokført saldo</div><div class="text">140 895,00</div></li>
+									<li><div class="label">Bekreftet beløp</div><div class="text">0,00</div></li>
+									<li><div class="label">Valutakode</div><div class="text">NOK</div></li>
+									<li><div class="label">Bevilget kreditt</div><div class="text">-700 000,00</div></li>
+									<li><div class="label">Sperret beløp</div><div class="text">0,00</div></li>
+								</ul>
+							</div>
+						</section>
+
+						<section id="invoice_payment_section" style="display:none">
+							<h2>eFaktura</h2>
+							<p style="font-style:italic;color:#999">eFaktura demo</p>
+						</section>
+
+						<section id="agreement_payment_section" style="display:none">
+							<h2>Avtale</h2>
+							<p style="font-style:italic;color:#999">Avtale demo</p>
+						</section>
+
+						<section id="receiver_payment_section" style="display:none">
+							<h2>Mottaker</h2>
+							<p style="font-style:italic;color:#999">Mottaker demo</p>
+						</section>
+
+						<section id="card_account_section" style="display:none">
+							<h2>Kort</h2>
+							<p style="font-style:italic;color:#999">Kort demo</p>
+						</section>
+
+						<section id="dialog_payment_section" style="display:none">
+							<h2>Dialog</h2>
+							<p style="font-style:italic;color:#999">Dialog demo</p>
+						</section>
+
+						<section id="accounts_payment_section" style="display:none">
+							<h2>Mine konti</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="accounts_payment_section_panel1" role="tab" href="#" id="accounts_payment_section_tab1">Bevegelser</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="accounts_payment_section_panel2" role="tab" href="#" id="accounts_payment_section_tab2">Detaljer</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="accounts_payment_section_panel3" role="tab" href="#" id="accounts_payment_section_tab3">Opprett konto</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="accounts_payment_section_panel4" role="tab" href="#" id="accounts_payment_section_tab4">Disponenter</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="accounts_payment_section_panel5" role="tab" href="#" id="accounts_payment_section_tab5">Kontokreditter</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="accounts_payment_section_tab1" role="tabpanel" aria-hidden="true" id="accounts_payment_section_panel1">
+									<p style="font-style:italic;color:#999">
+										Bevegelser demo
+									</p>
+								</div>
+								<div class="panel_item" aria-labelledby="accounts_payment_section_tab2" role="tabpanel" aria-hidden="true" id="accounts_payment_section_panel2">
+									<p style="font-style:italic;color:#999">
+										Detaljer demo
+									</p>
+								</div>
+								<div class="panel_item" aria-labelledby="accounts_payment_section_tab3" role="tabpanel" aria-hidden="true" id="accounts_payment_section_panel3">
+									<p style="font-style:italic;color:#999">
+										Opprett konto
+									</p>
+								</div>
+								<div class="panel_item" aria-labelledby="accounts_payment_section_tab3" role="tabpanel" aria-hidden="true" id="accounts_payment_section_panel3">
+									<p style="font-style:italic;color:#999">
+										Disponenter demo
+									</p>
+								</div>
+								<div class="panel_item" aria-labelledby="accounts_payment_section_tab3" role="tabpanel" aria-hidden="true" id="accounts_payment_section_panel3">
+									<p style="font-style:italic;color:#999">
+										Kontokreditter demo
+									</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="cards_payment_section" style="display:none">
+							<h2>Kort</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="cards_payment_section_panel1" role="tab" href="#" id="cards_payment_section_tab1">Mine kort</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="cards_payment_section_panel2" role="tab" href="#" id="cards_payment_section_tab2">Nytt bankkort</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="cards_payment_section_panel3" role="tab" href="#" id="cards_payment_section_tab3">Nytt kredittkort</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="cards_payment_section_panel4" role="tab" href="#" id="cards_payment_section_tab4">Regionsperre</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="cards_payment_section_panel5" role="tab" href="#" id="cards_payment_section_tab5">Sperre kort</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="cards_payment_section_tab1" role="tabpanel" aria-hidden="true" id="cards_payment_section_panel1">
+									<p style="font-style:italic;color:#999">Mine kort demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="cards_payment_section_tab2" role="tabpanel" aria-hidden="true" id="cards_payment_section_panel2">
+									<p style="font-style:italic;color:#999">Nytt bankkort demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="cards_payment_section_tab3" role="tabpanel" aria-hidden="true" id="cards_payment_section_panel3">
+									<p style="font-style:italic;color:#999">nytt kredittkort konto</p>
+								</div>
+								<div class="panel_item" aria-labelledby="cards_payment_section_tab3" role="tabpanel" aria-hidden="true" id="cards_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Regionsperre demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="cards_payment_section_tab3" role="tabpanel" aria-hidden="true" id="cards_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Sperre kort demo</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="history_payment_section" style="display:none">
+							<h2>Historikk</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="history_payment_section_panel1" role="tab" href="#" id="history_payment_section_tab1">Kontobevegelser</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="history_payment_section_panel2" role="tab" href="#" id="history_payment_section_tab2">Utførte betalinger</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="history_payment_section_panel3" role="tab" href="#" id="history_payment_section_tab3">eFakturaarkiv</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="history_payment_section_panel4" role="tab" href="#" id="history_payment_section_tab4">Søk</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="history_payment_section_tab1" role="tabpanel" aria-hidden="true" id="history_payment_section_panel1">
+									<p style="font-style:italic;color:#999">Kontobevegelser demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="history_payment_section_tab2" role="tabpanel" aria-hidden="true" id="history_payment_section_panel2">
+									<p style="font-style:italic;color:#999">Utføte betalinger demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="history_payment_section_tab3" role="tabpanel" aria-hidden="true" id="history_payment_section_panel3">
+									<p style="font-style:italic;color:#999">eFakturaarkiv konto</p>
+								</div>
+								<div class="panel_item" aria-labelledby="history_payment_section_tab3" role="tabpanel" aria-hidden="true" id="history_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Søk demo</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="2agreement_payment_section" style="display:none">
+							<h2>Avtaler</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="2agreement_payment_section_panel1" role="tab" href="#" id="2agreement_payment_section_tab1">Mottakere innland</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="2agreement_payment_section_panel2" role="tab" href="#" id="2agreement_payment_section_tab2">Mottakere utland</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="2agreement_payment_section_panel3" role="tab" href="#" id="2agreement_payment_section_tab3">Betalingsavtaler</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="2agreement_payment_section_panel4" role="tab" href="#" id="2agreement_payment_section_tab4">eFakturautstedere</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="2agreement_payment_section_panel5" role="tab" href="#" id="2agreement_payment_section_tab5">Innstillinger</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="2agreement_payment_section_tab1" role="tabpanel" aria-hidden="true" id="2agreement_payment_section_panel1">
+									<p style="font-style:italic;color:#999">Mottakere innland demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="2agreement_payment_section_tab2" role="tabpanel" aria-hidden="true" id="2agreement_payment_section_panel2">
+									<p style="font-style:italic;color:#999">Mottakere utland demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="2agreement_payment_section_tab3" role="tabpanel" aria-hidden="true" id="2agreement_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Betalingsavtaler konto</p>
+								</div>
+								<div class="panel_item" aria-labelledby="2agreement_payment_section_tab3" role="tabpanel" aria-hidden="true" id="2agreement_payment_section_panel3">
+									<p style="font-style:italic;color:#999">eFakturautstedere demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="2agreement_payment_section_tab3" role="tabpanel" aria-hidden="true" id="2agreement_payment_section_panel3">
+									<p style="font-style:italic;color:#999">Innstillinger demo</p>
+								</div>
+							</div>
+						</section>						
+					</div>
+
+					<div class="saving category_controll">
+						<section id="my_saving_section" style="display:none">
+							<h2>Min Sparing</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="my_saving_page_panel1" role="tab" href="#" id="my_saving_page_tab1">Min sparing</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="my_saving_page_panel2" role="tab" href="#" id="my_saving_page_tab2">Sparekonti</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="my_saving_page_panel3" role="tab" href="#" id="my_saving_page_tab3">Opprett sparekonto</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="my_saving_page_tab1" role="tabpanel" aria-hidden="true" id="my_saving_page_panel1">
+									<p style="font-style:italic;color:#999">Min sparing demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="my_saving_page_tab2" role="tabpanel" aria-hidden="true" id="my_saving_page_panel2">
+									<p style="font-style:italic;color:#999">Sparekonti demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="my_saving_page_tab3" role="tabpanel" aria-hidden="true" id="my_saving_page_panel3">
+									<p style="font-style:italic;color:#999">Opprett sparekonto demo</p>
+								</div>
+							</div>
+						</section>
+						<section id="fund_saving_section" style="display:none">
+							<h2>Fond</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="pension_saving_section_panel1" role="tab" href="#" id="pension_saving_section_tab1">Beholdning</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel2" role="tab" href="#" id="pension_saving_section_tab2">Kjøp fond</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel3" role="tab" href="#" id="pension_saving_section_tab3">Selg fond</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel4" role="tab" href="#" id="pension_saving_section_tab4">Bytt fond</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel5" role="tab" href="#" id="pension_saving_section_tab5">Spareavtale</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel6" role="tab" href="#" id="pension_saving_section_tab6">Uttaksavtale</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel7" role="tab" href="#" id="pension_saving_section_tab7">Ordre</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="pension_saving_section_tab1" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel1">
+									<p style="font-style:italic;color:#999">Beholdning demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab2" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel2">
+									<p style="font-style:italic;color:#999">Kjøp fond demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab3" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel3">
+									<p style="font-style:italic;color:#999">Selg fond demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab4" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel4">
+									<p style="font-style:italic;color:#999">bytt fond demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab5" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel5">
+									<p style="font-style:italic;color:#999">Spareavtale demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab6" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel6">
+									<p style="font-style:italic;color:#999">Uttaksavtale demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab7" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel7">
+									<p style="font-style:italic;color:#999">Ordre demo</p>
+								</div>
+							</div>							
+						</section>
+						<section id="pension_saving_section" style="display:none">
+							<h2>Pensjonsparing</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="pension_saving_section_panel1" role="tab" href="#" id="pension_saving_section_tab1">Beholdning</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel2" role="tab" href="#" id="pension_saving_section_tab2">Fondsbytte</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel3" role="tab" href="#" id="pension_saving_section_tab3">Kontobevegelser</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="pension_saving_section_panel4" role="tab" href="#" id="pension_saving_section_tab4">Avtaledetaljer</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="pension_saving_section_tab1" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel1">
+									<p style="font-style:italic;color:#999">Beholdning demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab2" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel2">
+									<p style="font-style:italic;color:#999">Fondsbytte demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab3" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel3">
+									<p style="font-style:italic;color:#999">Kontobevegelser demo</p>
+								</div>
+								<div class="panel_item" aria-labelledby="pension_saving_section_tab4" role="tabpanel" aria-hidden="true" id="pension_saving_section_panel4">
+									<p style="font-style:italic;color:#999">Avtaledetaljer demo</p>
+								</div>
+							</div>
+						</section>
+						<section id="investor_saving_section" style="display:none">
+							<h2>VPS investor</h2>
+							<p style="font-style:italic;color:#999">Investor demo</p>
+						</section>
+						<section id="stock_saving_section" style="display:none">
+							<h2>Aksje</h2>
+							<div class="new_blue_line_controll">
+								<ul class="tab_list right_float" role="tablist" id="">
+									<li role="presentation"><a class="tab_item selected" aria-selected="true" aria-controls="stock_saving_section_panel1" role="tab" href="#" id="stock_saving_section_tab1">Akskjetjenesten</a></li>
+									<li role="presentation"><a class="tab_item" aria-selected="false" aria-controls="stock_saving_section_panel2" role="tab" href="#" id="stock_saving_section_tab2">Bestille aksjetjeneste</a></li>
+								</ul>
+								<div class="panel_item selected" aria-labelledby="stock_saving_section_tab1" role="tabpanel" aria-hidden="true" id="stock_saving_section_panel1">
+									<p style="font-style:italic;color:#999">
+										Akskjetjenesten demo
+									</p>
+								</div>
+								<div class="panel_item" aria-labelledby="stock_saving_section_tab2" role="tabpanel" aria-hidden="true" id="stock_saving_section_panel2">
+									<p style="font-style:italic;color:#999">
+										Bestille aksjetjeneste demo
+									</p>
+								</div>
+							</div>
+						</section>
+						<section id="order_stock_service_page" style="display:none">
+							<h2>Bestille aksjetjeneste</h2>
+							<p style="font-style:italic;color:#999">Bestille aksjetjeneste demo</p>
+						</section>
+						<section id="bsu_saving_section" style="display:none">
+							<h2>BSU</h2>
+							<p style="font-style:italic;color:#999">BSU demo</p>
+						</section>
+					</div>
+
+					<div class="loan category_controll">
+						<section id="my_loan_section" style="display:none">
+							<h2>Mitt lån</h2>
+							<p style="font-style:italic;color:#999">Lån demo</p>
+						</section>
+						<section id="house_loan_section" style="display:none">
+							<h2>Søk om boliglån</h2>
+							<p style="font-style:italic;color:#999">Boliglån demo</p>
+						</section>
+						<section id="car_loan_section" style="display:none">
+							<h2>Søk om billån</h2>
+							<p style="font-style:italic;color:#999">Bil demo</p>
+						</section>
+						<section id="boat_loan_section" style="display:none">
+							<h2>Søk om båtlån</h2>
+							<p style="font-style:italic;color:#999">Båt demo</p>
+						</section>
+						<section id="gift_loan_section" style="display:none">
+							<h2>Søk om forbrukslån</h2>
+							<p style="font-style:italic;color:#999">Forbrukslån demo</p>
+						</section>
+						<section id="other_loan_section" style="display:none">
+							<h2>Se alle våre lån</h2>
+							<p style="font-style:italic;color:#999">Vår lån demo</p>
+						</section>
+					</div>
+
+					<div class="property category_controll">
+						<section id="my_property_section" style="display:none">
+							<h2>Mine eiendom</h2>
+							<p style="font-style:italic;color:#999">Eiendom demo</p>
+						</section>
+						<section id="document_property_section" style="display:none">
+							<h2>Dokumenter</h2>
+							<p style="font-style:italic;color:#999">Dokumenter demo</p>
+						</section>
+						<section id="neighbor_property_section" style="display:none">
+							<h2>Ditt nabolag</h2>
+							<p style="font-style:italic;color:#999">Ditt nabolag demo</p>
+						</section>
+						<section id="buy_house_property_section" style="display:none">
+							<h2>Kjøpe eiendom</h2>
+							<p style="font-style:italic;color:#999">Kjøpe eiendom demo</p>
+						</section>
+						<section id="sell_property_section" style="display:none">
+							<h2>Selge eiendom</h2>
+							<p style="font-style:italic;color:#999">Selge eiendom demo</p>
+						</section>
+						<section id="agent_property_section" style="display:none">
+							<h2>Megler</h2>
+							<p style="font-style:italic;color:#999">Megler demo</p>
+						</section>
+					</div>
+
+					<div class="insurance category_controll">
+						<section id="my_insurance_section" style="display:none">
+							<h2>Mine forsikringer</h2>
+							<p style="font-style:italic;color:#999">Mine forsikringer demo</p>
+						</section>
+						<section id="buy_insurance_insurance_section" style="display:none">
+							<h2>Kjøp forsikring</h2>
+							<p style="font-style:italic;color:#999">Kjøp forsikring demo</p>
+						</section>
+						<section id="damage_insurance_section" style="display:none">
+							<h2>Melde skade</h2>
+							<p style="font-style:italic;color:#999">Melde skade demo</p>
+						</section>
+						<section id="health_insurance_section" style="display:none">
+							<h2>Helseerklæring</h2>
+							<p style="font-style:italic;color:#999">Helseerklæring demo</p>
+						</section>
+						<section id="document_insurance_section" style="display:none">
+							<h2>Dokumenter</h2>
+							<p style="font-style:italic;color:#999">Dokumenter demo</p>
+						</section>
+						<section id="invoice_s_insurance_section" style="display:none">
+							<h2>Fakturaoversikt</h2>
+							<p style="font-style:italic;color:#999">Fakturaoversikt demo</p>
+						</section>
+					</div>
+
+					<section id="none_implemented_page">
+						<h2 style="font-style:italic">Innhold kommer senere</h2>
+					</section>
+				</div>
+				<!-- END OF MAIN CONTAINER -->					
+			</div>
+		</main>
+
+		<!--END OF MAIN-->
+		<footer id="footer">
+			<ul>
+				<li><a href="#" class="disabled_link">© SpareBank 1 SMN</a></li>
+				<li><a href="#" class="disabled_link">Personvern og sikkerhet</a></li>
+				<li><a href="#" class="disabled_link">Informasjonskapsler</a></li>
+			</ul>
+		</footer>
+
+		<div id="tool_gadget" class="">
+			<div class="section_page">
+				<a href="#" class="tg_item register_payment_section_item" data-rule="register_payment_section" data-category="payment" style="display:none">Registrer betaling</a>
+				<a href="#" class="tg_item deposit_account_section_item" data-rule="deposit_account_section" style="display:none">Opprette depositumkonto</a>
+				<a href="#" class="tg_item maturity_section_item" data-rule="maturity_section" data-category="payment">Forfallsregister</a>
+				<div class="next_level for_one_column">
+					<a href="#" class="tg_item change_maturity_hide_A_N" data-rule="maturity_hide_A_N">S-skjerm: skjult kontonr.</a>
+					<a href="#" class="tg_item change_maturity_add_L_N" data-rule="maturity_add_L_N">S-skjerm: Rad nummerering</a>
+					<a href="#" class="tg_item change_maturity_small_T" data-rule="maturity_small_T">S-skjerm: Behold tabeller</a>
+				</div>
+				<a href="#" class="tg_item account_movement_section_item" data-rule="account_movement_section" data-category="account" style="display:none">Kontobevegelser</a>
+			</div>
+			<div class="">
+				<a href="#" class="tg_item change_size" data-rule="small_size">Smale elementer</a>
+				<a href="#" class="tg_item change_shy_main_sidebar" data-rule="shy_main_sidebar">Skjult sidemeny</a>
+				<a href="#" class="tg_item change_new_main_sidebar" data-rule="new_main_sidebar">Ny sidemeny</a>
+				<a href="#" class="tg_item change_new_blue_line_icon" data-rule="new_blue_line_icon">Ny blålinje</a>
+				<div class="next_level for_one_column">
+					<a href="#" class="tg_item change_merging_blue_line_icon" data-rule="merging_blue_line_icon">Slå sammen betaling, konto og kort</a>
+					<a href="#" class="tg_item change_expanding_blue_line_icon" data-rule="expanding_blue_line_icon">Utvid til 8 ikoner</a>
+				</div>
+				<a href="#" class="tg_item change_new_top_banner" data-rule="new_top_banner">Ny top meny</a>
+			</div>
+			<a href="" class="toggle_gadget"></a>
+		</div>
+	</div>
+</body>
+</html>

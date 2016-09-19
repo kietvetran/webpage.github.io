@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - tekstfield</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+.wrapper {
+  overflow: hidden; 
+  max-width: 400px;
+}
+</style>
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+</head>
+<body>
+	<div style="height: 150px">
+  <form id="application" method="post" action="" novalidate> 
+    <div class="wrapper">
+      <label for="ccreditcardnumber">Kredittkortsnummer</label>
+      <input id="ccreditcardnumber" class="sb1_input_textfield large" type="tel" value="" name="creditcardnumber" data-rule="creditcardnumber" spellcheck="false" autocomplete="off" minlength="16">
+    </div>
+  </form>
+</div>
+<script>
+  $('#application').SB1formValidation({}); 
+</script> 
+</body>
+</html>

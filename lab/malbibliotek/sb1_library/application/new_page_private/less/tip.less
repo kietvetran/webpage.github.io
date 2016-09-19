@@ -1,0 +1,80 @@
+.tip-wrapper {
+    text-align: center;
+    &.left {
+        text-align: left;
+        .icon-wrapper {
+            text-align: left;
+        }
+    }
+    &.right {
+        text-align: left;
+        .icon-wrapper {
+            text-align: right;
+        }
+    }
+    &.center {
+        .icon-wrapper {
+            margin: auto;
+        }
+    }
+    @media (min-width: @screen-sm) {
+        text-align: left;
+
+        &.center {
+            text-align: center;
+        }
+    }
+    .icon-wrapper, .tip-content{
+        width: 100%;
+        max-width: 496px;
+    }
+    .icon-wrapper {
+        display: block;
+        height: 50px;
+        padding: 0 40px;
+
+        .icon-circle(70px, @white);
+    }
+
+    .tip-content {
+        display: inline-block;
+        background-color: @sand-light;
+        padding: 50px 40px 40px;
+
+        > :first-child {
+            margin-top: 0;
+        }
+        > :last-child {
+            margin-bottom: 0;
+        }
+        h3 {
+            &:extend(h5);
+        }
+        
+    }
+}
+.main > .tip > .tip-wrapper > .icon-wrapper,
+.main > .tip > .tip-wrapper > .tip-content,
+.main > div > .tip > .tip-wrapper > .icon-wrapper,
+.main > div > .tip > .tip-wrapper > .tip-content {
+    @media (min-width: @screen-sm) {
+        width: 70%
+    }
+    @media (min-width: @screen-md) {
+        width: 40%;
+    }
+}
+
+.parsys-column {
+    .icon-wrapper, .tip-content{
+        width: 100%;
+
+        @media (min-width: @screen-sm) {
+            width: 90%;
+        }
+        @media (min-width: @screen-md) {
+            width: 80%;
+        }
+    }
+}
+    

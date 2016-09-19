@@ -1,0 +1,150 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: @white;
+}
+
+#main-menu,
+#main-content{
+    &:focus {
+        outline: none;
+    }
+}
+.main {
+    max-width: 1280px;
+    margin: auto;
+    height: 100%;
+    padding-top: 70px;
+
+    background: inherit;
+
+    @media (min-width: @screen-md) {
+        padding-top: 0;
+    }
+    &.marketpage {
+        padding-top: 70px;
+    }
+}
+.container-fluid {
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    @media (min-width: @screen-sm) {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+    @media (min-width: @screen-lg) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+}
+.nav-wrapper {
+    position: relative;
+    max-width: 1280px;
+    margin: auto;
+}
+.main-wrap{
+    overflow: hidden;
+    height: 100%;
+    background: inherit;
+}
+.grid{
+    margin-bottom: 15px;
+}
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+.clearfix:after { 
+    content: "."; 
+    visibility: hidden; 
+    display: block; 
+    height: 0; 
+    clear: both;
+}
+.hide{
+    display: none !important;
+}
+
+.hide-desktop {
+    display: inline-table;
+    @media (min-width: 600px) {
+        display: none !important;
+        visibility: hidden;
+    }
+}
+.hide-phone {
+    display: none !important;
+    visibility: hidden;
+    @media (min-width: 600px) {
+        display: inline-table !important;
+        visibility: visible;
+    }
+}
+.noscroll {
+    overflow: hidden;
+}
+picture{
+    img{
+        &.image-width{
+            width: 50%;
+            @media (min-width: 700px) {
+                width: 100%;
+            }
+            @media (min-width: 850px) {
+                width: 70%;
+            }
+        }
+    }
+}
+hr {
+    border: none;
+    border-top: solid 1px @gray-light;
+    margin: 20px 0;
+
+    @media (min-width: 450px) {
+        margin: 40px 0;
+    }
+
+    @media (min-width: 768px) {
+        margin: 60px 0;
+    }
+}
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visually-hidden.focusable:focus, .visually-hidden.focusable:active {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.borderBottom {
+    border-bottom: solid @gray-light 1px;
+}
+
+.anchor,
+a[name] {
+    display: block;
+    position: relative;
+    top: -72px;
+    visibility: hidden;
+}

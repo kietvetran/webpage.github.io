@@ -1,0 +1,20 @@
+.icon-circle(@size; @background-color;) {
+    > .icon-circle {
+        height: @size;
+        width: @size;
+        border-radius: @size;
+        background-color: @background-color;
+        transition: background-color 200ms;
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+
+        .icon {
+            width: 80%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-50%);;
+        }
+    }
+}

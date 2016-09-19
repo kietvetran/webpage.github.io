@@ -1,0 +1,54 @@
+.sec-call {
+  text-align: center;
+  h3 {
+    padding-bottom: 0;
+  }
+  .medium-text{
+    &:extend(h1);
+    padding: 0 0 20px 0;
+    margin: 0;
+    [class*="icon-"]{
+      &:before{
+        position: relative;
+        top: 16px;
+        font-size: 125%;
+      }
+    }
+  }
+  .phone-text{
+    &:extend(h5);
+    margin: 0 0 10px 0;
+    span {
+      margin-right: 10px;
+    }
+  }
+  .small-text {
+    a {
+      color: @black-gray;
+    }
+  }
+
+  ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    li{
+      list-style: none;
+      display: inline-table;
+      margin: 0 10px;
+      text-align: center;
+    }
+  }
+
+  a{
+    text-decoration: none;
+    color: @blue-royal;
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    @media (min-width: 515px) {
+      text-decoration: none;
+    }
+  }
+
+}

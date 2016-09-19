@@ -1,0 +1,141 @@
+.btn {
+    padding: 14px 30px;
+    font-family: 'MuseoSansRounded-700';
+    line-height: 22px;
+    font-size: 16px;
+    @media (min-width: @screen-tablet) {
+        padding: 14px 40px;
+    }
+    @media (min-width: @screen-desktop) {
+        font-size: 18px;
+    }
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    .transition(color 200ms, background-color 200ms, border 200ms;);
+    color: white;
+    background-color: @blue-flat;
+
+    border: 0 none;
+    display: inline-block;
+    position: relative;
+
+    .icon-arrow_right();
+    &:before {
+        transition: opacity 200ms;
+        position: absolute;
+        color: inherit;
+        right: 4px;
+        opacity: 0;
+        font-size: 125%;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-flat, 5%);
+
+        &:before {
+            opacity: 1;
+        }
+    }
+}
+.submit-btn,
+.login-btn,
+.action-btn {
+    &:extend(.btn all);
+    background-color: @green-wcag;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@green-wcag, 5%);
+    }
+}
+
+.go-to-btn{
+    &:extend(.btn all);
+    padding: 14px 48px 14px 20px;
+    text-align: left;
+    background-color: @blue-royal;
+    color: @white;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-royal, 5%);
+    }
+    &:before {
+        opacity: 1;
+        right: 12px;
+    }
+}
+
+.primary-btn {
+    &:extend(.btn all);
+}
+
+.secondary-btn {
+    &:extend(.btn all);
+    color: @blue-royal-light-wcag;
+    background-color: white;
+    border: solid 2px @gray-light;
+
+    &:hover,
+    &:focus {
+        border-color: @blue-royal-light-wcag;
+        background-color: white;
+    }
+}
+
+.info-btn {
+    &:extend(.btn all);
+    color: @red;
+    background-color: white;
+    border: solid 2px @gray-light;
+
+    &:hover,
+    &:focus {
+        border-color: @red;
+        background-color: white;
+    }
+}
+
+.se-more-button {
+    border: solid 2px @gray-light;
+    border-radius: 34px;
+    margin-top: 30px;
+    .large-link();
+    padding: 17px 50px;
+    background-color: @white;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border 200ms;
+    display: inline-block;
+
+    &:hover {
+        border: solid 2px @blue-royal-light-wcag;
+    }
+}
+
+.warning-btn {
+    &:extend(.btn all);
+    background-color: @red;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@red, 5%);
+    }
+}
+
+.button-wrapper{
+    margin: 22px 0 40px;
+
+    @media (min-width: 768px) {
+        margin: 40px 0 60px;
+    }
+    &.center {
+        text-align: center;
+    }
+    &.right {
+        text-align: right;
+    }
+}

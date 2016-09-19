@@ -1,0 +1,22 @@
+var ACCOUNT = [
+  {"name": "Private konto", "id":"90012310462", "amount": "99030,00"},
+  {"name": "Brukskonto", "id":"42022244951", "amount": "10000,00"},
+  {"name": "Konto med bonus", "id":"42025942013", "amount": "10,00"},
+  {"name": "Brukskoonto fri2", "id":"42025946914", "amount": "51,00"},
+  {"name": "Sparekonto ungdom", "id":"42025946977", "amount": "57991,00"},
+  {"name": "Hydro fjerner Norge AS", "id":"44150620896", "amount": "74606,71"},
+  {"name": "Sparekonto til Mads", "id":"53025946999", "amount": "1000,00"},
+  {"name": "Sparekonto til Anne", "id":"45529469789", "amount": "1000,00"},
+  {"name": "Sparekonto til Petter", "id":"99267946888", "amount": "1000,00"},
+  {"name": "Sparekonto til Kim", "id":"53256796777", "amount": "1000,00"},
+  {"name": "Sparekonto til Jonas", "id":"44456796555", "amount": "1000,00"},
+  {"name": "Std.konto 1", "id":"91014510333", "amount": "789990,00"},
+  {"name": "Std.konto 2", "id":"41514523957", "amount": "190,00"},
+  {"name": "Std.konto 3", "id":"43541678424", "amount": "22390,00"},
+  {"name": "Std.konto 4", "id":"43345545222", "amount": "11,00"},
+  {"name": "Std.konto 5", "id":"43334334343", "amount": "0,00"},
+  {"name": "Std.konto 6", "id":"99787672113", "amount": "8773,00"},
+  {"name": "Std.konto 7", "id":"90130749943", "amount": "54,00"},
+  {"name": "Std.konto 8", "id":"99863130331", "amount": "22322,00"},
+  {"name": "Std.konto 9", "id":"44567892000", "amount": "987,00"}
+];

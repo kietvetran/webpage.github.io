@@ -1,0 +1,30 @@
+.scroll-reveal {
+    @duration: 300ms;
+    @delay: @duration/4;
+
+    &:not(.scroll-reveal-hidden):nth-child(4n+1) {
+        transition: transform @duration @delay, opacity @duration @delay;
+    }
+
+    &:not(.scroll-reveal-hidden):nth-child(4n+2) {
+        transition: transform @duration @delay*2, opacity @duration @delay*2;
+    }
+
+    &:not(.scroll-reveal-hidden):nth-child(4n+3) {
+        transition: transform @duration @delay*3, opacity @duration @delay*3;
+    }
+
+    &:not(.scroll-reveal-hidden):nth-child(4n+4) {
+        transition: transform @duration @delay*4, opacity @duration @delay*4;
+    }
+
+    &.scroll-reveal-hidden {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    &:not(.scroll-reveal-hidden) {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

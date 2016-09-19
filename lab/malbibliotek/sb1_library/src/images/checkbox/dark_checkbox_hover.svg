@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px"
+	 viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+<rect x="1.6" y="1.5" fill="#008A00" width="16.9" height="16.9"/>
+<title>Checkbox normal Copy</title>
+<desc>Created with Sketch.</desc>
+<g id="selective-controls" sketch:type="MSPage">
+	<g id="Forms-Copy" transform="translate(-534.000000, -308.000000)" sketch:type="MSArtboardGroup">
+		<path id="Checkbox-normal-Copy" sketch:type="MSShapeGroup" fill="#FFFFFF" d="M536,310L536,310v16c0,0,0,0,0,0h16c0,0,0,0,0,0
+			v-16c0,0,0,0,0,0L536,310C536,310,536,310,536,310L536,310z M534,310c0-1.1,0.9-2,2-2h16c1.1,0,2,0.9,2,2v16c0,1.1-0.9,2-2,2h-16
+			c-1.1,0-2-0.9-2-2V310L534,310z"/>
+	</g>
+</g>
+<rect x="-897" y="-956" fill-rule="evenodd" clip-rule="evenodd" fill="none" width="1815" height="1932"/>
+</svg>

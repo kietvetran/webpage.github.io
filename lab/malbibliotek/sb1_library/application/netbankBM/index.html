@@ -1,0 +1,881 @@
+<!DOCTYPE>
+<html lang="nb">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+    <title>SB1 - Nettbank - BM</title>
+    <!--
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=1024">
+    <meta name="priority" content="0.5">
+    <title>SB1 - Nettbank - BM</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="X-CSRFToken" content="jGH1_tiQpejqs3nJJuLnliIifOttzZ57VLmo_Y2QscloYd5ma4lXWofse_SYJwtJ">
+    -->
+    <link rel="stylesheet" media="screen,print" type="text/css" href="./file/boostlayout-style.css">
+    <link href="./file/topnavigation-bm.css" rel="stylesheet" type="text/css" media="screen">
+  
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./style/font_face.css">
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
+    <link rel="stylesheet" type="text/css" href="./style/bm.css">
+    <link rel="stylesheet" type="text/css" href="./style/register_payment_section.css">
+    <link rel="stylesheet" type="text/css" href="./style/force.css">
+
+    <script type="text/javascript" src="./javascript/account.js"></script>
+    <script type="text/javascript" src="./javascript/country.js"></script>
+
+    <script type="text/javascript" src="./javascript/1.11.2.jquery.min.js"></script>
+    <script type="text/javascript" src="./javascript/general.js"></script>
+    <script type="text/javascript" src="./javascript/touch.js"></script>
+    <script type="text/javascript" src="./javascript/main.js"></script>
+
+    <script type="text/javascript" src="./js/sb1_form_row.js"></script>
+    <script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+    <script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+    <script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+    <script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+    <script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+    <script type="text/javascript" src="./js/sb1_slider_button.js"></script>
+    <script type="text/javascript" src="./js/sb1_calendar.js"></script>
+
+  </head>
+  <body class="bea-portal-body simple-domestic-payment">
+    <div id="layout" class="force _new_main_sidebar">
+      <div id="sb1-outer-main-div" class="main" style="display: block;">
+        <div class="bea-portal-body-content">
+          <div class="requires-login">
+            <div class="domainLogoBW printOnly">
+              <img src="./file/sb1_smn_bw.gif" alt="SpareBank 1 SMN">
+            </div>
+            <!------------------------------------------------------------------- TOP -->
+            <div id="topnavigation" class="topnavigation">
+              
+              
+              <div class="informationbar-full-wrap container-full">
+                <div class="informationbar-wrap container">
+                  <div id="informationbar" class="row">
+                    <div class="user-info">
+                      <span class="agreementName" id="agreement">
+                      <a href="https://www.qa.sparebank1.no/sb1/web/security/login/changeAgreement.do?setLocale=no_NO"><span class="sb1-dialog-icon-new-message icon"></span><span class="agreement-text vtop">Beslag skytter</span> - <span class="change-agreement-text vtop">bytt avtale</span></a>
+                      </span>
+                    </div>
+                    <div class="contact-info">
+                      <a href="#" class="contact_info_expander">Meny</a>
+                      <div class="contact_info_wrapper">
+                        <div class="language">
+                          <ul>
+                            <li>
+                              <a href="https://www.qa.sparebank1.no/portal/minoversikt?setLocale=no_NO" aria-checked="true">Bokmål</a>
+                            </li>
+                            <li>
+                              <a href="https://www.qa.sparebank1.no/portal/minoversikt?setLocale=no_NO_NY" aria-checked="false">Nynorsk</a>
+                            </li>
+                            <li>
+                              <a href="https://www.qa.sparebank1.no/portal/minoversikt?setLocale=en" aria-checked="false">English</a>
+                            </li>
+                          </ul>
+                          <span class="sb1-icon-arrowdown icon"></span>
+                        </div>
+                        <span class="user">
+                        <span class="username" id="usersettings">
+                        <a href="https://www.qa.sparebank1.no/portal/innstillinger?setLocale=no_NO"><span class="sb1-icon-cog icon"></span>Innstillinger</a>
+                        </span>
+                        </span>
+                        <span class="popup-wrapper">
+                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_innland&_nfls=false#" id="dialog" class="dialog">
+                        <span class="sb1-icon-dialog icon"></span>Kundeservice
+                        </a>
+                        </span>
+                        <span class="logout">
+                        <a href="https://www.qa.sparebank1.no/portal/loggut?setLocale=no_NO"><span class="sb1-icon-lock icon"></span>Logg ut</a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="menubar"></div>
+              <div id="multilevelMenu" class="topmenucontainer">
+                
+                <div class="topmenulevel-full-wrap container-full">
+                  <div class="topmenulevel-wrap container">
+                    <div class="row">
+                      <div class="logo-wrap leftColumn">
+                        <a href="https://www.qa.sparebank1.no/smn">
+                        <img class="logo" src="./file/SMN.png" alt="logo">
+                        </a>
+                      </div>
+
+                      <div class="topMenuLevel swipe_wrapper" id="multiLevelMenuItems">
+                        <a href="#" class="swipe_left_arrow" role="button">left swipe scroll</a>
+                        <a href="#" class="swipe_right_arrow" role="button">right swipe scroll</a>
+                        <ul class="swipe_content">
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_min_oversikt&_nfls=false" data-title="Oversikt">Oversikt</a>
+                          </li>
+                          <li class="selected">
+                            <a role="menuitem" class="itemname" href="./file/betaling.html" data-title="Betaling">Betaling</a>
+                          </li>
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_filer_hentfiler_hent&_nfls=false" data-title="Filer">Filer</a>
+                          </li>
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_fakturering_inkasso&_nfls=false" data-title="Fakturering">Fakturering</a>
+                          </li>
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_forsikring&_nfls=false" data-title="Forsikring">Forsikring</a>
+                          </li>
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_admin_brukere&_nfls=false" data-title="Admin">Admin</a>
+                          </li>
+                          <li>
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_bestill_skjema&_nfls=false" data-title="Bestill">Bestill</a>
+                          </li>
+                          <li class="settings">
+                            <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_innstillinger_personalisering&_nfls=false" data-title="Innstillinger">Innstillinger</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="submenulevel-full-wrap container-full subMenuLevel">
+                  <div class="submenulevel-wrap container">
+                    <div class="subMenuLevel row swipe_wrapper" id="multiLevelSubmenuItems">
+                      <a href="#" class="swipe_left_arrow" role="button">left swipe scroll</a>
+                      <a href="#" class="swipe_right_arrow" role="button">right swipe scroll</a>
+                      
+                      <ul class="swipe_content">
+                        <li class="selected_">
+                          <a role="menuitem" class="itemname" href="./file/betaling.html" data-title="Betale">Betale</a>
+                        </li>
+                        <li>
+                          <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_godkjenn_betalinger&_nfls=false" data-title="Godkjenn">Godkjenn</a>
+                        </li>
+                        <li>
+                          <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_forfall_godkjente&_nfls=false" data-title="Forfall">Forfall</a>
+                        </li>
+                        <li class="selected">
+                          <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false" data-title="Transaksjoner">Transaksjoner</a>
+                        </li>
+                        <li>
+                          <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_gruppebetaling_lonnslister&_nfls=false" data-title="Gruppebetaling">Gruppebetaling</a>
+                        </li>
+                        <li>
+                          <a role="menuitem" class="itemname" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_valutakurser_kurser&_nfls=false" data-title="Valutakurser">Valutakurser</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              
+              </div>
+            </div>
+            
+            <!------------------------------------------------------------------- END TOP -->
+            <div id="main_content" class="bea-portal-book-primary-content">
+              <div class="bea-portal-book-invisible">
+                <div class="bea-portal-book-content">
+                  <div class="bea-portal-book-invisible">
+                    <div class="bea-portal-book-content">
+                      <div style="clear: right"></div>
+                      <div class="bea-portal-book-page">
+                        <div class="sb1-boost twoColumn">
+                          <div id="ribbon" class="ribbon">
+                            <div class="container">
+                              <div class="row">
+                                <div class="span4 loggedInUser">
+                                  <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_1&_nfls=false">
+                                    <h1 class="applicationName">Betaling</h1>
+                                  </a>
+                                  <span class="name">
+                                  Haakon Halvorsen SB1
+                                  </span>
+                                </div>
+                                <div class="span12">
+                                  <div class="bea-portal-layout-placeholder">
+                                    <table class="bea-portal-layout-flow" cellspacing="0" border="0">
+                                      <tbody>
+                                        <tr>
+                                          <td class="bea-portal-layout-placeholder-container" width="100%">
+                                            <div class="bea-portal-layout-placeholder">
+                                              <div class="bea-portal-window">
+                                                <div class="bea-portal-window-content">
+                                                  <!--?xml version="1.0" encoding="UTF-8" ?-->
+                                                  <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+                                                    <!--?xml version="1.0" encoding="UTF-8"?-->
+                                                    <ul id="directActionLinks" class="shortcuts span12">
+                                                      <li id="payment" class="">
+                                                        <a href="./file/betaling.html" title="Betale" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-pay"></span>
+                                                        <span class="title">Betale
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="approvePayments" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_godkjenn_betalinger&_nfls=false" title="Godkjenn" data-badge-endpoint="paymentsforapproval">
+                                                        <span class="shortcut-icon-approve"></span>
+                                                        <span class="title">Godkjenn
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="transfer" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_overfore&_nfls=false" title="Overføre" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-transfer"></span>
+                                                        <span class="title">Overføre
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="clearingRegister" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_forfall_godkjente&_nfls=false" title="Forfall" data-badge-endpoint="paymentsforclearing">
+                                                        <span class="shortcut-icon-clearing"></span>
+                                                        <span class="title">Forfall
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="processed_payments" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_ut&_nfls=false" title="Utførte" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-processed_payments"></span>
+                                                        <span class="title">Utførte
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="salary_lists" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_gruppebetaling_lonnslister&_nfls=false" title="Lønnslister" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-salarylist"></span>
+                                                        <span class="title">Lønnslister
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                    </ul>
+                                                  </jsp:root>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="bea-portal-layout-placeholder-container" width="100%">
+                                            <div class="bea-portal-layout-placeholder">
+                                              <div class="bea-portal-window">
+                                                <div class="bea-portal-window-content">
+                                                  <!--?xml version="1.0" encoding="UTF-8" ?-->
+                                                  <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+                                                    <!--?xml version="1.0" encoding="UTF-8"?-->
+                                                    <ul id="directActionLinks" class="shortcuts span12">
+                                                      <li id="payment" class="">
+                                                        <a href="./file/betaling.html" title="Betale" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-pay"></span>
+                                                        <span class="title">Betale
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="approvePayments" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_godkjenn_betalinger&_nfls=false" title="Godkjenn" data-badge-endpoint="paymentsforapproval">
+                                                        <span class="shortcut-icon-approve"></span>
+                                                        <span class="title">Godkjenn
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="transfer" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_overfore&_nfls=false" title="Overføre" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-transfer"></span>
+                                                        <span class="title">Overføre
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="clearingRegister" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_forfall_godkjente&_nfls=false" title="Forfall" data-badge-endpoint="paymentsforclearing">
+                                                        <span class="shortcut-icon-clearing"></span>
+                                                        <span class="title">Forfall
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="processed_payments" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_ut&_nfls=false" title="Utførte" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-processed_payments"></span>
+                                                        <span class="title">Utførte
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                      <li id="salary_lists" class="">
+                                                        <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_gruppebetaling_lonnslister&_nfls=false" title="Lønnslister" data-badge-endpoint="">
+                                                        <span class="shortcut-icon-salarylist"></span>
+                                                        <span class="title">Lønnslister
+                                                        </span>
+                                                        </a>
+                                                      </li>
+                                                    </ul>
+                                                  </jsp:root>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="status twoColumn">
+                            <div class="container">
+                              <div class="row loginInfo">
+                                <div class="span4 leftColumn">
+                                  &nbsp;
+                                </div>
+                                <div class="span4 agreement">
+                                  <span class="agreement-name" title="Beslag skytter">Beslag skytter</span>
+                                  <a href="https://www.qa.sparebank1.no/sb1/web/security/login/changeAgreement.do" class="changeAgreement" alt="Beslag skytter" title="Beslag skytter">
+                                  <span>Bytt avtale</span>
+                                  </a>
+                                </div>
+                                <div class="span8 rightAlign" id="logoutApp">
+                                  <span>
+                                  Sist innlogget:
+                                  i dag kl. 13.27
+                                  </span>
+                                  <span class="divider">|</span>
+                                  <a class="dialog" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_innland&_nfls=false#" id="dialog">
+                                  <i class="sb1-icon-dialog"></i> <span>Kundeservice</span>
+                                  </a>
+                                  <span class="divider">|</span>
+                                  <a class="logout" href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_betale_innland&_nfls=false#" onclick="return false;">
+                                  <span>Logg ut</span>
+                                  <i class="sb1-icon-lock"></i>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="mainSection" class="container two">
+                            <div class="row">
+                              <div id="leftColumn" class="span4 leftColumn" role="complementary">
+                                <a href="#" class="leftColumnExpander"><span>expander</span></a>
+                                <div class="bea-portal-layout-placeholder">
+
+                                          <div class="bea-portal-layout-placeholder">
+                                            <div class="bea-portal-window">
+                                              <div class="bea-portal-window-content">
+                                                <div id="engagementsList" class="accountList">
+                                                  <!--
+                                                    placeholder for subtotal view - is shown instead of the total balance at hand. The contents of the subtotal view
+                                                    are calculated in the gui based on the accounts in the account list, whereas the total balance at hand is fetched from the server.
+                                                    
+                                                    NB: Because the sub total is calculated dynamically, it cannot be shown unless we also load individual account balances.
+                                                    -->
+
+                                                  <div id="engagements" class="account_collection">
+
+
+                                                    
+                                                    <button id="accountGroup" class="btn btn-primary accountgroupbtn">
+                                                    <span class="text">
+                                                    Kontogrupper
+                                                    </span>
+                                                    <i class="sb1-icon-arrowdown-white icon-white"></i>
+                                                    </button>
+                                                    
+                                                    <h3 id="accountListHeader" class="first">Alle kontoer (5)</h3>
+                                                    <div id="accountsList" class="hideBalance">
+                                                      <ul class="account_list" aria-label="Dine kontoer">
+                                                        <li class="account bmaccountlist " data-account-number="42000186044">
+                                                          <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false&index=-1&redirectToMyoverview=true&hashId=wV1ip09CHYKWv8Vu30xEhcazjvc" class="account_item">
+                                                            <div class="name ellipsis">PRIVAT EKSTRA FUNKSJONÆR</div>
+                                                            <div class="amount_wrapper">
+                                                              <span class="account ellipsis">4200 01 86044</span>
+                                                              <span class="amount ellipsis">420 018 644</span>
+                                                            </div>
+                                                          </a>
+                                                        </li>
+                                                        <li class="account bmaccountlist " data-account-number="42003346573">
+                                                          <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false&index=-1&redirectToMyoverview=true&hashId=kLg4zQmbEStysJJ-bqKH9L1vmJM" class="account_item">
+                                                            <div class="name ellipsis">HELSPRT</div>
+                                                            <div class="amount_wrapper">
+                                                              <span class="account ellipsis">4200 33 46573</span>
+                                                              <span class="amount ellipsis">1 000 000 000</span>
+                                                            </div>
+                                                          </a>
+                                                        </li>
+                                                        <li class="account bmaccountlist " data-account-number="42020382079">
+                                                          <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false&index=-1&redirectToMyoverview=true&hashId=LzJ9GQlw9lxe_wWerLulGdfIGkE" class="account_item">
+                                                            <div class="name ellipsis">HELLIKSEN HOLDING</div>
+                                                            <div class="amount_wrapper">
+                                                              <span class="account ellipsis">4202 03 82079</span>
+                                                              <span class="amount ellipsis">50</span>
+                                                            </div>
+                                                          </a>
+                                                        </li>
+                                                        <li class="account bmaccountlist " data-account-number="42020382117">
+                                                          <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false&index=-1&redirectToMyoverview=true&hashId=TGUp337aIRgedA8EHkOlrzpKUqw" class="account_item">
+                                                            <div class="name ellipsis">HELSPORT HOLDING</div>
+                                                            <div class="amount_wrapper">
+                                                              <span class="account ellipsis">4202 03 82117</span>
+                                                              <span class="amount ellipsis">1 000</span>
+                                                            </div>                                                            
+                                                          </a>
+                                                        </li>
+                                                        <li class="account bmaccountlist " data-account-number="42022319331">
+                                                          <a href="https://www.qa.sparebank1.no/portal/4210/7_nettbank_bedrift?_nfpb=true&_pageLabel=nettbedrift_betaling_kontoutskrift_kontobevegelser&_nfls=false&index=-1&redirectToMyoverview=true&hashId=pm0O6zqkNF8JoqH3ucsLZhsu_ew" class="account_item">
+                                                            <div class="name ellipsis">HØYRENTE</div>
+                                                            <div class="amount_wrapper">
+                                                              <span class="account ellipsis">4202 23 19331</span>
+                                                              <span class="amount ellipsis">22 070 112 405</span>
+                                                            </div>
+                                                          </a>
+                                                        </li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="alert failedServices" id="failedServices" style="display: none">
+                                                  <i class="sb1-icon-message-alert"></i>
+                                                  <p>Følgende tjenester er for øyeblikket utilgjengelig:
+                                                  </p>
+                                                  <ul>
+                                                  </ul>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                </div>
+                              </div>
+                              <div id="application" class="span12" role="main">
+
+                                <section id="register_payment_section" style="display:block;min-height:700px">
+                                  <form id="payment_register_payment" method="post" action="" novalidate>
+                                    <div class="register_payment_header">
+                                      <h2>Betale</h2>
+                                      <ul id="register_payment_tabs" role="tablist" class="tab_list right_float">
+                                        <li role="presentation"><a id="register_payment_tab1" href="#" role="tab" aria-controls="register_payment_panel1" aria-selected="true" class="tab_item selected">Innland</a></li>
+                                        <li role="presentation"><a id="register_payment_tab2" href="#" role="tab" aria-controls="register_payment_panel2" aria-selected="false" class="tab_item">Utland</a></li>
+                                        <li role="presentation"><a id="register_payment_tab3" href="#" role="tab" aria-controls="register_payment_panel3" aria-selected="false" class="tab_item">Overføre</a></li>
+                                        <li role="presentation"><a id="register_payment_tab4" href="#" role="tab" aria-controls="register_payment_panel4" aria-selected="false" class="tab_item">Lade</a></li>
+                                      </ul>
+                                    </div>
+                                    <div class="error_summary_holder"></div>                                    
+                                    <div id="register_payment_panel1" aria-hidden="false" role="tabpanel" aria-labelledby="register_payment_tab1" class="panel_item selected">
+                                      <ul class="form_row_list">
+                                        <li class="">
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label>Fra konto</label>
+                                              </div>
+                                            </div>                                             
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu account_list _stay_open" data-label="Velg fra konto">
+                                                <a role="button" aria-controls="payment_from_account_list" href="#" class="sb1_dropdown_btn" id="payment_from_account_name"></a>
+                                                <input type="hidden" name="payment_from_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+                                              </div>
+                                            </div>
+                                          </div>              
+                                          <div class="sb1_form_row">  
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label>Betalingstype</label>
+                                              </div>
+                                            </div>                                               
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu">
+                                                <a role="button" aria-controls="taxable_abroad_list" href="#" class="sb1_dropdown_btn">KID eller melding</a>
+                                                <input type="hidden" aria-hidden="true" required name="taxable_abroad">                         
+                                                <ul role="listbox" id="taxable_abroad_list" aria-expanded="false" class="sb1_dropdown_list">
+                                                  <li class="sb1_dropdown_option selected" role="option" data-rule="tabpanel_target[.register_payment_kid_msg_opt]">KID eller melding</li>
+                                                  <li class="sb1_dropdown_option" role="option" data-rule="tabpanel_target[.register_payment_instruction_opt]">Utbetalingsanvisning</li>
+                                                  <li class="sb1_dropdown_option" role="option" data-rule="tabpanel_target[.register_payment_structure_opt]">Strukturert betaling</li>
+                                                  <li class="sb1_dropdown_option" role="option" data-rule="tabpanel_target[.register_payment_express_opt]">Ekspress innland</li>
+                                                </ul>
+                                              </div>                                              
+                                            </div>
+                                          </div>    
+                                        </li>
+
+                                        <!--<li id="register_payment_kid_msg_opt" class="">KID eller melding</li>-->
+                                        <li class="register_payment_instruction_opt sb1_hide">
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="register_payment_address">Adresse</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_address" name="register_payment_address" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]">
+                                            </div>
+                                          </div>          
+                                          <div class="sb1_form_row register_payment_city_address">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label id="register_payment_postnumber_label" for="register_payment_postnumber">Postnr.</label>
+                                                <label id="register_payment_city_label" for="register_payment_city">Sted</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="content_holder">
+                                                <input id="register_payment_postnumber" name="register_payment_postnumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="postnumber parent_target[.sb1_input_wrapper]" class="" maxlength="4">
+                                                <input id="register_payment_city" name="register_payment_city" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] city_field">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>                                        
+                                        <li>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_provider_account">Til konto</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_provider_account" name="register_payment_provider_account" type="tel" required spellcheck="false" autocomplete="off" data-rule="accountnumber parent_target[.sb1_input_wrapper]" class="">
+                                            </div>
+                                          </div>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_provider_name">Leverandørnavn</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_provider_name" name="register_payment_provider_name" type="text" required spellcheck="false" autocomplete="off" data-rule="text parent_target[.sb1_input_wrapper]" class="">
+                                            </div>
+                                          </div>            
+                                        </li>
+
+                                        <li>
+                                          <div class="sb1_form_row sb1_hide register_payment_kid_msg_opt register_payment_instruction_opt register_payment_express_opt">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_kid_number_name" style="white-space: nowrap;">
+                                                  <span>KID / melding</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <textarea id="payment_kid_number_name" name="payment_kid_number_name" required data-rule="kidormsg parent_target[.sb1_input_wrapper]"></textarea>
+                                            </div>
+                                          </div>          
+
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label>Beløp</label>
+                                                <label for="maturity_date_from" id="maturity_date_from_label_1" class="sb1_hide register_payment_kid_msg_opt register_payment_instruction_opt register_payment_structure_opt">Forfallsdato</label>
+                                                <label for="register_payment_bic" id="register_payment_bic_label_1" class="sb1_hide register_payment_express_opt" style="white-space:nowrap">
+                                                  <span>BIC</span>
+                                                  <span class="help_text">SWIFT</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="input_unit_wrapper kr_and_or_">
+                                                <input id="payment_amount_kr_field" name="payment_amount_kr_field" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.input_unit_wrapper]" class="sb1_amount_field">
+                                              </div>
+                                              <div class="sb1_hide sb1_calender_field_parent register_payment_kid_msg_opt register_payment_instruction_opt register_payment_structure_opt">
+                                                <label for="maturity_date_from" id="maturity_date_from_label_2">
+                                                  Forfallsdato
+                                                </label>
+                                                <div class="sb1_calender_field_wrapper">
+                                                  <input id="maturity_date_from" name="maturity_date_from" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field">
+                                                  <span class="icon-calendar"></span>
+                                                </div>
+                                              </div>
+                                              <div class="sb1_hide sb1_calender_field_parent register_payment_express_opt">
+                                                <label for="register_payment_bic" id="register_payment_bic_label_2" style="white-space:nowrap">
+                                                  <span>BIC</span>
+                                                  <span class="help_text">SWIFT</span>
+                                                </label>
+                                                <div class="sb1_calender_field_wrapper">
+                                                  <input id="register_payment_bic" name="register_payment_bic" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_calender_field_parent]" class="">
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>
+                                        <li class="register_payment_structure_opt sb1_hide">
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_invoioce_number">Fakturanr</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_invoioce_number" name="register_payment_invoioce_number" type="tel" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]" class="">
+                                            </div>
+                                          </div>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_customer_number">
+                                                  <span>Kundenr</span>
+                                                  <span class="help_text">valgfri</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_customer_number" name="register_payment_customer_number" type="text" required spellcheck="false" autocomplete="off" data-rule="text parent_target[.sb1_input_wrapper]" class="">
+                                            </div>
+                                          </div>  
+                                        </li>
+
+                                        <li>  
+                                          <div class="sb1_form_row sb1_hide register_payment_structure_opt">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_invoice_date">
+                                                  <span>Fakturadato</span>
+                                                  <span class="help_text">valgfri</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper sb1_calender_field_parent_">
+                                              <div class="sb1_calender_field_wrapper">
+                                                <input id="register_payment_invoice_date" name="register_payment_invoice_date" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field">
+                                                <span class="icon-calendar"></span>
+                                              </div>
+                                            </div>
+                                          </div> 
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper  sb1_hide register_payment_structure_opt">
+                                              <div class="content_holder">
+                                                <label>&nbsp;</label>
+                                              </div>
+                                            </div>                                            
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div>
+                                                <input type="checkbox" class="sb1-input-checkbox" id="yes_payment_receipt" name="no_payment_receipt" value="yes_payment_receipt" data-rule="parent_target[.sb1_input_wrapper]" aria-labelledby="payment_receipt_label_text yes_payment_receipt_label">
+                                                <label class="sb1-input-checkbox-label" for="yes_payment_receipt" id="yes_payment_receipt_label">Fortrolig</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div id="register_payment_panel2" aria-hidden="true" role="tabpanel" aria-labelledby="register_payment_tab2" class="panel_item">
+                                      utland
+                                    </div>
+                                    <div id="register_payment_panel3" aria-hidden="true" role="tabpanel" aria-labelledby="register_payment_tab3" class="panel_item">
+
+                                      <ul class="form_row_list">
+                                        <li>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_from_account_name">
+                                                  <span>Fra konto?</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu account_list _stay_open">
+                                                <a role="button" aria-controls="payment_from_account_list" href="#" class="sb1_dropdown_btn" id="payment_from_account_name"></a>
+                                                <input type="hidden" name="payment_from_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+                                              </div>
+                                            </div>
+                                          </div>              
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_to_account_name">
+                                                  <span>Til konto?</span>
+                                                  <!--<span class="help_text">Konto- navn eller -nr</span>-->
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu account_list">
+                                                <a role="button" aria-controls="payment_to_account_list" href="#" class="sb1_dropdown_btn" id="payment_to_account_name"></a>
+                                                <input type="hidden" name="payment_to_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+                                              </div>
+                                            </div>
+                                          </div>    
+                                        </li>
+                                        <li>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label>Beløp</label>
+                                                <label for="maturity_date_from" id="maturity_date_from_label_1">Forfallsdato</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="input_unit_wrapper kr_and_or_">
+                                                <input id="payment_amount_kr_field" name="payment_amount_kr_field" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.input_unit_wrapper]" class="sb1_amount_field">
+                                              </div>
+                                              <div class="sb1_calender_field_parent">
+                                                <label for="maturity_date_from" id="maturity_date_from_label_2">
+                                                  Forfallsdato
+                                                </label>
+                                                <div class="sb1_calender_field_wrapper">
+                                                  <input id="maturity_date_from" name="maturity_date_from" type="text" required spellcheck="false" autocomplete="off" data-rule="date parent_target[.sb1_calender_field_parent]" class="date_calendar_field">
+                                                  <span class="icon-calendar"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_kid_number_name" style="white-space: nowrap;">
+                                                  <span>KID / melding</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input type="text" id="payment_kid_number_name" name="payment_kid_number_name" required spellcheck="false" autocomplete="off" data-rule="kidormsg parent_target[.sb1_input_wrapper]" maxlength="90">
+                                            </div>
+                                          </div>          
+                                        </li>
+                                        <li>  
+                                          <div class="sb1_form_row">         
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div>
+                                                <input type="checkbox" class="sb1-input-checkbox" id="payment_agreement" name="payment_agreement" value="yes_payment_agreement" data-rule="parent_target[.sb1_input_wrapper]">
+                                                <label class="sb1-input-checkbox-label" for="payment_agreement" id="payment_agreement_label">
+                                                  Registrer og godkjenn
+                                                </label>
+                                              </div>
+                                            </div>
+                                          </div> 
+                                          <div class="sb1_form_row">                                           
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div>
+                                                <input type="checkbox" class="sb1-input-checkbox" id="yes_payment_receipt2" name="no_payment_receipt2" value="yes_payment_receipt2" data-rule="parent_target[.sb1_input_wrapper]">
+                                                <label class="sb1-input-checkbox-label" for="yes_payment_receipt2" id="yes_payment_receipt_label2">Fortrolig</label>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </li>                                        
+                                      </ul>                                      
+
+                                    </div>
+                                    <div id="register_payment_panel4" aria-hidden="true" role="tabpanel" aria-labelledby="register_payment_tab4" class="panel_item">
+                                      <ul class="form_row_list">
+                                        <li>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_from_account_name">
+                                                  <span>Fra konto?</span>
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu account_list _stay_open">
+                                                <a role="button" aria-controls="payment_from_account_list" href="#" class="sb1_dropdown_btn" id="payment_from_account_name"></a>
+                                                <input type="hidden" name="payment_from_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+                                              </div>
+                                            </div>
+                                          </div>              
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label data-shortname="" for="payment_to_account_name">
+                                                  <span>Til konto?</span>
+                                                  <!--<span class="help_text">Konto- navn eller -nr</span>-->
+                                                </label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div class="sb1_dropdown_menu account_list">
+                                                <a role="button" aria-controls="payment_to_account_list" href="#" class="sb1_dropdown_btn" id="payment_to_account_name"></a>
+                                                <input type="hidden" name="payment_to_account" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">
+                                              </div>
+                                            </div>
+                                          </div>    
+                                        </li>
+                                        <li>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_loading_amount">Beløp</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_loading_amount" name="register_payment_loading_amount" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" class="sb1_amount_field">
+                                            </div>
+                                          </div>
+                                          <div class="sb1_form_row">
+                                            <div class="sb1_row_content sb1_label_wrapper">
+                                              <div class="content_holder">
+                                                <label for="register_payment_loading_customer_number">Kundenummer</label>
+                                              </div>
+                                            </div>          
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <input id="register_payment_loading_customer_number" name="register_payment_loading_customer_number" type="tel" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+                                            </div>
+                                          </div>        
+                                        </li>
+                                        <li>  
+                                          <div class="sb1_form_row maximum_width">         
+                                            <div class="sb1_row_content sb1_input_wrapper">
+                                              <div>
+                                                <input type="checkbox" class="sb1-input-checkbox" id="payment_agreement" name="payment_agreement" value="yes_payment_agreement" data-rule="parent_target[.sb1_input_wrapper]">
+                                                <label class="sb1-input-checkbox-label" for="payment_agreement" id="payment_agreement_label">
+                                                  Registrer og godkjenn
+                                                </label>
+                                              </div>
+                                            </div>
+                                          </div> 
+                                        </li>                                        
+                                      </ul>                                      
+                                    </div>
+                                    <div class="error_summary_holder"></div>
+                                    <div class="sb1_form_row maximum_width">
+                                      <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+                                        <button class="action-btn" id="submit_btn">Registrer</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </section>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+
+      <div id="tool_gadget" class="display_register_payment_section">
+        <div class="section_page" style="display:none">
+          <a href="#" class="tg_item register_payment_section_item" data-rule="register_payment_section">Registrer betaling</a>
+          <a href="#" class="tg_item deposit_account_section_item" data-rule="deposit_account_section">Opprette depositumkonto</a>
+          <a href="#" class="tg_item maturity_section_item" data-rule="maturity_section">Forfallsregister</a>
+          <div class="next_level for_one_column">
+            <a href="#" class="tg_item change_maturity_hide_A_N" data-rule="maturity_hide_A_N">S-skjerm: skjult kontonr.</a>
+            <a href="#" class="tg_item change_maturity_add_L_N" data-rule="maturity_add_L_N">S-skjerm: Rad nummerering</a>
+            <a href="#" class="tg_item change_maturity_small_T" data-rule="maturity_small_T">S-skjerm: Behold tabeller</a>
+          </div>
+          <a href="#" class="tg_item account_movement_section_item" data-rule="account_movement_section">Kontobevegelser</a>
+        </div>
+        <div class="">
+          <a href="#" class="tg_item change_size" data-rule="small_size">Smale elementer</a>
+          <!--<a href="#" class="tg_item change_shy_main_sidebar" data-rule="shy_main_sidebar">Skjult sidemeny</a>-->
+          <a href="#" class="tg_item change_new_main_sidebar" data-rule="new_main_sidebar">Ny sidemeny</a>
+        </div>
+        <a href="" class="toggle_gadget"></a>
+      </div>
+    </div>
+    <div class="footer" id="copyright_footer" style="display: block;">
+      <div class="footerContent" role="contentinfo">
+        <a href="https://www.qa.sparebank1.no/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_nettsted&bankId=1114600098522&title=SpareBank%201%20SMN" onclick="return sb1_visdialogboks(&#39;/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_nettsted&amp;bankId=1114600098522&amp;title=SpareBank%201%20SMN&#39;, &#39;selskapsinformasjon&#39;)" class="sb1-contexthelp" target="selskapsinformasjon">© SpareBank 1 SMN</a> | <a href="https://www.qa.sparebank1.no/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_vilkarforbruk&bankId=1114600098522&title=SpareBank%201%20SMN" onclick="return sb1_visdialogboks(&#39;/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_vilkarforbruk&amp;bankId=1114600098522&amp;title=SpareBank%201%20SMN&#39;, &#39;selskapsinformasjon&#39;)" class="sb1-contexthelp" target="selskapsinformasjon">Personvern og sikkerhet</a> | <a href="https://www.qa.sparebank1.no/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_informasjonskapsler&bankId=1114600098522&title=SpareBank%201%20SMN" onclick="return sb1_visdialogboks(&#39;/sb1/web/common/selskapsinformasjon/visSelskapsInformasjon.jsp?key=nettbank_informasjonskapsler&amp;bankId=1114600098522&amp;title=SpareBank%201%20SMN&#39;, &#39;selskapsinformasjon&#39;)" class="sb1-contexthelp" target="selskapsinformasjon">Informasjonskapsler</a> 
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,88 @@
+
+/************Form validation********/
+.sb1_form_validation_error {
+    color: #da3d00;
+    clear: both;
+    opacity: 1;
+    padding-top: 10px;
+    line-height: 23px;
+    transition: opacity .4s ease;
+    display: inline-table;
+    span {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    &.animation {
+        opacity: 0;
+    }
+    &:before {
+        content: "!";
+        float: left;
+        display: table-cell;
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        line-height: 22px;
+        font-weight: bold;
+        font-size: 14px;
+        border: 0 none;
+        border-radius: 100%;
+        background: @red;
+        color: #fff;
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+.helptext {
+    font-size: 16px;
+}
+.helptext-toggle-btn {
+    &:before{
+        content: "?";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 22px;
+        font-weight: bold;
+        font-size: 14px;
+        border: 0 none;
+        border-radius: 100%;
+        background: @blue-royal-light-wcag;
+        color: #fff;
+        text-align: center;
+    }
+}
+
+.sb1_form_validation_error.sb1_validation_copy:before {
+    margin-top: -2px;
+    margin-left: -25px;
+}
+.form-generator,
+.multistep-form{
+    .input{
+        &.sb1_form_validation_has_error{
+            border-color: @red;
+        }
+        &.valid{
+            input, textarea{
+                border-color: @green;
+            }
+        }
+        &.error{
+            input, textarea {
+                border: 2px solid @red;
+            }
+        }
+    }
+}
+
+.error_summary_holder .sb1_form_validation_error {
+    margin-bottom: 8px;
+    background: #da3d00 none repeat 0 0;
+    border: 0 none;
+    border-radius: 30px;
+    color: @white;
+    line-height: 20px;
+    padding: 12px 20px 12px 35px;
+    float: left;
+}

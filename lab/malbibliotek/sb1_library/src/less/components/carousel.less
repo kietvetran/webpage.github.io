@@ -1,0 +1,157 @@
+.carousel {
+
+	width: 100%;
+	margin: 70px auto;
+	min-height: 100px;
+	display: inline-block;
+
+	.slide {
+		
+		img {
+			width: 100%;
+			height: 100%;
+		}
+
+		h3, p {
+			text-align: center;
+		}
+		
+	}
+}
+
+.carousel-wrap  {
+    font-size: 0;
+    text-align: center;
+    
+	.carousel-btn {
+        vertical-align: middle;
+		width: 15%;
+		text-align: center;
+		color: @blue-royal-light-wcag;
+		display: none;
+		cursor: pointer;
+		-moz-transition: color 0.2s ease;
+	    -o-transition: color 0.2s ease;
+	    -webkit-transition: color 0.2s ease;
+	    transition: color 0.2s ease
+	}
+
+	.carousel-btn:hover {
+		color: @blue-flat;
+	}
+
+	.carousel-btn div {
+		height: 70px;
+		width: 70px;
+		line-height: 64px;
+		font-size: 40px;
+		border: 2px solid @gray-light;
+		margin: auto;
+		border-radius: 50px;
+		position: relative;		
+	}
+
+	.carousel-content {
+		width: 100%;
+		height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+        &:extend(body);
+	}
+
+	@media (min-width: @screen-sm) {
+		
+		.carousel-btn  {
+			width: 15%;
+		}
+
+		.carousel-btn, .carousel-prev, .carousel-next {
+			display: inline-block !important;
+		}   
+
+		.carousel-content  {
+			width: 70%;
+		}
+
+    }
+
+
+	@media (min-width: @screen-md-min) {
+		
+		.carousel-btn  {
+			width: 10%;
+		}
+
+		.carousel-content  {
+			width: 80%;
+		}
+
+    }
+
+	.carousel-prev {
+		display: none;
+        border: none;
+		.icon-arrow_left:before {
+			position: absolute;
+			left: 6px;
+			top: 1px;
+			color: inherit;
+            font-size: 50px;
+		}
+
+	}
+
+	.carousel-next {
+		display: none;
+        border: none;
+		.icon-arrow_right:before {
+			position: absolute;
+			left: 9px;
+			top: 1px;
+			color: inherit;
+            font-size: 50px;
+		}
+	}
+}
+
+.carousel-wrap-edit {
+	
+	border: 2px dashed @blue-royal-light-wcag;
+    font-size: 18px;
+
+	.carousel-editor-controls {
+
+		display: inline-block;
+		text-align: center;
+		margin: 30px;
+		width: 100%;
+	}
+
+	.slide {
+		margin-bottom: 10px;
+		border: 1px dashed @blue-royal-light-wcag;
+		min-height: 50px;
+	}
+
+	@media (min-width: @screen-sm) {
+		
+		.carousel-content  {
+			margin: auto 15%;
+		}
+
+    }
+
+
+	@media (min-width: @screen-md-min) {
+		
+		.carousel-content  {
+			margin: auto 10%;
+		}
+
+    }
+
+}
+
+
+
+

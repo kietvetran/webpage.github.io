@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2 (9961) - http://www.bohemiancoding.com/sketch -->
+    <title>radiobutton selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Forms" sketch:type="MSArtboardGroup" transform="translate(-1494.000000, -477.000000)" fill="#008ED2">
+            <path d="M1504.5,482 C1501.7,482 1499.5,484.2 1499.5,487 C1499.5,489.8 1501.7,492 1504.5,492 C1507.3,492 1509.5,489.8 1509.5,487 C1509.5,484.2 1507.3,482 1504.5,482 L1504.5,482 Z M1504.5,477 C1499,477 1494.5,481.5 1494.5,487 C1494.5,492.5 1499,497 1504.5,497 C1510,497 1514.5,492.5 1514.5,487 C1514.5,481.5 1510,477 1504.5,477 L1504.5,477 Z M1504.5,495 C1500.1,495 1496.5,491.4 1496.5,487 C1496.5,482.6 1500.1,479 1504.5,479 C1508.9,479 1512.5,482.6 1512.5,487 C1512.5,491.4 1508.9,495 1504.5,495 L1504.5,495 Z" id="radiobutton-selected" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

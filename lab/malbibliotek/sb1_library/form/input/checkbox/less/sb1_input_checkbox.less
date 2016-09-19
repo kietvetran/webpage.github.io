@@ -1,0 +1,95 @@
+.sb1-input-checkbox {
+  /*margin-left: 7px;*/
+  width: 24px !important;
+  opacity: 0.01 !important;
+  filter: alpha(opacity=1) !important;  
+
+  + label {
+    background-image: none, url("../images/sb1_checkbox_unselected.svg");
+    background-position: 0 3px;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 30px;
+    margin-left: -24px;
+    padding: 0 0 0 30px;
+    position: relative;
+    max-width: 100%; 
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 7px;
+      width: 0;
+      height: 16px;
+      background: transparent url("../images/sb1_checkmark.svg") no-repeat -4px -4px;
+      background-size: 24px 24px;
+      -webkit-transition: width .4s ease;                  
+      -moz-transition: width .4s ease;                 
+      -o-transition: width .4s ease;   
+      -ms-transition: width .4s ease;         
+      transition: width .4s ease; 
+    }
+
+    &:hover {
+      background-image: none, url("../images/sb1_checkbox_focus.svg") !important;      
+    }
+  }
+
+  &:checked {
+    + label {
+      background-image: none, url("../images/sb1_checkbox_focus.svg") !important; 
+      &:after {
+        width: 18px;
+      }
+    }
+  }
+
+  &:focus {
+    + label {
+      background-image: none, url("../images/sb1_checkbox_focus.svg") !important; 
+      &:before {
+        content: " "; 
+        position: absolute;
+        left: -5px;
+        top: -3px;
+        width: 32px;
+        height: 34px;
+        border: 1px dotted #999;        
+      }
+    }
+  }
+
+  &:disabled {
+    + label {
+      background-image: none, url("../images/sb1_checkbox_unselected_disabled.svg") !important; 
+      cursor: default;   
+
+      &:after {
+        display: none;
+      }    
+    }
+
+    &:checked {
+      + label {
+        background-image: none, url("../images/sb1_checkbox_selected_disabled.svg") !important; 
+      }
+    }
+  }
+
+  &.sb1_form_validation_has_error {
+    + label {
+      background-image: url("../images/sb1_checkbox_unselected_error.svg") !important;
+    }    
+  }
+}
+
+.sb1_form_validation_has_error {
+  .sb1-input-checkbox {
+    + label {
+      background-image: url("../images/sb1_checkbox_unselected_error.svg") !important;      
+    }
+  }
+}

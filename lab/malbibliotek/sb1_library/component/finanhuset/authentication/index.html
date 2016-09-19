@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+<script>
+var count = 0, timer = 0, i = 0, out = [
+  '<iframe frameborder="0" src="https://tools-preprod.bankid.no/bankid-test/auth"></iframe>',
+  '<iframe frameborder="0" src="https://tools-preprod.bankid.no/bankid-test/sign/pdf"></iframe>'
+];
+
+function startup() {
+	_displayIframe(i);
+}
+
+function clickChange() {
+	/*
+	clearTimeout( timer );
+	timer = setTimeout( function(){ count=0; }, 300 );
+	count++;
+	if ( count>1 ) {
+	*/
+		i = i ? 0 : 1;
+		_displayIframe(i);
+	//}
+}
+
+function _displayIframe( index ) {
+	document.getElementById('iframe_wrapper').innerHTML = out[index||0];
+}
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<header>
+	<div>
+		<a href="#" class="sb1_burger"></a>
+		<a href="#" onClick="javascript:clickChange()" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+		<a href="#" class="sb1_profile"></a>
+	</div>
+</header>
+<main>
+	<h1 style="text-align:center">Autentisering</h1>
+  <div class="sb1_form_layout">
+    <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper">
+      <!--
+    	<iframe frameborder="0" src="https://tools-preprod.bankid.no/bankid-test/sign/pdf"></iframe>
+      <iframe frameborder="0" src="http://www.vg.no"></iframe>
+      <iframe frameborder="0" src="https://tools-preprod.bankid.no/bankid-test/auth"></iframe>
+		  -->
+    </div>
+  </div>
+	<div id="lipsum" style="padding:10px 0;width:100%;max-width: 1280px;margin:0 auto;">
+		<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod mauris ac est fermentum dignissim. Mauris maximus tincidunt justo et feugiat. Vivamus auctor risus ante, non molestie lectus dignissim vitae. Suspendisse dapibus tortor eu ultricies aliquet. Aliquam in felis malesuada, bibendum justo vitae, lacinia nisi. Aenean iaculis libero at luctus tempus. Quisque in imperdiet est. Pellentesque eleifend pellentesque nisi, id sollicitudin justo tristique vel. Nulla lorem nulla, malesuada ac facilisis eu, aliquet id lectus. Nunc tempus ultricies lectus commodo gravida.
+		</p>
+		<p>
+		Vivamus feugiat, ante ut tristique sollicitudin, urna dui mattis diam, nec ornare felis quam sit amet ipsum. Aenean malesuada ultricies elit eu lobortis. Quisque et gravida velit. In ullamcorper ultricies aliquet. Quisque scelerisque dapibus nunc, at sagittis ex fermentum non. Sed non sollicitudin turpis. Aliquam eu commodo est. Praesent molestie, ligula at pharetra viverra, neque massa eleifend neque, non ultricies urna risus sit amet lorem. Sed rhoncus purus sed fermentum malesuada.
+		</p>
+		<p>
+		Nullam efficitur arcu magna, sed pulvinar turpis imperdiet ac. Pellentesque interdum arcu quis neque dapibus aliquet. Vivamus rhoncus mauris non ullamcorper convallis. Sed mattis libero ac hendrerit viverra. Sed ultrices auctor quam, a convallis nisi sagittis in. Maecenas pulvinar eros dignissim nulla gravida ultricies. Vestibulum eu odio gravida, semper orci sit amet, finibus tortor. Sed eu tellus ac ex viverra euismod vel eget mauris. Cras luctus in erat id tincidunt. Proin molestie magna a vestibulum rhoncus. Fusce tincidunt mauris ac purus suscipit, at fermentum diam venenatis. Quisque pharetra metus et dui maximus tincidunt.
+		</p>
+		<p>
+		Donec a diam in tellus condimentum imperdiet a a sem. Sed condimentum, ante at rutrum consequat, velit quam semper enim, sit amet molestie nisl nisl quis est. Sed vehicula efficitur lacus at vulputate. Donec euismod pellentesque varius. In ante est, egestas vel tristique a, vulputate et nisl. Nulla facilisi. Nunc sed nisi eleifend, aliquet tortor eget, elementum orci. Nulla auctor justo quis ipsum egestas, quis tempor dolor rutrum. Fusce nec sodales lacus, ac mattis ex. Aenean ultrices nulla sapien, eget placerat massa commodo id. Integer euismod felis eu est scelerisque, at tempor felis gravida. Integer vitae iaculis lectus, sed elementum justo. Ut tristique nibh non porttitor bibendum.
+		</p>
+		<p>
+		Phasellus quis justo porttitor, pharetra velit in, pharetra purus. Fusce commodo, libero sed venenatis semper, ante tellus fermentum mi, eu aliquam ex sem a ipsum. Nam molestie magna orci, non sagittis nunc laoreet sed. Nulla sodales libero nibh, vitae ornare lorem tempor non. Sed feugiat volutpat justo. Nunc tempor efficitur condimentum. Morbi turpis justo, accumsan non rhoncus ut, finibus quis ipsum. Duis nec fermentum augue. Duis pretium ullamcorper sem sit amet pulvinar. Quisque ut rutrum lectus. Nam non mauris sapien. Morbi molestie scelerisque felis ac faucibus. In in sagittis leo.
+		</p>
+	</div>
+</main>
+<!--<footer>Footer</footer>-->
+</body>
+</html>

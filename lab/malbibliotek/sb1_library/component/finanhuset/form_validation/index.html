@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+input[type="submit"] {
+  border: 0 none;
+}
+
+textarea, input:not([type="submit"]) {
+  width: auto;
+}
+
+
+/*
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  -webkit-appearance: none !important;  
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+*/
+
+label {
+  display: block;
+  padding-bottom: 10px;
+}
+
+form {
+  display: table;
+  width: 100%;
+}
+
+.wrapper {
+  padding: 20px 0 0 0;
+  clear: both;
+  float: left;
+  width: 100%;
+}
+
+.cell {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+input {
+  max-width: 300px;
+}
+
+input[type="text"] {
+  position: relative;
+  z-index: 1;
+  background: transparent none repeat 0 0;
+}
+
+input[maxlength="4"]  { width: 85px !important;  }
+input[maxlength="16"] { width: 270px !important; }
+
+.sb1_input_wrapper {
+  position: relative;
+}
+
+.sb1_input_textfield + .sb1_input_placeholder {
+  color: #999;
+  background-color: #FFF;
+  padding: 0 5px;
+  position: absolute;
+  top: 12px;
+  left: 7px;
+  font-size: 13px;
+
+  -webkit-transition: top .3s ease;                  
+  -moz-transition: top .3s ease;                 
+  -o-transition: top .3s ease;   
+  -ms-transition: top .3s ease;         
+  transition: top .3s ease; 
+}
+.sb1_input_textfield.sb1_form_validation_on_focus + .sb1_input_placeholder,
+.sb1_input_textfield.sb1_form_validation_has_value + .sb1_input_placeholder {
+  top: -15px;
+  z-index: 3;
+}
+
+.sb1_input_textfield + .sb1_input_placeholder > .hide {
+  position: absolute;
+  font-size: 1px;
+  visibility: hidden;
+  text-indent: -1000px;
+}
+
+.sb1_date_input_wrapper {
+  border: 2px solid #d8d8d8;
+  border-radius: 4px;
+  list-style: none;
+  display: table;
+}
+
+.sb1_date_input_wrapper.sb1_form_validation_on_focus {
+  border-color: #008ed2;
+}
+
+.sb1_date_input_wrapper input[type="text"] {
+  border: 0 none !important;
+  white-space: nowrap !important;
+  width: 50px !important;
+  text-align: center !important;
+}
+
+.sb1_date_input_wrapper input[name="year"] {
+  width: 70px !important;
+}
+
+.sb1_date_input_wrapper > div {
+  display: table-cell;
+  position: relative;
+}
+
+.sb1_date_input_wrapper > div:before {
+  content : " / ";
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.sb1_date_input_wrapper > div:first-child:before {
+  display: none;
+}
+
+
+.sb1_date_input_wrapper .sb1_input_textfield + .sb1_input_placeholder {
+  left: 28px;
+}
+
+.sb1_date_input_wrapper > div:first-child .sb1_input_textfield:first-child + .sb1_input_placeholder {
+  left: 10px;
+}
+
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+
+</head> 
+<body>
+<div style="height:1900px">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form id="application" method="post" action="" novalidate>   
+
+        <div class="wrapper">
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper">
+            <input type="radio" class="sb1-input-radio" name="radio1" id="radioA" data-rule="parent_target[.sb1_input_wrapper]" required>
+            <label class="sb1-input-radio-label" for="radioA">Male</label>        
+            <input type="radio" class="sb1-input-radio" name="radio1" id="radioB" data-rule="parent_target[.sb1_input_wrapper]" required>
+            <label class="sb1-input-radio-label" for="radioB">Female</label>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <label for="cname"><span aria-hidden="true">*</span> Name (at least 3 characters)</label>
+          <div class="sb1_input_wrapper">
+            <input id="cname"  class="sb1_input_textfield large" name="name" minlength="3" type="text" required spellcheck="false" autocomplete="off">
+            <div class="sb1_input_placeholder">Firstname and lastname</div>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <div class="sb1_input_wrapper">
+            <div class="cell">
+              <label for="cpost">Post number</label>
+              <input id="cpost" class="sb1_input_textfield large" name="postnumber" type="text" spellcheck="false" autocomplete="off" 
+                data-rule="postnumber digit[4] parent_target[.sb1_input_wrapper]" maxlength="4">
+            </div>
+            <div class="cell">
+              <label for="cadr">Address</label>
+              <input id="cadr" class="sb1_input_textfield large" name="address" type="text" spellcheck="false" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <label for="cemail"><span aria-hidden="true">*</span> E-Mail</label>
+          <input id="cemail"  class="sb1_input_textfield large" type="email" name="email" required spellcheck="false" autocomplete="off">
+        </div>
+        
+        <div class="wrapper">
+          <label for="cemail">Number</label>
+          <input id="cnumber" class="sb1_input_textfield large" type="text" name="cnumber" data-rule="number" spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="wrapper">
+          <label for="curl">URL (optional)</label>
+          <input id="curl"  class="sb1_input_textfield large" type="url" name="url" spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="wrapper">
+          <label for="ccomment"><span aria-hidden="true">*</span> Your comment (required)</label>
+          <textarea  class="sb1_input_textarea" id="ccomment" name="comment" required></textarea>
+        </div>
+
+        <div class="wrapper">
+          <input type="checkbox" class="sb1-input-checkbox" id="cpolicy" name="cpolicy" value="policy" required>
+          <label class="sb1-input-checkbox-label" for="cpolicy"><span aria-hidden="true">*</span> I have read the policy</label>
+        </div>
+
+        <div class="wrapper">
+          <label id="cdate">Date</label>
+          <div class="sb1_date_input_wrapper">
+            <div>
+              <input class="sb1_input_textfield large" type="text" name="day" maxlength="2" aria-labelledby="cdate"
+                data-rule="parent_target[.sb1_date_input_wrapper] number day digit[2]" spellcheck="false" autocomplete="off">
+              <div class="sb1_input_placeholder">
+                <span aria-hidden="true">DD</span>
+                <span aria-hidden="false" class="hide">Enter a day number</span>
+              </div>
+            </div>
+            <div>
+              <input class="sb1_input_textfield large" type="text" name="month" maxlength="2" aria-labelledby="cdate"
+                data-rule="parent_target[.sb1_date_input_wrapper] number month digit[2]" spellcheck="false" autocomplete="off">
+              <div class="sb1_input_placeholder">
+                <span aria-hidden="true">MM</span>
+                <span aria-hidden="false" class="hide">Enter a month number</span>
+              </div>
+            </div>
+            <div>
+              <input class="sb1_input_textfield large" type="text" name="year" maxlength="4" aria-labelledby="cdate" 
+                data-rule="parent_target[.sb1_date_input_wrapper] number year digit[4]" spellcheck="false" autocomplete="off">
+              <div class="sb1_input_placeholder">
+                <span aria-hidden="true">YYYY</span>
+                <span aria-hidden="false" class="hide">Enter a year number in 4 digits</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <label for="ctelephone">Phone number</label>
+          <input id="ctelephone" class="sb1_input_textfield large" type="tel" value="63813347" name="ctelephone" data-rule="telephone" spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="wrapper">
+          <label for="cmobile">Mobile number</label>
+          <input id="cmobile" class="sb1_input_textfield large" type="tel" value="97734656" name="cmobile" data-rule="mobile" spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="wrapper">
+          <label for="camount">Amount</label>
+          <input id="camount" class="sb1_input_textfield large" type="text" value="1000" name="cnumber" data-rule="amount" spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="wrapper">
+          <label for="ccreditcardnumber">Credit card number</label>
+          <input id="ccreditcardnumber" class="sb1_input_textfield large" type="text" value="1234123412341234" name="creditcardnumber" data-rule="creditcardnumber" spellcheck="false" autocomplete="off" minlength="16">
+        </div>
+
+        <div class="wrapper sb1_input_wrapper">
+          <div style="padding-bottom:10px;">Select at least 2 options.</div>
+          <input type="checkbox" class="sb1-input-checkbox" id="csb1-insurance" name="sb1-type1" value="insurance" data-rule="atleastoption[2] parent_target[.sb1_input_wrapper]">
+          <label class="sb1-input-checkbox-label" for="csb1-insurance">Insurance</label>
+          <input type="checkbox" class="sb1-input-checkbox" id="csb1-saving" name="sb1-type2" value="saving" data-rule="atleastoption[2] parent_target[.sb1_input_wrapper]">
+          <label class="sb1-input-checkbox-label" for="csb1-saving">Saving</label>
+          <input type="checkbox" class="sb1-input-checkbox" id="csb1-pension" name="sb1-type3" value="pension" data-rule="atleastoption[2] parent_target[.sb1_input_wrapper]">
+          <label class="sb1-input-checkbox-label" for="csb1-pension">Pension</label>
+          <input type="checkbox" class="sb1-input-checkbox" id="csb1-mortgage" name="sb1-type4" value="mortgage" data-rule="atleastoption[2] parent_target[.sb1_input_wrapper]">
+          <label class="sb1-input-checkbox-label" for="csb1-mortgage">Mortgage</label>
+          <input type="checkbox" class="sb1-input-checkbox" id="csb1-payment" name="sb1-type5" value="payment" data-rule="atleastoption[2] parent_target[.sb1_input_wrapper]">
+          <label class="sb1-input-checkbox-label" for="csb1-payment">Payment</label>          
+        </div>
+
+        <div class="wrapper">
+          <label for="cname"> Birthday</label>
+          <div class="sb1_input_wrapper">
+            <input id="cdate" class="sb1_input_textfield large" name="cdate" minlength="8" type="text" data-rule="date" spellcheck="false" autocomplete="off" value="08.09.2014">
+            <div class="sb1_input_placeholder" aria-hidden="true">DD.MM.YYYY</div>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <input class="action-btn" type="submit" value="Submit">
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  $('#application').SB1formValidation({
+    'language' : 'en',
+    'live'     : 3
+  });  
+</script>
+</body>
+</html>

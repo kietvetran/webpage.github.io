@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+
+<style>
+main {
+  display: block;
+  max-width: 1280px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+#note_description {
+  margin-top: 30px;
+}
+
+#note_description > span {
+  font-style: italic;
+  color: #ccc;
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script>
+function startup() {
+  //$('#iframe_wrapper').html('<iframe frameborder="0" id="bid_client" src="./bid/bid.html"></iframe>');
+  setTimeout( function() {
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('sb1_profile') && ! target.hasClass('inc_message') ) {
+        e.preventDefault();
+      }
+    });
+  }, 500 );
+  //toggleRememberCard( readCookie('l_s_a') );
+};
+
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function toggleRememberCard( later ) {
+  var node = $('.sb1_profile'), mode = 'inc_message', url = './remember.html';
+
+  if ( later ) {
+    node.attr('href', url).addClass( mode );
+    $('#note_description').html(
+      '<a href="'+url+'">Du har 1 minne i huskeliste.</a>'
+    );
+  }
+  else {
+    node.attr('href', '#').removeClass( mode );
+  }
+}
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+} 
+
+
+</script>
+</head> 
+<body onload="javascript:startup()">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main style="overflow:hidden; height: 900px;">
+  <h1 style="text-align:center;padding:100px 0 30px 0">Nettbank</h1>
+  <p class="lead">
+    "Velkommen som kunde i SpareBank 1! Din BSU-konto er klar til bruk."
+  </p>
+  <div id="note_description"><span>Ingen demo</span></div>
+</main>
+<!--<footer>Footer</footer>-->
+</body>
+</html>

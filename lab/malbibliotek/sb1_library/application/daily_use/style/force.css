@@ -1,0 +1,458 @@
+/******************************************************************************
+=== h2 ===
+******************************************************************************/
+#layout.force #main h2{
+	font-size: 32px;
+}
+#layout.force #main h3{
+	font-size: 24px;
+}
+#layout.force #main h4{
+	font-size: 19px;
+}
+
+/******************************************************************************
+===  sb1_form_row ===
+******************************************************************************/
+#layout.force .sb1_form_row {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#layout.force #main .sb1_form_row.paragraph {
+	padding-bottom: 0;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd::after, 
+#layout.force #main .sb1_form_row.p_bottom.row_even::after {
+	height: 70px;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_input_wrapper, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_input_wrapper {
+	bottom: 16px;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_form_validation_error {
+	margin-bottom: -44px;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd #error_for_payment_amount_kr_field.sb1_form_validation_error,
+#layout.force #main .sb1_form_row.p_bottom.row_even #error_for_payment_amount_kr_field.sb1_form_validation_error,
+#layout.force #main .sb1_form_row.p_bottom.row_odd #error_for_payment_expire_date_name.sb1_form_validation_error,
+#layout.force #main .sb1_form_row.p_bottom.row_even #error_for_payment_expire_date_name.sb1_form_validation_error,
+#layout.force #main .sb1_form_row.p_bottom.row_odd #error_for_payment_amount_or_field.sb1_form_validation_error,
+#layout.force #main .sb1_form_row.p_bottom.row_even #error_for_payment_amount_or_field.sb1_form_validation_error {
+  margin-bottom: -60px;
+}
+
+#layout.force .sb1_form_row .sb1_row_content label {
+	font-size: 16px;
+}
+
+#layout.force .sb1_form_row .sb1_row_content .content_holder {
+	padding-bottom: 10px;
+}
+
+#layout.force .sb1_form_row .sb1_info_btn {
+	background-size: 40px auto;	
+}
+
+#layout.force #main .sb1_form_row.row_odd.show_information .sb1_info_wrapper, 
+#layout.force #main .sb1_form_row.row_even.show_information .sb1_info_wrapper, 
+#layout.force #main .sb1_form_row.maximum_width.show_information .sb1_info_wrapper {
+	padding-bottom: 15px;
+}
+
+#layout.force .sb1_form_row .tip-wrapper .content, 
+#layout.force .sb1_form_row .sb1_info_wrapper .text_holder {
+	padding: 20px;
+	font-size: 15px;
+}
+
+/********************************************* == sb1_calender_field_wrapper == *******/
+#layout.force #main .sb1_form_row .sb1_calender_field_wrapper .icon-calendar {
+  top: 8px;
+  font-size: 48px;
+}
+
+/******************************************************************************
+=== input & dropdown ===
+******************************************************************************/
+#layout.force #main textarea, 
+#layout.force #main input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="reset"]) {
+	padding: 9px;
+}
+
+#layout.force #main textarea {
+	line-height: 20px;
+}
+
+#layout.force .sb1_dropdown_menu button, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_btn {
+	font-size: 16px;
+	line-height: 41px;
+}
+
+#layout.force .sb1_dropdown_menu button::after, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_btn::after {
+	background-size: 18px auto;
+}
+
+/* account */
+#layout.force .sb1_dropdown_menu.account_list .sb1_dropdown_btn .sb1_text {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#layout.force .sb1_dropdown_menu.account_list .sb1_dropdown_btn .sb1_text:first-child {
+	font-size: 16px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_dropdown_list {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_dropdown_expander, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_empty, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_option {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_counter {
+	bottom: -2px;
+}
+
+.sb1_dropdown_menu .sb1_dropdown_list_wrapper .sb1_dropdown_list {
+  margin-top: -7px;
+}
+
+/******************************************************************************
+=== input & dropdown ===
+******************************************************************************/
+#layout.force textarea.kid_or_msg {
+	line-height: 20px;
+ 	height: 65px;
+}
+
+/******************************************************************************
+=== deposit ===
+******************************************************************************/
+#layout.force #deposit_account_section #landlord_person_phone, 
+#layout.force #deposit_account_section #landlord_person_name {
+	font-size: 18px;
+}
+#layout.force #landlord_change_person_data_link {
+	top: 5px;
+}
+
+#layout.force .sb1_accordion_menu .sb1_accordion_confirmation_holder .accordion_confirmation_item {
+	font-size: 18px;
+	max-height: 445px;
+	padding: 15px;
+}
+
+#layout.force .sb1_accordion_menu .sb1_accordion_confirmation_holder .accordion_confirmation_item .body_content {
+	margin-top: 12px;
+}
+
+/******************************************************************************
+=== main_sidebar_toggler ===
+******************************************************************************/
+#layout.shy_main_sidebar #main:before {
+  margin-right: 0 !important;
+}
+
+#layout.shy_main_sidebar #main .separation_sidebar_wrapper { 
+  padding-left: 40px;
+  overflow: visible;
+  margin-left: -10px;
+}
+
+#layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_content {
+  position: relative;
+  z-index: 1;
+}
+
+#layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar > * {
+  visibility: hidden;
+}
+
+#layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar #main_sidebar_toggler {
+  visibility: visible;
+  display: block;
+}
+
+#layout.shy_main_sidebar #main:before {
+  right: 100%;
+  margin-right: -10px;
+  width: 200%;
+}
+
+.display_main_sidebar_on_animation #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_content,
+.display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_content {
+  z-index: -1;
+}
+
+.display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar {
+  width: 50%; 
+  position: relative;
+  z-index: 20;
+  margin-left: -30px;
+  margin-right: -100%;
+}
+
+.display_main_sidebar_on_animation #layout.shy_main_sidebar  #main .separation_sidebar_wrapper > .separation_sidebar > *,
+.display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar > * {
+  visibility: visible;
+}
+
+.display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar #main_sidebar_toggler {
+  margin-left: -22px;
+}
+
+.display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar #main_sidebar_toggler:before {
+  background-color: #005ca6;
+}
+
+.display_main_sidebar #layout.shy_main_sidebar #main:before {
+  right: 50%;
+  margin-right: 42px !important;
+}
+
+
+
+/******************************************************************************
+=== new_main_sidebar ===
+******************************************************************************/
+.new_main_sidebar #main:before {
+  background-color: #f1f0f0;
+  box-shadow: 1px 0 0 #999;
+  z-index: 1;
+}
+
+.new_main_sidebar #msg_row_wrapper,
+.new_main_sidebar #msg_row_wrapper:before,
+.new_main_sidebar #msg_row_wrapper:after {
+  background: #edecec none repeat 0 0;  
+}
+
+.new_main_sidebar .total_amount_ath_and {
+  font-family: "MuseoSansRounded-300";
+}
+
+.new_main_sidebar .total_amount_ath_and .amount {
+  color: #005aa4;
+  font-family: "MuseoSansRounded-700";
+  font-weight: normal;
+  text-shadow: none;
+  padding-bottom: 3px;
+}
+
+.new_main_sidebar .total_amount_ath_and .description {
+  font-size: 16px;
+}
+
+.new_main_sidebar #main .separation_sidebar a,
+.new_main_sidebar #main .separation_sidebar a:focus {
+  outline: none !important;
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .accordion_status {
+  margin-right: 15px;
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .sb1_accordion_tab > h3 {
+  border: 0 none;
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .sb1_accordion_tab .accordion_summary_total {
+  opacity: 1; 
+  filter: alpha(opacity=100);    
+  -webkit-transition-delay: .4s;                  
+  -moz-transition-delay: .4s;                 
+  -o-transition-delay: .4s;   
+  -ms-transition-delay: .4s;         
+  transition-delay: .4s;
+  font-family: "MuseoSansRounded-300";
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .sb1_accordion_tab.accordion_active .accordion_summary_total {
+  opacity: 0; 
+  filter: alpha(opacity=0);    
+  -webkit-transition-delay: 0;                  
+  -moz-transition-delay: 0;                 
+  -o-transition-delay: 0;   
+  -ms-transition-delay: 0;         
+  transition-delay: 0;
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .accordion_summary_total .amount {
+  position: absolute;
+  top: 0;
+  right: 30px;  
+}
+
+.new_main_sidebar .account_collection .account_item {
+  font-family: "MuseoSansRounded-300";
+  border: 2px solid #d3d3d3; 
+  background: #f6f6f6 none repeat 0 0; 
+  border-radius: 4px;
+  margin: 0 15px 15px 0;
+}
+
+.new_main_sidebar #main .separation_sidebar .sb1_accordion_menu .accordion_summary_total .amount,
+.new_main_sidebar .account_collection .account_item .amount {
+  color: #005aa4;
+}
+
+.new_main_sidebar .account_collection .account_item .name {
+  color: #262626;
+}
+
+.new_main_sidebar .account_collection .account_item .account {
+  color: #676767;
+  opacity: 0.8; 
+  filter: alpha(opacity=80);    
+}
+
+/******************************************************************************
+=== maturity_table ===
+******************************************************************************/
+
+#layout.force #main .maturity_table_wrapper h3 {
+  font-size: 22px;
+  padding-bottom: 20px;
+}
+
+#layout.force .maturity_table > li a,
+#layout.force .maturity_table > li div,
+#layout.force .maturity_table > li {
+  font-size: 16px;
+}
+
+#layout.force .maturity_table.footer > li > div.amount {
+  font-size: 22px;
+}
+
+
+/******************************************************************************
+=== new_blue_line_icon ===
+******************************************************************************/
+.new_blue_line_icon #header .submenu > li a {
+  font-family: "MuseoSansRounded-300";
+}
+
+.new_blue_line_icon #header .submenu > li a.pay:before {
+  background: transparent url("../img/icon/blue_line/betale.png") no-repeat scroll 10px center;
+}
+
+.new_blue_line_icon #header .submenu > li a.transfer:before {
+  background: transparent url("../img/icon/blue_line/overfore.png") no-repeat scroll center center;
+  background-size: 32px auto;
+}
+
+.new_blue_line_icon #header .submenu > li a.maturity:before {
+  background: transparent url("../img/icon/blue_line/forfall.png") no-repeat scroll center center;
+  background-size: 33px auto;
+}
+
+.new_blue_line_icon #header .submenu > li a.invoice:before {
+  background: transparent url("../img/icon/blue_line/efaktura.png") no-repeat scroll center center;
+  background-size: 34px auto;
+}
+
+.new_blue_line_icon #header .submenu > li a.card:before {
+  background: transparent url("../img/icon/blue_line/kort.png") no-repeat scroll center center;
+  background-size: 43px auto;
+}
+
+.new_blue_line_icon #header .submenu > li a.dialog:before {
+  background: transparent url("../img/icon/blue_line/dialog.png") no-repeat scroll center center;
+  background-size: 43px auto;
+}
+
+/******************************************************************************
+=== sb1_slider_toggler ===
+******************************************************************************/
+#layout.force .sb1_slider_toggler input + label {
+  height: 45px;
+  line-height: 42px;
+}
+
+#layout.force .sb1_slider_toggler input + label .item_btn {
+  width: 42px;
+}
+
+#layout.force .sb1_slider_toggler input:checked + label .item_btn {
+  margin-left: 48px;
+}
+
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 830px) {
+  .new_blue_line_icon #header .submenu > li a.pay:before {
+    background-size: 38px auto;
+  }
+
+  .new_blue_line_icon #header .submenu > li a.transfer:before {
+    background-size: 25px auto;
+  }
+
+  .new_blue_line_icon #header .submenu > li a.maturity:before {
+    background-size: 26px auto;
+  }
+
+  .new_blue_line_icon #header .submenu > li a.invoice:before {
+    background-size: 27px auto;
+  }
+
+  .new_blue_line_icon #header .submenu > li a.card:before {
+    background-size: 36px auto;
+  }
+
+  .new_blue_line_icon #header .submenu > li a.dialog:before {
+    background-size: 36px auto;
+  }
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 700px) {
+  #layout.force #main .sb1_form_row.on_animation .sb1_info_wrapper,
+  #layout.force #main .sb1_form_row.show_information .sb1_info_wrapper {
+    padding-bottom: 10px;
+  }
+
+  #layout.force #main .sb1_form_row.p_bottom.row_even,
+  #layout.force #main .sb1_form_row.p_bottom.row_odd {
+    padding-bottom: 20px;
+  }
+
+  .display_main_sidebar #layout.shy_main_sidebar #main .separation_sidebar_wrapper > .separation_sidebar {
+ 		width: 100%;   	
+  }
+
+  .display_main_sidebar #layout.shy_main_sidebar #main:before {
+  	right: 0;
+  }
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 450px) {
+	/********************************* == kid_or_msg == *******/
+  #layout.force textarea.kid_or_msg {
+    height: 86px;
+  }
+  /********************************* == END OF kid_or_msg == *******/
+}

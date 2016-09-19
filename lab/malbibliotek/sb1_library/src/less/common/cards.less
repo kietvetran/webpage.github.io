@@ -1,0 +1,328 @@
+
+//////////////////////////////////////////////////////////////
+//
+//  Card lists
+//
+//////////////////////////////////////////////////////////////
+.list-wrap{
+    padding: 10px 0;
+    margin: 0 auto;
+    font-size: 0;
+    text-align: center;
+    line-height: normal;
+    margin: 0 -10px;
+    &:after{
+        content: "."; 
+        visibility: hidden; 
+        display: block; 
+        height: 0; 
+        clear: both;
+    }
+}
+.subcategory-card-list {
+    &:extend(.list-wrap all);
+}
+.product-card-list {
+    &:extend(.list-wrap all);
+}
+.topic-card-list {
+    &:extend(.list-wrap all);
+}
+
+//////////////////////////////////////////////////////////////
+//
+//  Card containers
+//
+//////////////////////////////////////////////////////////////
+
+.card-container {
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+
+    &:only-child {
+        width: 100%;
+        font-size: 20px;
+        float: none;
+        margin: 0 auto;
+        @media (min-width: 400px) {
+            max-width: 300px;
+        }
+    }
+}
+
+.subcategory-card-container {
+    &:extend(.card-container all);
+    width: 100%;
+    max-height: 270px;
+    padding: 0;
+    
+    @media (min-width: 400px) {
+        width: 50%;
+        padding: 10px;
+        &:after {
+            padding-top: 100%;
+            display: block;
+            content: '';
+        }
+    }
+    @media (min-width: 600px) {
+        width: 33.33%;
+    }
+    @media (min-width: 900px) {
+        width: 25%;
+    }
+}
+
+.product-card-container {
+    &:extend(.card-container all);
+    width: 100%;
+    max-height: 270px;
+    padding: 0;
+    
+    @media (min-width: 400px) {
+        width: 50%;
+        padding: 10px;
+        &:after {
+            padding-top: 100%;
+            display: block;
+            content: '';
+        }
+    }
+
+    @media (min-width: 600px) {
+        width: 33.33%;
+        float: none;
+    }
+    @media (min-width: 900px) {
+        width: 25%;
+        float: none;
+    }
+}
+
+.topic-card-container {
+    &:extend(.card-container all);
+    width: 100%;
+    max-height: 400px;
+    
+    &:after {
+        padding-top: 100%;
+        display: block;
+        content: '';
+    }
+
+    @media (min-width: 400px) {
+        width: 50%;
+    }
+    @media (min-width: 600px) {
+        width: 33.33%;
+    }
+    @media (min-width: 900px) {
+        width: 25%;
+    }
+}
+
+//////////////////////////////////////////////////////////////
+//
+//  Cards
+//
+//////////////////////////////////////////////////////////////
+.card {
+    overflow: hidden;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    bottom: 0%;
+    right: 0%;
+
+    border-radius: 4px;
+    text-decoration: none;
+    transition: transform 0.2s;
+    text-align: center;
+    margin: 10px;
+
+    &:hover,
+    &:focus,
+    &:active {
+        transform: scale(1.025);
+    }
+
+    .card-content-container {
+        display: inline-table;
+        height: 100%;
+        width: 100%;
+        padding: 10px;
+        color: @blue-royal-light-wcag;
+        line-height: 1;
+
+        .card-content {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+}
+
+.subcategory-card {
+    &:extend(.card all);
+    
+    display: inline-block;
+    border: solid @gray-light 2px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: static;
+    width: 100%;
+    margin: 10px 0;
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: @blue-royal-light-wcag;
+        box-shadow: 0 2px 2px 0 #EEEEEE;
+    }
+    .icon .inline-svg,
+    .icon img {
+        display: block;
+    }
+    .icon {
+        display: table-cell;
+        vertical-align: middle;
+        width: 80px;
+    }
+    .title-text {
+        &:extend(h5);
+        margin: 0;
+        color: @blue-royal-light-wcag;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+    }
+    
+    @media (min-width: 400px) {
+        position: absolute;
+        width: auto;
+        margin: 10px;
+        
+        .icon .inline-svg,
+        .icon img {
+            width: 50%;
+            height: 50%;
+            display: block;
+            margin: auto;
+
+        }
+        .icon {
+            display: block;
+            vertical-align: inherit;
+            width: auto;
+        }
+        .title-text {
+            display: block;
+            text-align: center;
+        }
+    }
+}
+
+.product-card {
+    &:extend(.card all);
+
+    display: inline-block;
+    border: solid @gray-light 2px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: static;
+    width: 100%;
+    margin: 10px 0;
+
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: @blue-royal-light-wcag;
+        box-shadow: 0 2px 2px 0 #EEEEEE;
+    }
+    
+    .icon .inline-svg,
+    .icon img {
+        display: block;
+    }
+    .icon {
+        display: table-cell;
+        vertical-align: middle;
+        width: 80px;
+    }
+    .title-text {
+        &:extend(h5);
+        margin: 0;
+        color: @blue-royal-light-wcag;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+    }
+    
+    @media (min-width: 400px) {
+        position: absolute;
+        width: auto;
+        margin: 10px;
+        
+        .icon .inline-svg,
+        .icon img {
+            width: 50%;
+            height: 50%;
+            display: block;
+            margin: auto;
+
+        }
+        .icon {
+            display: block;
+            vertical-align: inherit;
+            width: auto;
+        }
+        .title-text {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    &.highlighted {
+        border: none;
+        background-color: #005AA4;
+        .title-text {
+            color: @white;
+        }
+    }
+}
+
+.topic-card {
+    &:extend(.card all);
+    border: none;
+    .background img {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        border: none;
+    }
+
+    .card-content-container {
+        background-color: @white;
+        height: 60px;
+        position: absolute;
+        left: 10%;
+        bottom: 20px;
+        width: 81%;
+    }
+    .title-text {
+        &:extend(h5);
+    }
+}
+
+.highlighted-products {
+    text-align: center;
+    .hidden-list {
+        display: none;
+    }
+}

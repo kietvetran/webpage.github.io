@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sparebank1</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<!-- CSS style -->
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#layout {
+  padding: 15px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.container h1 {
+  text-align: center;
+}
+
+section, article {
+  display: block;
+}
+
+</style>
+<!-- Script -->
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_carousel.js"></script>
+<script type="text/javascript" src="./data.js"></script>
+<script type="text/javascript" src="./sb1_carousel_and_product.js"></script>
+
+<script>
+function startup() { 
+  var node = $('#test').SB1carouselAndProduct( {
+    'carousel': DATA.question,
+    'product' : DATA.product,
+    'productViewCount' : 8
+  });
+}
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function eraseCookie( name ) { 
+  return createCookie( name , '', -1 ); 
+}
+
+function resetStorage() {
+  eraseCookie('SB1_C_N_P');
+  window.location.reload();   
+/*
+  var href = window.location.href;
+  window.location.href = href;
+  */
+}
+</script>
+</head> 
+<body onload="javascript:startup()">
+<div id="layout">
+  <div class="container" style="border-top: 1px solid blue">
+    <h1>Sparebank1</h1>
+    <section id="test"></section>
+  </div>
+</div> 
+<button style="position:fixed;top:0;right:0;padding:5px" onClick="javascript:resetStorage()">Reset storage</button> 
+</body>
+</html>

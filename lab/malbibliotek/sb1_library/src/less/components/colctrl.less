@@ -1,0 +1,21 @@
+@media (min-width: @screen-sm-min) {
+    .row-centered {
+        display: table;
+        text-align: center;
+        width: 100%;
+        
+        .col-centered {
+            display: table-cell;
+            float: none;
+            text-align: left;
+            vertical-align: middle;
+        }
+    }
+}
+.row-centered img {
+    display: block;
+}
+.row.no-margin {
+    margin-left: 0;
+    margin-right: 0;
+}

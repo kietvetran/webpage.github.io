@@ -1,0 +1,100 @@
+.bank-picker {
+    position: relative;
+    overflow: hidden;
+    padding-top: 60px;
+    @media (min-width: @screen-md){
+        padding-top: 1px;
+    }
+    > .bank-list {
+        position: relative;
+        top: -62px;
+        > .list-box {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+    > .bank-picker-header {
+        .bg-full-width();
+        text-align: center;
+        background-color: @blue-royal;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        > .text {
+            color: @white;
+            margin: auto;
+            text-align: inherit;
+            max-width: 800px;
+            p {
+                margin-top: 0;
+            }
+        }
+        > .se-more-btn {
+            margin: 0;
+        }
+        &.visited {
+            background-color: @sand-fifty;
+            > .text {
+                color: @blue-royal;
+            }
+        }
+    }
+}
+
+.bank-list {
+    display: none;
+    text-align: center;
+    > .list-box {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        > .bank-picker-suggestion {
+            margin-bottom: 60px;
+            > .secondary-btn {
+                border: 0;
+                margin: auto;
+                padding: 20px 20px;
+                font-size: 20px;
+                font-family: 'MuseoSansRounded-700';
+            }
+            .toggle-btn {
+                background-color: transparent;
+                border-color: @white;
+                margin-top: 20px;
+                > .btn-text {
+                    color: @white;
+                }
+            }
+        }
+        > .bank-selection {
+            padding-top: 40px;
+            border-top: 1px solid @blue-royal-light-fifty;
+            display: none;
+            margin: auto;
+            max-width: 1000px;
+            > .sb1_dropdown_menu {
+                margin: auto;
+                max-width: 300px;
+                > .sb1_dropdown_btn {
+                    border: none;
+                }
+            }
+            > .list-wrap {
+                .bank-prefix {
+                    margin-right: 10px;
+                    color: @blue-light-night;
+                }
+                ul {
+                    @media (min-width: @screen-md){
+                        width: 33.33%;
+                        padding: 20px;
+                    }
+
+                }
+            }
+        }
+        .small-title {
+            display: block;
+            margin-bottom: 10px;
+            color: @white;
+        }
+    }
+}

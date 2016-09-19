@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - innboforsikring</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+<style>
+.no_demo {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+}
+</style>
+
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script>
+
+function startup() {
+  var form = $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder',
+    'before_validation_callback' : function() {
+    	return false;
+    }
+  }).on( 'submit', function( e ) {
+    return e.preventDefault();
+  });
+
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    //node.find('.sb1_input_wrapper').SB1radioYesNoButton({});
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+};
+</script>
+</head> 
+<body onload="javascript:startup()">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main style="overflow:hidden; height: 900px;">
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <h1>Kjøp innboforsikring</h1>
+        </div>
+      </div>
+      <div class="form_body">
+        <form id="application" method="post" action="" novalidate>
+          <div class="error_summary_holder"></div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <!--
+                <a aria-controls="saving_amount_information" href="#" class="sb1_info_btn" role="button">
+                  Informasjon om personnummer
+                </a>
+                -->
+                <label for="saving_amount" data-shortname="">
+                  <span>Lorem ipsum</span>
+                </label>
+              </div>
+            </div>          
+            <div id="saving_amount_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                  et tortor quis sem tempus accumsan eu vitae mi.
+                </div>
+              </div>
+            </div>
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input id="saving_amount" name="saving_amount" type="tel" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" maxlength="12" disabled="true">
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <!--
+                <a aria-controls="account_name_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+                  Informasjon om kjørelengde
+                </a>
+                -->
+                <label data-shortname="" for="account_name">Lorem ipsum</label>
+              </div>
+            </div>          
+            <div id="account_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                  et tortor quis sem tempus accumsan eu vitae mi.
+                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+                  sapien eu, mollis nisl.
+                </div>
+              </div>
+            </div>
+            <div class="sb1_row_content sb1_input_wrapper">
+					    <div class="sb1_dropdown_menu">
+					      <a role="button" aria-controls="account_start_date_list" href="#" class="sb1_dropdown_btn"></a>
+					      <input type="hidden" name="current_account_company" aria-hidden="true" required disabled="true">                         
+					      <ul role="listbox" id="account_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+					        <li class="sb1_dropdown_option" data-value="abc" role="option">
+					          <div class="account_info">
+					            <div class="name">Standardkonto til Elisabeth Nilsen</div>
+					            <div class="note">
+					              <span class="number">3201 55 41119</span> -
+					              <span class="balance">kr 1 100 500</span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="sb1_dropdown_option" data-value="def" role="option">
+					          <div class="account_info">
+					            <div class="name">Brukskonto 1</div>
+					            <div class="note">
+					              <span class="number">3201 55 23338</span> -
+					              <span class="balance">kr 100 500</span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="sb1_dropdown_option selected" data-value="ghi" role="option">
+					          <div class="account_info">
+					            <div class="name">Sparekonto for bolig</div>
+					            <div class="note">
+					              <span class="number">3201 55 48888</span> -
+					              <span class="balance">kr 2 100 500</span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="sb1_dropdown_option" data-value="jkl" role="option">
+					          <div class="account_info">
+					            <div class="name">Standardkonto til Ole Petter kristiansen</div>
+					            <div class="note">
+					              <span class="number">3201 55 68777</span> -
+					              <span class="balance">kr 4 500</span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="sb1_dropdown_option" data-value="mno" role="option">
+					          <div class="account_info">
+					            <div class="name">Brukskonto 2</div>
+					            <div class="note">
+					              <span class="number">3201 55 71234</span> -
+					              <span class="balance">kr 114 500</span>
+					            </div>
+					          </div>
+					        </li>
+					        <li class="sb1_dropdown_option" data-value="pqr" role="option">
+					          <div class="account_info">
+					            <div class="name">BSU sparing</div>
+					            <div class="note">
+					              <span class="number">3201 55 92638</span> -
+					              <span class="balance">kr 20 000</span>
+					            </div>
+					          </div>
+					        </li>
+					      </ul>
+					    </div>            	
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+              	<!--
+                <a aria-controls="account_another_bank" href="#" class="sb1_info_btn" role="button">
+                  Hver måned, den:
+                </a>
+              -->
+                <label id="change_house_insurance_company2_label">
+                	Lorem ipsum:
+                </label>
+              </div>
+            </div>          
+            <div id="account_another_bank" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Du kan bare ha èn BSU-konto. Om du har en BSU-konto 
+                  i en annen bank: svar 'ja', så hjelper vi deg å flytte den.
+                </div>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+					    <div class="sb1_dropdown_menu">
+					      <input type="hidden" name="current_month_company" aria-hidden="true" required disabled="true">                         
+					      <a role="button" aria-controls="month_start_date_list" href="#" class="sb1_dropdown_btn"></a>
+					      <ul role="listbox" id="month_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+					        <li class="sb1_dropdown_option" data-value="abc" role="option">
+					        	15de
+					        </li>
+					      </ul>
+					    </div>
+
+            </div>
+          </div>
+
+          <div class="error_summary_holder"></div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+              <button class="action-btn disabled" id="submit_btn">logg inn og fullfør</button>
+              <!--<a href="#" class="continue_later" id="continue_later_btn" class="disabled">Fortsett senere</a>-->
+            </div>
+          </div>
+        </form>
+
+        <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<!--<footer>Footer</footer>-->
+</body>
+</html>

@@ -1,0 +1,178 @@
+/******************************************************************************
+=== h2 ===
+******************************************************************************/
+#layout.force #main h2{
+	font-size: 32px;
+}
+#layout.force #main h3{
+	font-size: 24px;
+}
+#layout.force #main h4{
+	font-size: 19px;
+}
+
+/******************************************************************************
+===  sb1_form_row ===
+******************************************************************************/
+#layout.force .sb1_form_row {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#layout.force #main .sb1_form_row.paragraph {
+	padding-bottom: 0;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd::after, 
+#layout.force #main .sb1_form_row.p_bottom.row_even::after {
+	height: 70px;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_input_wrapper, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_input_wrapper {
+	bottom: 16px;
+}
+
+#layout.force #main .sb1_form_row.p_bottom.row_odd .sb1_form_validation_error, 
+#layout.force #main .sb1_form_row.p_bottom.row_even .sb1_form_validation_error {
+	margin-bottom: -44px;
+}
+
+#layout.force .sb1_form_row .sb1_row_content label {
+	font-size: 16px;
+}
+
+#layout.force .sb1_form_row .sb1_row_content .content_holder {
+	padding-bottom: 10px;
+}
+
+#layout.force .sb1_form_row .sb1_info_btn {
+	background-size: 40px auto;	
+}
+
+#layout.force #main .sb1_form_row.row_odd.show_information .sb1_info_wrapper, 
+#layout.force #main .sb1_form_row.row_even.show_information .sb1_info_wrapper, 
+#layout.force #main .sb1_form_row.maximum_width.show_information .sb1_info_wrapper {
+	padding-bottom: 15px;
+}
+
+#layout.force .sb1_form_row .tip-wrapper .content, 
+#layout.force .sb1_form_row .sb1_info_wrapper .text_holder {
+	padding: 20px;
+	font-size: 15px;
+}
+
+/********************************************* == sb1_calender_field_wrapper == *******/
+#layout.force #main .sb1_form_row .sb1_calender_field_wrapper .icon-calendar {
+  right: 8px;
+  top: 8px;
+  font-size: 48px;
+}
+
+/******************************************************************************
+=== input & dropdown ===
+******************************************************************************/
+#layout.force #main textarea, 
+#layout.force #main input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="reset"]) {
+	padding: 9px;
+}
+
+#layout.force #main textarea {
+	line-height: 20px;
+}
+
+#layout.force .sb1_dropdown_menu button, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_btn {
+	font-size: 16px;
+	line-height: 46px;
+}
+
+#layout.force .sb1_dropdown_menu button::after, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_btn::after {
+	background-size: 18px auto;
+}
+
+/* account */
+#layout.force .sb1_dropdown_menu.account_list .sb1_dropdown_btn .sb1_text {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#layout.force .sb1_dropdown_menu.account_list .sb1_dropdown_btn .sb1_text:first-child {
+	font-size: 16px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_dropdown_list {
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_dropdown_expander, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_empty, 
+#layout.force .sb1_dropdown_menu .sb1_dropdown_option {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+#layout.force .sb1_dropdown_menu .sb1_counter {
+	bottom: -2px;
+}
+
+
+
+/******************************************************************************
+=== input & dropdown ===
+******************************************************************************/
+#layout.force textarea.kid_or_msg {
+	line-height: 20px;
+ 	height: 65px;
+}
+
+/******************************************************************************
+=== deposit ===
+******************************************************************************/
+#layout.force #deposit_account_section #landlord_person_phone, 
+#layout.force #deposit_account_section #landlord_person_name {
+	font-size: 18px;
+}
+#layout.force #landlord_change_person_data_link {
+	top: 5px;
+}
+
+#layout.force .sb1_accordion_menu .sb1_accordion_confirmation_holder .accordion_confirmation_item {
+	font-size: 18px;
+	max-height: 445px;
+	padding: 15px;
+}
+
+#layout.force .sb1_accordion_menu .sb1_accordion_confirmation_holder .accordion_confirmation_item .body_content {
+	margin-top: 12px;
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 700px) {
+  #layout.force #main .sb1_form_row.on_animation .sb1_info_wrapper,
+  #layout.force #main .sb1_form_row.show_information .sb1_info_wrapper {
+    padding-bottom: 10px;
+  }
+
+  #layout.force #main .sb1_form_row.p_bottom.row_even,
+  #layout.force #main .sb1_form_row.p_bottom.row_odd {
+    padding-bottom: 20px;
+  }
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 450px) {
+	/********************************* == kid_or_msg == *******/
+  #layout.force textarea.kid_or_msg {
+    height: 86px;
+  }
+  /********************************* == END OF kid_or_msg == *******/
+}

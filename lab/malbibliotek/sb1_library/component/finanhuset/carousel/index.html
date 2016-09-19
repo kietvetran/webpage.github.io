@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Image Swipe</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<!-- CSS style -->
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#layout {
+  padding: 15px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.container .h1 {
+  margin-bottom: 50px;
+}
+
+</style>
+<!-- Script -->
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_carousel.js"></script>
+
+<script>
+function startup() { 
+  var text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec varius sem ' +
+    'tincidunt neque cursus dictum. Sed et purus nec ante ullamcorper sodales. ' +
+    'Phasellus dictum iaculis massa sed aliquet. Fusce quis nunc metus, vitae ' +
+    'hendrerit est. Pellentesque mi mi, semper rutrum ullamcorper a, interdum ' +
+    'in odio. Phasellus facilisis ornare condimentum. Maecenas facilisis tempor ' +
+    'dolor, vehicula tincidunt nisi sodales sed. ' 
+    'Morbi pellentesque facilisis';
+
+  var node = $('.sb1_carousel_screen').SB1carousel( {
+    //'startIndexImage' : 2,
+    'carousel'        : false,
+    'autoSwipe'       : false, //true,
+    'reverse'         : true,
+    'incremental'     : false,
+    'data'            : [ 
+      { 'src': './img/cars1.jpg', 'text': 'Image 1' },
+      { 'src': './img/cars2.jpg', 'text': 'Image 2', 'mode': 'inactive' },  
+      //{ 'src': './img/cars2.jpg', 'text': 'Image 2' },  
+      { 'src': './img/cars3.jpg', 'text': 'Image 3' }, 
+      { 'text': text }, 
+      { 'src': './img/cars4.jpg', 'text': 'Image 4' },
+      { 'src': './img/cars5.jpg', 'text': 'Image 5' }
+    ]
+  });
+
+  /*
+  setTimeout( function() {
+    node.find('.image.inactive').removeClass('inactive');
+    node.SB1carousel.verifyImagesLeft();
+    setTimeout( function() {
+      node.SB1carousel.navigateImage( true );
+    }, 300 );
+  }, 1000 );
+  */
+}
+</script>
+</head> 
+<body onload="javascript:startup()">
+<div id="layout">
+  <div class="container">
+    <h1>Sparebank1 bildekarusell</h1>
+    <div style="border:1px solid #555; padding: 20px; box-shadow: 0 0 5px #999;">
+      <div class="sb1_carousel_screen">
+        <!--
+        <ul class="sb1_carousel_slider">
+          <li class="carousel_item"><img src="./img/cars1.jpg"></li>
+          <li class="carousel_item"><img src="./img/cars2.jpg"></li>
+          <li class="carousel_item"><img src="./img/cars3.jpg"></li>
+          <li class="carousel_item"><img src="./img/cars4.jpg"></li>
+          <li class="carousel_item"><img src="./img/cars5.jpg"></li>
+        </ul>
+        -->
+      </div>
+    </div>
+  </div>
+</div>    
+</body>
+</html>

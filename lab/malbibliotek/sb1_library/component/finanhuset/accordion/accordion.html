@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - accordion</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+#layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.tabpanel_action_row,
+.tabpanel_conten {
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.tabpanel_conten {
+  min-height: 300px;
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+
+<script>
+
+function startup() {
+  var accordion = $('.sb1_accordion_menu').SB1accordionMenu({
+    'wizard' : false,
+    'nextClickCallback' : function(e) {
+    }
+  });
+};  
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<div id="layout" style="min-height: 1000px;">
+  <h1>Trekkspillmeny</h1>
+  <div class="sb1_accordion_menu">
+    <a href="" tabindex="0" role="tab" aria-controls="panel1" class="sb1_accordion_tab" id="tab1" aria-label="Steg 1">
+      <h2><span aria-hidden="true">1 - </span><span>Betaling</span></h2>
+      <div class="accordion_status" aria-hidden="true">
+        <span class="icon-arrow_down"></span><span class="icon-arrow_up"></span>
+      </div> 
+    </a>
+    <div role="tabpanel" aria-labeledby="tab1" class="sb1_accordion_panel small_size" id="panel1" aria-hidden="true">
+      <div class="tabpanel_conten">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        In et lorem elementum, dignissim ipsum eget, interdum risus. 
+        Phasellus placerat, nibh ac pellentesque egestas, mi eros porttitor risus,
+      </div>
+      <!--
+      <div class="tabpanel_action_row">
+        <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+      </div>
+      -->
+    </div> <!-- end of tabpel 1 -->
+    <a href="" tabindex="0" role="tab" aria-controls="panel2" class="sb1_accordion_tab" id="tab2" aria-label="Steg 2">
+      <h2><span aria-hidden="true">2 - </span><span>E-faktura</span></h2>
+      <div class="accordion_status" aria-hidden="true">
+        <span class="icon-arrow_down"></span><span class="icon-arrow_up"></span>
+      </div> 
+    </a>
+    <div role="tabpanel" aria-labeledby="tab2" class="sb1_accordion_panel small_size" id="panel2" aria-hidden="true">
+      <div class="tabpanel_conten">
+        Pellentesque vestibulum a nunc quis pellentesque. Morbi nec fringilla felis. 
+        Donec pellentesque massa et lorem vehicula vehicula. Nunc pharetra facilisis 
+        enim, non euismod nulla pellentesque quis. Phasellus maximus lacus quis 
+        pharetra aliquet. Ut lacinia aliquam imperdiet. Etiam vehicula quam est, 
+        sed porta velit dignissim at. Nullam et semper diam. Fusce id eros orci. 
+        Vivamus at sollicitudin nunc, vel blandit felis. Class aptent taciti sociosqu 
+        ad litora torquent per conubia nostra, per inceptos himenaeos.
+      </div>
+      <!--
+      <div class="tabpanel_action_row">
+        <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+      </div>
+      -->
+    </div> <!-- end of tabpel 2 -->          
+
+    <a href="" tabindex="0" role="tab" aria-controls="panel3" class="sb1_accordion_tab" id="tab3" aria-label="Steg 3">
+      <h2><span aria-hidden="true">3 - </span><span>Pensjon</span></h2>
+      <div class="accordion_status" aria-hidden="true">
+        <span class="icon-arrow_down"></span><span class="icon-arrow_up"></span>
+      </div> 
+    </a>
+    <div role="tabpanel" aria-labeledby="tab3" class="sb1_accordion_panel small_size" id="panel3" aria-hidden="true">
+      <div class="tabpanel_conten">
+        Proin in ultricies diam, quis condimentum sapien. 
+        Morbi gravida maximus mauris ut tincidunt. Donec molestie quam 
+        non sagittis lobortis. Curabitur efficitur dolor a diam suscipit, 
+        sit amet hendrerit enim venenatis. Sed quis dapibus nisl. Mauris 
+        quis mauris neque. Cras et sapien libero. Donec condimentum pulvinar 
+        vehicula. Etiam hendrerit massa nisl, elementum lobortis orci 
+        imperdiet eu. Nullam vitae ornare leo. Sed porta rhoncus ligula, 
+        eget tincidunt sem porttitor vitae. 
+      </div>
+      <!--
+      <div class="tabpanel_action_row">
+        <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+      </div>
+      -->           
+    </div> <!-- end of tabpel 3 -->          
+
+    <a href="" tabindex="0" role="tab" aria-controls="panel4" class="sb1_accordion_tab" id="tab4" aria-label="Steg 4">
+      <h2><span aria-hidden="true">4 - </span><span>Forsikring</span></h2>
+      <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+    </a>
+    <div role="tabpanel" aria-labeledby="tab4" class="sb1_accordion_panel small_size" id="panel4" aria-hidden="true">
+      <div class="tabpanel_conten">
+        Morbi finibus, metus ut lobortis vehicula, odio purus luctus ipsum, 
+        ut efficitur dui ipsum quis nunc. Sed nec sodales felis, vitae volutpat 
+        ipsum. Vivamus elementum eros ligula, 
+      </div>
+      <!--
+      <div class="tabpanel_action_row">
+        <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+      </div>
+      -->
+    </div> <!-- end of tabpel 4 -->
+
+  </div> <!-- end of sb1_accordion_menu -->
+</div>
+
+</body>
+</html>

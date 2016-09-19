@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - house insurance</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+.info_wrapper {
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #f0ead7;
+}
+
+.monthly_price {
+  font-family: "MuseoSansRounded-700";
+  font-size: 25px;
+  margin-top: 15px;
+}
+
+.info_wrapper h2,
+.info_wrapper h3,
+.info_wrapper h4 {
+  text-align: center;
+}
+
+.summary_overview h3 {
+  text-align: left;
+  margin: 30px 0 15px 0;
+}
+.summary_overview h3:first-child {
+  margin-top: 0;
+}
+
+.summary_overview .sb1_list_overview {
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 60px;
+  -webkit-transition: height .6s ease .1s;
+  -moz-transition: height .6s ease .1s;
+  -o-transition: height .6s ease .1s;
+  -ms-transition: height .6s ease .1s;
+  transition: height .6s ease .1s;    
+}
+
+.summary_overview .sb1_list_overview .sb1_list_expander {
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left : 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+} 
+
+.summary_overview .sb1_list_overview.expanded .sb1_list_expander .sb1_expander_btn > *:first-child,
+.summary_overview .sb1_list_overview .sb1_list_expander .sb1_expander_btn > * {
+  display: none;
+}
+
+.summary_overview .sb1_list_overview.expanded .sb1_list_expander .sb1_expander_btn > *,
+.summary_overview .sb1_list_overview .sb1_list_expander .sb1_expander_btn > *:first-child {
+  display: inline;
+}
+
+.summary_overview .sb1_list_item {
+  background-color: #fff;
+  margin: 10px 0 0 0;
+  padding: 20px;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.summary_overview .sb1_list_item.empty,
+.summary_overview .sb1_list_item.hide {
+  display: none;
+}
+
+.summary_overview .sb1_list_item > h3,
+.summary_overview .sb1_list_item > h4 {
+  text-align: left !important;
+}
+
+.summary_overview .sb1_list_item > div {
+  margin-top: 20px;
+  position: relative;
+  font-family: "MuseoSansRounded-700";
+  font-size: 20px;
+  padding-right: 50px;
+  color: #008ed2;
+}
+
+.summary_overview .sb1_list_item > div a {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  font-family: "MuseoSansRounded-300";
+}
+
+.summary_overview .sb1_list_item:first-child {
+  margin-top: 0;
+}
+
+#my_loan_overview {
+  width: 100
+}
+
+.finished .form_header .main-lead,
+.finished .form_header ul,
+.finished form {
+  display: none;
+}
+
+.finished footer {
+  margin-top: 500px;
+}
+
+.finished .form_header {
+  position: relative;
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 100;
+  background: 
+}
+
+#loading:before {
+  content: " ";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -10px;
+  right: -10px;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+#loading > div {
+  position: relative;
+  z-index: 10;
+  padding: 40px 20px;
+}
+
+input[maxlength="2"] {
+  max-width: 100px !important;
+}
+
+input[maxlength="4"] {
+  max-width: 200px !important;
+}
+
+.discard_saved,
+.sb1_form_row .sb1_row_content > .continue_later {
+  float: right;
+  margin-top: 10px;
+}
+
+.discard_saved {
+  margin-top: -42px;
+}
+
+.discard_saved,
+.change_item,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #0083D2;
+}
+
+.discard_saved:hover,
+.change_item:hover,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #005AA4;
+}
+
+
+#person_id_required_wrapper .tip-content .discard_saved,
+#person_id_required_wrapper .tip-content .getting,
+#person_id_required_wrapper .tip-content .saving {
+  display: none;
+}
+
+#person_id_required_wrapper {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height .6s ease .1s;
+  -moz-transition: max-height .6s ease .1s;
+  -o-transition: max-height .6s ease .1s;
+  -ms-transition: max-height .6s ease .1s;
+  transition: max-height .6s ease .1s;    
+}
+
+.no_animation #person_id_required_wrapper {
+  display: none;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper,
+.need_personnumber_for_getting #person_id_required_wrapper {
+  max-height: 500px;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper .saving,
+.need_personnumber_for_getting #person_id_required_wrapper .getting {
+  display: block !important;
+}
+
+#person_id_required_wrapper input,
+#person_id_required_wrapper button {
+  margin-top: 15px;
+}
+
+.error_message {
+  color: #da3d00;
+  line-height: 22px;
+}
+
+
+/******************************************************************************
+=== form_end ===
+******************************************************************************/
+.content_house_insurance, .content_memory, .form_end {
+  display: none;
+}
+
+.form_end .content_wrapper {
+  list-style: none;
+  text-align: center;
+}
+
+.form_end .content_wrapper > li {
+  margin-top: 40px;
+}
+
+.form_end .sb1_remember_card_wrapper {
+  margin-top: 40px;
+  display: none;
+}
+
+.display_house_insurance_link .content_house_insurance,
+.display_memory_card .content_memory,
+.finished .form_end {
+  display: block;
+}
+
+/******************************************************************************
+=== spinner ===
+******************************************************************************/
+.sb1_spinner {
+  margin: 0 auto;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+  display: block;
+}
+
+.sb1_spinner > * {
+  background-color: #0075d2;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  padding: 0;
+  margin: 0 1px;
+  -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+  animation: sk-waveStretchDelay 1.2s infinite ease-in-out; 
+}
+
+.sb1_spinner .spinner_rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s; 
+}
+
+.sb1_spinner .spinner_rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s; 
+}
+
+.sb1_spinner .spinner_rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s; 
+}
+
+.sb1_spinner .spinner_rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s; 
+}
+
+@-webkit-keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+@keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+
+@media only screen and (max-width: 700px) { 
+  .summary_overview ul li > div {
+    font-size: 15px;
+  }
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  .discard_saved {
+    width: 100px;
+    line-height: 24px;
+    margin-top: -50px;
+  }
+  /*
+  .finished footer {
+    margin-top: 100px;
+  }
+  */
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+
+<script>
+  //$('#application').SB1formValidation({});
+
+function startup() {
+  //eraseCookie( 'sb1_mortgage' );
+  $('#pIdF').SB1formValidation({}); 
+  $('#pId').prop('value','');
+  setTimeout( function() {
+    var accordion = $('.sb1_accordion_menu').SB1accordionMenu({
+      'wizard' : true,
+      'nextClickCallback' : function(e) {
+        var btn = $(e.currentTarget);
+        if ( ! btn.hasClass('action-btn') ) return;
+        $('#person_id_required_wrapper').animate({ 'height': '0' },500, function(){
+          eraseCookie( 'sb1_mortgage' );
+          _displaySpinner( null, 1200 );
+        });
+      },
+      'validation' : {
+        'language' : 'nb',
+        'changeCallback' : function (e) {
+          var input = $(e.currentTarget), name = input.attr('name'), value = input.val();
+          if ( name == 'change_house_insurance_company' ) {
+            toggleRememberCard( value=='later_house_insurance_company' ? 2 : (
+              value=='yes_house_insurance_company' ? 1 : 0
+            ) );            
+          }
+        } 
+      }
+    }); 
+
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('sb1_expander_btn') || parent.hasClass('sb1_expander_btn') ) {
+        e.preventDefault();
+        togglerListExpanding(  parent.hasClass('sb1_expander_btn') ? parent : target );
+      }
+      else if ( target.hasClass('change_item') ) {
+        e.preventDefault();
+        var input = $( '#'+target.attr('data-rule') );
+        if ( ! input.size() ) return
+
+        var panel = input.closest('.sb1_accordion_panel');
+        var allP  = accordion.SB1accordionMenu.getPanel();
+        var allT  = accordion.SB1accordionMenu.getTab();
+        var index = allP.index( panel );
+        if ( index < 0 ) return;
+
+        var last  = accordion.SB1accordionMenu.getIndexLastPassedTab()+1;
+        var top = allT.eq(0).offset().top-10;
+        $('html, body').animate({ 'scrollTop': top+'px' }, 300, function(){
+          accordion.SB1accordionMenu.updateTabPanelMode( function(source) {
+            if ( ! source ) source = {};
+            var id = input.attr('id'), label = $('label[for="'+id+'"]');
+            top = label.size() ? label.offset().top : input.offset().top;
+            setTimeout( function() {
+              $('html, body').animate({ 'scrollTop': (top-15)+'px' }, 300, function(){
+                input.focus();
+              });
+            }, source['duration'] || 300 );
+          }, 100, index, last );          
+        });
+        //accordion.SB1accordionMenu.updateTabPanelMode( function() {
+        //}, 600, index, last );
+      }
+      else if ( target.hasClass('continue_later') || target.hasClass('saving_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          _continueLater();
+        }, 100 );
+      }
+      else if ( target.hasClass('get_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          var input = $('#pId');
+          if ( ! input.hasClass('sb1_form_validation_has_error') )
+            _getContinue( input.prop('value') || '' );        
+        }, 100 );
+      }
+      else if ( target.hasClass('discard_saved') ) {
+        e.preventDefault();
+        _discardSaved();
+      }
+    });
+
+  }, 500 );
+  //*/
+  
+  _getContinue( null, true );
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    //node.find('.sb1_input_wrapper').SB1radioYesNoButton({});
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+};
+
+function getDuration( node ) {
+  var v = node && node.size() ? 
+    (node.css('transition-duration') || 0) : 0;
+  if ( v ) v = parseFloat( v ) * 1000;
+  return isNaN(v) ? 0 : v;
+};
+
+function togglerListExpanding( node ) {
+  var wrapper = node.closest('.sb1_list_overview');
+  if ( ! wrapper.size() ) return;
+  var mode   = 'expanded', has = wrapper.hasClass( mode );
+
+  var style  = 'position:absolute;z-index:-1;visibility:hidden;height:auto;display:block';
+  var cloned = wrapper.clone().removeAttr('id').attr('style',style).appendTo( wrapper.parent() );
+  has ? cloned.children().filter('._hide').addClass('hide').removeClass('_hide') :
+    cloned.children().filter('.hide').removeClass('hide').addClass('_hide');
+
+  var duration = getDuration( wrapper ) + 10;
+  var scrolled = getScrollPosition(), wSize = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+wSize[1]];
+  var data = [wrapper.prop('offsetHeight'), cloned.prop('offsetHeight')];
+
+  cloned.remove();
+  var render = function() {
+    setTimeout( function() {
+      wrapper.attr('style','height:'+data[1]+'px');
+      setTimeout( function() { 
+        wrapper.removeAttr('style');
+        if ( has ) {
+          wrapper.children().filter('._hide').addClass('hide').removeClass('_hide');
+          wrapper.removeClass( mode );
+        } else { wrapper.addClass( mode ); }
+      }, duration );
+    }, 20 );
+  };
+  wrapper.attr('style','height:'+data[0]+'px');
+  if ( has ) {
+    var l = wrapper.children().filter('.sb1_list_item').not('._hide').last().addClass('kietvetran');
+    var top = l.offset().top + l.prop('offsetHeight')-30;
+    data[1] -= parseFloat( l.css('margin-top') );
+    if ( top < view[0] ) {
+      $('html, body').animate({'scrollTop': top+'px' }, 500, function() {
+        render();
+      });
+    } else { render();}
+  }
+  else {
+    var f = wrapper.children().filter('.hide').removeClass('hide').addClass('_hide').eq(0);
+    if ( ! f.size() ) return;
+    var t = f.offset().top, h = data[1]-data[0];
+    if ( (view[1]-t)<h ) data[1] = data[0] + (view[1]-t);
+    render();
+  }
+};
+
+function _updateSummery( opt ) {
+  var splitText = function( text, split ) {
+    var i = (text||'').length % split, list = i ? [text.substr(0,i)] : [];
+    for ( i; i<text.length; i += split ) list.push(text.substr(i,split));
+    return list;
+  };
+
+  var getPattern = function( value ) {
+    var price = splitText( value+'', 3 ).join(' ');
+    return '<span class="amount">'+(price||'0')+'</span>' + 
+      ' <span class="unit">Kr</span>';
+
+  };
+
+  var interest = 3.9;
+  var purchase = opt.purchase.prop('value').replace(/\s+/g,'');
+  var equity   = opt.equity.prop('value').replace(/\s+/g,'');
+  var loan     = parseFloat( (opt.loan.prop('value') || '').replace(/\s+/g,'') );
+  if ( isNaN(loan) && purchase && equity )
+    loan = parseFloat( purchase ) - parseFloat( equity );
+  if ( isNaN(loan) || loan < 0 ) loan = 0;
+
+  if ( loan ) {
+    var year = parseFloat( opt.year.prop('value').replace(/\s+/g,'') );
+    if ( isNaN(year) ) year = 1;
+
+    var payment = loan / (12*year);
+    var montly  = parseInt( payment + ((payment*interest) / 100) );
+    
+    opt.iInfo.removeClass('empty').show().find('.monthly_price').html(
+      getPattern( montly )
+    );
+
+    opt.myloan.find('.monthly_price').html(
+      getPattern( montly ) +
+      '<a href="#" class="change_item" data-rule="purchase">Endre</a>'
+    );      
+  }
+  else {
+    opt.iInfo.hide();
+    opt.myloan.find('.monthly_price').html('&nbsp;');
+  }
+
+  if ( isNaN(purchase) )
+    opt.myloan.find('.purchase').html('&nbsp;');
+  else {
+    opt.myloan.find('.purchase').html(
+      getPattern( purchase ) +
+      '<a href="#" class="change_item" data-rule="purchase">Endre</a>'        
+    );      
+  }
+
+  if ( isNaN(equity) )
+    opt.myloan.find('.equity').html('&nbsp;');
+  else {
+    opt.myloan.find('.equity').html(
+      getPattern( equity ) +
+      '<a href="#" class="change_item" data-rule="purchase">Endre</a>'        
+    );      
+  }
+
+  var email = (opt.email.prop('value') ||'').replace( /\s+/g,'');
+  opt.myinfo.find('.email').html( ! email ? '&nbsp;' : 
+    '<span>'+email+'</span><a href="#" class="change_item" data-rule="email">Endre</a>'
+  );
+
+  var name = [opt.fname.prop('value'),opt.lname.prop('value')].join(' ').replace(/\s+/g,' ');
+  opt.myinfo.find('.loaner').html( ! name.match(/[a-zA-z]/) ? '&nbsp;' : 
+    '<span>'+name+'</span><a href="#" class="change_item" data-rule="firstname">Endre</a>'
+  );   
+
+  var income = parseFloat((opt.income.prop('value')||'').replace(/\s+/g,''));
+  if ( isNaN(income) || income < 0 ) income = 0;
+  opt.myincome.find('.income').html(
+    getPattern( income ) +
+    '<a href="#" class="change_item" data-rule="annual_income">Endre</a>'        
+  );         
+
+  var income2 = parseFloat((opt.income2.prop('value')||'').replace(/\s+/g,''));
+  if ( isNaN(income2) || income2 < 0 ) income2 = 0;
+  var iNode = opt.myincome.find('.income2').html(
+    getPattern( income2 ) +
+    '<a href="#" class="change_item" data-rule="annual_income_field">Endre</a>'        
+  );         
+  var m = (opt.income2.attr('data-rule') ||'').match(/depending_on_target\[([\#\.\_\w\-]+)\]/);
+  var n = m ? $(m[1]) : null;
+  n && n.prop('checked') ? iNode.parent().removeClass('empty') : 
+    iNode.parent().addClass('empty');
+    
+
+  var rest = parseFloat((opt.rest.prop('value')||'').replace(/\s+/g,''));
+  if ( isNaN(rest) || rest < 0 ) rest = 0;
+  var rNode = opt.myincome.find('.rest').html(
+    getPattern( rest ) +
+    '<a href="#" class="change_item" data-rule="rest_loan_field">Endre</a>'        
+  );         
+  m = (opt.rest.attr('data-rule') ||'').match(/depending_on_target\[([\#\.\_\w\-]+)\]/);
+  n = m ? $(m[1]) : null;
+  n && n.prop('checked') ? rNode.parent().removeClass('empty') : 
+    rNode.parent().addClass('empty');
+
+  var pnumber = (opt.personnumber.prop('value') ||'').replace( /\s+/g,'');
+  opt.myinfo.find('.personnumber').html( ! pnumber ? '&nbsp;' : 
+    '<span>'+pnumber+'</span><a href="#" class="change_item" data-rule="email">Endre</a>'
+  );
+
+  var value = (opt.telephone.prop('value') ||'').replace( /\s+/g,'');
+  var node  = opt.myinfo.find('.telephone');
+  value ? node.html(
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="telephone">Endre</a>'
+  ).parent().removeClass( 'empty' ) : node.parent().addClass('empty');
+
+  value = (opt.marital_status.prop('value') ||'').replace( /\s+/g,'');
+  node  = opt.myinfo.find('.marital_status');
+  value ? node.html(
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="marital_status_input">Endre</a>'
+  ).parent().removeClass( 'empty' ) : node.parent().addClass( 'empty' );
+
+  value = (opt.year_employment.prop('value') ||'').replace( /\s+/g,'');
+  node  = opt.myincome.find('.year_employment');
+  node.html( ! value ? '&nbsp;' :
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="year_employment">Endre</a>'
+  );
+
+  value = (opt.employer.prop('value') ||'').replace( /\s+/g,'');
+  node  = opt.myincome.find('.employer');
+  value ? node.html(
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="employer">Endre</a>'
+  ).parent().removeClass( 'empty' ) : node.parent().addClass( 'empty' );
+
+  value = '';
+  $('input[name="'+opt.y_in_h.attr('name')+'"]').each(function(i,d){
+    if ( d.checked ) value = $('label[for="'+d.id+'"]').text(); 
+  });
+  opt.myloan.find('.yes_change_house_insurance_company').html( ! value ? '&nbsp;' : 
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="yes_change_house_insurance_company">Endre</a>'
+  );
+
+  value = '';
+  $('input[name="'+opt.y_in_h2.attr('name')+'"]').each(function(i,d){
+    if ( d.checked ) value = $('label[for="'+d.id+'"]').text(); 
+  });
+  opt.myloan.find('.yes_change_house_insurance_company2').html( ! value ? '&nbsp;' : 
+    '<span>'+value+'</span><a href="#" class="change_item" data-rule="yes_change_house_insurance_company2">Endre</a>'
+  );
+
+};
+
+function _discardSaved() {
+  eraseCookie( 'sb1_mortgage' );
+  var wrapper = $('#person_id_required_wrapper').animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _getContinue( pId, startup ) { 
+  var key = 'sb1_mortgage', text = readCookie(key);
+  if ( ! text )
+    return $('body').removeClass('need_personnumber_for_getting');
+  if ( ! pId )
+    return $('body').addClass('need_personnumber_for_getting');
+
+  var wrapper = $('#person_id_required_wrapper'), data = JSON.parse( text );
+  if ( data['_p'] != (pId+'').replace(/\s+/g,'') ) {
+    wrapper.find( '.sb1_form_validation_error' ).remove();
+    return $('<div class="sb1_form_validation_error">Personnumer er ikke samme som det var lagret.</div>')
+      .insertAfter( wrapper.find('input') );
+  }
+
+  for ( var k in data ) {
+    $('input[name="'+k+'"]').each( function(i,dom) {
+      var input = $(dom), type = input.attr('type') || 'text';
+      if ( type.match(/radio|checkbox/) ) {
+        var v = input.prop('value') == data[k];
+
+        //debug('K: '+k +' I:'+input.prop('value') + ' D:'+data[k]);
+        input.prop('checked', v);
+        if ( v ) input.click();
+      } else { input.val( data[k] ); }
+    });
+  }
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+
+}
+
+function _continueLater() {
+  var key = 'sb1_house_insurance', wrapper = $('#person_id_required_wrapper');
+  var aInput = $('#personnumber'), bInput = $('#pId');
+  if ( bInput.hasClass('sb1_form_validation_has_error') || aInput.hasClass('sb1_form_validation_has_error') )
+    return;
+
+  var pId = aInput.prop('value') || bInput.prop('value'), data = {};
+  wrapper.find( '.sb1_form_validation_error' ).remove();
+
+  if ( ! pId ) {
+    return _scrollPersonIdRequiredWrapperIntoView( function() {
+      $('body').addClass('need_personnumber_for_saving')
+        .removeClass( 'need_personnumber_for_getting');
+    });
+  }
+
+  $('#application input').each( function(i,dom){
+    var name = dom.name || '', value = dom.value || '', type = dom.type || 'text';
+    if ( ! name || ! value || (type.match(/radio|checkbox/i) && ! dom.checked) )
+      return;
+    data[name] = value;
+  });
+  data['personnumber'] = pId;
+  data['_p'] = (pId+'').replace(/\s+/g,'');
+  eraseCookie( key );
+  createCookie( key, JSON.stringify(data), 360 );
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').addClass('no_animation').removeClass('need_personnumber_for_saving')
+      .removeClass( 'need_personnumber_for_getting');
+    _displaySpinner( null, 0, 'saved' );
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _scrollPersonIdRequiredWrapperIntoView( callback ) {
+  var wrapper = $('#person_id_required_wrapper').attr('style','max-height;1px'); 
+  var top = wrapper.offset().top-10;
+  wrapper.removeAttr('style');
+
+  var scrolled = getScrollPosition(), size = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+size[1]];
+  if ( top>=view[0] && top<=view[1] )
+    return typeof(callback) == 'function' ? callback() : null;
+  $('html, body').animate({'scrollTop': top+'px' }, 500, callback );
+}
+
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+/**
+ * The function returns the value of name in cookie.
+ * @return {String}.
+ */
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+/**
+ * The function erases the cookie.
+ * @return {Void}
+ */
+function eraseCookie( name ) { 
+  return createCookie( name, '', -1 ); 
+}
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset != 'undefined')
+    return [ window.pageXOffset, window.pageYOffset ];
+
+  if (
+    typeof document.documentElement.scrollTop != 'undefined' && 
+    document.documentElement.scrollTop > 0
+  ) { 
+    return [ 
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop != 'undefined' ? [
+      document.body.scrollLeft, document.body.scrollTop
+  ] : [0,0];
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<!--<header>SpareBank&nbsp;1</header>-->
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <div id="person_id_required_wrapper">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content" style="text-align: left">
+                <div class="getting">
+                  Legg inn ditt personnummer for å hente uferdige utfylling fra sist gang.
+                </div>
+                <div class="saving">
+                  Legg inn ditt personnummer for å lagre her du har stoppet på din søknad i nettleseren.
+                </div>
+                <form id="pIdF" method="post" action="" novalidate>
+                  <input id="pId" name="pid" type="tel" spellcheck="false" autocomplete="off" data-rule="personnumber">
+                </form>
+                <button class="get_continue getting secondary-btn">Hent</button>
+                <button class="saving_continue saving secondary-btn">Lagre</button>
+                <a href="#" class="getting discard_saved">Forkaste lokal lagret</a>
+              </div>
+            </div>
+          </div>
+          <div class="image_wrapper">
+            <img src="./icons/house.svg">
+          </div>
+          <h1>Kjøp husforsikring</h1>
+          <p class="main-lead">
+            Du blir enklere for deg å fylle ut skjemaet dersom du har disse opplysningene tilgjengelig:
+          </p>
+          <ul>
+            <li>Hvor mye du tjener i året.</li>
+            <li>Din nåværende gjeld.</li>
+          </ul>
+        </div>
+      </div> 
+      <form id="application" method="post" action="" novalidate>
+        <div class="sb1_accordion_menu">
+          <a href="" tabindex="0" role="tab" aria-controls="panel1" class="sb1_accordion_tab" id="tab1" aria-label="Steg 1">
+            <h2><span aria-hidden="true">1 - </span><span>Mitt lån</span></h2>
+            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+          </a>
+          <div role="tabpanel" aria-labeledby="tab1" class="sb1_accordion_panel" id="panel1" aria-hidden="true">
+            
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="purchase_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om Kjøpesum
+                  </a>
+                  <label data-shortname="" for="purchase">Kjøpesum</label>
+                </div>
+              </div>          
+              <div id="purchase_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Primærrom er rom du oppholder deg i. For eksempel stue, 
+                    kjøkken, bad, soverom, entree. Primærrom het tidligere 
+                    boligareal (BOA). Er du usikker på hvor stort primærrommet 
+                    er så finner du dette i husets takstrapport/salgsprospekt.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="purchase" class="display_accordion_summary" name="purchase" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kr" value="3 000 000">
+                  <span class="input_unit">kr</span>
+                </div>
+              </div>
+            </div>
+            <!---
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="equity_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om kjørelengde
+                  </a>
+                  <label data-shortname="" for="equity">Egenkapital</label>
+                </div>
+              </div>          
+              <div id="equity_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                    Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+                    sapien eu, mollis nisl.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="equity" class="display_accordion_summary" name="equity" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kr" value="100 000">
+                  <span class="input_unit">kr</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="loan_amount_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om lånesum
+                  </a>
+                  <label data-shortname="" for="loan_amount">Lånesum</label>
+                </div>
+              </div>          
+              <div id="loan_amount_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                    Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+                    sapien eu, mollis nisl.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="loan_amount" class="display_accordion_summary" name="loan_amount" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]"data-unit="kr" value="2 900 000">
+                  <span class="input_unit">kr</span>
+                </div>
+              </div>
+            </div>      
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="desired_repayment" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om nedbetalingstid
+                  </a>
+                  <label data-shortname="" for="desired_repayment_field" id="desired_repayment">
+                    Ønsket nedbetalingstid
+                  </label>
+                </div>
+              </div>          
+              <div id="desired_repayment" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>  
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="desired_repayment_field" class="display_accordion_summary" name="desired_repayment" type="tel" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper] interval[10,30]" value="25" data-unit="år" maxlength="2">
+                  <span class="input_unit">år</span>
+                </div> 
+              </div>
+            </div>
+
+            <div id="info_interest_row" class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div class="info_wrapper">
+                  <input type="hidden" name="interest" id="field_interest" value="3,90">
+                  <h3>Lånet vil koste</h3>
+                  <div class="monthly_price"></div>
+                  <div>per måned med 3,90 % rente</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div class="tip-wrapper">
+                  <div class="icon-wrapper">
+                    <div class="icon-circle">
+                      <picture>
+                        <img src="./icons/tips.svg" alt="tips.svg" class="inline-svg icon responsive">
+                      </picture>
+                    </div>
+                  </div>
+                  <div class="tip-content">
+                    Visste du at SpareBank&nbsp;1 har noen av landets 
+                    mest fornøyde forsikringskunder?
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="sb1_house_insurance" href="#" class="sb1_info_btn" role="button">
+                      Informajson om bolig forsikring i SpareBank&nbsp;1
+                    </a>
+                    <legend id="change_house_insurance_company_label">
+                      <span>Ønsker du å forsikre boligen din i SpareBank&nbsp;1?</span> 
+                      <span class="help_text">Valgfritt</span>
+                    </legend>
+                  </div>
+                </div>          
+                <div id="sb1_house_insurance" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="yes_change_house_insurance_company" value="yes_house_insurance_company" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_CHIC_tip]" required>
+                  <label class="sb1_button" id="yes_change_house_insurance_company_label" for="yes_change_house_insurance_company"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="change_house_insurance_company" id="no_change_house_insurance_company" value="no_house_insurance_company" data-rule="parent_target[.sb1_input_wrapper]" required>
+                  <label class="sb1_button" id="no_change_house_insurance_company_label" for="no_change_house_insurance_company"><span>Nei</span></label>
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="later_change_house_insurance_company" value="later_house_insurance_company" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#later_CHIC_tip]" required>
+                  <label class="sb1_button" id="later_change_house_insurance_company_label" for="later_change_house_insurance_company"><span>Senere</span></label>
+
+                  <div id="yes_CHIC_tip" class="tip-wrapper sb1_hide">
+                    <div class="tip-content">
+                      Takk! Du vil få mulighet til å bestille Husforsikring etter at du er ferdig med det du holder på men nå.
+                    </div>
+                  </div>
+
+                  <div id="later_CHIC_tip" class="tip-wrapper sb1_hide">
+                    <div class="tip-content">
+                      Takk! Vi har lagt produktet til i din huskeliste slik at du kan bestille det senere.
+                    </div>
+                  </div>
+
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="sb1_house_insurance2" href="#" class="sb1_info_btn" role="button">
+                      Informajson om bolig forsikring i SpareBank&nbsp;1
+                    </a>
+                    <legend id="change_house_insurance_company2_label">
+                      <span>Ønsker du å forsikre deg om at du får beholde boligen dersom noe uforutsett skjer?</span> 
+                      <span class="help_text">Valgfritt</span>
+                    </legend>
+                  </div>
+                </div>          
+                <div id="sb1_house_insurance2" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio" name="change_house_insurance_company2" id="yes_change_house_insurance_company2" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="change_house_insurance_company2_label yes_change_house_insurance_company2_label">
+                  <label class="sb1_button" id="yes_change_house_insurance_company2_label" for="yes_change_house_insurance_company2"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="change_house_insurance_company2" id="no_change_house_insurance_company2" value="no" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="change_house_insurance_company2_label no_change_house_insurance_company2_label">
+                  <label class="sb1_button" id="no_change_house_insurance_company2_label" for="no_change_house_insurance_company2"><span>Nei</span></label>
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company2" id="later_change_house_insurance_company2" value="later" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#later_CHIC2_tip]" required aria-labelledby="change_house_insurance_company2_label later_change_house_insurance_company2_label">
+                  <label class="sb1_button" id="later_change_house_insurance_company2_label" for="later_change_house_insurance_company2"><span>Senere</span></label>
+
+                  <div id="later_CHIC2_tip" class="tip-wrapper sb1_hide">
+                    <div class="tip-content">
+                      Takk! Vi har lagt produktet til i din huskeliste slik at du kan bestille det senere.
+                    </div>
+                  </div>
+
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>
+          -->
+
+          </div> <!-- end of tabpel 1 -->
+
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel2" class="sb1_accordion_tab" id="tab2" aria-label="Steg 2">
+            <h2><span aria-hidden="true">2 - </span><span>Personopplysninger</span></h2>
+            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+          </a>
+          <div role="tabpanel" aria-labeledby="tab2" class="sb1_accordion_panel" id="panel2" aria-hidden="true">
+          </div>
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel3" class="sb1_accordion_tab" id="tab3" aria-label="Steg 3">
+            <h2><span aria-hidden="true">3 - </span><span>Min økonomi</span></h2>
+            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+          </a>
+          <div role="tabpanel" aria-labeledby="tab3" class="sb1_accordion_panel" id="panel3" aria-hidden="true">
+           
+          </div> <!-- end of tabpel 3 -->          
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel4" class="sb1_accordion_tab" id="tab4" aria-label="Steg 4">
+            <h2><span aria-hidden="true">4 - </span><span>Oppsummering</span></h2>
+            <div class="accordion_status" aria-hidden="true"><span class="icon-arrow_down"></span><span class="icon-arrow_up"></span></div> 
+          </a>
+          <div role="tabpanel" aria-labeledby="tab4" class="sb1_accordion_panel" id="panel4" aria-hidden="true">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div>Dette er en oppsummering av din lånesøknad.</div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div class="sb1_clear summary_overview">
+                  <h3>Mitt lån</h3>
+                  <div id="my_loan_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Månedsbeløp</h4>
+                      <div class="monthly_price">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_item">
+                      <h4>Kjøpesum</h4>
+                      <div class="purchase">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Egenkapital</h4>
+                      <div class="equity">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_item hide">
+                      <h4>Lånesum</h4>
+                      <div class="loan_amount">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsket nedbetalingstid</h4>
+                      <div class="desired_repayment_field">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsker du å forsikre boligen din i SpareBank&nbsp;1?</h4>
+                      <div class="yes_change_house_insurance_company no_change_house_insurance_company later_change_house_insurance_company">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsker du å forsikre deg om at du får beholde boligen dersom noe uforutsett skjer?</h4>
+                      <div class="yes_change_house_insurance_company2 no_change_house_insurance_company2 later_change_house_insurance_company2">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>                  
+                  
+                  <h3>Personopplysning</h3>
+                  <div id="my_info_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Fødselsnummer</h4>
+                      <div class="personnumber">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Lånetakere</h4>
+                      <div class="loaner">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Epost</h4>
+                      <div class="email">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Telefon</h4>
+                      <div class="telephone">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Sivilstatus</h4>
+                      <div class="marital_status">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <h3>Min økonomi</h3>
+                  <div id="my_income_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Årsinntekt fra arbeidsgiver</h4>
+                      <div class="income">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Ansettelsesår</h4>
+                      <div class="year_employment">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Arbeidsgiver</h4>
+                      <div class="employer">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Andre inntekter</h4>
+                      <div class="income2">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Andre lån</h4>
+                      <div class="rest">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn action-btn">Signer</button>
+              </div>
+            </div>
+          </div> <!-- end of tabpel 4 -->
+
+        </div> <!-- end of sb1_accordion_menu -->
+      </form>
+      <div class="form_end">
+        <ul class="content_wrapper">
+          <li class="">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./icons/tips.svg" alt="tips.svg" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content">
+                Takk! Vi har mottat din søknad. En av våre rådgivere til ta 
+                kontakt med deg i løpet av førstkommende arbeidsdag.
+              </div>
+            </div>
+          </li>
+          <li class="content_house_insurance">
+            <div class="tip-wrapper center">
+              <div class="tip-content">
+                <div style="padding-bottom: 20px">
+                  Du har sagt at du er interessert i husforsikring.
+                  Vil du bestille det nå?
+                </div>
+                <a href="../house_insurance/index.html" class="action-btn arrow-right">Bestill husforsikring</a>
+              </div>
+            </div>
+          </li>
+          <li class="content_memory">
+            <a href="./remember.html">Min huskeliste</a>
+          </li>
+        </ul>
+        <!--
+        <ul class="sb1_remember_card_wrapper">
+          <li>
+            <article class="sb1_remember_card">
+              <div class="card_content">     
+                <h3>Opprett spareavtale</h3>
+                <p class="lead">Kr 2 550 000,- til 3,2% rent</p>
+                <div class="toggle_wrapper">
+                  <a href="#" class="toggle_expander"></a>
+                </div>
+              </div>
+              <div class="card_content">
+                <div class="note_description">
+                  <div class="sb1_step_counter">
+                    <h4>Klar for signering</h4>
+                    <div class="sb1_progress">    
+                      <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:95%">
+                        <span class="sr">Steg 3 av 7</span>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="tool_wrapper">
+                    <li>
+                      <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                    </li>
+                    <li>
+                      <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                    </li>
+                  </ul>
+                </div>    
+              </div>
+            </article>
+          </li>
+        </ul>
+        -->
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+
+</body>
+</html>

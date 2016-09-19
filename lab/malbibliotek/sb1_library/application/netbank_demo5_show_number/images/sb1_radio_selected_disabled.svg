@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2 (9961) - http://www.bohemiancoding.com/sketch -->
+    <title>radiobutton seleted disabled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Forms" sketch:type="MSArtboardGroup" transform="translate(-1494.000000, -518.000000)" fill="#A9A9A9">
+            <path d="M1504.5,523 C1501.7,523 1499.5,525.2 1499.5,528 C1499.5,530.8 1501.7,533 1504.5,533 C1507.3,533 1509.5,530.8 1509.5,528 C1509.5,525.2 1507.3,523 1504.5,523 L1504.5,523 Z M1504.5,518 C1499,518 1494.5,522.5 1494.5,528 C1494.5,533.5 1499,538 1504.5,538 C1510,538 1514.5,533.5 1514.5,528 C1514.5,522.5 1510,518 1504.5,518 L1504.5,518 Z M1504.5,536 C1500.1,536 1496.5,532.4 1496.5,528 C1496.5,523.6 1500.1,520 1504.5,520 C1508.9,520 1512.5,523.6 1512.5,528 C1512.5,532.4 1508.9,536 1504.5,536 L1504.5,536 Z" id="radiobutton-seleted-disabled" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

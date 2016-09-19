@@ -1,0 +1,97 @@
+.campaign {
+    display: block;
+    width: 100%;
+    min-height: 300px;
+    height: 100%;
+    .full-width {
+        @media (min-width: @screen-sm){
+            width: 100%;
+        }
+    }
+    .left-content {
+        float: left;
+        width: 100%;
+        min-height: 285px;
+        height: 100%;
+        margin-right: 2%;
+        padding: 20px;
+        border: 1px solid @gray-light;
+        border-radius: 3px;
+
+        .campaign-image {
+            width: 100%;
+            img {
+                height: 200px;
+
+                @media (min-width: @screen-md){
+                    height: 237px;
+                    max-width: 173px;
+                }
+            }
+
+            @media (min-width: @screen-md){
+                width: 25%;
+                margin-right: 2%;
+                max-height: 237px;     
+            }
+
+        }
+        .campaign-info {
+            width: 100%;
+            @media (min-width: @screen-md){
+                width: 73%;
+
+            }
+            h1 {
+                &:extend(h2);
+                padding: 0;
+            }
+            .button-wrapper {
+                margin-top: 0;
+            }
+        }
+
+        .campaign-info,
+        .campaign-image {
+            display: table-cell;
+            vertical-align: middle;
+            float: left;
+        }
+        &.full-width {
+            width: 100%;
+        }
+
+        @media (min-width: @screen-sm){
+            width: 68%;
+        }
+    }
+
+    .right-content {
+        float: left;
+        width: 100%;
+        height: 100%;
+        background-color: @blue-flat;
+        padding: 20px;
+        margin-top: 20px;
+
+        @media (min-width: @screen-sm){
+            width: 30%;
+            min-height: 285px;
+            margin-top: 0;
+        }
+        .link-list {
+            a {
+                color: @white;
+                text-decoration: none;
+                border: 0;
+            }
+            li {
+                [class*="icon-"]{
+                    &:before {
+                        color: @white;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2 (9961) - http://www.bohemiancoding.com/sketch -->
+    <title>check selected</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4.07730354,5.12647371 L7.99977215,1.2040051 C8.40405109,0.799726158 9.06812233,0.793722639 9.47400617,1.19960647 L9.83699156,1.56259186 C10.2442376,1.96983793 10.2409061,2.62851275 9.83259293,3.03682588 L5.23395686,7.63546195 C5.21608693,7.65634547 5.19726172,7.67670604 5.17748111,7.69648666 L4.81449572,8.05947205 C4.40861188,8.46535589 3.75754643,8.47235816 3.35277612,8.06758785 L0.521910119,5.23672184 C0.120508514,4.83532024 0.122779845,4.18224832 0.530025914,3.77500225 L0.893011303,3.41201686 C1.29889514,3.00613303 1.94996059,2.99913076 2.3547309,3.40390107 L4.07730354,5.12647371 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Forms" sketch:type="MSArtboardGroup" transform="translate(-1494.000000, -833.000000)">
+            <g id="check-selected" sketch:type="MSLayerGroup" transform="translate(1494.500000, 833.000000)">
+                <g id="7" transform="translate(4.000000, 5.000000)">
+                    <g id="checkmark">
+                        <use fill="#008A00" fill-rule="evenodd" sketch:type="MSShapeGroup" xlink:href="#path-1"></use>
+                        <use fill="none" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

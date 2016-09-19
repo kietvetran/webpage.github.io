@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  padding: 20px 0;
+  float: left;
+  clear: both;
+}
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+</head> 
+<body>
+<div style="height:750px">
+  <div class="wrapper">
+    <div class="sb1_dropdown_menu">
+      <a role="button" aria-controls="current_insurance_company_list" href="#" class="sb1_dropdown_btn">Velg</a>            
+      <input type="hidden" name="current_insurance_company" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">              
+      <ul role="listbox" id="current_insurance_company_list" aria-expanded="false" class="sb1_dropdown_list">
+        <li class="sb1_dropdown_option hide" role="option" data-value="">Velg</li>
+        <li class="sb1_dropdown_option" role="option" data-value="if">If - forsikringsselskap</li>
+        <li class="sb1_dropdown_option" role="option" data-value="storband">Stor - forsikringsselskap</li>
+        <li class="sb1_dropdown_option" role="option" data-value="gjensidige">Gjensidige - forsikringsselskap</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="sb1_dropdown_menu">
+      <a role="button" aria-controls="insurance_start_date_list" href="#" class="sb1_dropdown_btn">Desember</a>
+      <input type="hidden" name="current_insurance_company" aria-hidden="true" required>                         
+      <ul role="listbox" id="insurance_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+        <li class="sb1_dropdown_option" role="option">Januar</li>
+        <li class="sb1_dropdown_option" role="option">Februar</li>
+        <li class="sb1_dropdown_option" role="option">Mars</li>
+        <li class="sb1_dropdown_option" role="option">April</li>
+        <li class="sb1_dropdown_option" role="option">Mai</li>
+        <li class="sb1_dropdown_option" role="option">Juni</li>
+        <li class="sb1_dropdown_option" role="option">Juli</li>
+        <li class="sb1_dropdown_option" role="option">August</li>
+        <li class="sb1_dropdown_option" role="option">September</li>
+        <li class="sb1_dropdown_option" role="option">Oktober</li>
+        <li class="sb1_dropdown_option" role="option">November</li>
+        <li class="sb1_dropdown_option selected" role="option">Desember</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+  $('.sb1_dropdown_menu').each( function (i,d) { 
+    $(d).SB1dropdownMenu({}); 
+  });
+</script>
+</body>
+</html>

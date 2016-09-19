@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  padding: 20px 0;
+  float: left;
+  clear: both;
+}
+
+#debugWidget {
+  position: fixed;
+  right: 10px;
+  bottom: 50px;
+  height: 150px;
+  width: 300px;
+  overflow: scroll;
+  padding: 5px;
+  border: 1px solid red;
+  background: #FFFFFF none repeat 0 0;
+  z-index: 1000;
+  font-size: 11px;
+  line-height: 14px;  
+}
+
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./country.js"></script>
+<script type="text/javascript" src="./account.js"></script>
+
+<script>
+function debug( text, value ) {
+  var debug = $('#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) debug = $('<div id="debugWidget"></div>').appendTo('body');
+  
+  var p = debug.html();
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+    else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + p);
+}
+</script>
+</head> 
+<body>
+<div style="height:1000px">
+  <div class="wrapper">
+    <div class="">Single selection</div>
+    <div class="sb1_dropdown_menu _stay_open">
+      <a role="button" aria-controls="country_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="country" aria-hidden="true" required>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="">Single selection</div>
+    <div class="sb1_dropdown_menu _stay_open">
+      <a role="button" aria-controls="country_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="country" aria-hidden="true" required>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="">Single selection</div>
+    <div class="sb1_dropdown_menu _stay_open">
+      <a role="button" aria-controls="country_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="country" aria-hidden="true" required>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="">Single selection</div>
+    <div class="sb1_dropdown_menu _stay_open account_list">
+      <a role="button" aria-controls="account_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="account" aria-hidden="true" required>
+    </div>
+  </div>  
+  <div class="wrapper">
+    <div class="">Multiple selection</div>
+    <div class="sb1_dropdown_menu _stay_open account_list multiple_selection">
+      <a role="button" aria-controls="account_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="account" aria-hidden="true" required>
+    </div>
+  </div>  
+</div>
+<script>
+  $('.sb1_dropdown_menu').each( function (i,d) { 
+    var node = $(d);
+    if ( i == 0 || i == 1 || i==2 ) {
+      var country = JSON.parse( JSON.stringify(COUNTRY) );
+      if ( i ) {
+        var tmp = [country.shift(),country.shift(),country.shift(),country.shift()];
+        country = country.sort( function(a,b){
+          var x = a['name'].toLowerCase() || '';
+          var y = b['name'].toLowerCase() || '';
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+        country = tmp.concat( country );
+        for ( var j=0; j<country.length; j++ ) country[i]['mode'] = '';
+      }
+
+      node.SB1dropdownMenu({
+        'viewCount':  i ? 10 : 5,
+        'searchField' : true,
+        'expander' : i ? null : 'veritical',
+        'ignorIndexSort' : i ? true : null,
+        'searchFieldTopSpace' : i ? true : null,
+        'list' : country
+      }); 
+    }
+    else {
+      node.SB1dropdownMenu({
+        'viewCount': 5,
+        'searchField' : true,
+        'type' : 'account',
+        'expander' : 'horizontal',
+        //'expander' : 'vertical',
+        //'multiple' : true
+        'list' : ACCOUNT,
+        'multipleLabel' : node.hasClass('multiple_selection') ? {
+            'all'  : 'All kontoer ('+ACCOUNT.length+')',
+            'of'   : 'av',
+            'unit' : 'konto',
+            'units': 'kontoer'
+          } : null
+      });       
+    }
+  });
+</script>
+</body>
+</html>

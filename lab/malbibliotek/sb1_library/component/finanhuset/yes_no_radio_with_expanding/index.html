@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+* { padding: 0; margin: 0; }
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+
+<script>
+  //$('#application').SB1formValidation({});
+
+function startup() {
+
+  $('#application').SB1formValidation({});
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    //node.find('.sb1_input_wrapper').SB1radioYesNoButton({});
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+};
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<div style="height: 1300px">
+  <div class="sb1_form_layout" style="margin: 0">
+    <form id="application" method="post" action="" novalidate>
+      <div class="sb1_form_row">
+        <fieldset>
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <legend id="change_house_insurance_company_label">
+                <span>Ønsker du å forsikre boligen din i SpareBank&nbsp;1?</span> 
+                <span class="help_text">Valgfritt</span>
+              </legend>
+            </div>
+          </div>                    
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="yes_change_house_insurance_company" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_CHIC_tip]" required>
+            <label class="sb1_button" id="yes_change_house_insurance_company_label" for="yes_change_house_insurance_company"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="change_house_insurance_company" id="no_change_house_insurance_company" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+            <label class="sb1_button" id="no_change_house_insurance_company_label" for="no_change_house_insurance_company"><span>Nei</span></label>
+            <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="later_change_house_insurance_company" value="later" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#later_CHIC_tip]" required>
+            <label class="sb1_button" id="later_change_house_insurance_company_label" for="later_change_house_insurance_company"><span>Senere</span></label>
+
+            <div id="yes_CHIC_tip" class="tip-wrapper sb1_hide">
+              <div class="tip-content">
+                Takk! Du vil få mulighet til å bestille Husforsikring etter at du er ferdig med det du holder på men nå.
+              </div>
+            </div>
+
+            <div id="later_CHIC_tip" class="tip-wrapper sb1_hide">
+              <div class="tip-content">
+                Takk! Vi har lagt produktet til i din huskeliste slik at du kan bestille det senere.
+              </div>
+            </div>
+
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="sb1_form_row">
+        <fieldset>
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <legend id="bank_id">Ønsker du å fortsette med BankID?</legend>
+            </div>
+          </div>         
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input type="radio" class="sb1-input-radio" name="bank_id" id="yes_bank_id" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_use_bank_id]" required aria-labelledby="bank_id yes_bank_id">
+            <label class="sb1_button" id="yes_bank_id" for="yes_bank_id"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="bank_id" id="no_bank_id" value="no" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="bank_id no_bank_id" checked="true">
+            <label class="sb1_button" id="no_bank_id" for="no_bank_id"><span>Nei</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="yes_use_bank_id" class="sb1_hide sb1_form_row_wrapper">
+        <div id="" class="sb1_form_row">
+          <div class="sb1_row_content sb1_input_wrapper">
+            <img src="./bankId.png" style="width:100%">
+          </div>
+        </div>
+      </div>
+
+      <div class="sb1_form_row">
+        <fieldset>
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <legend id="other_income_label">
+                Har du andre inntekter som f.eks. leie, barnetrygd eller kontantstøtte?
+              </legend>
+            </div>
+          </div>                   
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input type="radio" class="sb1-input-radio" name="other_income" id="yes_other_income" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_other_income_holder]" required >
+            <label class="sb1_button" id="yes_other_income_label" for="yes_other_income"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="other_income" id="no_other_income" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+            <label class="sb1_button" id="no_other_income_label" for="no_other_income"><span>Nei</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div id="yes_other_income_holder" class="sb1_hide sb1_form_row_wrapper">
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <a aria-controls="annual_income_field_information" href="#" class="sb1_info_btn" role="button">
+                Informasjon om Andre inntekter
+              </a>
+              <label for="annual_income_field">Andre <span>inntekter</span></label>
+            </div>
+          </div>          
+          <div id="annual_income_field_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+            <div class="content_holder">
+              <div class="text_holder">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                et tortor quis sem tempus accumsan eu vitae mi.
+              </div>
+            </div>
+          </div>
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input id="annual_income_field" class="" name="annual_income_field" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper] depending_on_target[#yes_other_income]" data-unit="kr">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

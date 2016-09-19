@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - form - input - standard button</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  padding-top: 20px;
+}
+
+.headline {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.test {
+  clear: both;
+  overflow: hidden;
+}
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+</head>
+<body style="min-height: 500px;">
+<div class="wrapper">
+  <div class="test">
+    <div style="float:left; width:90%;">
+      <div class="label"></div>
+      <div style="float:left;padding-right: 10px">
+        <input type="radio" class="sb1-input-radio" checked="" name="radio1" id="radioA">
+        <label class="sb1-input-radio-label" for="radioA">Alternativ 1</label>
+      </div>
+      <div style="float:left;padding-right: 10px">
+        <input type="radio" class="sb1-input-radio" checked="" name="radio1" id="radioB">
+        <label class="sb1-input-radio-label" for="radioB">Alternativ 2</label>
+      </div>
+    </div>
+    <div style="float:left; width:90%;">
+      <div style="float:left;padding-right: 10px">
+        <input type="radio" class="sb1-input-radio" checked="" name="radio2" id="radioC" disabled="true">
+        <label class="sb1-input-radio-label" for="radioC">Disabled 1</label>
+      </div>
+      <div style="float:left;padding-right: 10px">
+        <input type="radio" class="sb1-input-radio" checked="" name="radio2" id="radioD" checked="true" disabled="true">
+        <label class="sb1-input-radio-label" for="radioD">Disabled 2</label>
+      </div>
+    </div>
+  </div>
+  <div class="test">
+    <div class="headline">Valideringstest</div>
+    <form id="application" method="post" action="" novalidate> 
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0;"></div>
+      <div class="wrapper" style="overflow:hidden;clear:both">
+        <div style="float:left;padding-right: 10px">
+          <input type="radio" class="sb1-input-radio" data-rule="parent_target[.wrapper]" name="sex" id="radioMale" required>
+          <label class="sb1-input-radio-label" for="radioMale">Menn</label>
+        </div>
+        <div style="float:left;padding-right: 10px">
+          <input type="radio" class="sb1-input-radio" data-rule="parent_target[.wrapper]" name="sex" id="radioFemale" required>
+          <label class="sb1-input-radio-label" for="radioFemale">Kvinne</label>
+        </div>
+      </div>
+      <div style="margin-top: 15px">
+        <input class="primary-btn" type="submit" value="valider">
+      </div>
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0"></div>
+    </form>
+  </div>  
+</div>
+
+<script>
+  $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder'
+  });
+</script>
+</body>
+</html>

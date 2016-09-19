@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  padding: 20px 0;
+  float: left;
+  clear: both;
+}
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+</head> 
+<body>
+<div style="height:550px">
+  <div class="wrapper">
+    <div class="sb1_dropdown_menu">
+      <a role="button" aria-controls="insurance_start_date_list" href="#" class="sb1_dropdown_btn"></a>
+      <input type="hidden" name="current_insurance_company" aria-hidden="true" required>                         
+      <ul role="listbox" id="insurance_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+        <li class="sb1_dropdown_option" data-value="abc" role="option">
+          <div class="account_info">
+            <div class="name">Standardkonto til Elisabeth Nilsen</div>
+            <div class="note">
+              <span class="number">3201 55 41119</span> -
+              <span class="balance">kr 1 100 500</span>
+            </div>
+          </div>
+        </li>
+        <li class="sb1_dropdown_option" data-value="def" role="option">
+          <div class="account_info">
+            <div class="name">Brukskonto 1</div>
+            <div class="note">
+              <span class="number">3201 55 23338</span> -
+              <span class="balance">kr 100 500</span>
+            </div>
+          </div>
+        </li>
+        <li class="sb1_dropdown_option selected" data-value="ghi" role="option">
+          <div class="account_info">
+            <div class="name">Sparekonto for bolig</div>
+            <div class="note">
+              <span class="number">3201 55 48888</span> -
+              <span class="balance">kr 2 100 500</span>
+            </div>
+          </div>
+        </li>
+        <li class="sb1_dropdown_option" data-value="jkl" role="option">
+          <div class="account_info">
+            <div class="name">Standardkonto til Ole Petter kristiansen</div>
+            <div class="note">
+              <span class="number">3201 55 68777</span> -
+              <span class="balance">kr 4 500</span>
+            </div>
+          </div>
+        </li>
+        <li class="sb1_dropdown_option" data-value="mno" role="option">
+          <div class="account_info">
+            <div class="name">Brukskonto 2</div>
+            <div class="note">
+              <span class="number">3201 55 71234</span> -
+              <span class="balance">kr 114 500</span>
+            </div>
+          </div>
+        </li>
+        <li class="sb1_dropdown_option" data-value="pqr" role="option">
+          <div class="account_info">
+            <div class="name">BSU sparing</div>
+            <div class="note">
+              <span class="number">3201 55 92638</span> -
+              <span class="balance">kr 20 000</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+  $('.sb1_dropdown_menu').each( function (i,d) { 
+    $(d).SB1dropdownMenu({}); 
+  });
+</script>
+</body>
+</html>

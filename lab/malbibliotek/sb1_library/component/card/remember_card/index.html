@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - huskeliste</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+body {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+main {
+  display: block;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+#my_tool {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  margin-top: 70px;
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  padding: 10px;
+}
+
+#my_tool input {
+  padding: 3px 5px;
+  width: 60px;
+}
+
+#my_tool button:focus, #my_tool button:hover, #my_tool button,
+#my_tool input:focus, #my_tool input:hover, #my_tool input {
+  border: 1px solid #ccc !important;
+}
+
+#my_tool button, #my_tool input {
+  font-size: 14px;
+  line-height: 16px;
+  padding: 3px 5px;
+}
+
+/*******************************************************************/
+#view_tool {
+  text-align: right;
+  padding: 15px 10px;
+  margin: 0 0 10px 0;
+}
+
+#view_tool a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #adadad;
+  border-radius: 4px;
+  color: transparent;
+  font-size: 1px;
+  background: transparent none no-repeat center center / 25px auto;
+  position: relative;
+}
+
+#view_tool #auto_view:before {
+  content: "Auto";
+  font-size: 13px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  text-align: center;
+  color: #333;
+  line-height: 35px;
+  font-weight: 700; 
+}
+
+#view_tool a.selected, #view_tool a:hover {
+  border-color: #0075d2;
+}
+
+#view_tool a.selected:before, #view_tool a:hover:before {
+  color: #0075d2 !important;
+}
+
+
+#view_tool #card_view { 
+  background-image: url('./card.svg'); 
+}
+
+#view_tool #card_view:focus, 
+#view_tool #card_view:hover, 
+#view_tool #card_view.selected { 
+  background-image: url('./card_b.svg'); 
+}
+
+#view_tool #list_view { 
+  background-image: url('./list.svg'); 
+}
+
+#view_tool #list_view:focus,
+#view_tool #list_view:hover,
+#view_tool #list_view.selected { 
+  background-image: url('./list_b.svg'); 
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+<script>
+
+var ARTICLE = 
+  '<article class="sb1_remember_card">'+
+    '<div class="card_content">'+     
+      '<h2>===HEADTEXT===</h2>'+
+      '<p class="lead">===SUMMARY===</p>'+
+      '<div class="expire_date">'+
+        '<span class="label">Gjelder til:</span>'+ 
+        '<span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span>'+
+      '</div>'+         
+      '<div class="toggle_wrapper">'+
+        '<a href="#" class="toggle_expander" aria-controls="===prefix===_information" role="button"></a>'+
+      '</div>'+       
+    '</div>'+
+    '<div class="card_content" id="==prefix===_information" role="region">'+
+      '<div class="note_description">'+
+        '<div class="sb1_step_counter">'+
+          '<div class="sb1_progress">'+    
+            '<div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:65%">'+
+              '<span class="sr">Steg 3 av 7</span>'+
+            '</div>'+                
+          '</div>'+
+          '<div class="sb1_progress_description">Klar for signering</div>'+
+        '</div>'+
+        '<ul class="tool_wrapper">'+
+          '<li>'+
+            '<a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>'+
+          '</li>'+
+          '<li>'+
+            '<a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>'+
+          '</li>'+
+        '</ul>'+
+      '</div>'+    
+    '</div>'+
+  '</article>';
+
+function startup() {
+  $('#tool_btn').on('click',function() {
+    var value = ($('#tool_count').val() || '').replace(/\s+/g,'');
+    if ( value.match(/\D/) ) return;
+
+    var count = parseInt( value ), out = [];
+    for ( var i=0; i<count; i++ ) {
+      out.push( 
+        ARTICLE.replace( '===HEADTEXT===', geTesttext() )
+        .replace( '===SUMMARY===', geTesttext(7) ) 
+        .replace( /===prefix===/g, getRandomText() ) 
+      );
+    }
+
+    $('.sb1_remember_card_wrapper').html('<li>'+out.join('</li><li>')+'</li>');
+    initiRememberCard();
+  });
+
+  initiRememberCard();
+
+  var tool = $('#view_tool a').on('click', function(e) {
+    e.preventDefault();
+    var node = $(e.currentTarget);
+    if ( node.hasClass('selected') ) return;
+
+    tool.removeClass('selected');
+    node.addClass('selected');
+    var wrapper = $('.sb1_remember_card_wrapper').removeClass( 'list_mode card_mode');
+
+    if ( node.is('#list_view') )
+      wrapper.addClass('list_mode');
+    else if ( node.is('#card_view') )
+      wrapper.addClass('card_mode');
+    else {
+
+    }
+  });
+};
+
+function geTesttext( count ) {
+  var length = getRandom( count || 4 ), text = [];
+  for ( var i=0; i<length; i++ ) text.push( getRandomText() );
+  return capitaliseFirstLetter( text.join(' ') );
+}
+
+function getRandomText() {
+  var letter = 'abcdefghijklmnopqrstuvwxyz', length = getRandom(15), text = '';
+  for ( var i=0; i<length; i++ ) {
+    var end    = getRandom(letter.length), start = end-1;
+    text += letter.substring(start,end);
+  }
+  return text;
+}
+
+function getRandom( max ) {
+  return Math.floor((Math.random() * max) + 1); 
+}
+
+function capitaliseFirstLetter(text, name){
+  return ! text ? '' : ( name ? text.replace( /(?:^|\s)\S/g, function(a) { 
+    return a.toUpperCase(); 
+  }) : (text.charAt(0).toUpperCase()+text.slice(1).toLowerCase()) );
+}
+
+function initiRememberCard() {
+  var card = $( '.sb1_remember_card').each( function(i,d){
+    $(d).SB1rememberCard({
+      'discardParent' : true,
+      'continueCallback' : function() {
+      }
+    });
+  });
+
+  var wrapper = $('.sb1_remember_card_wrapper'), item = wrapper.children();
+  var size    = item.size(); 
+  //wrapper.addClass('count_'+size +(size>3? ' is_many' : ''));  
+
+  var std = 8, over = size-std;
+  if ( over > 0 ) {
+    item.addClass('hide');
+    while( std-- ) item.eq( std ).removeClass( 'hide' );
+
+    $('<li class="expander_wrapper"><a href="#" id="card_list_expander">Vis mer ('+over+')</a></li>')
+      .appendTo( wrapper ).find('a').on('click', function( e ) {
+        e.preventDefault();
+        item.removeClass( 'hide' ); 
+        $(e.currentTarget).parent().remove();
+      });
+  }
+}
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+</head> 
+<body onload="javascript:startup()">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main>
+  <h1 style="text-align:center;">Min Huskeliste</h1>
+  <div id="view_tool">
+    <a href="#" id="auto_view" class="selected">Auto View</a>
+    <a href="#" id="card_view">Card View</a>
+    <a href="#" id="list_view">List View</a>
+  </div>
+  <div id="main_content">
+    <ol class="sb1_remember_card_wrapper">
+      <li>
+        <article class="sb1_remember_card">
+          <div class="card_content">     
+            <h2>Tilbud om boliglån</h2>
+            <p class="lead">Kr 2 550 000,- til 3,2% rent</p>
+            <div class="expire_date">
+              <span class="label">Gjelder til:</span> 
+              <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+            </div>         
+            <div class="toggle_wrapper">
+              <a href="#" class="toggle_expander" aria-controls="a_information" role="button"></a>
+            </div>          
+          </div>
+          <div class="card_content" id="a_information" role="region">
+            <div class="note_description">
+              <div class="sb1_step_counter">
+                <!--<h3>Klar for signering</h3>-->
+                <div class="sb1_progress">    
+                  <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:65%">
+                    <span class="sr">Steg 3 av 7</span>
+                  </div>                
+                </div>
+                <div class="sb1_progress_description">Klar for signering</div>
+              </div>
+              <ul class="tool_wrapper">
+                <li>
+                  <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                </li>
+                <li>
+                  <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                </li>
+              </ul>
+            </div>    
+          </div>
+        </article>
+      </li>
+      <li>
+        <article class="sb1_remember_card">
+          <div class="card_content">     
+            <h2>Sparekonto "Racerbil"</h2>
+            <p class="lead">Forslag fra rådgiver Gunnar Gang venter på din aksept.</p>
+            <div class="expire_date">
+              <span class="label">Gjelder til:</span> 
+              <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+            </div>         
+            <div class="toggle_wrapper">
+              <a href="#" class="toggle_expander" aria-controls="b_information" role="button"></a>
+            </div>
+          </div>
+          <div class="card_content" id="b_information" role="region">
+            <div class="note_description">
+              <div class="sb1_step_counter">
+                <!--<h3>Klar for signering</h3>-->
+                <div class="sb1_progress">    
+                  <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:35%">
+                    <span class="sr">Steg 3 av 7</span>
+                  </div>
+                </div>
+                <div class="sb1_progress_description">Klar for signering</div>
+              </div>
+              <ul class="tool_wrapper">
+                <li>
+                  <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                </li>
+                <li>
+                  <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                </li>
+              </ul>
+            </div>    
+          </div>
+        </article>
+      </li>
+      <li> 
+        <article class="sb1_remember_card">
+          <div class="card_content">     
+            <h2>Billån -Ford Tyrannosaurus</h2>
+            <p class="lead">Kr 2 550 000,- til 3,2% rent</p>
+            <div class="expire_date">
+              <span class="label">Gjelder til:</span> 
+              <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+            </div>         
+            <div class="toggle_wrapper">
+              <a href="#" class="toggle_expander" aria-controls="c_information" role="button"></a>
+            </div>
+          </div>
+          <div class="card_content" id="c_information" role="region">
+            <div class="note_description">
+              <div class="sb1_step_counter">
+                <!--<h3>Klar for signering</h3>-->
+                <div class="sb1_progress">    
+                  <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:85%">
+                    <span class="sr">Steg 3 av 7</span>
+                  </div>
+                </div>
+                <div class="sb1_progress_description">Klar for signering</div>
+              </div>
+              <ul class="tool_wrapper">
+                <li>
+                  <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                </li>
+                <li>
+                  <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                </li>
+              </ul>
+            </div>    
+          </div>
+        </article> 
+      </li>
+      <li>
+        <article class="sb1_remember_card">
+          <div class="card_content">     
+            <h2>Bilforsikring - Ford Tyrannosaurus</h2>
+            <p class="lead">Lagre bestilling</p>
+            <div class="expire_date">
+              <span class="label">Gjelder til:</span> 
+              <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+            </div>         
+            <div class="toggle_wrapper">
+              <a href="#" class="toggle_expander" aria-controls="d_information" role="button"></a>
+            </div>
+          </div>
+          <div class="card_content" id="d_information" role="region">
+            <div class="note_description">
+              <div class="sb1_step_counter">
+                <!--<h3>Klar for signering</h3>-->
+                <div class="sb1_progress">    
+                  <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:65%">
+                    <span class="sr">Steg 3 av 7</span>
+                  </div>
+                </div>
+                <div class="sb1_progress_description">Klar for signering</div>
+              </div>
+              <ul class="tool_wrapper">
+                <li>
+                  <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                </li>
+                <li>
+                  <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                </li>
+              </ul>
+            </div>    
+          </div>
+        </article>     
+      </li>
+      <li>
+        <article class="sb1_remember_card">
+          <div class="card_content">     
+            <h2>Reisforsikring</h2>
+            <p class="lead">3 000</p>
+            <div class="expire_date">
+              <span class="label">Gjelder til:</span> 
+              <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+            </div>         
+            <div class="toggle_wrapper">
+              <a href="#" class="toggle_expander" aria-controls="e_information" role="button"></a>
+            </div>
+          </div>
+          <div class="card_content" id="e_information" role="region">
+            <div class="note_description">
+              <div class="sb1_step_counter">
+                <!--<h3>Klar for signering</h3>-->
+                <div class="sb1_progress">    
+                  <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:65%">
+                    <span class="sr">Steg 3 av 7</span>
+                  </div>
+                </div>
+                <div class="sb1_progress_description">Klar for signering</div>
+              </div>
+              <ul class="tool_wrapper">
+                <li>
+                  <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                </li>
+                <li>
+                  <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                </li>
+              </ul>
+            </div>    
+          </div>
+        </article>     
+      </li>
+    </ol>
+  </div>
+
+  <div id="my_tool">
+    <input type="tel" id="tool_count" placeholder="#kort">
+    <button id="tool_btn">Test</button>
+  </div>
+</main>
+
+
+</body>
+</html>

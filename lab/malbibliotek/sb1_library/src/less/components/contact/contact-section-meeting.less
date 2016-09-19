@@ -1,0 +1,192 @@
+.sec-meeting {
+
+    .person-info{
+        max-width: 700px;
+        width: 100%;
+        margin: auto;
+
+        .col-sm-4{
+            width: 33.33333333%;
+            float: left;
+        }
+        .col-sm-6{
+            padding-left: 6px;
+            padding-right: 6px;
+
+            @media (min-width: 515px) {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+        .col-sm-8{
+            width: 66.66666667%;
+            float: left;
+        }
+    }
+
+    .appointment-info {
+        width: 100%;
+        margin: auto;
+        max-width: 410px;
+        font-family: 'MuseoSansRounded-500';
+        .col-sm-6 {
+            width: 50%;
+            float: left;
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        .add-button {
+            position: relative;
+            display: block;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 0;
+            line-height: 20px;
+            background-color: @white;
+            max-width: 250px;
+            margin: 15px auto;
+            color: @blue-royal-light-wcag;
+            font-size: 14px;
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
+            @media (min-width: 515px) {
+                font-size: 17px;
+            }
+            .icon-arrow_down{
+                float: right;
+                &:before{
+                    color: @blue-royal-light-wcag;
+                }
+            }
+        }
+    }
+
+    .advice-info {
+        text-align: center;
+        ul{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+
+            li{
+                list-style: none;
+                display: block;
+                position: relative;
+                margin: 5% 0;
+
+                @media (min-width: 515px) {
+                    display: inline-block;
+                    margin: 1%;
+                    text-align: center;
+                }
+            }
+        }
+
+        .sb1-input-checkbox-label {
+            background-position: right;
+            background-origin: content-box;
+            &.advice-select-box{
+                width: 100%;
+                margin: 0;
+                padding: 10px;
+                display: block;
+                background-color: @blue-flat;
+                color: @white;
+                text-decoration: none;
+                transition: all 200ms;
+                border-radius: 4px;
+                text-align: left;
+                line-height: 30px;
+                &:after{
+                    right: 14px;
+                    top: 19px;
+                    left: auto;
+                }
+                &:before{
+                    display: none;
+                }
+                @media (min-width: 515px) {
+                    width: 180px;
+                    height: 144px;
+                    display: block;
+                    padding: 10px;
+                    text-align: center;
+                    background-position: right top;
+                    &:after{
+                        right: 14px;
+                        top: 14px;
+                    }
+                }
+            }
+            .icon-block {
+                text-align: center;
+                display: none;
+                transition: color 200ms;
+
+                @media (min-width: 515px) {
+                    font-size: 55px;
+                    padding: 30px 0 17px;
+                    display: block;
+                }
+
+            }
+            &:hover {
+                background-color: @blue-flat;
+                color: @white;
+                .icon-block {
+                    &:before {
+                        color: @white;
+                    }
+                }
+            }
+        }
+
+        input[type="checkbox"]{
+            &.input-checkbox{
+                &.advice-select-box{
+                    position: absolute;
+                    &.sb1_form_validation_has_error{
+                        + label {
+                            border: 2px solid @red !important;
+                        }
+                    }
+                    &:checked, &:focus{
+                        + label{
+                            background-color: @blue-flat;
+                            color: @white;
+                            .icon-block {
+                                &:before {
+                                    color: @white;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                + label {
+                    background-image: none, url("../images/checkbox/dark_checkbox_regular.svg");
+                    &:after {
+                        background: transparent url("../images/checkbox/dark_checkmark_active.svg") no-repeat center center;
+                    }
+                    &:hover {
+                        background-image: none, url("../images/checkbox/dark_checkbox_hover.svg");
+                    }
+                }
+                &:checked {
+                    +label {
+                        background-image: none, url("../images/checkbox/dark_checkbox_hover.svg");
+                    }
+                }
+                &:disabled {
+                    + label {
+                        background-image: none, url("../images/checkbox/dark_checkbox_disabled.svg");
+                    }
+                }
+
+            }
+        }
+    }
+}

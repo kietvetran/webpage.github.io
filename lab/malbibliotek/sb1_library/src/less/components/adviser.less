@@ -1,0 +1,31 @@
+.adviser {
+    display: inline-block;
+    text-align: center;
+    margin:  5px 2%;
+    vertical-align: top;
+    max-width: 200px;
+    width: 100%;
+    > .adviser-image {
+        display: block;
+        margin-bottom: 10px;
+        img {
+            width: 180px;
+            height: 180px;
+            border-radius: 100%;
+        }
+    }
+    > .adviser-name,
+    .adviser-subtext {
+        &:extend(h6);
+        font-family: MuseoSansRounded-500;
+        margin-bottom: 5px;
+    }
+
+    > .adviser-name {
+        margin-bottom: 5px;
+        font-family: MuseoSansRounded-700;
+    }
+    > .adviser-subtext {
+        color: @gray-dark;
+    }
+}

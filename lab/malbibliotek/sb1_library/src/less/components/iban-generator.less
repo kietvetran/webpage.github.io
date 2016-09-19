@@ -1,0 +1,71 @@
+.iban-container {
+    max-width: 400px;
+    margin: auto;
+    form {
+        &.error {
+            .sb1_form_validation_error {
+                display: block;
+            }
+        }
+        .sb1_form_validation_error {
+            display: none;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        input {
+            border: 2px solid @gray-light;
+        }
+    }
+    > .iban-result-container {
+        display: none;
+        text-align: center;
+        margin-bottom: 20px;
+        .result-text {
+            margin-bottom: 5px;
+        }
+        > .result-electronic {
+            margin-bottom: 20px;
+            > .iban-result {
+                color: @green-wcag;
+                font-size: 30px;
+            }
+        }
+    }
+
+    > .iban-check-btn {
+        position: relative;
+        text-align: center;
+        display: block;
+        color: @blue-flat;
+        margin-bottom: 20px;
+        transition: all 300ms;
+
+        .icon-arrow_down();
+        &.open {
+            color: @blue-royal;
+            &:before {
+                transform: rotateX(180deg);
+                color: @blue-royal;
+            }
+        }
+        &:before {
+            position: absolute;
+            right: 17px;
+            font-size: 27px;
+            transition: all 300ms;
+            color: @blue-flat;
+        }
+
+
+    }
+    > .iban-check-section {
+        text-align: left;
+        display: none;
+        .iban-check-result {
+            color: @green-wcag;
+        }
+    }
+
+}

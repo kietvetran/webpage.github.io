@@ -1,0 +1,7 @@
+.fontface(@name; @font-weight: normal; @font-style: normal){
+    font-family: @name;
+    src: url('../fonts/@{name}.eto');
+    src: url('../fonts/@{name}.otf') format('opentype'); //TODO: More file types
+    font-weight: @font-weight;
+    font-style: @font-style;
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.layout {
+  max-width: 980px;
+  margin: 20px auto;
+}
+
+.layout > div {
+  border-top: 1px solid red;
+  margin: 0 10px;  
+  padding-top: 20px;
+}
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+</head> 
+<body style="height: 2000px">
+<div class="layout">
+  <div>
+    <div class="sb1_form_row">
+      <div class="sb1_row_content sb1_label_wrapper">
+        <div class="content_holder">
+          <a aria-controls="driving_distance" href="#" class="sb1_info_btn" role="button">informasjon om kjørelengde</a>
+          <label for="kilometer">Antall kilometer har du kjørt? <span class="help_text">Oppgi heltall</span></label>
+        </div>
+      </div>          
+      <div id="driving_distance" class="sb1_info_wrapper" role="region" aria-expanded="false">
+        <div class="content_holder">
+          <div class="text_holder">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+            Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+            sapien eu, mollis nisl. Aliquam finibus maximus ipsum, vel commodo 
+            sem aliquet vel. Duis interdum sollicitudin nibh, quis tincidunt 
+            turpis aliquam in. Praesent accumsan ullamcorper felis, quis semper erat fermentum sed. 
+            <a href="#">Mere detaljer</a>
+          </div>
+        </div>
+      </div>
+      <div class="sb1_row_content sb1_input_wrapper">
+        <input id="kilometer" class="sb1_input_textfield large" name="kilometer" type="text" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+        
+      </div>
+    </div>
+
+    <div class="sb1_form_row show_information">
+      <div class="sb1_row_content sb1_label_wrapper">
+        <div class="content_holder">
+          <a href="#" class="sb1_info_btn" aria-label="Informasjon om kjørelengde" role="button"></a>
+          <label for="kilometer_e">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</label>
+        </div>
+      </div>          
+      <div class="sb1_info_wrapper" role="region" aria-expanded="false">
+        <div class="content_holder">
+          <div class="text_holder">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+            Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+            sapien eu, mollis nisl. Aliquam finibus maximus ipsum, vel commodo 
+            sem aliquet vel. Duis interdum sollicitudin nibh, quis tincidunt 
+            turpis aliquam in. Praesent accumsan ullamcorper felis, quis semper erat fermentum sed. 
+            <a href="#">Mere detaljer</a>
+          </div>
+        </div>
+      </div>
+      <div class="sb1_row_content sb1_input_wrapper">
+        <input id="kilometer_e" class="sb1_input_textfield large" name="kilometer" type="text" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+      </div>
+    </div>
+
+    <div class="sb1_form_row">
+      <fieldset>
+        <div class="sb1_row_content sb1_label_wrapper">
+          <div class="content_holder">
+            <a aria-controls="expiring_date" href="#" class="sb1_info_btn" role="button">
+              Informasjon om hovedforfall
+            </a>
+           <legend id="car_insurance_expire_date_label">Vet du dato for hovedforfall i annet selskap?</legend>
+          </div>
+        </div>          
+        <div id="expiring_date" class="sb1_info_wrapper" role="region" aria-expanded="false">
+          <div class="content_holder">
+            <div class="text_holder">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+              et tortor quis sem tempus accumsan eu vitae mi.
+            </div>
+          </div>
+        </div>          
+        <div class="sb1_row_content sb1_input_wrapper">
+          <input type="radio" class="sb1-input-radio" name="knowing_car_insurance_expire_date" id="yes_knowing_car_insurance_expire_date" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+          <label class="sb1_button" id="yes_knowing_car_insurance_expire_date_label" for="yes_knowing_car_insurance_expire_date"><span>Ja</span></label>        
+          <input type="radio" class="sb1-input-radio" name="knowing_car_insurance_expire_date" id="no_knowing_car_insurance_expire_date" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+          <label class="sb1_button" id="no_knowing_car_insurance_expire_date_label" for="no_knowing_car_insurance_expire_date"><span>Nei</span></label>
+        </div>
+      </fieldset>
+    </div>   
+
+    <div class="sb1_form_row">
+      <fieldset>      
+        <div class="sb1_row_content sb1_label_wrapper">
+          <div class="content_holder">
+            <a href="#" class="sb1_info_btn" aria-label="Informasjon om hovedforfall" role="button"></a>
+           <legend id="jj_car_insurance_expire_date_label">orem ipsum dolor sit amet?</legend>
+          </div>
+        </div>          
+        <div class="sb1_info_wrapper" role="region" aria-expanded="false">
+          <div class="content_holder">
+            <div class="text_holder">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+              et tortor quis sem tempus accumsan eu vitae mi.
+            </div>
+          </div>
+        </div>          
+        <div class="sb1_row_content sb1_input_wrapper">
+          <input type="radio" class="sb1-input-radio" name="jj_knowing_car_insurance_expire_date" id="jj_yes_knowing_car_insurance_expire_date" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+          <label class="sb1_button" id="jj_yes_knowing_car_insurance_expire_date_label" for="jj_yes_knowing_car_insurance_expire_date"><span>Ja</span></label>        
+          <input type="radio" class="sb1-input-radio" name="jj_knowing_car_insurance_expire_date" id="jj_no_knowing_car_insurance_expire_date" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+          <label class="sb1_button" id="jj_no_knowing_car_insurance_expire_date_label" for="jj_no_knowing_car_insurance_expire_date"><span>Nei</span></label>
+          <input type="radio" class="sb1-input-radio" name="jj_knowing_car_insurance_expire_date" id="jjunknow_knowing_car_insurance_expire_date" value="no" data-rule="parent_target[.sb1_input_wrapper]" required >
+          <label class="sb1_button" id="jjunknow_knowing_car_insurance_expire_date_label" for="jjunknow_knowing_car_insurance_expire_date"><span>Vet ikke</span></label>
+        </div>
+      </fieldset>
+    </div>   
+
+    <div class="sb1_form_row">
+      <div class="sb1_row_content sb1_label_wrapper">
+        <div class="content_holder">
+          <a href="#" class="sb1_info_btn" aria-label="Informasjon om dato" role="button"></a>
+          <label id="insurance_start_date">Startdato for forsikringen er</label>
+        </div>
+      </div>          
+      <div class="sb1_info_wrapper" role="region" aria-expanded="false">
+        <div class="content_holder">
+          <div class="text_holder">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+          </div>
+        </div>
+      </div>  
+
+      <div class="sb1_row_content sb1_input_wrapper">
+        <div class="sb1_dropdown_menu">
+          <a role="button" aria-controls="insurance_start_date_list" href="#" class="sb1_dropdown_btn">Desember</a>
+          <input type="hidden" name="current_insurance_company" aria-hidden="true" required>                         
+          <ul role="listbox" id="insurance_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+            <li class="sb1_dropdown_option" role="option">Januar</li>
+            <li class="sb1_dropdown_option" role="option">Februar</li>
+            <li class="sb1_dropdown_option" role="option">Mars</li>
+            <li class="sb1_dropdown_option" role="option">April</li>
+            <li class="sb1_dropdown_option" role="option">Mai</li>
+            <li class="sb1_dropdown_option" role="option">Juni</li>
+            <li class="sb1_dropdown_option" role="option">Juli</li>
+            <li class="sb1_dropdown_option" role="option">August</li>
+            <li class="sb1_dropdown_option" role="option">September</li>
+            <li class="sb1_dropdown_option" role="option">Oktober</li>
+            <li class="sb1_dropdown_option" role="option">November</li>
+            <li class="sb1_dropdown_option selected" role="option">Desember</li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+</script>
+</body>
+</html>

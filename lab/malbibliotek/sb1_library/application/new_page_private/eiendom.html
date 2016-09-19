@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="no"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script type="text/javascript" src="lan_files/jquery.js"></script>
+<script type="text/javascript" src="lan_files/utils.js"></script>
+<script type="text/javascript" src="lan_files/granite.js"></script>
+<script type="text/javascript" src="lan_files/jquery_002.js"></script>
+
+
+
+    <link rel="shortcut icon" href="https://www.sparebank1.no/etc/designs/sb1/nettsider/favicon.ico">
+    <title>Eiendom</title>
+    
+    
+
+<link rel="stylesheet" href="lan_files/clientlib_base.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./style/font_face.css">
+<link rel="stylesheet" type="text/css" href="./style/main.css">
+<link rel="stylesheet" type="text/css" href="./style/register_payment_section.css">
+<link rel="stylesheet" type="text/css" href="./style/deposit_account_section.css">
+<link rel="stylesheet" type="text/css" href="./style/maturity_section.css">
+<link rel="stylesheet" type="text/css" href="./style/account_movement.css">
+<link rel="stylesheet" type="text/css" href="./style/force.css">
+<link rel="stylesheet" type="text/css" href="./style/nn_private.css">
+<link rel="stylesheet" type="text/css" href="./style/nn_base.css">
+
+<script type="text/javascript" src="./javascript/account.js"></script>
+<!--<script type="text/javascript" src="./javascript/country.js"></script>-->
+<script type="text/javascript" src="./javascript/maturity.js"></script>
+<script type="text/javascript" src="./javascript/movement.js"></script>
+
+<script type="text/javascript" src="./javascript/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./javascript/general.js"></script>
+<script type="text/javascript" src="./javascript/main.js"></script>
+<script type="text/javascript" src="./javascript/nn_private.js"></script>
+
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+<script type="text/javascript" src="./js/sb1_slider_button.js"></script>
+<script type="text/javascript" src="./js/sb1_calendar.js"></script>
+<script type="text/javascript" src="./js/sb1_carousel.js"></script>
+
+
+    <script src="lan_files/satelliteLib-0ed2cae21528a29a49fc2524668dda66f8bec94e.js"></script>
+<script src="lan_files/s-code-contents-7c338b5baa3742c4dad1bbe0f00f9450891399fb.js"></script><style data-c2c="c2c_print_container_style" media="print" type="text/css">span.skype_c2c_print_container {} span.skype_c2c_container {display:none !important;} .skype_c2c_menu_container {display:none !important;}</style><script src="lan_files/telemetry.js"></script><script src="lan_files/menu_handler.js"></script></head>
+
+
+<body>
+    <script>
+        (function () {
+            var path = "/content/sb1/no/oslo-akershus/privat/lan";
+            var pageTypePath = "/apps/sb1/nettsider/templates/categorypage";
+            var pageType = pageTypePath.split('/')[5];
+            var data = path.split('/');
+            
+            content = {};
+            content.page = getContent(2, data.length, content.page);
+            content.section1 = data[5]; 
+            content.section2 = getContent(5, 7, content.section2);
+            content.section3 = getContent(5, 8, content.section3); 
+            content.section4 = getContent(5, data.length, content.section4);
+            content.pagetype = getPageType(pageType); 
+            content.brand = getBrandName(); 
+            content.subbrand = data[4]; 
+            content.country = data[3]; 
+            content.site = location.hostname;
+            
+            function getContent(arrayStart, length, property) {
+                if(length > data.length){
+                    length = data.length;
+                }
+                
+                for(var i = arrayStart; i < length; i++){
+                    if(!property){
+                        property = data[i] + '|';
+                    }
+                    else{
+                        property += data[i] + '|';
+                    }    
+                }
+                return property;
+            }
+            
+            function getPageType(pagetype) {
+                if(pagetype === 'productpage'){
+                    pagetype = 'Produkt';
+                }
+                else if (pagetype === 'topicpage'){
+                    pagetype = 'Tema';
+                }
+                else if (pagetype === 'customersericecategorypage'){
+                    pagetype = 'Kundeservice kategori';
+                }
+                else if (pagetype === 'customersericepage'){
+                    pagetype = 'Kundeservice';
+                }
+                return pagetype;
+            }
+            
+            function getBrandName() {
+                var brandName
+                if(data[2] === 'sb1'){
+                   brandName = 'SpareBank 1';
+                }
+                else if (data[2] === 'em1') {
+                    brandName = 'Eiendomsmegler 1';
+                }
+                return brandName;
+            }
+            
+        })(); 
+    </script>
+    <nav>
+    <a href="#main-menu" class="visually-hidden focusable" aria-label="Til hovedmeny">Til hovedmeny</a>
+
+    <a href="#main-content" class="visually-hidden focusable" aria-label="Til hovedinnhold">Til hovedinnhold</a>
+</nav>
+    <div id="banner" role="banner">
+      <div class="banner_content layout_wrapper">
+        <a href="index.html" class="banner_logo">
+          <picture>
+            <img src="img/logo.svg" alt="">
+          </picture>
+        </a>
+        <div id="banner_switcher">
+            <a href="#" class="banner_switcher_private active">Private</a>
+            <a href="#" class="banner_switcher_business">Bedrift</a>            
+        </div>
+          <div class="banner_tool">
+            <a href="#" class="profile_btn_wrapper"><span class="icon-consultant"><span>Meg</span></span></a>
+            <a href="#" class="search_btn_wrapper"><span class="icon-search search_btn"><span>Søk</span></span></a>
+            <a href="#" class="login_btn"><span class="in">Logg inn</span><span class="out">Logg ut</span></a>
+          </div>
+          <nav id="top_menu" role="navigation" aria-label="Primary" tabindex="-1">
+            <ul>
+              <li><a href="dagligbruk.html">Daglig bruk<span class="icon-arrow_right"></span></a></li>
+              <li><a href="lan.html">Låne<span class="icon-arrow_right"></span></a></li>
+              <li><a href="sparing.html">Spare<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="forsikring.html">Forsikre<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="eiendom.html" class="active">Eiendom<span class="icon-arrow_right"></span></a></li>    
+              <li><a href="tema.html">Tema<span class="icon-arrow_right"></span></a></li>
+              <li><a href="kunderservice.html">Kundeservice<span class="icon-arrow_right"></span></a></li>    
+            </ul>
+          </nav>            
+          <div id="banner_contact">
+            <div><a class="icon-phone" href="tel:0740">0740</a></div>
+            <ul>
+                <li><a href="#">Om oss</a></li>
+                <li><a href="#">Eiendomsmegler 1</a></li>
+                <li><a href="#">Private banking</a></li>
+                <li><a href="#">Sparebank 1 Markets</a></li>
+            </ul>
+          </div>          
+      </div>
+      <a href="#" class="hamburger-wrapper">
+        <div class="inner-wrapper">
+          <div class="hamburger"></div>
+        </div>
+      </a>  
+    </div>
+
+    <div id="layout" class="new_blue_line_icon login_controll">
+      <div id="header" class="blue_line_toggle_expander">
+        <div class="row layout_wrapper">
+          <div class="bottom" id="sub_navigation_wrapper">
+            <div class="separation_sidebar_wrapper">
+              <div class="separation_sidebar">
+                <div id="navigation_sign">
+                  <h1 class="title ellipsis">Eiendom</h1>
+                  <div class="name ellipsis">Siri Olsen Corneliussen</div>
+                </div>
+              </div>
+              <div class="separation_content">
+                <nav id="sub_navigation">               
+                  <ul role="menu" class="submenu">
+                    <li><a href="netbank.html#?category=property&display=my_property_section" class="navigation_link sub_nav property">Mine Eiendommer</a></li>
+                    <li><a href="netbank.html#?category=property&display=document_property_section" class="navigation_link sub_nav document">Dokumenter</a></li>
+                    <li><a href="netbank.html#?category=property&display=neighbor_property_section" class="navigation_link sub_nav neighbor">Ditt nabolag</a></li>
+                    <li><a href="netbank.html#?category=property&display=buy_house_property_section" class="navigation_link sub_nav buy_house">Kjøpe</a></li>
+                    <li><a href="netbank.html#?category=property&display=sell_property_section" class="navigation_link sub_nav sell">Selge</a></li>
+                    <li><a href="netbank.html#?category=property&display=agent_property_section" class="navigation_link sub_nav agent">Megler</a></li>
+                  </ul>
+                </nav>              
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="blue_line_toggle_expander_btn"></a>
+      </div>
+    </div>
+
+    <div class="main-wrap">
+        <main id="main-content" class="main container-fluid" role="main" tabindex="-1">
+    <div class="title">
+        <h1>Eiendom</h1>
+    </div>
+    <div>
+
+
+
+    <div style="max-width: 10000px" class="text-wrapper max-width">
+        <p style="text-align: center;"><span class="main-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, nunc a cursus suscipit, mi dui ornare ipsum, sed varius ex mi ut turpis.</span></p>
+
+
+
+    </div>
+
+
+</div>
+    <div id="#me" class="category-overview">
+        
+
+<ul class="subcategory-card-list">
+    
+    
+    <li class="subcategory-card-container">
+        <a class="subcategory-card" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig.html">
+            <div class="card-content-container">
+                <div class="card-content">
+                    <span class="icon">
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original_002.svg" alt="" class="inline-svg responsive ">
+    </picture>
+
+        
+    
+</span>
+                    <span class="title-text">Bolig</span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    
+    
+    <li class="subcategory-card-container">
+        <a class="subcategory-card" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bil-bat-og-andre-kjoretoy.html">
+            <div class="card-content-container">
+                <div class="card-content">
+                    <span class="icon">
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original.svg" alt="" class="inline-svg responsive ">
+    </picture>
+
+        
+    
+</span>
+                    <span class="title-text">Bil, båt og andre kjøretøy</span>
+                </div>
+            </div>
+        </a>
+    </li>
+
+    
+    
+    <li class="subcategory-card-container">
+        <a class="subcategory-card" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/forbruk.html">
+            <div class="card-content-container">
+                <div class="card-content">
+                    <span class="icon">
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original_007.svg" alt="" class="inline-svg responsive ">
+    </picture>
+
+        
+    
+</span>
+                    <span class="title-text">Forbruk</span>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>
+
+        <a href="#me" id="list-btn" class="se-more-btn" aria-expanded="false"><span class="btn-text">Se alle</span><span class="icon-close"></span></a>
+        <div class="list-box category-list" role="navigation" aria-label="Secondary">
+            <div class="list-wrap clearfix"><ul><li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig.html">
+                <h2>
+                    Bolig
+                </h2>
+            </a>
+        </li><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/boliglan.html">
+                    Boliglån
+                </a>
+            </li><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/boliglan-for-unge.html">
+                    Boliglån for unge
+                </a>
+            </li></ul><ul><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/flexilan.html">
+                    Flexilån
+                </a>
+            </li><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/byggelan.html">
+                    Byggelån
+                </a>
+            </li><li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bil-bat-og-andre-kjoretoy.html">
+                <h2>
+                    Bil, båt og andre kjøretøy
+                </h2>
+            </a>
+        </li></ul><ul><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bil-bat-og-andre-kjoretoy/billan.html">
+                    Billån
+                </a>
+            </li><li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/forbruk.html">
+                <h2>
+                    Forbruk
+                </h2>
+            </a>
+        </li><li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/forbruk/forbrukslan.html">
+                    Forbrukslån
+                </a>
+            </li></ul></div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+    <div class="hr parbase">
+    <hr>
+</div>
+
+
+    
+    
+    
+    <div class="parbase shortcuts"><div class="title">
+
+<h2>
+    Snarveier
+</h2>
+</div>
+<div class="shortcuts">
+    <ul>
+        <li><a class="shortcut-btn arrow-right" href="https://www.sparebank1.no/portal/9898/3_privat?_nfpb=true&amp;_pageLabel=P103800397361304664651235">Signer lån</a></li>
+    </ul>
+</div>
+</div>
+
+
+
+</main>
+
+<div aria-hidden="true" class="list-template hide">
+    <ul>
+        <li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig.html">
+                <h2>
+                    Bolig
+                </h2>
+            </a>
+        </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/boliglan.html">
+                    Boliglån
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/boliglan-for-unge.html">
+                    Boliglån for unge
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/flexilan.html">
+                    Flexilån
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bolig/byggelan.html">
+                    Byggelån
+                </a>
+            </li>
+        
+    
+        <li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bil-bat-og-andre-kjoretoy.html">
+                <h2>
+                    Bil, båt og andre kjøretøy
+                </h2>
+            </a>
+        </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/bil-bat-og-andre-kjoretoy/billan.html">
+                    Billån
+                </a>
+            </li>
+        
+    
+        <li>
+            <a class="list-title" href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/forbruk.html">
+                <h2>
+                    Forbruk
+                </h2>
+            </a>
+        </li>
+        
+            <li>
+                <a href="https://www.sparebank1.no/no/oslo-akershus/privat/lan/forbruk/forbrukslan.html">
+                    Forbrukslån
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+
+
+    </div>
+    <div class="footer-wrapper">
+    <div class="footer-top container-fluid">
+        <div id="contact-us">
+
+<div class="contact-section">
+    <h2>Kontakt oss</h2>
+    
+    <div class="customer-action-wrap clearfix">
+        <ul class="customer-action-list">
+            <li class="hide-desktop">
+                <a href="tel:07040" class="cs-action mobile-button">
+                    <div class="icon-circle">
+    
+    
+
+    
+        
+    <svg class="inline-svg responsive icon replaced-svg" xml:space="preserve" enable-background="new 0 0 180.365 180.365" viewBox="0 0 180.365 180.365" height="180.365px" width="180.365px" y="0px" x="0px" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" version="1.1">
+<path d="M64.389,138.682L64.389,138.682c-4.741,0-9.199-1.847-12.552-5.2l-9.595-9.594  c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785c2.214-2.214,5.804-2.214,8.018,0l5.915,5.916c1.369,1.367,3.752,1.365,5.119,0  l22.924-22.922c1.411-1.412,1.411-3.709-0.001-5.121l-5.916-5.915c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785  c2.214-2.214,5.804-2.214,8.018,0l9.595,9.595c6.126,6.126,6.938,15.778,1.91,22.833c-6.598,9.258-14.653,19.775-28.801,33.921  c-14.146,14.147-24.664,22.203-33.922,28.801C71.648,137.544,68.094,138.682,64.389,138.682z M48.133,119.879l8.653,8.653  c2.031,2.031,4.732,3.15,7.603,3.15c2.24,0,4.391-0.689,6.218-1.991c9.012-6.422,19.25-14.265,33.035-28.049  c13.785-13.785,21.628-24.023,28.05-33.035c3.053-4.284,2.565-10.097-1.158-13.821l-8.654-8.653l-17.902,17.902l4.975,4.975  c4.14,4.141,4.14,10.879,0.001,15.02l-22.924,22.922c-2.005,2.006-4.672,3.111-7.51,3.111c-2.837,0-5.504-1.105-7.51-3.111  l-4.974-4.974L48.133,119.879z" fill="#002776"></path>
+</svg>
+
+        
+    
+
+</div>
+                    <span class="btn-name">Ring</span>
+                    <span class="sub-info">Alle dager 7-24</span>
+                </a>
+            </li>
+
+            <li class="hide-desktop">
+                <a href="tel:+47%20915%2007040" class="cs-action mobile-button">
+                    <div class="icon-circle">
+    
+    
+
+    
+        
+    <svg class="inline-svg responsive icon replaced-svg" xml:space="preserve" enable-background="new 0 0 180.365 180.365" viewBox="0 0 180.365 180.365" height="180.365px" width="180.365px" y="0px" x="0px" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" version="1.1">
+<path d="M64.389,138.682L64.389,138.682c-4.741,0-9.199-1.847-12.552-5.2l-9.595-9.594  c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785c2.214-2.214,5.804-2.214,8.018,0l5.915,5.916c1.369,1.367,3.752,1.365,5.119,0  l22.924-22.922c1.411-1.412,1.411-3.709-0.001-5.121l-5.916-5.915c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785  c2.214-2.214,5.804-2.214,8.018,0l9.595,9.595c6.126,6.126,6.938,15.778,1.91,22.833c-6.598,9.258-14.653,19.775-28.801,33.921  c-14.146,14.147-24.664,22.203-33.922,28.801C71.648,137.544,68.094,138.682,64.389,138.682z M48.133,119.879l8.653,8.653  c2.031,2.031,4.732,3.15,7.603,3.15c2.24,0,4.391-0.689,6.218-1.991c9.012-6.422,19.25-14.265,33.035-28.049  c13.785-13.785,21.628-24.023,28.05-33.035c3.053-4.284,2.565-10.097-1.158-13.821l-8.654-8.653l-17.902,17.902l4.975,4.975  c4.14,4.141,4.14,10.879,0.001,15.02l-22.924,22.922c-2.005,2.006-4.672,3.111-7.51,3.111c-2.837,0-5.504-1.105-7.51-3.111  l-4.974-4.974L48.133,119.879z" fill="#002776"></path>
+</svg>
+
+        
+    
+
+</div>
+                    <span class="btn-name">Ring fra utlandet</span>
+                    <span class="sub-info">Alle dager 7-24</span>
+                </a>
+            </li>
+
+            <li data-menu-section="contact-call-template" class="hide-phone">
+                <a href="#" class="cs-action">
+                    <div class="icon-circle">
+    
+    
+
+    
+        
+    <svg class="inline-svg responsive icon replaced-svg" xml:space="preserve" enable-background="new 0 0 180.365 180.365" viewBox="0 0 180.365 180.365" height="180.365px" width="180.365px" y="0px" x="0px" xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" version="1.1">
+<path d="M64.389,138.682L64.389,138.682c-4.741,0-9.199-1.847-12.552-5.2l-9.595-9.594  c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785c2.214-2.214,5.804-2.214,8.018,0l5.915,5.916c1.369,1.367,3.752,1.365,5.119,0  l22.924-22.922c1.411-1.412,1.411-3.709-0.001-5.121l-5.916-5.915c-2.214-2.214-2.214-5.804,0-8.018l19.785-19.785  c2.214-2.214,5.804-2.214,8.018,0l9.595,9.595c6.126,6.126,6.938,15.778,1.91,22.833c-6.598,9.258-14.653,19.775-28.801,33.921  c-14.146,14.147-24.664,22.203-33.922,28.801C71.648,137.544,68.094,138.682,64.389,138.682z M48.133,119.879l8.653,8.653  c2.031,2.031,4.732,3.15,7.603,3.15c2.24,0,4.391-0.689,6.218-1.991c9.012-6.422,19.25-14.265,33.035-28.049  c13.785-13.785,21.628-24.023,28.05-33.035c3.053-4.284,2.565-10.097-1.158-13.821l-8.654-8.653l-17.902,17.902l4.975,4.975  c4.14,4.141,4.14,10.879,0.001,15.02l-22.924,22.922c-2.005,2.006-4.672,3.111-7.51,3.111c-2.837,0-5.504-1.105-7.51-3.111  l-4.974-4.974L48.133,119.879z" fill="#002776"></path>
+</svg>
+
+        
+    
+
+</div>
+                    <span class="btn-name">Ring</span>
+                    <span class="sub-info">Alle dager 7-24</span>
+                </a>
+                <div class="icon hide">
+                    <span class="icon-arrow_down"></span>
+                </div>
+            </li>
+
+            
+
+            
+
+            
+
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+<div aria-hidden="true" id="contact-call-template" class="hide">
+    <div class="contact-info-section">
+        <section class="contact-box sec-call">
+            <h3></h3>
+            <div class="medium-text">
+                <span class="icon-phone"></span> <span>07040</span>
+            </div>
+            <!--<ul class="phone-text">
+                <li>
+                    <span>Meld skade</span> <span>&lt;slett&gt;</span>
+                </li>
+                <li>
+                    <span>Sperr kort</span> <span>&lt;slett&gt;</span>
+                </li>
+            </ul>-->
+            <div class="small-text">Fra utland <span><span class="skype_c2c_print_container notranslate">+47 915 07040</span><span id="skype_c2c_container" class="skype_c2c_container notranslate" dir="ltr" tabindex="-1" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onclick="SkypeClick2Call.MenuInjectionHandler.makeCall(this, event)" data-numbertocall="+4791507040" data-numbertype="paid" data-isfreecall="false" data-isrtl="false" data-ismobile="false"><span class="skype_c2c_highlighting_inactive_common" dir="ltr" skypeaction="skype_dropdown"><span class="skype_c2c_textarea_span" id="non_free_num_ui"><img class="skype_c2c_logo_img" src="lan_files/call_skype_logo.png" height="0" width="0"><span class="skype_c2c_text_span">+47 915 07040</span><span class="skype_c2c_free_text_span"></span></span></span></span></span></div>
+        </section>
+    </div>
+</div>
+
+
+
+
+
+</div>
+        <a class="to-top clearfix">
+    <span class="icon-holder icon-arrow_up"></span>
+</a>
+
+    </div>
+</div>
+<div class="footer-bottom">
+    <div class="bottom-content container-fluid">
+        
+
+
+<div class="links">
+    <ul>
+        <li><a href="https://www.sparebank1.no/no/oslo-akershus/privat.html">Til betaforsiden</a></li>
+    
+        <li><a href="https://www.sparebank1.no/no/oslo-akershus/privat/beta.html">Om betaen</a></li>
+    
+        <li><a href="http://www.oslo.sparebank1.no/">Tilbake til sparebank1.no/oslo-akershus</a></li>
+    </ul>
+</div>
+
+<h4 class="social-heading">Følg oss på sosiale medier</h4>
+<div class="links social-links">
+    <ul>
+        <li>
+            <a href="https://twitter.com/sparebank1_no" target="_blank">
+                <span class="twitter-icon">
+    
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original_004.svg" alt="" class="inline-svg responsive icon">
+    </picture>
+
+        
+    
+
+</span>
+                Twitter
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/SpareBank1oa" target="_blank">
+                <span class="facebook-icon">
+    
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original_003.svg" alt="" class="inline-svg responsive icon">
+    </picture>
+
+        
+    
+
+</span>
+                Facebook
+            </a>
+        </li>
+        <li>
+            <a href="https://instagram.com/sparebank1" target="_blank">
+                <span class="instagram-icon">
+    
+    
+
+    
+        
+    <picture>
+        
+        
+        
+        <img src="lan_files/original_006.svg" alt="" class="inline-svg responsive icon">
+    </picture>
+
+        
+    
+
+</span>
+                Instagram
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="address">
+    <p>SpareBank 1 Oslo Akershus, Youngstorget 5, Oslo</p>
+</div>
+
+<div class="links small-links">
+    <ul>
+        <li><a href="https://www.sparebank1.no/no/oslo-akershus/privat/generelle-vilkar.html">Generelle vilkår for bruk av nettsiden</a></li>
+    
+        <li><a href="https://www.sparebank1.no/no/oslo-akershus/privat/personvern-og-informasjonskapsler.html">Informasjonskapsler</a></li>
+    </ul>
+</div>
+    </div>
+</div>
+    
+    
+    
+<script type="text/javascript" src="lan_files/clientlib_base.js"></script>
+
+
+
+
+    
+    <script type="text/javascript">_satellite.pageBottom();</script>
+
+<div data-uilang="en" data-uiid="1" data-p2murl="https://c2c-p2m-secure.skype.com/p2m/v1/push" data-murl="https://pipe.skype.com/Client/2.0/" data-fp="{1749B03E-CF41-4EE3-8284-A285411F5DFD}" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" style="display: none;" id="skype_c2c_menu_container" class="skype_c2c_menu_container notranslate"><div class="skype_c2c_menu_click2call"><a target="_self" id="skype_c2c_menu_click2call_action" class="skype_c2c_menu_click2call_action">Call</a></div><div class="skype_c2c_menu_click2sms"><a target="_self" id="skype_c2c_menu_click2sms_action" class="skype_c2c_menu_click2sms_action">Send SMS</a></div><div class="skype_c2c_menu_push_to_mobile"><a target="_blank" id="skype_c2c_menu_push_to_mobile_action" class="skype_c2c_menu_push_to_mobile_action">Call from mobile</a></div><div class="skype_c2c_menu_add2skype"><a target="_self" id="skype_c2c_menu_add2skype_text" class="skype_c2c_menu_add2skype_text">Add to Skype</a></div><div class="skype_c2c_menu_toll_info"><span class="skype_c2c_menu_toll_callcredit">You'll need Skype Credit</span><span class="skype_c2c_menu_toll_free">Free via Skype</span></div></div></body></html>

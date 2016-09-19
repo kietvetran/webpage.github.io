@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>Spinner</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+
+.sb1_spinner {
+  margin: 10% auto;
+  border: 0 none;
+  width: 65px;
+  -webkit-animation: spin 1.2s infinite linear;
+  -moz-animation: spin 1.2s infinite linear;
+  -ms-animation: spin 1.2s infinite linear;
+  -o-animation: spin 1.2s infinite linear;
+  animation: spin 1.2s infinite linear;
+}
+
+span.loading {
+  display: inline-block;
+}
+
+.loading {
+  /*
+  border-style: solid;
+  border-width: 5px;
+  border-color: #005AA4 #005AA4 transparent #005AA4;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;  
+  */
+  background: transparent url('spinner_w.svg') no-repeat scroll center center;
+  background-size: 25px auto;
+  height: 25px;
+  width: 25px;  
+
+
+  -webkit-animation: spin 1.2s infinite linear;
+  -moz-animation: spin 1.2s infinite linear;
+  -ms-animation: spin 1.2s infinite linear;
+  -o-animation: spin 1.2s infinite linear;
+  animation: spin 1.2s infinite linear;
+
+}
+
+@keyframes "spin" {
+ from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+ }
+ to {
+    -webkit-transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    transform: rotate(359deg);
+ }
+
+}
+
+@-moz-keyframes spin {
+ from {
+   -moz-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -moz-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-webkit-keyframes "spin" {
+ from {
+   -webkit-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -webkit-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-ms-keyframes "spin" {
+ from {
+   -ms-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -ms-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-o-keyframes "spin" {
+ from {
+   -o-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -o-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+}
+
+.wrapper {
+  overflow: hidden; 
+  margin: 15px auto 15px auto;
+  max-width: 600px;
+}
+
+.wrapper label {
+  display: block;
+}
+
+.wrapper input {
+  max-width: 300px;
+}
+
+.wrapper h3 {
+  margin: 0;
+  padding: 0; 
+}
+
+.wrapper .content {
+  list-style: none;
+  margin: 0;
+  padding:0;
+}
+
+.wrapper .content > li {
+  float: left;
+  width: 25%;
+}
+
+.wrapper .note {
+  color: #ccc;
+}
+
+button {
+  position: relative;
+  -webkit-transition: all .3s ease;                  
+  -moz-transition: all .3s ease;                 
+  -o-transition: all .3s ease;   
+  -ms-transition: all .3s ease;         
+  transition: all .3s ease;    
+}
+
+button.on_loading {
+  cursor: default;
+  background-color: #666 !important;
+}
+
+button:after {
+  content: "";
+  float: right;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  -webkit-transition: all .2s ease;                  
+  -moz-transition: all .2s ease;                 
+  -o-transition: all .2s ease;   
+  -ms-transition: all .2s ease;         
+  transition: all .2s ease;    
+}
+
+button .loading {
+}
+
+/* expander_left expander_right */
+button.expander_left .loading,
+button.expander_right .loading {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  margin: -14px 0 0 0;
+}
+  
+button.expander_left:after {
+  float: left;
+}
+
+button.expander_right.on_loading:after,
+button.expander_left.on_loading:after {
+  width: 25px;
+  content: "_";
+}
+
+button.expander_down .loading,
+button.expander_right .loading,
+button.expander_left .loading {
+  visibility: hidden;
+}
+
+button.expander_down.on_reveal .loading,
+button.expander_right.on_reveal .loading,
+button.expander_left.on_reveal .loading {
+  visibility: visible;
+}
+
+button.expander_right .loading {
+  left: auto;
+  right: 15px;
+}
+
+/* expand_down */
+button.expander_down .loading {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  margin: 0 0 0 -14px;
+}
+
+button.expander_down:after {
+  display: block;
+  height: 0;
+  width: auto;
+  clear: both;
+}
+
+button.expander_down.on_loading:after {
+  height: 50px;
+  content: "";
+}
+
+/* switch */
+button.switch .loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -14px 0 0 -14px;
+}
+button.switch.on_loading {
+  color: transparent;
+}
+
+/* slide_left slide_right */
+button.slide_right .loading,
+button.slide_left .loading {
+  position: absolute;
+  top: 50%;
+  margin: -14px 0 0 0;
+
+  -webkit-animation-delay: .3s;
+  -moz-animation-dalay: .3s;
+  -ms-animation-delay: .3s;
+  -o-animation-delay: .3s;
+  animation-delay: .3s;
+
+}
+button.slide_right .loading {
+  right: 100%;
+  -webkit-transition: right .3s ease;                  
+  -moz-transition: right .3s ease;                 
+  -o-transition: right .3s ease;   
+  -ms-transition: right .3s ease;         
+  transition: right .3s ease;   
+}
+
+button.slide_left .loading {
+  left: 100%;
+  -webkit-transition: left .3s ease;                  
+  -moz-transition: left .3s ease;                 
+  -o-transition: left .3s ease;   
+  -ms-transition: left .3s ease;         
+  transition: left .3s ease;   
+}
+
+button.slide_left.on_reveal .loading {
+  left: 50%;
+  margin-left: -14px;
+}
+
+button.slide_right.on_reveal .loading {
+  right: 50%;
+  margin-right: -14px;
+}
+
+button.slide_right.on_loading,
+button.slide_left.on_loading {
+  color: transparent;
+}
+
+/* sb1_lightbox */
+.sb1_lightbox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.sb1_lightbox .content {
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
+  width: 100%;
+  text-align: center;
+}
+
+.sb1_lightbox .loading {
+  /*background-image: url("spinner_b.svg");*/
+  background-size: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+</style>
+
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script>
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+function startup() {
+  $('button').on('click', _click );
+}
+function _click( e ) {
+  e.preventDefault();
+  var btn  = $(e.target), mode = 'on_loading', mode2 = 'on_reveal'; 
+  if ( btn.hasClass(mode) ) return;
+
+  var span ='<span class="loading"></span>', box = null;  
+  if ( btn.hasClass('expander_left') ) {
+    var children = btn.children();
+    if ( children.size() ) {
+    } else { btn.html( span + btn.html() ); }
+  }
+  else if ( btn.hasClass('expander_right') || btn.hasClass('expander_down') ) {
+    var children = btn.children();
+    if ( children.size() ) {
+    } else { btn.html( btn.html()+span ); }
+  }
+  else if ( btn.hasClass('switch') || btn.hasClass('slide_left') || btn.hasClass('slide_right') ) {
+    btn.html( btn.html()+span ); 
+  }
+  else if ( btn.hasClass('lightbox') ) {
+    box = $(
+      '<div class="sb1_lightbox">'+
+        '<div class="content">'+span+'</div>'+
+      '<div>'
+    ).appendTo('body');
+  } else { return; }
+
+  btn.addClass(mode);
+  setTimeout( function() { 
+    btn.addClass(mode2); 
+    if ( box ) box.addClass( mode2 );
+  }, 200 );
+  setTimeout( function() {
+    //btn.removeClass(mode).removeClass(mode2).removeAttr('style')
+    //  .find('.loading, .sb1_spinner').remove(); 
+
+    btn.removeClass(mode2);
+    setTimeout( function() { 
+      btn.removeClass(mode).removeAttr('style')
+        .find('.loading, .sb1_spinner').remove(); 
+      if ( box ) box.remove();
+    }, 200);
+  }, 3000 );
+}
+
+</script>
+</head>
+<body onload="javascript:startup()">
+  <!--s
+  <div class="sb1_lightbox">
+    <div class="content">
+      <span class="loading"></span>
+    </div>
+  </div>
+-->
+  <!--
+  <div style="padding:40px">
+    <img src="spinner_b.svg" class="sb1_spinner">
+    <span class="loading"></span>
+  </div>
+  -->
+  <div class="wrapper">
+    <label for="personnumber">Personsnummer med 11 siffer</label>
+    <input id="personnumber" class="sb1_input_textfield large" type="tel" value="080982 00000" name="personnumber" data-rule="personnumber" spellcheck="false" autocomplete="off" disabled="true">
+  </div>
+  <div class="wrapper">
+    <label for="cmobile">Telefon</label>
+    <input id="cmobile" class="sb1_input_textfield large" type="tel" value="41 47 49 47" name="cmobile" data-rule="telephone" spellcheck="false" autocomplete="off" disabled="true">
+  </div>
+
+  <div class="wrapper" style="padding-top:20px">
+    <ul class="content">
+      <li>
+        <button class="action-btn expander_left">Submit</button>
+        <div class="note">Expand left</div>
+      </li>
+      <li>
+        <button class="action-btn expander_right">Submit</button>
+        <div class="note">Expand right</div>
+      </li> 
+      <li>
+        <button class="action-btn expander_down">Submit</button>
+        <div class="note">Expand down</div>
+      </li> 
+    </ul>
+  </div>
+  <div class="wrapper">
+    <ul class="content">
+      <li>
+        <button class="action-btn switch">Submit</button>
+        <div class="note">Switch</div>
+      </li>
+      <li>
+        <button class="action-btn slide_left">Submit</button>
+        <div class="note">Slide left</div>
+      </li> 
+      <li>
+        <button class="action-btn slide_right">Submit</button>
+        <div class="note">Slide right</div>
+      </li> 
+    </ul>
+  </div>
+  <div class="wrapper">
+    <ul class="content">
+      <li>
+        <button class="action-btn lightbox">Submit</button>
+        <div class="note">Lightbox</div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./country.js"></script>
+
+<script>
+function startup() {
+  //eraseCookie( 'sb1_to_be_customer' );
+  $('#pIdF').SB1formValidation({}); 
+  var form = $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder'
+  }).on( 'submit', function( e ) {
+    e.preventDefault();
+    if ( ! form.hasClass('sb1_form_validation_all_valid') ) return;
+    $('body').addClass('finished signature');
+    var wrapper = $('#iframe_wrapper')
+      .html('<iframe frameborder="0" id="bid_client" src="./bidPDF/bid.html"></iframe>');
+
+    var top = wrapper.offset().top-60;
+    $('html, body').animate({'scrollTop': top+'px' }, 50, function() {});
+  });
+
+  //$('#iframe_wrapper').html('<iframe frameborder="0" id="bid_client" src="./bid/bid.html"></iframe>');
+  setTimeout( function() {
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('continue_later') || target.hasClass('saving_continue') ) {
+        e.preventDefault();
+        setTimeout( function() { _continueLater(); }, 100 );
+      }
+      else if ( target.hasClass('get_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          var input = $('#pId');
+          if ( ! input.hasClass('sb1_form_validation_has_error') )
+            _getContinue( input.prop('value') || '' );        
+        }, 100 );
+      }
+      else if ( target.hasClass('discard_saved') ) {
+        e.preventDefault();
+        _discardSaved();
+      }
+    });
+    var body = $('body').on('click', function() {
+      if ( ! body.hasClass('bankIDdone') ) return;
+      var opt = getURLoption();
+      window.location.href = opt['agreement']=='1' ? './remember.html' : 
+        (opt['agreement']=='2'? './saving_account.html' : './remember.html?agreement=0');
+    });    
+  }, 500 );
+  
+  //_getContinue( null, true );  
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom), country = JSON.parse( JSON.stringify(COUNTRY) );
+    if ( $('#citizen2', node).size() ) {
+      country[0]['mode'] = '';
+    }
+
+    node.SB1formRow();
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      var d = $(d), config = d.hasClass('country') ?  {
+        'viewCount': 10,
+        'searchField' : true,
+        'list' : country,
+        'expander' : null,
+        'overviewCounter' : false
+      } : {};
+      d.SB1dropdownMenu( config );
+    });
+  });
+
+  var order = ['personnumber','personname'], opt = getURLoption();
+  for ( var i=0; i<order.length; i++ ) {
+    var value = opt[order[i]], input = $('#'+order[i]);
+    if ( value && ! input.val() ) {
+      input.val( value ).attr('disabled','true');
+      eraseCookie('be_customer_'+order[i]);
+    }
+  }
+};
+
+function getDuration( node ) {
+  var v = node && node.size() ? 
+    (node.css('transition-duration') || 0) : 0;
+  if ( v ) v = parseFloat( v ) * 1000;
+  return isNaN(v) ? 0 : v;
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function getURLoption() {
+  var opts    = {}, url =  window.location.href; 
+  //var matched = url.replace(/\?+/g,"?").match( /^([\w\.\-\s\_\#\%\/\:]+)\?(.*)/ );
+  var matched = url.replace(/\#+/g,'#').match( /^([\w\.\-\s\_\%\/\:]+)\#(.*)/ )
+    || url.replace(/\?+/g,"?").match( /^([\w\.\-\s\_\#\%\/\:]+)\?(.*)/ );
+
+  if (  matched ) { 
+    opts.pathname = matched[1];
+    var splited = (decodeURIComponent(matched[2]) || "")
+      .replace( /\#\?/g,"&" ).split("&");
+    for ( var i=0; i<splited.length; i++ ) {
+      var m = splited[i].match( /(\w+)\=(.*)/ );
+      if ( m ) opts[m[1]] = m[2].replace( /\#$/, "" );  
+    }
+  }
+  return opts;
+}
+
+function _discardSaved() {
+  eraseCookie( 'sb1_to_be_customer' );
+  var wrapper = $('#person_id_required_wrapper').animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _getContinue( pId, startup ) { 
+  var key = 'sb1_to_be_customer', text = readCookie(key);
+
+  if ( ! text )
+    return $('body').removeClass('need_personnumber_for_getting');
+  if ( ! pId )
+    return $('body').addClass('need_personnumber_for_getting');
+
+  var wrapper = $('#person_id_required_wrapper'), data = JSON.parse( text );
+  if ( data['_p'] != (pId+'').replace(/\s+/g,'') ) {
+    wrapper.find( '.sb1_form_validation_error' ).remove();
+    return $('<div class="sb1_form_validation_error">Personnumer er ikke samme som det var lagret.</div>')
+      .insertAfter( wrapper.find('input') );
+  }
+
+  for ( var k in data ) {
+    $('input[name="'+k+'"]').each( function(i,dom) {
+      var input = $(dom), type = input.attr('type') || 'text';
+      if ( type.match(/radio|checkbox/) ) {
+        var v = input.prop('value') == data[k];
+
+        //debug('K: '+k +' I:'+input.prop('value') + ' D:'+data[k]);
+        input.prop('checked', v);
+        if ( v ) input.click();
+      } else { input.val( data[k] ); }
+    });
+  }
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+
+}
+
+function _scrollPersonIdRequiredWrapperIntoView( callback ) {
+  var wrapper = $('#person_id_required_wrapper').attr('style','max-height;1px'); 
+  var top = wrapper.offset().top-10;
+  wrapper.removeAttr('style');
+
+  var scrolled = getScrollPosition(), size = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+size[1]];
+  if ( top>=view[0] && top<=view[1] )
+    return typeof(callback) == 'function' ? callback() : null;
+  $('html, body').animate({'scrollTop': top+'px' }, 500, callback );
+}
+
+function _continueLater() {
+  var key = 'sb1_to_be_customer', wrapper = $('#person_id_required_wrapper');
+  var aInput = $('#personnumber'), bInput = $('#pId');
+  if ( bInput.hasClass('sb1_form_validation_has_error') || aInput.hasClass('sb1_form_validation_has_error') )
+    return;
+
+  var pId = aInput.prop('value') || bInput.prop('value'), data = {};
+  wrapper.find( '.sb1_form_validation_error' ).remove();
+
+  if ( ! pId ) {
+    return _scrollPersonIdRequiredWrapperIntoView( function() {
+      $('body').addClass('need_personnumber_for_saving')
+        .removeClass( 'need_personnumber_for_getting');
+    });
+  }
+
+  $('#application input').each( function(i,dom){
+    var name = dom.name || '', value = dom.value || '', type = dom.type || 'text';
+    if ( ! name || ! value || (type.match(/radio|checkbox/i) && ! dom.checked) )
+      return;
+    data[name] = value;
+  });
+  data['personnumber'] = pId;
+  data['_p'] = (pId+'').replace(/\s+/g,'');
+  eraseCookie( key );
+  createCookie( key, JSON.stringify(data), 360 );
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').addClass('no_animation').removeClass('need_personnumber_for_saving')
+      .removeClass( 'need_personnumber_for_getting');
+    _displaySpinner( null, 0, 'saved' );
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _displaySpinner( callback, delay, mode ) {
+  setTimeout( function() {
+    var node = $('.form_body').eq(0);
+    var top = node.offset().top - 20;
+
+    $('#loading').remove();
+    $('html, body').animate({ 'scrollTop': top+'px' }, 600, function(){
+      $('<div id="loading"><div>'+ 
+          '<span class="sb1_spinner">'+
+            '<i class="spinner_rect1"></i>'+
+            '<i class="spinner_rect2"></i>'+
+            '<i class="spinner_rect3"></i>'+
+            '<i class="spinner_rect4"></i>'+
+            '<i class="spinner_rect5"></i>'+
+          '</span>'+
+        '</div></div>'
+      ).appendTo( node.css({'position':'relative'}) );
+      setTimeout( function() {
+        var t =  $('main').offset().top
+        $('html, body').animate({ 'scrollTop': t+'px' }, 600, function(){
+          if ( mode ) $('body').addClass( mode );
+          $('body').addClass('finished');
+        });
+      }, 5000 );
+
+      if ( typeof(callback)=='function') callback();
+    });
+  }, delay || 15 );  
+}
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function eraseCookie( name ) {return createCookie( name, '', -1 ); }
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset != 'undefined')
+    return [ window.pageXOffset, window.pageYOffset ];
+
+  if (
+    typeof document.documentElement.scrollTop != 'undefined' && 
+    document.documentElement.scrollTop > 0
+  ) { 
+    return [ 
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop != 'undefined' ? [
+      document.body.scrollLeft, document.body.scrollTop
+  ] : [0,0];
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <div id="person_id_required_wrapper">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content" style="text-align: left">
+                <div class="getting">
+                  Legg inn ditt personnummer for å hente uferdige utfylling fra sist gang.
+                </div>
+                <div class="saving">
+                  Legg inn ditt personnummer for å lagre her du har stoppet på din søknad i nettleseren.
+                </div>
+                <form id="pIdF" method="post" action="" novalidate>
+                  <input id="pId" name="pid" type="tel" spellcheck="false" autocomplete="off" data-rule="personnumber" maxlength="12">
+                </form>
+                <button class="get_continue getting secondary-btn">Hent</button>
+                <button class="saving_continue saving secondary-btn">Lagre</button>
+                <a href="#" class="getting discard_saved">Forkaste lokal lagret</a>
+              </div>
+            </div>
+          </div>
+          <h1>Velkommen som kunde</h1>
+        </div>
+      </div>
+      <div class="form_body">
+        <form id="application" method="post" action="" novalidate>
+          <div class="error_summary_holder"></div>
+
+          <h2 style="white-space:nowrap"><span aria-hidden="true">1. </span><span>Personopplysning</span></h2>
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="personnumber" data-shortname="">
+                  <span>Personnummer</span>
+                  <span class="help_text">11 siffer</span>
+                </label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input id="personnumber" name="personnumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="personnumber parent_target[.sb1_input_wrapper]" maxlength="12">
+            </div>
+          </div>
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="personname" data-shortname="">Navn</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input id="personname" name="personname" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]">
+            </div>
+          </div>
+
+          <h2 style="white-space:nowrap"><span aria-hidden="true">2.</span><span>Kontaktinformasjon</span></h2>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="email" data-shortname="">Epost-adresse</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear_row">
+                <input id="email" class="sb1_input_textfield large" name="email" type="email" spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">              
+              </div>
+              <div class="clear_row">
+                <input type="checkbox" class="sb1-input-checkbox" id="no_email" name="no_email" value="policy" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">
+                <label class="sb1-input-checkbox-label" for="no_email">Jeg har ikke epost</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="mobile" data-shortname="">Mobilnummer</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear_row">              
+                <input id="mobile" class="sb1_input_textfield large" name="mobile" type="tel" spellcheck="false" autocomplete="off" data-rule="mobile parent_target[.sb1_input_wrapper] atleastoption[1]">         
+              </div>
+              <div class="clear_row">                     
+                <input type="checkbox" class="sb1-input-checkbox" id="no_mobile" name="no_mobile" value="policy" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">
+                <label class="sb1-input-checkbox-label" for="no_mobile">Jeg har ikke mobiltelefon</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <legend id="send_email" data-shortname="">Send brevpost til</legend>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="clear_row">
+                  <input type="radio" class="sb1-input-radio" name="send_email" id="send_email_to_people_registered" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="send_email send_email_to_PR">
+                  <label class="sb1-input-radio-label" id="send_email_to_PR" for="send_email_to_people_registered">
+                    min folkeregistrerte adresse
+                  </label>                   
+                </div>
+                <div class="clear_row">
+                  <input type="radio" class="sb1-input-radio" name="send_email" id="send_email_to_another_address" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#other_address]" required aria-labelledby="send_email send_amail_to_aa">
+                  <label class="sb1-input-radio-label" id="send_amail_to_aa" for="send_email_to_another_address">
+                    en annen adresse
+                  </label>
+                </div>  
+              </div>
+            </fieldset>
+          </div>
+
+          <div id="other_address" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label data-shortname="" for="address">Adresse</label>
+                </div>
+              </div> 
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="address" class="display_accordion_summary" name="address" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] depending_on_target[#send_email_to_another_address]" value="">
+              </div>
+            </div>
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label for="postnumber" class="postnumber_label" style="display:inline-block;min-width:85px;">
+                    <span style="display:none">Postnummer</span>
+                    <span aria-hidden="true">Postnr.</span>
+                  </label>
+                  <label for="postcity" class="postcity_label">Sted</label>
+                </div>
+              </div> 
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper address_postnumer">
+                  <input id="postnumber" name="postnumber" type="tel" spellcheck="false" autocomplete="off" data-rule="number parent_target[.input_unit_wrapper] depending_on_target[#send_email_to_another_address]" maxlength="4" value="" required>
+                  <input id="postcity" name="postcity" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] depending_on_target[#send_email_to_another_address]" value="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<h2><span aria-hidden="true">2. </span><span>Hvitvasking 1</span></h2>-->          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label data-shortname="">Statsborgerskap</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="sb1_dropdown_menu country">
+                <a role="button" aria-controls="citizen_list" href="#" class="sb1_dropdown_btn"></a>
+                <input type="hidden" aria-hidden="true" required name="citizen">                         
+              </div>
+              <div class="clear_row">
+                <input type="checkbox" class="sb1-input-checkbox" id="other_citizen" name="other_citizen" value="2citizen" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#other_citizen_option]">
+                <label class="sb1-input-checkbox-label" for="other_citizen">Jeg har to statsborgerskap</label>
+              </div>              
+            </div>
+          </div>
+
+          <div id="other_citizen_option" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label data-shortname="" for="citizen2">Mitt andre statsborgerskap</label>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="sb1_dropdown_menu country">
+                  <a role="button" aria-controls="citizen_list2" href="#" class="sb1_dropdown_btn"></a>
+                  <input type="hidden" aria-hidden="true" required id="citizen2" name="citizen2" data-rule="depending_on_target[#other_citizen]">           
+                </div>            
+              </div>
+            </div>
+          </div>
+          <!--<h2><span aria-hidden="true">3. </span><span>FATCA</span></h2>-->        
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label data-shortname="">Skattepliktig i utlandet?</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="sb1_dropdown_menu">
+                <a role="button" aria-controls="taxable_abroad_list" href="#" class="sb1_dropdown_btn">Nei</a>
+                <input type="hidden" aria-hidden="true" required name="taxable_abroad">                         
+                <ul role="listbox" id="taxable_abroad_list" aria-expanded="false" class="sb1_dropdown_list">
+                  <li class="sb1_dropdown_option selected" role="option">Nei</li>
+                  <li class="sb1_dropdown_option" role="option" data-rule="tabpanel_target[#taxable_abroad_usa]">
+                    Ja, i USA
+                  </li>
+                  <li class="sb1_dropdown_option" role="option">Ja, i et annet land</li>
+                  <li class="sb1_dropdown_option" role="option">Vet ikke</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="taxable_abroad_usa" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label for="creditcardnumber">Ditt "Social Security" nummer</label>
+                </div>  
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="creditcardnumber" class="" name="creditcardnumber" type="tel" spellcheck="false" autocomplete="off" data-rule="creditcardnumber parent_target[.sb1_input_wrapper] required[visible]" maxlength="19">
+              </div>
+            </div>          
+          </div>
+
+          <h2>
+            <span aria-hidden="true">2.</span>
+            <span>Samtykker</span>
+          </h2>
+          <!--          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="alternative_lead" data-shortname="">Jeg godtar at</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear_row">
+                <div class="clear_row">
+                  <input type="checkbox" data-rule="atleastoption[1] parent_target[.sb1_input_wrapper]" value="sb1_aliance" name="sb1-type1" id="csb1-insurance" class="sb1-input-checkbox">
+                  <label for="csb1-insurance" class="sb1-input-checkbox-label">
+                    Informasjon om ditt kundeforhold deles mellom selskap i SpareBank&nbsp;1 Alliansen
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" data-rule="atleastoption[1] parent_target[.sb1_input_wrapper]" value="sb1_send_email" name="sb1-type2" id="csb1-saving" class="sb1-input-checkbox">
+                  <label for="csb1-saving" class="sb1-input-checkbox-label">
+                    <span>SpareBank&nbsp;1 sender meg relevante tilbud på epost</span>
+                    <span class="help_text">ca. 1 i måneden</span>                    
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" data-rule="atleastoption[1] parent_target[.sb1_input_wrapper]" value="sb1_send_sms" name="sb1-type3" id="csb1-pension" class="sb1-input-checkbox">
+                  <label for="csb1-pension" class="sb1-input-checkbox-label">
+                    <span>SpareBank&nbsp;1 sender meg relevante til på SMS</span>
+                    <span class="help_text">ca. 2 i året</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <legend id="sb1_alliance_label">
+                    Informasjon om ditt kundeforhold deles mellom selskap i SpareBank&nbsp;1 Alliansen
+                  </legend>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="sb1_alliance" id="yes_sb1_alliance" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="yes_sb1_alliance"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio" name="sb1_alliance" id="no_sb1_alliance" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="no_sb1_alliance"><span>Nei</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <legend id="send_mail_offer_1_label">
+                    <span>SpareBank&nbsp;1 sender meg relevante tilbud på epost</span>
+                    <span class="help_text">ca. 1 i måneden</span>    
+                  </legend>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="send_mail_offer_1" id="yes_send_mail_offer_1" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="yes_send_mail_offer_1"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio" name="send_mail_offer_1" id="no_send_mail_offer_1" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="no_send_mail_offer_1"><span>Nei</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <legend id="send_mail_offer_2_label">
+                    <span>SpareBank&nbsp;1 sender meg relevante til på SMS</span>
+                    <span class="help_text">ca. 2 i året</span>
+                  </legend>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="send_mail_offer_2" id="yes_send_mail_offer_2" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="yes_send_mail_offer_2"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio" name="send_mail_offer_2" id="no_send_mail_offer_2" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" for="no_send_mail_offer_2"><span>Nei</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <h2>
+            <span aria-hidden="true">3.</span>
+            <span id="alternative_lead_2">Hvilke banktjenester tror du at du vil bruke?</span>
+          </h2>          
+          <div class="sb1_form_row">
+            <!--
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label  data-shortname=""></label>
+              </div>
+            </div>   
+            -->       
+            <div class="sb1_row_content sb1_input_wrapper">
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-bank_account" name="sb1-service1" value="bank_account" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-bank_account_label" checked="true">
+                  <label class="sb1-input-checkbox-label" for="csb1-bank_account" id="csb1-bank_account_label">
+                    Bankkonto
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-mobile_bank" name="sb1-service2" value="mobile_bank" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-mobile_bank_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-mobile_bank" id="csb1-mobile_bank_label">
+                    Mobilbank
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-fund" name="sb1-service3" value="fund" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-fund_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-fund" id="csb1-fund_label">
+                    <span>Fond</span>
+                    <span class="help_text inline">selg og kjøpe fondsandeler, opprette og avslutte spareavtale</span>
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-shares" name="sb1-service4" value="shares" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-shares_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-shares" id="csb1-shares_label">
+                    Handle i aksjer
+                  </label>
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-deposit" name="sb1-service5" value="deposit" data-rule="parent_target[.alternative] tabpanel_target[#high_amount]" aria-labelledby="alternative_lead_2 csb1-deposit_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-deposit" id="csb1-deposit_label">
+                    Kontantinnskudd over 100 000 NOK
+                  </label>
+
+                  <div id="high_amount" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+                    <label class="sb1-input-checkbox-label" for="high_amount_textfield" id="high_amount_textfield_label">
+                      <span>Angi ca. beløp</span>
+                    </label>
+                    <div>
+                      <input id="high_amount_textfield" class="sb1_input_textfield large" name="high_amount_textfield" type="tel" spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper] depending_on_target[#csb1-deposit]">
+                    </div>
+                  </div>
+                </div>   
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-pay_from_or_to_aboard" name="sb1-service6" value="pay_from_or_to_aboard" data-rule="parent_target[.alternative] tabpanel_target[#abroad_amount]" aria-labelledby="alternative_lead_2 csb1-pay_from_or_to_aboard_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-pay_from_or_to_aboard" id="csb1-pay_from_or_to_aboard_label">
+                    Betaling til/fra utlandet over 100 000 NOK per år
+                  </label>
+
+                  <div id="abroad_amount" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+                    <label class="sb1-input-checkbox-label" for="abroad_amount_textfield" id="abroad_amount_textfield_label">
+                      <span>Hvilke land gjelder det?</span>
+                      <a class="help_text" href="#" arial-hidden="true">Hvorfor spør vi om dette?</a>
+                    </label>
+                    <div>
+                      <input id="abroad_amount_textfield" class="sb1_input_textfield large" name="abroad_amount_textfield" type="tel" spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper] depending_on_target[#csb1-pay_from_or_to_aboard]">
+                    </div>
+                  </div>
+                </div>
+                 <div class="clear_row">
+                  <div>
+                    <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_organization2" name="sb1-service9" value="use_as_organization" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_organization_label">
+                    <label class="sb1-input-checkbox-label" for="csb1-use_as_organization2" id="csb1-use_as_organization_label">
+                      Bruke banken på vegne av en bedrift eller organisasjon
+                    </label>
+                  </div>     
+                </div>
+                <div class="clear_row">
+                  <div>
+                    <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_personal" name="sb1-service10" value="use_as_personal" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_personal_label">
+                    <label class="sb1-input-checkbox-label" for="csb1-use_as_personal" id="csb1-use_as_personal_label">
+                      Bruke banken på vegne av en annen person
+                    </label>
+                  </div>     
+                </div>
+                <!--
+                <div class="clear_row">
+                  <div>
+                    <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_organization" name="sb1-service6" value="use_as_organization" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_organization_label">
+                    <label class="sb1-input-checkbox-label" for="csb1-use_as_organization" id="csb1-use_as_organization_label">
+                      Å bruke bankforbindelsen på vegne av en organisasjon
+                    </label>
+                  </div>     
+                </div>
+                <div class="clear_row">
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_company" name="sb1-service7" value="use_as_company" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_company_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-use_as_company" id="csb1-use_as_company_label">
+                    Å bruke bankforbindelsen på vegne av en bedrift
+                  </label>
+                </div>
+                -->
+            </div>
+          </div>
+
+          <!--
+          <h2><span aria-hidden="true">5. </span><span>Hvitvaskingsspørsmål</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="alternative_lead_3" data-shortname="">Hvilke banktjenester vil du bruke?</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <table class="sb1_table_radio_list">
+                <tr>
+                  <th>Ja</th>
+                  <th>Nei</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-bank_account_no" name="sb1-service1_1" value="bank_account_yes" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_bank_account_label csb2-bank_account_label">
+                    <label class="sb1-input-radio-label" for="csb2-bank_account" id="csb2-bank_account_label">Ja</label>
+                  </td>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-bank_account_no" name="sb1-service1_1" value="bank_account_no" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_bank_account_label csb2-bank_account_label">
+                    <label class="sb1-input-radio-label" for="csb2-bank_account" id="csb2-bank_account_label">Nei</label>
+                  </td>
+                  <td class="last_cell"><label id="before_bank_account_label">Bankkonto</label></td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-mobil_bank_no" name="sb1-service1_2" value="mobil_bank_yes" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_mobil_bank_label csb2-mobil_bank_label">
+                    <label class="sb1-input-radio-label" for="csb2-mobil_bank" id="csb2-mobil_bank_label">Ja</label>
+                  </td>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-mobil_bank_no" name="sb1-service1_2" value="mobil_bank_no" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_mobil_bank_label csb2-mobil_bank_label">
+                    <label class="sb1-input-radio-label" for="csb2-mobil_bank" id="csb2-mobil_bank_label">Nei</label>
+                  </td>
+                  <td class="last_cell"><label id="before_mobil_bank_label">Mobilbank</label></td>
+                </tr>                
+              </table>
+            </div>
+          </div>
+          -->
+
+          <div class="error_summary_holder"></div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+              <button class="action-btn">Fullfør</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+</body>
+</html>

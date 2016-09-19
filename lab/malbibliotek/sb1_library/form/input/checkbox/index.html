@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - form - input - standard button</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+.wrapper {
+  padding-top: 20px;
+}
+
+.headline {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+</style>
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+</head>
+<body style="min-height: 500px;">
+<div class="wrapper">
+  <div>
+    <input type="checkbox" class="sb1-input-checkbox" checked="" name="checkbox0" id="checkbox0">
+    <label class="sb1-input-checkbox-label" for="checkbox0">Velg meg!</label>
+  </div>
+  <div>
+    <input type="checkbox" class="sb1-input-checkbox" name="checkbox0" id="checkbox1" disabled="true">
+    <label class="sb1-input-checkbox-label" for="checkbox1">Disabled_1</label>
+    <input type="checkbox" class="sb1-input-checkbox" name="checkbox0" id="checkbox2" disabled="true" checked="true">
+    <label class="sb1-input-checkbox-label" for="checkbox2">Disabled_2</label>
+  </div>
+  <div>
+    <div class="headline">Valideringstest</div>
+    <form id="application" method="post" action="" novalidate> 
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0;"></div>
+      <div>
+        <input type="checkbox" class="sb1-input-checkbox" name="test" id="checkbox3" required>
+        <label class="sb1-input-checkbox-label" for="checkbox3">Jeg har lest kravene. (Påkrevd)</label>
+      </div>
+      <div style="margin-top: 15px">
+        <input class="primary-btn" type="submit" value="valider">
+      </div>
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder'
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+header, footer {
+  padding: 20px;
+  background: #002776 none repeat 0 0;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  font-family: "MuseoSansRounded-700";
+  font-weight: normal;
+}
+
+footer {
+  margin-top: 100px;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.finished .form_header .main-lead,
+.finished .form_header ul,
+.finished form {
+  display: none;
+}
+
+.finished footer {
+  margin-top: 500px;
+}
+
+.finished .form_header {
+  position: relative;
+}
+
+.finished .form_header:after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-top: 30px;
+  content: "Skjemaet er sent til banken.";
+  content: "SpareBank 1 har mottatt ditt boliglån søknad.";
+  font-size: 25px;
+  font-family: "MuseoSansRounded-500";
+}
+
+.finished.saved .form_header:after {
+  content: "Din søknad er lokal lagret på nettleseren.";
+}
+
+.finished.signature .form_header:after {
+  display: none;
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 100;
+  background: 
+}
+
+#loading:before {
+  content: " ";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -10px;
+  right: -10px;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+#loading > div {
+  position: relative;
+  z-index: 10;
+  padding: 40px 20px;
+}
+
+input[maxlength="2"] {
+  max-width: 100px !important;
+}
+
+input[maxlength="4"] {
+  max-width: 200px !important;
+}
+
+.discard_saved,
+.sb1_form_row .sb1_row_content > .continue_later {
+  float: right;
+  margin-top: 10px;
+}
+
+.discard_saved {
+  margin-top: -42px;
+}
+
+.discard_saved,
+.change_item,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #0083D2;
+}
+
+.discard_saved:hover,
+.change_item:hover,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #005AA4;
+}
+
+
+#person_id_required_wrapper .tip-content .discard_saved,
+#person_id_required_wrapper .tip-content .getting,
+#person_id_required_wrapper .tip-content .saving {
+  display: none;
+}
+
+#person_id_required_wrapper {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height .6s ease .1s;
+  -moz-transition: max-height .6s ease .1s;
+  -o-transition: max-height .6s ease .1s;
+  -ms-transition: max-height .6s ease .1s;
+  transition: max-height .6s ease .1s;    
+}
+
+.no_animation #person_id_required_wrapper {
+  display: none;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper,
+.need_personnumber_for_getting #person_id_required_wrapper {
+  max-height: 500px;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper .saving,
+.need_personnumber_for_getting #person_id_required_wrapper .getting {
+  display: block !important;
+}
+
+#person_id_required_wrapper input,
+#person_id_required_wrapper button {
+  margin-top: 15px;
+}
+
+.error_message {
+  color: #da3d00;
+  line-height: 22px;
+}
+
+.sb1_form_layout {
+  margin-top: 0;
+}
+
+.sb1_form_layout .form_header {
+  border: 0 none;
+  margin-bottom: 40px;
+}
+
+#application > h2 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  text-align: left;
+  clear: both;
+}
+
+.sb1_row_content .alternative {
+  list-style: none;
+  margin: -30px 0 0 24px;
+  width: 100%;
+}
+
+.sb1_row_content .alternative > li {
+  float: left;
+  width: 100%;
+  clear: both;
+}
+
+.sb1_row_content .alternative > li label {
+  display: block;
+}
+
+.sb1_row_content  .clear-row {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.sb1_row_content  .clear-row,
+.sb1_row_content  .collection {
+  clear: both;
+}
+
+
+.sb1_form_row_wrapper {
+  /*margin-top: -30px*/
+}
+
+/******************************************************************************
+=== sb1_indentation ===
+******************************************************************************/
+.sb1_indentation {
+  position: relative;
+  padding-left: 45px;
+  margin-top: -10px;
+}
+
+.sb1_indentation:before {
+  content: " ";
+  position: absolute;
+  left: 15px;
+  top: 13px;
+  bottom: 26px;
+  border-left: 2px solid #005aa4;
+}
+
+.sb1_indentation .sb1_form_row {
+  padding-top: 5px;
+}
+
+/* alternative_collection */
+.alternative_collection {
+  padding-left: 5px;  
+}
+
+.sb1_indentation.alternative_collection {
+  margin: 5px 0 0 -24px;
+  padding-left: 65px;
+}
+.sb1_indentation.alternative_collection:before {
+  top: 5px;
+  bottom: 5px;
+}
+
+/******************************************************************************
+=== header ===
+******************************************************************************/
+header {
+  padding: 10px 40px 0 40px;
+  height: 60px;
+  background: #fff none repeat center center;
+  width: 100%;
+  z-index: 50;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/*Fix*/
+main { padding-top: 60px; }
+header {
+  position: fixed;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  width: auto;
+  border-bottom: 2px solid #ccc;
+}
+/********************/
+
+header a:hover,
+header a {
+  border-bottom: 0 none;
+  cursor: default;
+}
+
+
+header .sb1_logo {
+  display: block;
+  height: 100%;
+}
+
+header .sb1_profile,
+header .sb1_burger {
+  position: absolute;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  background: transparent none no-repeat center center;
+  background-size: 50px auto;
+}
+
+header .sb1_profile {
+  right: 10px;
+  background-image: url("./profile.svg");
+  background-size: 30px auto;
+}
+header .sb1_burger {
+  left: 10px;
+  background-image: url("./burger.svg");
+  background-size: 30px auto;
+}
+
+/******************************************************************************
+=== form_body ===
+******************************************************************************/
+.form_body {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+/******************************************************************************
+=== iframe_application ===
+******************************************************************************/
+#iframe_wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#bid_client {
+  width: 100%;
+  border: 0 none;
+  overflow: scroll;
+  height: 500px;
+}
+
+
+/******************************************************************************
+=== abroad_amount_field ===
+******************************************************************************/
+#abroad_amount_field {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#abroad_amount_field label {
+  padding-bottom: 15px;
+}
+
+/******************************************************************************
+=== sb1_table_radio_list ===
+******************************************************************************/
+.sb1_table_radio_list {
+  border-collapse: collapse;
+}
+
+.sb1_table_radio_list td {
+  text-align: left;
+  vertical-align: top;
+}
+
+.sb1_table_radio_list th {
+  text-align: left;
+  vertical-align: middle;  
+}
+
+
+.sb1_table_radio_list th,
+.sb1_table_radio_list td {
+  padding: 0 3px 5px;
+}
+
+.sb1_table_radio_list .sb1-input-radio-label{
+}
+
+.sb1_table_radio_list td.last_cell label {
+  float: left;
+}
+
+.sb1_table_radio_list .sb1-input-radio-label:after,
+.sb1_table_radio_list .sb1-input-radio-label:before{
+}
+
+
+/******************************************************************************
+=== spinner ===
+******************************************************************************/
+.sb1_spinner {
+  margin: 0 auto;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+  display: block;
+}
+
+.sb1_spinner > * {
+  background-color: #0075d2;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  padding: 0;
+  margin: 0 1px;
+  -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+  animation: sk-waveStretchDelay 1.2s infinite ease-in-out; 
+}
+
+.sb1_spinner .spinner_rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s; 
+}
+
+.sb1_spinner .spinner_rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s; 
+}
+
+.sb1_spinner .spinner_rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s; 
+}
+
+.sb1_spinner .spinner_rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s; 
+}
+
+@-webkit-keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+@keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+/******************************************************************************
+=== Tablet && mobile ===
+******************************************************************************/
+@media only screen and (max-width: 700px) { 
+  .sb1_form_layout .form_header {
+    margin-bottom: 10px;
+  }
+  /*
+  main {
+    padding-top: 60px;
+  }
+  header {
+    position: fixed;
+    top: 0;
+    left: 10px;
+    right: 10px;
+
+    width: auto;
+    border-bottom: 2px solid #ccc;
+  }
+  */
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  header img {
+    max-width: 160px;
+    width: 160px;
+  }
+  .discard_saved {
+    width: 100px;
+    line-height: 24px;
+    margin-top: -50px;
+  }
+
+  .sb1_row_action {
+    text-align: center;
+  }
+
+  .sb1_row_action .action-btn,
+  .sb1_row_action .continue_later {
+    float: none !important;
+    display: inline-block;
+    text-align: center;
+  }
+
+  .sb1_row_action .continue_later {
+    display: block;
+    max-width: 50%;
+    margin: 20px auto;
+    clear: both;
+  }
+
+  .sb1_row_action .continue_later:before {
+    content: " ";
+    display: block;
+    padding-top: 20px;
+  }
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./country.js"></script>
+
+<script>
+function startup() {
+  //eraseCookie( 'sb1_to_be_customer' );
+  $('#pIdF').SB1formValidation({}); 
+  var form = $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder'
+  }).on( 'submit', function( e ) {
+    e.preventDefault();
+    if ( ! form.hasClass('sb1_form_validation_all_valid') ) return;
+    $('body').addClass('finished signature');
+    var wrapper = $('#iframe_wrapper')
+      .html('<iframe frameborder="0" id="bid_client" src="./bid/bid.html"></iframe>');
+
+    var top = wrapper.offset().top;
+    $('html, body').animate({'scrollTop': top+'px' }, 50, function() {});
+  });
+
+  //$('#iframe_wrapper').html('<iframe frameborder="0" id="bid_client" src="./bid/bid.html"></iframe>');
+  setTimeout( function() {
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('continue_later') || target.hasClass('saving_continue') ) {
+        e.preventDefault();
+        setTimeout( function() { _continueLater(); }, 100 );
+      }
+      else if ( target.hasClass('get_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          var input = $('#pId');
+          if ( ! input.hasClass('sb1_form_validation_has_error') )
+            _getContinue( input.prop('value') || '' );        
+        }, 100 );
+      }
+      else if ( target.hasClass('discard_saved') ) {
+        e.preventDefault();
+        _discardSaved();
+      }
+      else if ( target.hasClass('sb1_burger') || target.hasClass('sb1_logo') ) {
+        e.preventDefault();
+      }
+      else if ( target.hasClass('sb1_profile') && ! target.hasClass('inc_message') ) {
+        e.preventDefault();
+      }
+    });
+  }, 500 );
+  
+  //_getContinue( null, true );  
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    //node.find('.sb1_input_wrapper').SB1radioYesNoButton({});
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      var d = $(d), config = d.hasClass('country') ?  {
+        'view_count': 10,
+        'search_field' : true,
+        'list' : COUNTRY        
+      } : {};
+      d.SB1dropdownMenu( config );
+    });
+  });
+};
+
+function getDuration( node ) {
+  var v = node && node.size() ? 
+    (node.css('transition-duration') || 0) : 0;
+  if ( v ) v = parseFloat( v ) * 1000;
+  return isNaN(v) ? 0 : v;
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function _discardSaved() {
+  eraseCookie( 'sb1_to_be_customer' );
+  var wrapper = $('#person_id_required_wrapper').animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _getContinue( pId, startup ) { 
+  var key = 'sb1_to_be_customer', text = readCookie(key);
+
+  if ( ! text )
+    return $('body').removeClass('need_personnumber_for_getting');
+  if ( ! pId )
+    return $('body').addClass('need_personnumber_for_getting');
+
+  var wrapper = $('#person_id_required_wrapper'), data = JSON.parse( text );
+  if ( data['_p'] != (pId+'').replace(/\s+/g,'') ) {
+    wrapper.find( '.sb1_form_validation_error' ).remove();
+    return $('<div class="sb1_form_validation_error">Personnumer er ikke samme som det var lagret.</div>')
+      .insertAfter( wrapper.find('input') );
+  }
+
+  for ( var k in data ) {
+    $('input[name="'+k+'"]').each( function(i,dom) {
+      var input = $(dom), type = input.attr('type') || 'text';
+      if ( type.match(/radio|checkbox/) ) {
+        var v = input.prop('value') == data[k];
+
+        //debug('K: '+k +' I:'+input.prop('value') + ' D:'+data[k]);
+        input.prop('checked', v);
+        if ( v ) input.click();
+      } else { input.val( data[k] ); }
+    });
+  }
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+
+}
+
+function _scrollPersonIdRequiredWrapperIntoView( callback ) {
+  var wrapper = $('#person_id_required_wrapper').attr('style','max-height;1px'); 
+  var top = wrapper.offset().top-10;
+  wrapper.removeAttr('style');
+
+  var scrolled = getScrollPosition(), size = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+size[1]];
+  if ( top>=view[0] && top<=view[1] )
+    return typeof(callback) == 'function' ? callback() : null;
+  $('html, body').animate({'scrollTop': top+'px' }, 500, callback );
+}
+
+function _continueLater() {
+  var key = 'sb1_to_be_customer', wrapper = $('#person_id_required_wrapper');
+  var aInput = $('#personnumber'), bInput = $('#pId');
+  if ( bInput.hasClass('sb1_form_validation_has_error') || aInput.hasClass('sb1_form_validation_has_error') )
+    return;
+
+  var pId = aInput.prop('value') || bInput.prop('value'), data = {};
+  wrapper.find( '.sb1_form_validation_error' ).remove();
+
+  if ( ! pId ) {
+    return _scrollPersonIdRequiredWrapperIntoView( function() {
+      $('body').addClass('need_personnumber_for_saving')
+        .removeClass( 'need_personnumber_for_getting');
+    });
+  }
+
+  $('#application input').each( function(i,dom){
+    var name = dom.name || '', value = dom.value || '', type = dom.type || 'text';
+    if ( ! name || ! value || (type.match(/radio|checkbox/i) && ! dom.checked) )
+      return;
+    data[name] = value;
+  });
+  data['personnumber'] = pId;
+  data['_p'] = (pId+'').replace(/\s+/g,'');
+  eraseCookie( key );
+  createCookie( key, JSON.stringify(data), 360 );
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').addClass('no_animation').removeClass('need_personnumber_for_saving')
+      .removeClass( 'need_personnumber_for_getting');
+    _displaySpinner( null, 0, 'saved' );
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _displaySpinner( callback, delay, mode ) {
+  setTimeout( function() {
+    var node = $('.form_body').eq(0);
+    var top = node.offset().top - 20;
+
+    $('#loading').remove();
+    $('html, body').animate({ 'scrollTop': top+'px' }, 600, function(){
+      $('<div id="loading"><div>'+ 
+          '<span class="sb1_spinner">'+
+            '<i class="spinner_rect1"></i>'+
+            '<i class="spinner_rect2"></i>'+
+            '<i class="spinner_rect3"></i>'+
+            '<i class="spinner_rect4"></i>'+
+            '<i class="spinner_rect5"></i>'+
+          '</span>'+
+        '</div></div>'
+      ).appendTo( node.css({'position':'relative'}) );
+      setTimeout( function() {
+        var t =  $('main').offset().top
+        $('html, body').animate({ 'scrollTop': t+'px' }, 600, function(){
+          if ( mode ) $('body').addClass( mode );
+          $('body').addClass('finished');
+        });
+      }, 5000 );
+
+      if ( typeof(callback)=='function') callback();
+    });
+  }, delay || 15 );  
+}
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function eraseCookie( name ) {return createCookie( name, '', -1 ); }
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset != 'undefined')
+    return [ window.pageXOffset, window.pageYOffset ];
+
+  if (
+    typeof document.documentElement.scrollTop != 'undefined' && 
+    document.documentElement.scrollTop > 0
+  ) { 
+    return [ 
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop != 'undefined' ? [
+      document.body.scrollLeft, document.body.scrollTop
+  ] : [0,0];
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <div id="person_id_required_wrapper">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content" style="text-align: left">
+                <div class="getting">
+                  Legg inn ditt personnummer for å hente uferdige utfylling fra sist gang.
+                </div>
+                <div class="saving">
+                  Legg inn ditt personnummer for å lagre her du har stoppet på din søknad i nettleseren.
+                </div>
+                <form id="pIdF" method="post" action="" novalidate>
+                  <input id="pId" name="pid" type="tel" spellcheck="false" autocomplete="off" data-rule="personnumber">
+                </form>
+                <button class="get_continue getting secondary-btn">Hent</button>
+                <button class="saving_continue saving secondary-btn">Lagre</button>
+                <a href="#" class="getting discard_saved">Forkaste lokal lagret</a>
+              </div>
+            </div>
+          </div>
+          <h1>Velkommen som kunde</h1>
+        </div>
+      </div>
+      <div class="form_body">
+        <form id="application" method="post" action="" novalidate>
+          <div class="error_summary_holder"></div>
+
+          <h2><span aria-hidden="true">1. </span><span>Kontaktinformajson</span></h2>
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="email" data-shortname="">Epost-adresse</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear-row">
+                <input id="email" class="sb1_input_textfield large" name="email" type="email" spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">              
+              </div>            
+              <div class="collection">
+                <input type="checkbox" class="sb1-input-checkbox" id="no_email" name="no_email" value="policy" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">
+                <label class="sb1-input-checkbox-label" for="no_email">Jeg har ikke epost</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label for="mobile" data-shortname="">Mobilnummer</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear-row">
+                <input id="mobile" class="sb1_input_textfield large" name="mobile" type="tel" spellcheck="false" autocomplete="off" data-rule="mobile parent_target[.sb1_input_wrapper] atleastoption[1]">              
+              </div> 
+              <div class="collection">
+                <input type="checkbox" class="sb1-input-checkbox" id="no_mobile" name="no_mobile" value="policy" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">
+                <label class="sb1-input-checkbox-label" for="no_mobile">Jeg har ikke mobiltelefon</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="send_email" data-shortname="">Send brevpost til</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="clear-row">
+                <input type="radio" class="sb1-input-radio" name="send_email" id="send_email_to_people_registered" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="send_email send_email_to_PR">
+                <label class="sb1-input-radio-label" id="send_email_to_PR" for="send_email_to_people_registered">
+                  min folkeregistrerte adresse
+                </label>                    
+              </div>            
+              <div class="clear-row">
+                <input type="radio" class="sb1-input-radio" name="send_email" id="send_email_to_another_address" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="send_email send_amail_to_aa">
+                <label class="sb1-input-radio-label" id="send_amail_to_aa" for="send_email_to_another_address">
+                  en annen adresse
+                </label>  
+              </div>
+            </div>
+          </div>
+
+          <h2><span aria-hidden="true">2. </span><span>Hvitvasking 1</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label data-shortname="">Statsborgerskap</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="sb1_dropdown_menu country">
+                <a role="button" aria-controls="citizen_list" href="#" class="sb1_dropdown_btn"></a>
+                <input type="hidden" aria-hidden="true" required name="citizen">                         
+              </div>
+            </div>
+          </div>
+
+          <h2><span aria-hidden="true">3. </span><span>FATCA</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label data-shortname="">Skattepliktig i utlandet?</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <div class="sb1_dropdown_menu">
+                <a role="button" aria-controls="taxable_abroad_list" href="#" class="sb1_dropdown_btn">Nei</a>
+                <input type="hidden" aria-hidden="true" required name="taxable_abroad">                         
+                <ul role="listbox" id="taxable_abroad_list" aria-expanded="false" class="sb1_dropdown_list">
+                  <li class="sb1_dropdown_option selected" role="option">Nei</li>
+                  <li class="sb1_dropdown_option" role="option" data-rule="tabpanel_target[#taxable_abroad_usa]">
+                    Ja, i USA
+                  </li>
+                  <li class="sb1_dropdown_option" role="option">Ja, i et annet land</li>
+                  <li class="sb1_dropdown_option" role="option">Vet ikke</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="taxable_abroad_usa" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label for="creditcardnumber">Ditt "Social Security" nummer</label>
+                </div>  
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="creditcardnumber" class="" name="creditcardnumber" type="tel" spellcheck="false" autocomplete="off" data-rule="creditcardnumber parent_target[.sb1_input_wrapper] required[visible]" maxlength="19">
+              </div>
+            </div>          
+          </div>
+
+          <h2><span aria-hidden="true">4. </span><span>Samtykker</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="alternative_lead" data-shortname="">Jeg godtar at</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <ul class="alternative">
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-sb1_aliance" name="sb1-type1" value="sb1_aliance" data-rule="atleastoption[1] parent_target[.alternative]" aria-labelledby="alternative_lead csb1-sb1_aliance_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-sb1_aliance" id="csb1-sb1_aliance_label">
+                    Informasjon om ditt kundeforhold deles mellom selskap i SpareBank&nbsp;1 Alliansen
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-sb1_send_email" name="sb1-type2" value="sb1_send_email" data-rule="atleastoption[1] parent_target[.alternative]" aria-labelledby="alternative_lead csb1-sb1_send_email_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-sb1_send_email" id="csb1-sb1_send_email_label">
+                    <span>SpareBank&nbsp;1 sender meg relevante tilbud på epost</span>
+                    <span class="help_text">ca. 1 i måneden</span>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-sb1_send_sms" name="sb1-type3" value="sb1_send_sms" data-rule="atleastoption[1] parent_target[.alternative]" aria-labelledby="alternative_lead csb1-sb1_send_sms_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-sb1_send_sms" id="csb1-sb1_send_sms_label">
+                    <span>SpareBank&nbsp;1 sender meg relevante til på SMS</span>
+                    <span class="help_text">ca. 2 i året</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <h2><span aria-hidden="true">5. </span><span>Hvitvaskingsspørsmål</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="alternative_lead_2" data-shortname="">Hvilke banktjenester vil du bruke?</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <ul class="alternative">
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-bank_account" name="sb1-service1" value="bank_account" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-bank_account_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-bank_account" id="csb1-bank_account_label">
+                    Bankkonto
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-mobile_bank" name="sb1-service2" value="mobile_bank" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-mobile_bank_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-mobile_bank" id="csb1-mobile_bank_label">
+                    Mobilbank
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-fund" name="sb1-service3" value="fund" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-fund_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-fund" id="csb1-fund_label">
+                    <span>Fond</span>
+                    <span class="help_text inline">selg og kjøpe fondsandeler, opprette og avslutte spareavtale</span>
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-shares" name="sb1-service4" value="shares" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-shares_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-shares" id="csb1-shares_label">
+                    Handle i aksjer
+                  </label>
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-deposit" name="sb1-service5" value="deposit" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-deposit_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-deposit" id="csb1-deposit_label">
+                    Kontantinnskudd
+                  </label>
+                </li>   
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-pay_from_or_to_aboard" name="sb1-service6" value="pay_from_or_to_aboard" data-rule="parent_target[.alternative] tabpanel_target[#abroad_amount]" aria-labelledby="alternative_lead_2 csb1-pay_from_or_to_aboard_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-pay_from_or_to_aboard" id="csb1-pay_from_or_to_aboard_label">
+                    Betaling til/fra utlandet
+                  </label>
+
+                  <div id="abroad_amount" class="alternative_collection sb1_hide sb1_indentation">
+                    <div>
+                      <input type="radio" class="sb1-input-radio" name="amount_size" id="amount_size_low" data-rule="parent_target[.alternative_collection] depending_on_target[#csb1-pay_from_or_to_aboard]" required aria-labelledby="csb1-pay_from_or_to_aboard_label amount_size_to_PR" value="low">
+                      <label class="sb1-input-radio-label" id="amount_size_to_PR" for="amount_size_low">
+                        Mindre beløp
+                      </label> 
+                    </div>
+                    <div>
+                      <input type="radio" class="sb1-input-radio" name="amount_size" id="amount_size_high" data-rule="parent_target[.alternative_collection] depending_on_target[#csb1-pay_from_or_to_aboard] tabpanel_target[#abroad_amount_field]" required aria-labelledby="csb1-pay_from_or_to_aboard_label send_amail_to_aa" value="high">
+                      <label class="sb1-input-radio-label" id="send_amail_to_aa" for="amount_size_high">
+                        over 100&nbsp;000 NOK&nbsp;/&nbsp;år
+                      </label>  
+                    </div>                    
+                    <div id="abroad_amount_field" class="alternative_collection _sb1_indentation sb1_hide">
+                      <label class="sb1-input-checkbox-label" for="csb1-deposit" id="csb1-deposit_label">
+                        <span>Hvilke land er det aktuelt å betale til&nbsp;/&nbsp;motta fra?</span>
+                        <a class="help_text" href="#">Hvorfor spør vi om dette?</a>
+                      </label>
+                      <input id="abroad_amount_textfield" class="sb1_input_textfield large" name="abroad_amount_textfield" type="tel" spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper] depending_on_target[#amount_size_high]">
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_organization" name="sb1-service6" value="use_as_organization" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_organization_label">
+                    <label class="sb1-input-checkbox-label" for="csb1-use_as_organization" id="csb1-use_as_organization_label">
+                      Å bruke bankforbindelsen på vegne av en organisasjon
+                    </label>
+                  </div>     
+                </li>
+                <li>
+                  <input type="checkbox" class="sb1-input-checkbox" id="csb1-use_as_company" name="sb1-service7" value="use_as_company" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-use_as_company_label">
+                  <label class="sb1-input-checkbox-label" for="csb1-use_as_company" id="csb1-use_as_company_label">
+                    Å bruke bankforbindelsen på vegne av en bedrift
+                  </label>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+          <!--
+          <h2><span aria-hidden="true">5. </span><span>Hvitvaskingsspørsmål</span></h2>          
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label id="alternative_lead_3" data-shortname="">Hvilke banktjenester vil du bruke?</label>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <table class="sb1_table_radio_list">
+                <tr>
+                  <th>Ja</th>
+                  <th>Nei</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-bank_account_no" name="sb1-service1_1" value="bank_account_yes" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_bank_account_label csb2-bank_account_label">
+                    <label class="sb1-input-radio-label" for="csb2-bank_account" id="csb2-bank_account_label">Ja</label>
+                  </td>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-bank_account_no" name="sb1-service1_1" value="bank_account_no" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_bank_account_label csb2-bank_account_label">
+                    <label class="sb1-input-radio-label" for="csb2-bank_account" id="csb2-bank_account_label">Nei</label>
+                  </td>
+                  <td class="last_cell"><label id="before_bank_account_label">Bankkonto</label></td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-mobil_bank_no" name="sb1-service1_2" value="mobil_bank_yes" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_mobil_bank_label csb2-mobil_bank_label">
+                    <label class="sb1-input-radio-label" for="csb2-mobil_bank" id="csb2-mobil_bank_label">Ja</label>
+                  </td>
+                  <td>
+                    <input type="radio" class="sb1-input-radio" id="csb2-mobil_bank_no" name="sb1-service1_2" value="mobil_bank_no" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_3 before_mobil_bank_label csb2-mobil_bank_label">
+                    <label class="sb1-input-radio-label" for="csb2-mobil_bank" id="csb2-mobil_bank_label">Nei</label>
+                  </td>
+                  <td class="last_cell"><label id="before_mobil_bank_label">Mobilbank</label></td>
+                </tr>                
+              </table>
+            </div>
+          </div>
+          -->
+
+          <div class="error_summary_holder"></div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+              <button class="action-btn">Fullfør</button>
+            </div>
+          </div>
+        </form>
+
+        <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+</body>
+</html>

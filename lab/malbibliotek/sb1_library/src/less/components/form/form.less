@@ -1,0 +1,234 @@
+.multistep-form {
+    .form-content {
+        &.form-generator{
+            max-width: 800px;
+            margin: auto;
+        }
+        > ul {
+            list-style: none;
+            padding: 0;
+            > li {
+                position: relative;
+                border-bottom: 2px solid @gray-light;
+                z-index: 2;
+                .icon-arrow_down();
+                &:before{
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    top: -6px;
+                    font-size: 41px;
+                    width: 52px;
+                    z-index: 3;
+                    text-align: center;
+                    color: @gray;
+                }
+                &:after {
+                    content: "";
+                    width: 57px;
+                    height: 29px;
+                    border-top-left-radius: 100px;
+                    border-top-right-radius: 100px;
+                    border: 2px solid @gray-light;
+                    border-bottom: 0;
+                    position: absolute;
+                    background-color: @white;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    top: -19px;
+                    z-index: -1;
+                }
+                &:first-child{
+                    &:before,
+                    &:after{
+                        display: none;
+                    }
+                }
+                &.open {
+                    .bg-full-width();
+                    background-color: @blue-flat;
+                    border-color: @blue-flat;
+                    > .form-step-head {
+                        background-color: @blue-flat;
+                        > .step-title {
+                            color: @white;
+                        }
+                        > .step-number {
+                            span{
+                                border: 2px solid @white;
+                                color: @white;
+                            }
+
+                        }
+                    }
+                    &:after {
+                        background-color: @blue-flat;
+                    }
+                    &:before {
+                        color: @white;
+                    }
+                }
+                > .form-step-head {
+                    display: block;
+                    padding: 20px 0;
+                    z-index: 2;
+                    background-color: @white;
+                    > .step-number, > .step-title {
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                    }
+                    > .step-number {
+
+                        span {
+                            &:extend(h4);
+                            width: 40px;
+                            height: 40px;
+                            margin: 0;
+                            border: 2px solid @gray-light;
+                            border-radius: 100%;
+                            color: @blue-royal;
+                            display: table-cell;
+                            vertical-align: middle;
+                            @media (min-width: @screen-sm){
+                                width: 48px;
+                                height: 48px;
+                            }
+                        }
+                    }
+                    > .step-title {
+                        &:extend(h3);
+                        padding: 0 0 0 21px;
+                        color: @blue-royal-light-wcag;
+                        font-size: 22px;
+                        @media (min-width: @screen-sm){
+                            padding: 0 0 0 41px;
+                        }
+                    }
+                }
+                > .multistep-content {
+                    display: none;
+                    padding: 0 0 40px 0;
+                    max-width: 700px;
+                    @media (min-width: @screen-md){
+                        padding: 0 0 40px 93px;
+                    }
+                    &.open {
+                        display: block;
+                    }
+                    .form-buttons {
+                        margin-top: 20px;
+                        > .cancel-btn {
+                            color: @white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .helptext,
+    .sb1_form_validation_error{
+        color: @white;
+    }
+}
+//General code for forms
+.form-content{
+    &.form-generator{
+        max-width: 600px;
+        margin: auto;
+    }
+    .input-with-icon {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        max-width: 300px;
+
+        [class*='icon-'] {
+            position: absolute;
+            top: 15px;
+            right: 9px;
+            font-size: 40px;
+            &:before {
+                color: @blue-royal-light-wcag;
+            }
+
+        }
+    }
+    .input {
+        margin-top: 20px;
+        .sb1_form_validation_error {
+            display: none;
+        }
+        &.error {
+            .sb1_form_validation_error {
+                display: block;
+            }
+        }
+        &:last-child {
+            margin-bottom: 20px;
+        }
+    }
+    label {
+        display: block;
+        color: @blue-royal;
+    }
+    input[type='number'],
+    input.date-picker,
+    input[type='tel'] {
+        max-width: 300px;
+    }
+    textarea {
+        resize: none;
+    }
+    .form-buttons {
+        float: right;
+
+        > .cancel-btn {
+            color: @gray-dark;
+            background-color: transparent;
+        }
+    }
+    .form-controller {
+        margin-bottom: 25px;
+        &.input {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: @blue-royal;
+            font-size: 14px;
+        }
+    }
+}
+
+textarea,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='search'],
+input[type='tel'] {
+    display: block;
+    padding: 9px;
+    margin: 5px 0;
+    border: 2px solid @gray-light;
+    border-radius: 3px;
+    width: 100%;
+    transition: border-color 200ms;
+    &:extend(.small-text);
+    &:active {
+        border-color: @blue-royal-light-wcag;
+    }
+    &:focus,
+    &.on_focus {
+        outline: 0;
+        border-color: @blue-royal-light-wcag;
+    }
+    .small {
+        font-size: 16px;
+        line-height: 30px;
+    }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Image Swipe</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<!-- CSS style -->
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+#layout {
+  padding: 15px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.container .h1 {
+  margin-bottom: 50px;
+}
+
+/***********************************************************/
+
+.sb1_poster h1,
+.sb1_poster h2,
+.sb1_poster h3,
+.sb1_poster .lead,
+.sb1_poster .main-lead,
+.sb1_poster {
+  text-align: left;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.sb1_poster {
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+}
+
+</style>
+<!-- Script -->
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_carousel.js"></script>
+
+<script>
+function startup() { 
+  var node = $('.sb1_carousel_screen').SB1carousel( {
+    //'arrowNavigator'  : false, 
+    'scroll'          : true
+  });
+
+  /*
+  setTimeout( function() {
+    node.find('.image.inactive').removeClass('inactive');
+    node.SB1carousel.verifyImagesLeft();
+    setTimeout( function() {
+      node.SB1carousel.navigateImage( true );
+    }, 300 );
+  }, 1000 );
+  */
+}
+</script>
+</head> 
+<body onload="javascript:startup()">
+<div id="layout">
+  <!--
+  <div class="sb1_poster">
+    <h2>Lån</h2>
+    <p class="lead">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+  </div>
+  -->
+
+  <div class="container">
+    <h1>Sparebank1 bildekarusell</h1>
+    <div style="border:1px solid #555; padding: 20px; box-shadow: 0 0 5px #999;">
+      <div class="sb1_carousel_screen">
+        <ul class="sb1_carousel_slider">
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Lån</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>fond</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+          <li class="carousel_item">
+            <div class="sb1_poster">
+              <h2>Sparing</h2>
+              <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>    
+</body>
+</html>

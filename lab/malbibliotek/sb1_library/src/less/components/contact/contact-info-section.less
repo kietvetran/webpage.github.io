@@ -1,0 +1,43 @@
+.contact-info-section {
+
+  max-width: 926px;
+  margin: auto;
+
+  .contact-box {
+    .bg-full-width;
+    font-family: 'MuseoSansRounded-700';
+    padding-bottom: 20px;
+    background-color: @sand-light;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    box-shadow: inset 0px 0px 1.5px 1px @shadow;
+    h3 {
+      &:extend(h5);
+      margin: 0;
+      padding: 40px 0 30px;
+      text-align: center;
+    }
+  }
+  .error-holder {
+    display: block;
+    text-align: center;
+
+    .error_summary_holder {
+      display: inline-block;
+    }
+  }
+}
+
+.send-info {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.inactive {
+  .icon-circle{
+    background-color: @gray-light;
+  }
+  .btn-name{
+    color: @gray-light;
+  }
+}

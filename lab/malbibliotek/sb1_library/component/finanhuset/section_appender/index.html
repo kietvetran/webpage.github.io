@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - section appender </title>
+
+<style>
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+a, a:visited, a:hover {
+  text-decoration: none;
+  color: #333;
+}
+
+.sb1_container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+
+  font-size: 0;
+}
+
+.sb1_container .container_item {
+  display: inline-block;
+  width: 19%;
+  min-width: 260px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.sb1_container .container_item.special {
+  display: none;
+}
+
+.item_test {
+  display: inline-block;
+  background: #eee none repeat 0 0;
+  width: 100px;
+  font-size: 50px;
+  line-height: 100px;
+  height: 100px;
+  text-align: center;
+  border-radius: 100%;
+}
+
+.item_test.active {
+  background-color: #005AA4;
+  color: #fff;
+}
+
+
+.sb1_section_appender_conatiner {
+  font-size: 0 !important;
+}
+
+.sb1_section_appender {
+  background-color: #EEE;
+  padding: 20px;
+  font-size: 30px;
+  color: #333;
+}
+
+.sb1_section_appender.sb1_hide {
+  display: none;
+}
+
+
+/******************************************************************************
+=== Tablets ===
+******************************************************************************/
+@media only screen and (min-width: 461px) and (max-width: 800px) {
+  .sb1_container .container_item.special.second {
+    display: inline-block;
+  }
+}
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  .sb1_container .container_item.special {
+    display: inline-block;
+  }
+}
+
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_section_appender.js"></script>
+<script>
+function startup() {
+  $('.item_test').on('click', function(e) {
+    e.preventDefault();
+    var mode = 'active', current = $(e.currentTarget); 
+    var container = current.closest('.sb1_container');
+    container.find('.sb1_section_appender').remove();
+
+    if ( current.hasClass(mode) ) return current.removeClass( mode );
+
+    container.find('.'+mode).removeClass(mode);
+    current.addClass( mode );
+    container.SB1sectionAppender({
+      'content': '<span>'+current.text()+'</span>', 'current': 
+        current.parent().hasClass('sb1_container') ? current : current.parent()
+    });
+  });
+}
+
+</script>
+</head> 
+<body onload="javascript:startup()">
+<div style="margin:10px; border: 1px solid red; overflow:hidden; position:relative; min-height:600px;">
+  <div style="position:absolute;top:0;right:0;font-size:12px;line-height:15px;color:#999">
+    <div><i>1. Klikk på en av bokstavene</i></div>
+    <div><i>2. Juster på vindustørrelser</i></div>  
+  </div>
+  <ul id="test1" class="sb1_container">
+    <!--<li class="container_item special"><a href="#" class="item_test">-1</a></li>-->
+    <li class="container_item"><a href="#" class="item_test">A</a></li>
+    <!--<li class="container_item special second"><a href="#" class="item_test">-2</a></li>-->
+    <li class="container_item"><a href="#" class="item_test">B</a></li>
+    <li class="container_item"><a href="#" class="item_test">C</a></li>
+    <li class="container_item"><a href="#" class="item_test">D</a></li>
+    <li class="container_item"><a href="#" class="item_test">E</a></li>
+    <li class="container_item"><a href="#" class="item_test">F</a></li>
+    <li class="container_item"><a href="#" class="item_test">G</a></li>
+  </ul>
+</div>
+
+<!--
+<div style="margin:10px; border: 1px solid red; overflow:hidden">
+  <div role="list" id="test1" class="sb1_container">
+    <a role="listitem" href="#" class="item_test">-1</a>
+    <a role="listitem" href="#" class="item_test">A</a>
+    <a role="listitem" href="#" class="item_test">-2</a>
+    <a role="listitem" href="#" class="item_test">B</a>
+    <a role="listitem" href="#" class="item_test">C</a>
+    <a role="listitem" href="#" class="item_test">D</a>
+    <a role="listitem" href="#" class="item_test">E</a>
+  </div>
+</div>
+-->
+</body>
+</html>

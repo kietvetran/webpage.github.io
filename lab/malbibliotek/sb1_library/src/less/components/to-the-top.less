@@ -1,0 +1,52 @@
+.to-top{
+    display: block;
+    position: fixed;
+    right: 0px;
+    z-index: 999;
+    bottom: -110px;
+    width: 80px;
+    font-family: 'MuseoSansRounded-700';
+    font-size: 14px;
+    color: @gray-dark;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: bottom 0.5s;
+    border: none;
+    
+    &.show{
+        bottom: 0;
+    }
+
+    .icon-holder{
+        display: block;
+        height: 50px;
+        width: 50px;
+        background-color: @gray-light;
+        border-radius: 100px;
+        font-size: 40px;
+        transition:background-color 0.2s ease;
+        &:before{
+            color: @white;
+            position: relative;
+            top: 10px;
+        }
+
+    }
+    span{
+        transition: color 0.2s;
+    }
+
+    &:hover {
+        border: none;
+        span{
+            color: @blue-royal-light-wcag;
+        }
+        .icon-holder{
+            background-color: @blue-royal-light-wcag;
+        }
+    }
+}

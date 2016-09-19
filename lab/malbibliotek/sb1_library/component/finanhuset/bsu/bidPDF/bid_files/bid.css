@@ -1,0 +1,1903 @@
+/* line 17, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 2, ../../../sass/partials/_core.scss */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+/* line 8, ../../../sass/partials/_core.scss */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+}
+/* line 11, ../../../sass/partials/_core.scss */
+body button {
+  font-size: 1em;
+}
+
+/* line 18, ../../../sass/partials/_bid_core.scss */
+.scrollbar-measure {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+  position: absolute;
+  top: -9999px;
+}
+
+/* line 25, ../../../sass/partials/_bid_core.scss */
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+/* line 30, ../../../sass/partials/_bid_core.scss */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 34, ../../../sass/partials/_bid_core.scss */
+body {
+  position: relative;
+  background-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* line 39, ../../../sass/partials/_bid_core.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 42, ../../../sass/partials/_bid_core.scss */
+a {
+  color: #56a8d5;
+}
+
+/* line 46, ../../../sass/partials/_bid_core.scss */
+.wrp.top {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+/* line 50, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp {
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
+  border: .1em solid #bbb;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  border-radius: 0.3em;
+}
+/* line 56, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+/* line 60, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg.active {
+  display: table;
+}
+/* line 64, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg.noscript, .wrp.top > .wrp > .pg.preload {
+  line-height: 1.2;
+}
+/* line 66, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg.noscript h1, .wrp.top > .wrp > .pg.preload h1 {
+  color: #444;
+  font-size: 1.8em;
+  padding: .5em;
+}
+/* line 71, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg.noscript p, .wrp.top > .wrp > .pg.preload p {
+  font-size: 1.6em;
+}
+/* line 74, ../../../sass/partials/_bid_core.scss */
+.wrp.top > .wrp > .pg.noscript .wrp, .wrp.top > .wrp > .pg.preload .wrp {
+  text-align: center;
+}
+
+/* line 85, ../../../sass/partials/_bid_core.scss */
+.hd,
+.bd,
+.ft {
+  display: table-row;
+}
+/* line 87, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp,
+.bd > .wrp,
+.ft > .wrp {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/* line 94, ../../../sass/partials/_bid_core.scss */
+.ft > .wrp {
+  vertical-align: top;
+}
+
+/* line 99, ../../../sass/partials/_bid_core.scss */
+.bd {
+  height: auto;
+}
+/* line 101, ../../../sass/partials/_bid_core.scss */
+.bd > .wrp {
+  display: table-cell;
+  vertical-align: middle;
+  overflow: hidden;
+}
+/* line 105, ../../../sass/partials/_bid_core.scss */
+.bd > .wrp > .wrp {
+  /*
+  overflow:hidden;
+  overflow-y:auto;
+  */
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 118, ../../../sass/partials/_bid_core.scss */
+.hd,
+.ft {
+  height: 4.7em;
+}
+/* line 120, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp,
+.ft > .wrp {
+  padding: 0 .7em;
+}
+/* line 123, ../../../sass/partials/_bid_core.scss */
+.hd .sep,
+.ft .sep {
+  border: 0;
+  border-top: .1em solid #c6cacb;
+  border-bottom: .1em solid white;
+  width: 100%;
+}
+
+/* line 131, ../../../sass/partials/_bid_core.scss */
+button {
+  line-height: 1;
+  cursor: pointer;
+}
+/* line 134, ../../../sass/partials/_bid_core.scss */
+button:disabled {
+  cursor: inherit;
+}
+
+@media screen and (max-height: 190px) {
+  /* line 139, ../../../sass/partials/_bid_core.scss */
+  .ft {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 140px) {
+  /* line 144, ../../../sass/partials/_bid_core.scss */
+  .hd {
+    display: none;
+  }
+}
+
+/* line 153, ../../../sass/partials/_bid_core.scss */
+.hd.fullBorderWidth > .wrp,
+.ft.fullBorderWidth > .wrp {
+  padding: 0;
+}
+/* line 155, ../../../sass/partials/_bid_core.scss */
+.hd.fullBorderWidth > .wrp > .cols,
+.ft.fullBorderWidth > .wrp > .cols {
+  padding: 0 .7em;
+}
+/* line 161, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols,
+.ft > .wrp > .cols {
+  height: 4.5em;
+  width: 100%;
+  display: table;
+}
+/* line 165, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols > .wrp,
+.ft > .wrp > .cols > .wrp {
+  display: table-row;
+}
+/* line 167, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols > .wrp > .col,
+.ft > .wrp > .cols > .wrp > .col {
+  white-space: nowrap;
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 172, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols > .wrp > .col.l,
+.ft > .wrp > .cols > .wrp > .col.l {
+  text-align: left;
+}
+/* line 175, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols > .wrp > .col.c,
+.ft > .wrp > .cols > .wrp > .col.c {
+  text-align: center;
+}
+/* line 178, ../../../sass/partials/_bid_core.scss */
+.hd > .wrp > .cols > .wrp > .col.r,
+.ft > .wrp > .cols > .wrp > .col.r {
+  text-align: right;
+}
+
+/* line 186, ../../../sass/partials/_bid_core.scss */
+.dlg {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+}
+/* line 188, ../../../sass/partials/_bid_core.scss */
+.dlg.active {
+  display: table;
+}
+/* line 199, ../../../sass/partials/_bid_core.scss */
+.dlg .wrp.row {
+  display: table-row;
+}
+/* line 202, ../../../sass/partials/_bid_core.scss */
+.dlg .wrp.cell {
+  display: table-cell;
+  vertical-align: middle;
+  background-color: #4D4F53;
+  background-color: rgba(77, 79, 83, 0.8);
+}
+/* line 208, ../../../sass/partials/_bid_core.scss */
+.dlg .wrp.cnt {
+  display: block;
+  background-color: white;
+  width: 90%;
+  max-width: 40em;
+  margin: auto;
+}
+
+/* line 220, ../../../sass/partials/_bid_core.scss */
+.heading,
+.value {
+  line-height: 1.2;
+}
+
+/* line 223, ../../../sass/partials/_bid_core.scss */
+.heading {
+  color: #868686;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+/* line 228, ../../../sass/partials/_bid_core.scss */
+.value {
+  font-size: 1.5em;
+  color: #666;
+}
+
+/* line 1, ../../../sass/partials/_ico.scss */
+.ico {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 2, ../../../sass/partials/_ico.scss */
+.ico.load {
+  background-image: url(../img/ajax-loader.gif);
+  min-width: 4.3em;
+  min-height: 1.1em;
+}
+/* line 9, ../../../sass/partials/_ico.scss */
+.ico:before {
+  font-size: 3.5em;
+}
+/* line 13, ../../../sass/partials/_ico.scss */
+.ico.clock:before {
+  content: "\0231A";
+}
+/* line 18, ../../../sass/partials/_ico.scss */
+.ico.alarm:before {
+  content: "\0231A";
+}
+
+/* line 25, ../../../sass/partials/_ico.scss */
+.ico,
+.img {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* line 31, ../../../sass/partials/_ico.scss */
+[class^="icon-"] {
+  text-align: center;
+  line-height: 1;
+  font-size: 3.5em;
+}
+
+/* line 38, ../../../sass/partials/_ico.scss */
+.svg {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+/* line 43, ../../../sass/partials/_ico.scss */
+.svg.close {
+  width: 1.5em;
+  height: 1.5em;
+  background: url(../svg/close.svg) center center no-repeat;
+}
+/* line 47, ../../../sass/partials/_ico.scss */
+.no-svg .svg.close {
+  background-image: url(../img/ico/close.png);
+}
+/* line 51, ../../../sass/partials/_ico.scss */
+.svg.close-white {
+  width: 1.5em;
+  height: 1.5em;
+  background: url(../svg/close_white.svg) center center no-repeat;
+}
+/* line 55, ../../../sass/partials/_ico.scss */
+.no-svg .svg.close-white {
+  background-image: url(../img/ico/close.png);
+}
+/* line 61, ../../../sass/partials/_ico.scss */
+.svg.lock {
+  min-width: 1.7em;
+  min-height: 2.1em;
+  min-width: 1.5em;
+  min-height: 2em;
+  background-image: url(../svg/lock.svg);
+}
+/* line 67, ../../../sass/partials/_ico.scss */
+.no-svg .svg.lock {
+  background-position: left center;
+  background-image: url(../img/ico/lock.png);
+  min-width: 1.5em;
+  min-height: 2em;
+}
+/* line 74, ../../../sass/partials/_ico.scss */
+.svg.alarm {
+  min-width: 2em;
+  min-height: 2em;
+  background-image: url(../svg/last-fail.svg);
+}
+/* line 78, ../../../sass/partials/_ico.scss */
+.no-svg .svg.alarm {
+  background-image: url(../img/ico/last-fail.png);
+}
+/* line 82, ../../../sass/partials/_ico.scss */
+.svg.clock {
+  min-width: 2em;
+  min-height: 2em;
+  background-image: url(../svg/last-used.svg);
+}
+/* line 86, ../../../sass/partials/_ico.scss */
+.no-svg .svg.clock {
+  background-image: url(../img/ico/last-used.png);
+}
+/* line 90, ../../../sass/partials/_ico.scss */
+.svg.fnr {
+  background-image: url(../svg/fnr.svg);
+  min-width: 2.4em;
+  min-height: 2.2em;
+}
+/* line 94, ../../../sass/partials/_ico.scss */
+.no-svg .svg.fnr {
+  background-image: url(../img/ico/fnr.png);
+}
+/* line 98, ../../../sass/partials/_ico.scss */
+.svg.logo {
+  background-image: url(../svg/bidlogo.svg);
+  background-position: left center;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+  min-width: 9.2em;
+  min-height: 1.5em;
+}
+/* line 107, ../../../sass/partials/_ico.scss */
+.no-svg .svg.logo {
+  background-image: url(../img/ico/bidlogo.png);
+  width: 6.3em;
+  height: 1.2em;
+}
+/* line 113, ../../../sass/partials/_ico.scss */
+.svg.next {
+  background-image: url(../svg/next.svg);
+  min-width: 2.8em;
+  min-height: 2.2em;
+}
+/* line 117, ../../../sass/partials/_ico.scss */
+.no-svg .svg.next {
+  background-image: url(../img/ico/next.png);
+}
+/* line 121, ../../../sass/partials/_ico.scss */
+.svg.back {
+  background-image: url(../svg/back.svg);
+  min-width: 2.8em;
+  min-height: 2.2em;
+}
+/* line 125, ../../../sass/partials/_ico.scss */
+.no-svg .svg.back {
+  background-image: url(../img/ico/back.png);
+}
+/* line 129, ../../../sass/partials/_ico.scss */
+.svg.otp-calculator {
+  background-image: url(../svg/otp-calculator.svg);
+  min-width: 3.5em;
+  min-height: 3.5em;
+}
+/* line 133, ../../../sass/partials/_ico.scss */
+.no-svg .svg.otp-calculator {
+  background-image: url(../img/ico/otp-calculator.png);
+}
+/* line 137, ../../../sass/partials/_ico.scss */
+.svg.otp-card {
+  background-image: url(../svg/otp-card.svg);
+  min-width: 3.5em;
+  min-height: 3.5em;
+}
+/* line 141, ../../../sass/partials/_ico.scss */
+.no-svg .svg.otp-card {
+  background-image: url(../img/ico/otp-card.png);
+}
+/* line 145, ../../../sass/partials/_ico.scss */
+.svg.otp-bim {
+  background-image: url(../svg/otp-bim.svg);
+  min-width: 3.5em;
+  min-height: 3.5em;
+}
+/* line 149, ../../../sass/partials/_ico.scss */
+.no-svg .svg.otp-bim {
+  background-image: url(../img/ico/otp-bim.png);
+}
+/* line 153, ../../../sass/partials/_ico.scss */
+.svg.pwd {
+  background-image: url(../svg/pwd.svg);
+  min-width: 3.5em;
+  min-height: 3.5em;
+}
+/* line 157, ../../../sass/partials/_ico.scss */
+.no-svg .svg.pwd {
+  background-image: url(../img/ico/pwd.png);
+}
+/* line 161, ../../../sass/partials/_ico.scss */
+.svg.switch {
+  background-image: url(../svg/switch.svg);
+  min-width: 2.3em;
+  min-height: 2.3em;
+}
+/* line 165, ../../../sass/partials/_ico.scss */
+.no-svg .svg.switch {
+  background-image: url(../img/ico/switch.png);
+}
+
+/* line 2, ../../../sass/partials/_bid_popover.scss */
+.arrows .arrow {
+  width: 0;
+  height: 0;
+  border-width: .3em;
+  border-style: solid;
+  border-color: transparent;
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 10, ../../../sass/partials/_bid_popover.scss */
+.arrows .arrow.up {
+  border-bottom: .3em solid #949598;
+}
+/* line 13, ../../../sass/partials/_bid_popover.scss */
+.arrows .arrow.up.blue {
+  border-bottom-color: #0083c0;
+}
+/* line 17, ../../../sass/partials/_bid_popover.scss */
+.arrows .arrow.down {
+  border-top: .3em solid #949598;
+}
+/* line 20, ../../../sass/partials/_bid_popover.scss */
+.arrows .arrow.down.blue {
+  border-top-color: #0083c0;
+}
+
+/* line 28, ../../../sass/partials/_bid_popover.scss */
+.arrow_box {
+  position: relative;
+  background: white;
+  border: .1em solid #C9CBCC;
+}
+/* line 32, ../../../sass/partials/_bid_popover.scss */
+.arrow_box .arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+/* line 38, ../../../sass/partials/_bid_popover.scss */
+.arrow_box .arrow .border {
+  border: .8em solid #C9CBCC;
+  margin-left: -.8em;
+}
+/* line 42, ../../../sass/partials/_bid_popover.scss */
+.arrow_box .arrow .fill {
+  border: .6em solid white;
+  margin-left: -.6em;
+}
+/* line 47, ../../../sass/partials/_bid_popover.scss */
+.arrow_box .arrow .border,
+.arrow_box .arrow .fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+/* line 55, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.btm {
+  margin-bottom: .8em;
+}
+/* line 57, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.btm .arrow {
+  top: 100%;
+}
+/* line 59, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.btm .arrow .border {
+  border-bottom-width: 0;
+}
+/* line 62, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.btm .arrow .fill {
+  border-bottom-width: 0;
+}
+/* line 67, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.top {
+  margin-top: .8em;
+}
+/* line 69, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.top .arrow {
+  top: 0;
+}
+/* line 71, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.top .arrow .border {
+  top: -.8em;
+  border-top-width: 0;
+}
+/* line 75, ../../../sass/partials/_bid_popover.scss */
+.arrow_box.top .arrow .fill {
+  top: -.6em;
+  border-top-width: 0;
+}
+
+/* line 83, ../../../sass/partials/_bid_popover.scss */
+.popover {
+  z-index: 10000;
+  position: absolute;
+}
+/* line 87, ../../../sass/partials/_bid_popover.scss */
+.popover.menu {
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  -webkit-box-shadow: 0 0.5em 0.5em 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 0.5em 0.5em 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0.5em 0.5em 0 rgba(0, 0, 0, 0.25);
+}
+/* line 93, ../../../sass/partials/_bid_popover.scss */
+.popover.infobox > .wrp {
+  padding: 1em;
+  padding-right: 4em;
+}
+/* line 99, ../../../sass/partials/_bid_popover.scss */
+.popover.menu > .wrp {
+  padding: .5em;
+}
+/* line 104, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp {
+  text-align: left;
+  line-height: 1.5;
+}
+/* line 107, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp span {
+  font-size: 1.2em;
+}
+/* line 111, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .heading {
+  text-transform: inherit;
+  color: #666;
+}
+/* line 115, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .value {
+  color: #868686;
+}
+/* line 118, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .error {
+  font-weight: bold;
+  font-style: italic;
+}
+/* line 122, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .btn_close {
+  position: absolute;
+  top: .5em;
+  right: .5em;
+  background-color: none;
+}
+/* line 127, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .btn_close button {
+  padding: .5em;
+  width: auto;
+  height: auto;
+  border: .1em solid transparent;
+  background-color: transparent;
+}
+/* line 133, ../../../sass/partials/_bid_popover.scss */
+.popover > .wrp .btn_close button:hover {
+  border-color: #ddd;
+  background-color: transparent;
+}
+/* line 142, ../../../sass/partials/_bid_popover.scss */
+.popover a,
+.popover button {
+  cursor: pointer;
+}
+/* line 147, ../../../sass/partials/_bid_popover.scss */
+.popover.menu a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: .5em;
+  width: 100%;
+}
+/* line 153, ../../../sass/partials/_bid_popover.scss */
+.popover.menu a span {
+  font-size: 1.4em;
+  display: block;
+}
+/* line 157, ../../../sass/partials/_bid_popover.scss */
+.popover.menu a:hover {
+  background-color: #eee;
+}
+/* line 162, ../../../sass/partials/_bid_popover.scss */
+.popover.menu li {
+  border-top: .1em solid #C9CBCC;
+}
+/* line 164, ../../../sass/partials/_bid_popover.scss */
+.popover.menu li:first-child {
+  border-top: 0;
+}
+
+/* line 2, ../../../sass/partials/_bid_hd.scss */
+header .col {
+  height: 100%;
+}
+/* line 4, ../../../sass/partials/_bid_hd.scss */
+header .col.l {
+  width: 33.3%;
+  text-align: left;
+}
+/* line 8, ../../../sass/partials/_bid_hd.scss */
+header .col.c {
+  width: auto;
+}
+/* line 11, ../../../sass/partials/_bid_hd.scss */
+header .col.r {
+  width: 33.3%;
+  text-align: right;
+}
+/* line 15, ../../../sass/partials/_bid_hd.scss */
+header .col > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 20, ../../../sass/partials/_bid_hd.scss */
+header .logo_container {
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+}
+/* line 27, ../../../sass/partials/_bid_hd.scss */
+header .logo_container > .svg.logo {
+  margin: 0 1.1em;
+}
+/* line 33, ../../../sass/partials/_bid_hd.scss */
+header .lbl {
+  font-size: 1.6em;
+}
+/* line 37, ../../../sass/partials/_bid_hd.scss */
+header button {
+  color: #666;
+  white-space: nowrap;
+  padding: 0 1em;
+  height: 3.5em;
+  line-height: 0;
+  background-color: transparent;
+  border: 1px solid transparent;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  border-radius: 0.3em;
+}
+/* line 46, ../../../sass/partials/_bid_hd.scss */
+header button > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 49, ../../../sass/partials/_bid_hd.scss */
+header button:hover {
+  border-color: #ddd;
+}
+/* line 55, ../../../sass/partials/_bid_hd.scss */
+header button.active, header button:active {
+  background-color: #ededed;
+  outline: none;
+  border-color: #ddd;
+}
+/* line 63, ../../../sass/partials/_bid_hd.scss */
+header button.ico {
+  width: 3em;
+  height: 3em;
+}
+/* line 67, ../../../sass/partials/_bid_hd.scss */
+header button.btn_next_page {
+  width: 6em;
+}
+/* line 69, ../../../sass/partials/_bid_hd.scss */
+header button.btn_next_page:hover {
+  border: inherit;
+}
+/* line 73, ../../../sass/partials/_bid_hd.scss */
+header button.btn_close_document {
+  padding: 0 1em;
+}
+
+/* line 2, ../../../sass/partials/_bid_ft.scss */
+footer.hide {
+  height: 0px;
+  overflow: hidden;
+  line-height: 0;
+}
+/* line 8, ../../../sass/partials/_bid_ft.scss */
+footer .col.l {
+  width: auto;
+}
+/* line 10, ../../../sass/partials/_bid_ft.scss */
+footer .col.l > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  padding-right: .5em;
+}
+/* line 17, ../../../sass/partials/_bid_ft.scss */
+footer .col.r {
+  width: 1;
+}
+/* line 21, ../../../sass/partials/_bid_ft.scss */
+footer button {
+  color: #666;
+  white-space: nowrap;
+  font-size: 1em;
+  padding: 0;
+  width: 3.5em;
+  height: 3.5em;
+  background-color: transparent;
+  border: .1em solid #ddd;
+  border-left: .1em solid white;
+  border-right: 0.1em solid #d0d0d0;
+}
+/* line 32, ../../../sass/partials/_bid_ft.scss */
+footer button:first-child {
+  border-left: .1em solid #ddd;
+  -moz-border-radius-topleft: 0.3em;
+  -webkit-border-top-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  -moz-border-radius-bottomleft: 0.3em;
+  -webkit-border-bottom-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+}
+/* line 37, ../../../sass/partials/_bid_ft.scss */
+footer button:last-child {
+  -moz-border-radius-topright: 0.3em;
+  -webkit-border-top-right-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+  -moz-border-radius-bottomright: 0.3em;
+  -webkit-border-bottom-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+}
+/* line 41, ../../../sass/partials/_bid_ft.scss */
+footer button:hover {
+  background-color: #ededed;
+}
+/* line 44, ../../../sass/partials/_bid_ft.scss */
+footer button .lbl {
+  font-size: 1.6em;
+}
+/* line 47, ../../../sass/partials/_bid_ft.scss */
+footer button > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 51, ../../../sass/partials/_bid_ft.scss */
+footer button.active, footer button:active {
+  background-color: #ededed;
+  outline: none;
+}
+
+@-webkit-keyframes bump_to_right {
+  /* line 2, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    left: 0;
+  }
+
+  /* line 5, ../../../sass/partials/_bid_pages.scss */
+  35% {
+    left: 10%;
+  }
+
+  /* line 8, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    left: 0;
+  }
+}
+
+@-moz-keyframes bump_to_right {
+  /* line 2, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    left: 0;
+  }
+
+  /* line 5, ../../../sass/partials/_bid_pages.scss */
+  35% {
+    left: 10%;
+  }
+
+  /* line 8, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    left: 0;
+  }
+}
+
+@-ms-keyframes bump_to_right {
+  /* line 2, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    left: 0;
+  }
+
+  /* line 5, ../../../sass/partials/_bid_pages.scss */
+  35% {
+    left: 10%;
+  }
+
+  /* line 8, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    left: 0;
+  }
+}
+
+@-o-keyframes bump_to_right {
+  /* line 2, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    left: 0;
+  }
+
+  /* line 5, ../../../sass/partials/_bid_pages.scss */
+  35% {
+    left: 10%;
+  }
+
+  /* line 8, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes bump_to_right {
+  /* line 2, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    left: 0;
+  }
+
+  /* line 5, ../../../sass/partials/_bid_pages.scss */
+  35% {
+    left: 10%;
+  }
+
+  /* line 8, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    left: 0;
+  }
+}
+
+@-webkit-keyframes full_width {
+  /* line 13, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 16, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    width: 100%;
+  }
+}
+
+@-moz-keyframes full_width {
+  /* line 13, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 16, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    width: 100%;
+  }
+}
+
+@-ms-keyframes full_width {
+  /* line 13, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 16, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    width: 100%;
+  }
+}
+
+@-o-keyframes full_width {
+  /* line 13, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 16, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes full_width {
+  /* line 13, ../../../sass/partials/_bid_pages.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 16, ../../../sass/partials/_bid_pages.scss */
+  100% {
+    width: 100%;
+  }
+}
+
+/* line 20, ../../../sass/partials/_bid_pages.scss */
+.pages {
+  -webkit-transition: left 0.5s ease-in-out;
+  -moz-transition: left 0.5s ease-in-out;
+  -o-transition: left 0.5s ease-in-out;
+  transition: left 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+  top: 0;
+  white-space: nowrap;
+  position: absolute;
+  vertical-align: top;
+}
+/* line 23, ../../../sass/partials/_bid_pages.scss */
+.pages h1 {
+  text-align: left;
+  font-size: 2.4em;
+}
+/* line 39, ../../../sass/partials/_bid_pages.scss */
+.pages .pg {
+  -webkit-transition: opacity 0.25s linear;
+  -moz-transition: opacity 0.25s linear;
+  -o-transition: opacity 0.25s linear;
+  transition: opacity 0.25s linear;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+  display: inline-table;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  vertical-align: top;
+  overflow: hidden;
+  		/*
+  
+  		*/
+}
+/* line 43, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.active {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 58, ../../../sass/partials/_bid_pages.scss */
+.pages .pg > .wrp {
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+/* line 65, ../../../sass/partials/_bid_pages.scss */
+.pages .pg > .wrp > * {
+  display: block;
+  padding: 0 .7em;
+  margin: 0;
+  width: 100%;
+}
+/* line 72, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row {
+  display: block;
+  max-width: 40em;
+  margin: auto;
+  padding: 0;
+  width: 100%;
+}
+/* line 81, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.lbl, .pages .pg .row.msg, .pages .pg .row.confirm {
+  padding-left: 1em;
+}
+/* line 83, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.lbl.error, .pages .pg .row.msg.error, .pages .pg .row.confirm.error {
+  color: red;
+  font-weight: bold;
+}
+/* line 89, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.lbl {
+  padding-bottom: .5em;
+  color: #333;
+}
+/* line 93, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.lbl label {
+  font-size: 1.8em;
+}
+/* line 99, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.msg, .pages .pg .row.confirm {
+  padding-top: .3em;
+  color: #707070;
+}
+/* line 104, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .row.msg label,
+.pages .pg .row.msg span, .pages .pg .row.confirm label,
+.pages .pg .row.confirm span {
+  font-size: 1.5em;
+}
+/* line 111, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .frm {
+  height: 4em;
+}
+/* line 115, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .frm > *,
+.pages .pg .frm .inp_wrp > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  height: 100%;
+}
+/* line 120, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .frm .c2a {
+  vertical-align: top;
+  outline: 0;
+}
+/* line 130, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .c2a {
+  margin: 0;
+  margin-left: 2%;
+  width: 20%;
+}
+/* line 134, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .c2a > .svg.next {
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+  transition: opacity 0.25s;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+  opacity: 0.25;
+  position: relative;
+}
+/* line 141, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .c2a.valid > .svg.next {
+  -webkit-animation: bump_to_right 0.25s;
+  -moz-animation: bump_to_right 0.25s;
+  -ms-animation: bump_to_right 0.25s;
+  -o-animation: bump_to_right 0.25s;
+  animation: bump_to_right 0.25s;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 149, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp {
+  width: 78%;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  border: .1em solid #999;
+  background-color: white;
+}
+/* line 156, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp.error {
+  background-color: #fbe6e6;
+}
+/* line 160, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp * {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+/* line 167, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp button,
+.pages .pg .inp_wrp input {
+  border: 0;
+}
+/* line 171, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp .ico {
+  width: 15%;
+}
+/* line 174, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp .inp {
+  width: 85%;
+}
+/* line 177, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp .inp > * {
+  height: 100%;
+}
+/* line 181, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp .inp span,
+.pages .pg .inp_wrp .inp input {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  outline: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 2em;
+  letter-spacing: .15em;
+}
+/* line 191, ../../../sass/partials/_bid_pages.scss */
+.ie8 .pages .pg .inp_wrp .inp span, .ie8
+.pages .pg .inp_wrp .inp input {
+  line-height: 1.8;
+}
+/* line 195, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .inp_wrp .inp span {
+  line-height: 1.8;
+}
+/* line 201, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .ico {
+  overflow: hidden;
+}
+/* line 203, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .ico > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* line 208, ../../../sass/partials/_bid_pages.scss */
+.pages .pg .ico [class^="icon-"] {
+  color: #0083c0;
+}
+/* line 215, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico {
+  -webkit-border-radius: 0.4em 0 0 0.4em;
+  -moz-border-radius: 0.4em 0 0 0.4em;
+  -ms-border-radius: 0.4em 0 0 0.4em;
+  -o-border-radius: 0.4em 0 0 0.4em;
+  border-radius: 0.4em 0 0 0.4em;
+  border-right: .1em solid #ccc;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFFCFCFC', endColorstr='#FFEDEDED');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZjZmNmYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcfcfc), color-stop(100%, #ededed));
+  background-image: -webkit-linear-gradient(#fcfcfc, #ededed);
+  background-image: -moz-linear-gradient(#fcfcfc, #ededed);
+  background-image: -o-linear-gradient(#fcfcfc, #ededed);
+  background-image: linear-gradient(#fcfcfc, #ededed);
+  width: 20%;
+  max-width: 6em;
+}
+/* line 222, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 225, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico:hover {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFE3E3E3', endColorstr='#FFD3D3D3');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2UzZTNlMyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2QzZDNkMyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #d3d3d3));
+  background-image: -webkit-linear-gradient(#e3e3e3, #d3d3d3);
+  background-image: -moz-linear-gradient(#e3e3e3, #d3d3d3);
+  background-image: -o-linear-gradient(#e3e3e3, #d3d3d3);
+  background-image: linear-gradient(#e3e3e3, #d3d3d3);
+}
+/* line 229, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico .svg {
+  width: 80%;
+}
+/* line 232, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico .arrows {
+  width: 20%;
+  height: auto;
+}
+/* line 236, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico .arrows * {
+  display: block;
+  width: 0;
+  height: 0;
+  border-width: .3em;
+}
+/* line 242, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp_wrp .ico .arrows .down {
+  margin-top: .2em;
+}
+/* line 249, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.otp.multiple .inp {
+  width: 75%;
+  margin-left: 5%;
+}
+/* line 259, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp_wrp .ico {
+  width: 20%;
+}
+/* line 263, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp {
+  position: relative;
+  width: 80%;
+}
+/* line 267, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp span,
+.pages .pg.pwd .inp input {
+  width: 75%;
+}
+/* line 270, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp input {
+  position: relative;
+}
+/* line 272, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp input.hide {
+  color: rgba(255, 255, 255, 0);
+}
+/* line 276, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+/* line 281, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp span.hide {
+  visibility: hidden;
+}
+/* line 285, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp .showme {
+  border: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 0;
+  padding: 0;
+  width: 25%;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  outline: none;
+  cursor: pointer;
+}
+/* line 301, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp .showme .outer {
+  height: 3.8em;
+  padding: .2em;
+}
+/* line 305, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp .showme .text {
+  width: 100%;
+  height: 100%;
+  line-height: 3.4;
+  color: #0072B2;
+  background-color: #e5f2f8;
+  -webkit-border-radius: 0.3em;
+  -moz-border-radius: 0.3em;
+  -ms-border-radius: 0.3em;
+  -o-border-radius: 0.3em;
+  border-radius: 0.3em;
+  border: .1em solid #7FBDDF;
+}
+/* line 314, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp .showme.active .text {
+  color: white;
+  border: .1em solid transparent;
+  background-color: #0072B2;
+  border-color: #0072B2;
+}
+/* line 321, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.pwd .inp span {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+}
+/* line 326, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info {
+  /* This causes problems with vertical align in FF
+  > .wrp {
+  	overflow:auto;
+  }
+  */
+}
+/* line 332, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info h1, .pages .pg.info p {
+  line-height: 1.4;
+  white-space: normal;
+}
+/* line 336, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info h1 {
+  padding-bottom: .25em;
+  margin-bottom: .25em;
+  border-bottom: .1em solid #C6CACB;
+  color: #0079BF;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+/* line 344, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info p {
+  padding-bottom: .5em;
+  color: #333;
+  font-size: 1.5em;
+}
+/* line 349, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info button {
+  height: 4em;
+  width: 7em;
+  margin: 0;
+}
+/* line 354, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info .row {
+  padding: .5em 0;
+}
+/* line 356, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info .row.btn {
+  text-align: center;
+}
+/* line 362, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info.chg_info h1, .pages .pg.info.chg_info p {
+  text-align: left;
+}
+/* line 365, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info.chg_info .row {
+  padding: .5em 1.5em;
+}
+/* line 370, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.info.chg_confirm .row {
+  text-align: center;
+}
+/* line 377, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.chg_pwd .inp {
+  width: 100%;
+}
+/* line 380, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.chg_pwd .inp span,
+.pages .pg.chg_pwd .inp input {
+  width: 72.5%;
+  margin-left: 2.5%;
+}
+/* line 384, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.chg_pwd .inp input {
+  font-family: Arial, sans-serif;
+}
+/* line 390, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.chg_pwd .row.confirm > * {
+  vertical-align: middle;
+}
+/* line 393, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.chg_pwd .row.confirm input {
+  margin: 0 .5em 0 0;
+}
+/* line 399, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign .row {
+  white-space: normal;
+  padding: .5em .8em;
+}
+/* line 403, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document {
+  position: relative;
+}
+/* line 405, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document > .wrp {
+  -webkit-transition: top 0.5s ease-in-out;
+  -moz-transition: top 0.5s ease-in-out;
+  -o-transition: top 0.5s ease-in-out;
+  transition: top 0.5s ease-in-out;
+  position: absolute;
+  vertical-align: top;
+}
+/* line 410, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document .wrp.iframe {
+  height: 100%;
+  padding: 0;
+  position: relative;
+  white-space: normal;
+}
+/* line 412, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document .wrp.iframe > :first-child {
+  width: 100%;
+  height: 100%;
+}
+/* line 428, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document .wrp.iframe > * {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+/* line 436, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document .wrp.iframe .veil {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+/* line 444, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document .wrp.iframe .veil.loading {
+  background: url(../img/ajax-loader.gif) 50% 50% no-repeat;
+}
+/* line 451, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.document iframe {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+/* line 464, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.info .row.confirm > * {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  zoom: 1;
+  *display: inline;
+  vertical-align: text-top;
+  text-align: left;
+}
+/* line 469, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.info .row.confirm input {
+  width: 5%;
+  margin: 0;
+}
+/* line 473, ../../../sass/partials/_bid_pages.scss */
+.pages .pg.sign.info .row.confirm label {
+  width: 90%;
+  margin-left: 2%;
+}
+
+/* line 2, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info .svg.lock {
+  margin-right: 1em;
+}
+/* line 5, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info .bd {
+  display: block;
+}
+/* line 9, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info .bd > .wrp {
+  vertical-align: top;
+  display: block;
+  position: absolute;
+  top: 4.7em;
+  left: 0;
+  right: 1px;
+  bottom: 1px;
+  /* This causes vertical align problems in FF
+  overflow:auto;
+  */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+/* line 23, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info .bd > .wrp > * {
+  padding: 1.5em;
+}
+/* line 27, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info .bd p {
+  font-size: 1.4em;
+  padding-top: 1em;
+  line-height: 1.5;
+}
+/* line 34, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.privacy p:first-child {
+  font-weight: bold;
+  padding-top: 0;
+}
+/* line 40, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params {
+  margin: 0 1em;
+}
+/* line 42, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li {
+  padding-top: 1em;
+}
+/* line 44, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li:first-child {
+  padding-top: 0;
+}
+/* line 47, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li > div {
+  line-height: 1.4;
+}
+/* line 50, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li > div:first-child {
+  color: #868686;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+/* line 55, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li > div:last-child {
+  font-size: 1.5em;
+  color: #666;
+}
+/* line 60, ../../../sass/partials/_bid_pages_info.scss */
+.pg.info.sertificate .params li > .side li {
+  display: inline-block;
+  padding-right: 2em;
+}
+
+/* line 1, ../../../sass/partials/_bid_c2a.scss */
+.c2a {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF00ABEC', endColorstr='#FF0082C3');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwYWJlYyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwN2JjMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00abec), color-stop(100%, #007bc0));
+  background-image: -webkit-linear-gradient(top, #00abec, #007bc0);
+  background-image: -moz-linear-gradient(top, #00abec, #007bc0);
+  background-image: -o-linear-gradient(top, #00abec, #007bc0);
+  background-image: linear-gradient(top, #00abec, #007bc0);
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  border: 0.1em solid #0094d1;
+  color: white;
+  padding: 0;
+}
+/* line 3, ../../../sass/partials/_bid_c2a.scss */
+.ie9 .c2a {
+  filter: none;
+}
+/* line 13, ../../../sass/partials/_bid_c2a.scss */
+.c2a:disabled {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF4EA1D8', endColorstr='#FF007BC0');
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRlYTFkOCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwN2JjMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #4ea1d8), color-stop(100%, #007bc0));
+  background-image: -webkit-linear-gradient(top, #4ea1d8, #007bc0);
+  background-image: -moz-linear-gradient(top, #4ea1d8, #007bc0);
+  background-image: -o-linear-gradient(top, #4ea1d8, #007bc0);
+  background-image: linear-gradient(top, #4ea1d8, #007bc0);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* line 1, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu {
+  display: table;
+  width: 100%;
+}
+/* line 5, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row {
+  display: table-row;
+}
+/* line 7, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row > * {
+  display: table-cell;
+  text-align: center;
+  width: 50%;
+  border: 0;
+  border-left: .1em solid #C6CACB;
+}
+/* line 11, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row > *.active {
+  font-weight: bold;
+}
+/* line 16, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row > *:first-child {
+  border-left: 0;
+}
+/* line 20, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row button {
+  margin: 0;
+  background-color: transparent;
+  height: 2.5em;
+  vertical-align: middle;
+}
+/* line 26, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .row span {
+  font-size: 1.6em;
+}
+/* line 31, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .header h1 {
+  line-height: 4.5em;
+}
+/* line 33, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu .header h1 > span {
+  font-size: 1.6em;
+}
+/* line 39, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list {
+  display: none;
+  margin: 0 .5em;
+}
+/* line 41, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list.active {
+  display: block;
+}
+/* line 45, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list table {
+  width: 100%;
+}
+/* line 48, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list tr {
+  border-top: .1em solid #C6CACB;
+  height: 45px;
+  cursor: pointer;
+}
+/* line 53, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list tr:hover, .push_menu.otp_menu .list tr.active {
+  background-color: #D3E5F0;
+}
+/* line 59, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list td[class^='icon-'] {
+  color: #0083C0;
+  width: 15%;
+}
+/* line 63, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list td.name {
+  font-size: 1.6em;
+  color: #4C4E52;
+  width: auto;
+}
+/* line 68, ../../../sass/partials/_bid_otp_menu.scss */
+.push_menu.otp_menu .list td.radio {
+  width: 10%;
+}
+
+/* line 5, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool {
+  position: relative;
+}
+/* line 8, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+/* line 13, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools button {
+  border: none;
+  width: 33px;
+  height: 33px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 2px;
+}
+/* line 23, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools button:hover {
+  background-color: #e6e6e6;
+}
+/* line 27, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools button:disabled {
+  color: #ccc;
+}
+/* line 29, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools button:disabled:hover {
+  background-color: transparent;
+}
+/* line 36, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools .indicator {
+  position: relative;
+  display: inline-block;
+  width: 17px;
+  height: 22px;
+  border: 1px solid #c3c3c3;
+  vertical-align: -6px;
+  margin-right: 5px;
+  overflow: hidden;
+}
+/* line 46, ../../../sass/partials/_bid_zoom.scss */
+body footer .zoomtool .tools .indicator .viewport {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 7px;
+  height: 12px;
+  background-color: #999;
+}
+
+/* line 5, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector {
+  text-align: center;
+  border-radius: 0.3em;
+  border: 1px solid #ddd;
+  font-size: 12px;
+  overflow: hidden;
+  width: 120px;
+  float: right;
+}
+/* line 15, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector .title {
+  padding: 3px 0 2px;
+  color: #a2a2a2;
+}
+/* line 20, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector .description {
+  font-size: 14px;
+}
+/* line 24, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button {
+  border: none;
+  width: 33px;
+  height: 33px;
+  font-size: 16px;
+  float: left;
+  position: relative;
+}
+/* line 33, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button.next {
+  float: right;
+}
+/* line 37, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/ico/arrow_up@2x.png) 50% 50% no-repeat;
+  background-size: 12px 20px;
+}
+/* line 48, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button.next:after {
+  background-image: url(../img/ico/arrow_down@2x.png);
+}
+/* line 52, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button:disabled:after {
+  opacity: 0.4;
+}
+/* line 56, ../../../sass/partials/_bid_page_selector.scss */
+body footer .pageselector button:disabled:hover {
+  background-color: transparent;
+}

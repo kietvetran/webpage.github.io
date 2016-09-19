@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+}
+
+input[type="submit"] {
+  border: 0 none;
+}
+
+textarea, input:not([type="submit"]) {
+  width: auto;
+}
+
+label {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.sub_wrapper {
+  padding: 0 0 0 10px;
+  margin-top: 30px;
+  overflow: hidden;
+  float: left;
+  clear: both;
+  display: none;
+}
+
+.summary p {
+  text-align: center;
+  color: #002776;
+}
+
+form {
+  display: table;
+  width: 100%;
+}
+
+.cell {
+  display: table-cell;
+  padding-right: 10px;
+}
+
+input[type="text"] {
+  max-width: 300px;
+}
+
+input[maxlength="4"]  { width: 68px;  }
+input[maxlength="16"] { width: 270px; }
+
+.sb1_input_wrapper {
+  position: relative;
+}
+
+
+/********************************/
+.header {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.header:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 12px;
+  background-color: #002776;
+}
+
+.header .content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header .content .holder {
+  width: 32%;
+  margin-left: 2%;
+  float: left;
+}
+
+.header .content .holder:first-child {
+  margin-left: 0;
+}
+
+.header .content .holder.left { text-align: left; }
+.header .content .holder.center { text-align: center;}
+.header .content .holder.right { text-align: right;}
+
+
+.header .content .holder.left,
+.header .content .holder.right { 
+  padding-top: 40px;
+}
+
+/********************************/
+.row:first-child > div:first-child:before{
+  display: none;
+}  
+.row > div:first-child:before{
+  content: " ";
+  display: block;
+  border-bottom: 1px solid #CCC !important;
+  height: 40px;
+  margin-bottom: 40px;
+  clear: both;
+}
+
+.info_btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  /*background: transparent url("./img/i.svg") no-repeat scroll center center;*/
+  /*background: transparent url("./img/i2.svg") no-repeat scroll center center;*/
+  background: transparent url("./i3.svg") no-repeat scroll center center;
+  background-size: 6px auto;
+  margin-left: 5px;
+  position: relative;
+  z-index: 3;
+
+  /*
+  border: 2px solid #ccc;
+  border-radius: 100%;
+
+  opacity: 0.8; 
+  filter: alpha(opacity=80);   
+  */
+}
+
+
+.info_btn:after {
+  content: " ";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 7px;
+  bottom: 7px;
+  border: 2px solid #002776;
+  border-radius: 100%;
+}
+
+.mirror_info_btn:before {
+  content : " ";
+  font-size: 1px;
+  opacity: 0.01 !important; 
+  filter: alpha(opacity=1) !important;   
+  outline: none;
+}
+
+
+.wrapper {
+  padding: 0 0 50px 0;
+  clear: both;
+  float: left;
+  width: 100%;
+}
+
+.wrapper .sb1_form_validation_error {
+  clear: both;
+}
+
+.wrapper > .information,
+.wrapper > .content:first-child label,
+.wrapper > label {
+  padding-bottom: 20px;
+}
+
+
+.wrapper > .content:first-child label,
+.wrapper > label {
+  color: #002776;
+  font-family: "MuseoSansRounded-700";
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.wrapper > .content:first-child {
+  background-color: #eee;
+ }
+
+.wrapper > .content:first-child .label_wrapper {
+  float left;
+  padding-right: 55px;
+}
+
+.wrapper > .content:first-child label {
+  float: left;
+}
+
+.wrapper > .content:first-child .info_btn {
+  float: right;
+  margin-right: -45px;
+  margin-top: -9px;
+}
+
+.wrapper > .information {
+  float: right;
+  width: 50%;
+  padding: 0;
+  clear: both;
+  overflow: hidden;
+  max-height: 0;
+
+  margin-top: -40px;
+ 
+  -webkit-transition: max-height .3s ease;                  
+  -moz-transition: max-height .3s ease;                 
+  -o-transition: max-height .3s ease;   
+  -ms-transition: max-height .3s ease;         
+  transition: max-height .3s ease; 
+}
+
+.wrapper.show_information > .information {
+  max-height: 500px;
+}
+
+
+.wrapper > .sb1_form_validation_error,
+.wrapper .content {
+  width: 50%;
+  position: relative;
+}
+
+.wrapper > .sb1_form_validation_error {
+  clear: left;
+}
+
+.wrapper .content .clear-row {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.wrapper .content > .collection > *,
+.wrapper .content > * {
+  float: left;
+}
+
+.wrapper .content > .collection {
+  clear: left;
+}
+
+/******************************************************************************
+=== Tablets ===
+******************************************************************************/
+@media only screen and (min-width: 461px) and (max-width: 800px) {
+  .wrapper > .information {
+    width: 35%;
+  }
+
+  .wrapper .content {
+    width: 65%;
+  }
+
+  .wrapper .sb1_dropdown_menu,
+  .wrapper .sb1_input_textfield {
+    width: 82%;
+  }
+
+  .wrapper .collection,
+  .wrapper .sb1_dropdown_menu button,
+  .wrapper .sb1_dropdown_menu .sb1_dropdown_btn {
+    width: 100%;
+  }
+
+  .wrapper.show_information > .information {
+    max-height: 600px;
+  }  
+
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  .wrapper > .information {
+    float: none;
+    width: 100%;
+  }
+
+  .wrapper .content {
+    width: 100%;
+    clear: both;
+  }
+
+  .wrapper.show_information > .information {
+    margin-bottom: 15px;
+  }
+
+  .wrapper .sb1_dropdown_menu,
+  .wrapper .sb1_input_textfield {
+    width: 82%;
+  }  
+
+  .wrapper .collection,
+  .wrapper .sb1_dropdown_menu button,
+  .wrapper > .sb1_form_validation_error,
+  .wrapper .sb1_dropdown_menu .sb1_dropdown_btn {
+    width: 100%;
+  }
+
+
+  .wrapper.show_information > .information {
+    max-height: 800px;
+  }
+}
+
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+
+<script>
+function startup() {
+  var main = $('#application').SB1formValidation({
+    'language' : 'en',
+    'live'     : 3,
+    'summary_error'     : '.error_summary_holder',
+    'validationErrorMessage' : {
+      'kilometer': {
+        'field_required' : {
+          'en' : 'The kilometer distance value has to be defined in number',
+          'nb' : 'Antall kilometer som er blitt kjørt må være utfullt.'
+        }
+      }
+    }
+  });  
+
+  $('.sb1_dropdown_menu').each( function (i,d) { 
+    $(d).SB1dropdownMenu({
+
+    }); 
+  });
+
+  $('.info_btn').on('click', function(e) {
+    e.preventDefault();
+    var node = $(e.target), wrapper = node.closest('.wrapper');
+    wrapper.toggleClass('show_information');//.find('.mirror_info_btn').focus();
+  }).on( 'blur', function(e) { 
+
+  });
+}
+
+</script>
+</head> 
+<body onload="javascript:startup()">
+
+<div style="height:1600px">
+<div class="header">
+  <div class="content">
+    <div class="holder left"><img src="./img/cell_left.png" alt=""></div>
+    <div class="holder center"><img src="./img/cell_center.png" alt=""></div>
+    <div class="holder right"><img src="./img/cell_right.png" alt=""></div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>Nesten ferdig</h1>
+      <div class="summary">
+        <h3>Forsikring detaljer</h3>
+        <p>Mercedes A 160 CDI</p>
+        <p>(DP 14330)</p>
+        <p>Kasko med 16 000 km årlig kjørelngde</p>
+        <p>Pris: 748,- per måned</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <form id="application" method="post" action="" novalidate>   
+
+        <div class="error_summary_holder"></div>
+
+        <div class="wrapper">
+          <div class="content">
+            <div class="label_wrapper">
+              <a href="#" class="info_btn" aria-label="Informasjon om registreringsnummer" role="button"></a>
+              <label for="registrationnumber">Oppgi registreringsnummer</label>
+            </div>
+          </div>
+          <div class="information">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+          </div>
+          <div class="sb1_input_wrapper content">
+            <div class="clear-row">
+              <input type="checkbox" class="sb1-input-checkbox" id="cpolicy" name="cpolicy" value="policy" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">
+              <label class="sb1-input-checkbox-label" for="cpolicy">Har ikke registreringsnummer</label>
+            </div>            
+            <div class="collection">
+              <input id="registrationnumber" class="sb1_input_textfield large" name="registrationnumber" minlength="5" type="text" spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper] atleastoption[1]">              
+            </div>
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <div class="content">
+            <div class="label_wrapper">
+              <a href="#" class="info_btn" aria-label="Informasjon om kjørelengde" role="button"></a>
+              <label for="kilometer">Hvor mange kilometer har du kjørt?</label>
+            </div>
+          </div>          
+          <div class="information">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+            Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+            sapien eu, mollis nisl. Aliquam finibus maximus ipsum, vel commodo 
+            sem aliquet vel. Duis interdum sollicitudin nibh, quis tincidunt 
+            turpis aliquam in. Praesent accumsan ullamcorper felis, quis semper erat fermentum sed.            
+          </div>
+          <div class="sb1_input_wrapper content">
+            <input id="kilometer" class="sb1_input_textfield large" name="kilometer" type="text" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+            
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <fieldset>      
+            <div class="content">
+              <div class="label_wrapper">
+                <a href="#" class="info_btn" aria-label="Informasjon om selveie bilforsikring" role="button"></a>
+                <legend id="car_owner_label">Eier du selv bilen du skal forsikre?</legend>
+              </div>
+            </div>  
+            <div class="information">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+              et tortor quis sem tempus accumsan eu vitae mi.
+            </div>          
+            <div class="sb1_input_radio_wrapper sb1_input_wrapper content elementBy3">
+              <input type="radio" class="sb1-input-radio" name="car_owner" id="yes_self_owner" data-rule="parent_target[.sb1_input_wrapper]" value="yes" required>
+              <label class="sb1_button" id="yes_self_owner_label" for="yes_self_owner"><span>Ja</span></label>        
+              <input type="radio" class="sb1-input-radio" name="car_owner" id="no_self_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" required>
+              <label class="sb1_button" id="no_self_owner_label" for="no_self_owner"><span>Nei</span></label>
+              <input type="radio" class="sb1-input-radio" name="car_owner" id="dont_know_self_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" required>
+              <label class="sb1_button" id="dont_know_self_owner_label" for="dont_know_self_owner"><span>Vet ikke</span></label>
+            </div>
+          </fieldset>      
+        </div>        
+
+        <div class="wrapper">
+          <fieldset>
+            <div class="content">
+              <div class="label_wrapper">
+                <a href="#" class="info_btn" aria-label="Informasjon om du har forsikret denne bilen i et annet selskap" role="button"></a>
+                <legend id="car_other_insurance_company_label">Har du forsikret denne bilen i et annet selskap?</legend>
+              </div>
+            </div>            
+            <div class="information">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+              et tortor quis sem tempus accumsan eu vitae mi.
+            </div>          
+            <div class="sb1_input_radio_wrapper sb1_input_wrapper content">
+              <input type="radio" class="sb1-input-radio" name="car_other_insurance_company" id="yes_car_other_insurance_company" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required>
+              <label class="sb1_button"  id="yes_car_other_insurance_company_label" for="yes_car_other_insurance_company"><span>Ja</span></label>        
+              <input type="radio" class="sb1-input-radio" name="car_other_insurance_company" id="no_car_other_insurance_company" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+              <label class="sb1_button"  id="no_car_other_insurance_company_label" for="no_car_other_insurance_company"><span>Nei</span></label>
+              
+            </div>
+          </fieldset>
+        </div>        
+
+        <div class="wrapper">
+          <div class="content">
+            <div class="label_wrapper">
+              <a href="#" class="info_btn" aria-label="Informasjon om forskiringselskapene" role="button"></a>
+              <label id="current_insurance_company_label">I hvilket selskap har du forsikring i dag?</label>
+            </div>
+          </div> 
+          <div class="information">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+          </div>
+          <div class="sb1_input_wrapper content">
+            <div class="sb1_dropdown_menu">
+              <a role="button" aria-controls="current_insurance_company_list" href="#" class="sb1_dropdown_btn" aria-labelledby="current_insurance_company_label">Velg</a>            
+              <input type="hidden" name="current_insurance_company" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]">              
+              <ul role="listbox" id="current_insurance_company_list" aria-expanded="false" class="sb1_dropdown_list">
+                <li class="sb1_dropdown_option hide" role="option" data-value="">Velg</li>
+                <li class="sb1_dropdown_option" role="option" data-value="if">If - forsikringsselskap</li>
+                <li class="sb1_dropdown_option" role="option" data-value="storband">Stor - forsikringsselskap</li>
+                <li class="sb1_dropdown_option" role="option" data-value="gjensidige">Gjensidige - forsikringsselskap</li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <fieldset>
+            <div class="content">
+              <div class="label_wrapper">
+                <a href="#" class="info_btn" aria-label="Informasjon om hovedforfallsdato i annet selskap" role="button"></a>
+                <legend id="car_insurance_expire_date_label">Vet du dato for hovedforfall i annet selskap?</legend>
+              </div>
+            </div>           
+            <div class="information">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+              Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+              et tortor quis sem tempus accumsan eu vitae mi.
+            </div>          
+            <div class="sb1_input_radio_wrapper sb1_input_wrapper content">
+              <input type="radio" class="sb1-input-radio" name="knowing_car_insurance_expire_date" id="yes_knowing_car_insurance_expire_date" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="car_insurance_expire_date_label yes_knowing_car_insurance_expire_date_label">
+              <label class="sb1_button" id="yes_knowing_car_insurance_expire_date_label" for="yes_knowing_car_insurance_expire_date"><span>Ja</span></label>        
+              <input type="radio" class="sb1-input-radio" name="knowing_car_insurance_expire_date" id="no_knowing_car_insurance_expire_date" value="no" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="car_insurance_expire_date_label no_knowing_car_insurance_expire_date_label">
+              <label class="sb1_button" id="no_knowing_car_insurance_expire_date_label" for="no_knowing_car_insurance_expire_date"><span>Nei</span></label>            
+            </div>
+          </fieldset>
+        </div>        
+
+
+        <div class="wrapper">
+          <div class="content">
+            <div class="label_wrapper">
+              <a href="#" class="info_btn" aria-label="Informasjon om forsikringsstartdato." role="button"></a>
+              <label id="insurance_start_date">Startdato for forsikringen er</label>
+            </div>
+          </div>           
+          <div class="information">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+          </div>
+          <div class="sb1_input_wrapper content">
+            <div class="sb1_dropdown_menu">
+              <a role="button" aria-controls="insurance_start_date_list" href="#" class="sb1_dropdown_btn">Desember</a>
+              <input type="hidden" name="current_insurance_company" aria-hidden="true" required>                         
+              <ul role="listbox" id="insurance_start_date_list" aria-expanded="false" class="sb1_dropdown_list">
+                <li class="sb1_dropdown_option" role="option">Januar</li>
+                <li class="sb1_dropdown_option" role="option">Februar</li>
+                <li class="sb1_dropdown_option" role="option">Mars</li>
+                <li class="sb1_dropdown_option" role="option">April</li>
+                <li class="sb1_dropdown_option" role="option">Mai</li>
+                <li class="sb1_dropdown_option" role="option">Juni</li>
+                <li class="sb1_dropdown_option" role="option">Juli</li>
+                <li class="sb1_dropdown_option" role="option">August</li>
+                <li class="sb1_dropdown_option" role="option">September</li>
+                <li class="sb1_dropdown_option" role="option">Oktober</li>
+                <li class="sb1_dropdown_option" role="option">November</li>
+                <li class="sb1_dropdown_option selected" role="option">Desember</li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+
+        <!--
+        <div class="wrapper">
+          <div class="content">
+            <div class="label_wrapper">
+              <a href="#" class="info_btn" aria-label="Lorem ipsum dolor sit amet" role="button"></a>
+              <label id="loan_label">Har du lån fra før?</label>
+            </div>
+          </div>            
+          <div class="information">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+            et tortor quis sem tempus accumsan eu vitae mi.
+          </div>
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper content">
+            <input type="radio" class="sb1-input-radio" name="loan" id="yes_loan" value="yes" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="loan_label yes_loan_label">
+            <label class="sb1_button"  id="yes_loan_label" for="yes_loan">Ja</label>        
+            <input type="radio" class="sb1-input-radio" name="loan" id="no_loan" value="no" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="loan_label no_loan_label">
+            <label class="sb1_button"  id="no_loan_label" for="no_loan">Nei</label>
+          </div>
+          <div class="sb1_input_wrapper content sub_wrapper">
+            <label id="loan_amount_label" for="loan_amount">Hva er ditt totalt lån?</label>
+            <input id="loan_amount" class="sb1_input_textfield large" name="loan_amount" type="text" required spellcheck="false" autocomplete="off" data-rule="amount">
+          </div>
+        </div> 
+        -->
+        <div class="error_summary_holder"></div>
+
+        <div class="wrapper">
+          <input class="action-btn" type="submit" value="Submit">
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

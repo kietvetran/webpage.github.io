@@ -1,0 +1,128 @@
+.customer-action-wrap {
+    margin-top: 64px;
+    border-bottom: solid 1px @gray-light;
+    padding-bottom: 40px;
+    &.open {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    > ul{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+
+
+        > li{
+            list-style: none;
+            display: inline-table;
+            margin: 0 2% 10px 2%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            vertical-align: top;
+            @media (min-width: @screen-sm) {
+                margin: 0 4.5% 0 4.5%;
+            }
+
+            &.appended-section {
+                margin: auto;
+                text-align: left;
+                position: static;
+                display: inherit;
+            }
+        }
+
+    }
+
+    .icon {
+
+        [class*='icon-'] {
+            display: none;
+            position: absolute;
+            width: 80px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: white;
+            text-align: center;
+            left: 0;
+            right: 0;
+            bottom: -71px;
+            margin: auto;
+            box-shadow: 0 4px 5px -5px @shadow, 0 2px 3px -1px @shadow;
+            &:before {
+                font-size: 50px;
+                display: table-cell;
+                vertical-align: middle;
+                color: #002776;
+                position: relative;
+                top: 8px;
+            }
+            @media (min-width: @screen-sm) {
+                bottom: -64px;
+            }
+        }
+    }
+
+    .cs-action{
+        display: inline-block;
+        font-size: 15px;
+        max-width: 116px;
+        min-height: 210px;
+        color: @gray-dark;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+        .icon-circle(85px, @blue-royal-light-wcag);
+        .icon-circle {
+            svg {
+                *{
+                    fill: @white;
+                }
+            }
+        }
+
+        @media (min-width: @screen-sm) {
+            .icon-circle(104px, @blue-royal-light-wcag);
+        }
+
+        .btn-name{
+            &:extend(h6);
+            display: inline-block;
+            margin: 13px 0 2px 0;
+            transition: color 0.2s ease;
+            color: @gray-dark;
+        }
+        .sub-info{
+            font-family: 'MuseoSans-500';
+            display: block;
+        }
+
+        &:hover {
+            .btn-name{
+                color: darken(@blue-royal-light-wcag, 5%);
+            }
+            .icon-circle{
+                background-color: darken(@blue-royal-light-wcag, 5%);
+            }
+        }
+    }
+
+    .customer-action-list {
+        li {
+            &.active {
+                .btn-name{
+                    color: darken(@blue-royal-light-wcag, 5%);
+                }
+                .icon-circle{
+                    background-color: darken(@blue-royal-light-wcag, 5%);
+                }
+                .icon {
+                    [class*='icon-'] {
+                        display: inline-table;
+                    }
+                }
+            }
+        }
+    }
+}

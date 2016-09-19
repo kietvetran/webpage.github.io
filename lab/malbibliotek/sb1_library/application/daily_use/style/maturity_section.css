@@ -1,0 +1,1110 @@
+/******************************************************************************
+=== register_payment ===
+******************************************************************************/
+#maturity_section {
+
+}
+
+#maturity_section table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0 none;
+  width: 100%;
+}
+
+.maturity_table_expander {
+  cursor: pointer;
+}
+
+#maturity_section .sb1_form_row textarea, 
+#maturity_section .sb1_form_row input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="reset"]) {
+  background-color: #fff;
+}
+
+/******************************************************************************
+=== maturity_table_holder ===
+******************************************************************************/
+#maturity_table_holder {
+  min-height: 200px;
+  clear: both;
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+#maturity_table_holder .sb1_form_row .sb1_row_content,
+#maturity_table_holder .sb1_form_row .content_holder {
+  padding-right: 0;
+  width: 100%;
+} 
+
+#maturity_table_holder .sb1_form_row {
+  padding: 0 !important;
+}
+
+#maturity_table_holder #maturity_table_slider {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+}
+
+#maturity_table_holder .error_summary_holder {
+  display: none;
+}
+
+/******************************************************************************
+=== maturity_tool_holder ===
+******************************************************************************/
+#maturity_tool_holder {
+  float: left;
+  width: 100%;
+  padding: 0 0 30px 0;
+  position: relative;
+  clear: both;
+}
+
+
+/******************************************************************************
+=== maturity_dd_tool_holder ===
+******************************************************************************/
+#maturity_dd_tool_holder {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 3px;
+}
+
+/******************************************************************************
+=== calendar_interval ===
+******************************************************************************/
+.calendar_interval .calendar_input_hoder {
+  width: 100%;
+  padding: 0 65px 0 0;
+  position: relative;
+}
+
+.calendar_interval .calendar_input_hoder .sb1_calender_field_wrapper {
+  width: 48%;
+  padding: 0 0 0 1%;
+  float: left;
+}
+
+.calendar_interval .calendar_input_hoder .sb1_calender_field_wrapper:first-child {
+  padding-right: 1%;
+}
+
+.calendar_interval .calendar_input_hoder .sb1_calender_field_wrapper input {
+  width: 100% !important;
+}
+
+.calendar_interval .calendar_input_hoder .maturity_search_btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 15px;
+  width: 70px;
+}
+
+#layout.force .calendar_interval .calendar_input_hoder .maturity_search_btn {
+  padding: 11px 15px;
+}
+
+/** shortcut_holder ***/
+.sb1_calendar_shortcut_warpper {
+  white-space: nowrap;
+}
+
+.sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item {
+  display: table-cell;
+  padding: 0 20px;
+  height: 51px;
+  font-size: 16px;
+  line-height: 18px;
+  vertical-align: middle;
+  white-space: normal;
+  text-align: center;
+  position: relative;
+  color: #008ed2;
+}
+
+.sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3px;
+  right: 3px;
+  border-radius: 3px;
+  border: 2px solid #adadad;
+}
+
+.sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item:hover:before {
+  border-color: #008ed2;
+}
+
+.sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item.active {
+  color: #fff;
+}
+
+.sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item.active:before {
+  border-color: #0075d2;
+  background-color: #0075d2;
+  z-index: -1;
+}
+
+#layout.force .sb1_calendar_shortcut_warpper .sb1_calendar_shortcut_item {
+  height: 45px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+
+/*
+.calendar_interval .shortcut_holder {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+.calendar_interval .shortcut_holder .sb1_calendar_shortcut_item {
+  display: inline-block;
+  font-family: "MuseoSansRounded-300";
+  font-size: 15px;
+  line-height: 19px;
+  height: 19px;
+  padding: 0 0 2px 0;
+  margin: 0 10px 0 0;
+  overflow: hidden;
+  position: relative;
+  opacity: 0.7; 
+  filter: alpha(opacity=70);    
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+
+  border-bottom: 1px solid transparent;
+
+  -webkit-transition: all .6s ease;                  
+  -moz-transition: all .6s ease;                 
+  -o-transition: all .6s ease;   
+  -ms-transition: all .6s ease;         
+  transition: all .6s ease;   
+}
+
+.calendar_interval .shortcut_holder .sb1_calendar_shortcut_item.sb1_active,
+.calendar_interval .shortcut_holder .sb1_calendar_shortcut_item:hover {
+  color: #0075d2;
+  border-bottom-color: #0075d2;
+  opacity: 1; 
+  filter: alpha(opacity=100);    
+}
+
+.calendar_interval .icon-calendar {
+  margin-right: -5px;
+}
+*/
+
+/******************************************************************************
+=== maturity_description ===
+******************************************************************************/
+.show_maturity_description .maturity_row.maturity_description,
+.show_maturity_description .maturity_table.maturity_description {
+  display: block;
+}
+
+.show_maturity_description .maturity_row,
+.show_maturity_description .maturity_table {
+  background-color: #f0ead7;
+  border-bottom-color: transparent;
+}
+
+.maturity_row.maturity_description,
+.maturity_table.maturity_description {
+  width: 100%;
+  display: none;
+}
+
+.maturity_description.maturity_row > td > .label,
+.maturity_description.maturity_table > li > .label {
+  display: block;
+  width: auto;
+  margin: 0;
+  float: none;
+  /*
+  opacity: 0.4; 
+  filter: alpha(opacity=40);    
+  */
+}
+
+/******************************************************************************
+=== maturity_table ===
+******************************************************************************/
+.maturity_table_wrapper {
+  float: left;
+  width: 100%;
+  position: relative;
+  margin: 0 0 70px 0;
+}
+
+.maturity_table_wrapper h3 {
+  padding-bottom: 30px;
+}
+
+.sb1_accordion_menu.maturity_collection .sb1_accordion_tab {
+  padding-right: 0;
+  cursor: pointer;
+}
+
+.sb1_accordion_menu.maturity_collection .sb1_accordion_tab .accordion_status {
+  margin-top: 8px;
+}
+
+.maturity_row,
+.maturity_table {
+  list-style: none;
+  float: left;
+  width: 100%;
+}
+
+.maturity_row,
+.maturity_table {
+  border-bottom: 2px solid #ddd;
+}
+
+.maturity_row.footer,
+.maturity_row.header,
+.maturity_table.footer,
+.maturity_table.header {  
+  border-bottom-color: #747474;
+}
+
+.maturity_row.footer > td,
+.maturity_row.header > td,
+.maturity_table.footer > li,
+.maturity_table.header > li {
+  height: auto;
+  min-height: 0;
+  padding-bottom: 15px;
+}
+
+.maturity_row > td > .label,
+.maturity_row.footer > td:first-child div,
+.maturity_row.header > td a,
+.maturity_row.header > td div,
+.maturity_row.header > td,
+.maturity_table > li > .label,
+.maturity_table.footer > li:first-child div,
+.maturity_table.header > li a,
+.maturity_table.header > li div,
+.maturity_table.header > li {
+  color: #002776;
+}
+
+.maturity_row.header > td a,
+.maturity_row.header > td div,
+.maturity_row.header > td,
+.maturity_table.header > li a,
+.maturity_table.header > li div,
+.maturity_table.header > li {
+  font-size: 16px;
+}
+
+.maturity_row.footer > td.from_account,
+.maturity_table.footer > li.from_account {
+  display: none;
+}
+
+.maturity_row.footer > td.amount_number, 
+.maturity_table.footer > li.amount_number {
+  width: 42%;
+}
+
+.maturity_small_T .maturity_row.header,
+.maturity_small_T .maturity_table.header {
+  display: block;
+}
+
+.maturity_row > td,
+.maturity_table > li {
+  display: block;
+  float: left;
+  vertical-align: top;
+  line-height: 22px;
+  min-height: 75px;
+  padding: 15px 5px;
+}
+
+.maturity_row > td > .label,
+.maturity_table > li > .label {
+  display: none;
+  /*
+  opacity: 0.6; 
+  filter: alpha(opacity=60);    
+  */
+  color: #002776;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
+
+.maturity_row > td a,
+.maturity_row > td > div,
+.maturity_row > td,
+.maturity_table > li a,
+.maturity_table > li > div,
+.maturity_table > li {
+  font-family: "MuseoSansRounded-500";
+  font-weight: normal !important;
+  color: #454545;
+}
+
+.maturity_row > td > div,
+.maturity_table > li > div {
+  float: left;
+  width: 100%;  
+  /*
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  */
+}
+
+.maturity_row > td > .input,
+.maturity_table > li > .input {
+  display: none;
+}
+
+.maturity_row > td,
+.maturity_table > li { 
+  width: 15%; 
+}
+
+.maturity_row > td.tool_holder,
+.maturity_table > li.tool_holder {
+  width: 17%; 
+  white-space: nowrap;
+  text-align: right;
+}
+
+.maturity_row > td.amount_number,
+.maturity_table > li.amount_number {
+  width: 19%; 
+}
+
+.maturity_row > td.expire_date,
+.maturity_table > li.expire_date {
+  width: 21%;   
+}
+
+.maturity_row > td.to_account,
+.maturity_table > li.to_account {
+  width: 20%; 
+}
+
+.maturity_row > td.from_account,
+.maturity_table > li.from_account {
+  width: 23%; 
+}
+
+.maturity_row > td > .number,
+.maturity_table > li > .number {
+  opacity: 0.7; 
+  filter: alpha(opacity=70);    
+}
+
+.maturity_row .amount,
+.maturity_row .amount_number,
+.maturity_table .amount,
+.maturity_table .amount_number {
+  color: #005aa4;
+  text-align: right;
+}
+
+.maturity_row .sb1_form_validation_error,
+.maturity_table .sb1_form_validation_error {
+  text-align: left !important;
+  color: #da3d00 !important;
+}
+
+.maturity_row .sb1_form_validation_error,
+.maturity_table .sb1_form_validation_error {
+  display: none;
+}
+
+
+.maturity_row.footer > td > div.amount,
+.maturity_table.footer > li > div.amount {
+  font-family: "MuseoSansRounded-700";
+  font-size: 26px;
+}
+
+/*
+#maturity_section #maturity_search .calendar_interval {
+  margin-top: -20px;
+}
+*/
+
+/********************************* == == *******/
+.maturity_row .maturity_tool_link,
+.maturity_table .maturity_tool_link {
+  border: 0 none;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link,
+.maturity_table > li.tool_holder .maturity_tool_link {
+  line-height: 15px;
+  padding: 5px 3px 5px 27px;
+  margin: 0 0 5px 0;
+  border: 0 none;
+  background: transparent none no-repeat 0 center;
+  background-size: 20px auto;
+  position: relative;
+  text-align: left;
+  font-size: 13px !important;
+  color: #0074D2;
+}
+
+.maturity_table_wrapper.maturity_table_stopped .maturity_row > td.tool_holder .maturity_tool_link.maturity_check,
+.maturity_table_wrapper.maturity_table_stopped .maturity_table > li.tool_holder .maturity_tool_link.maturity_check,
+.maturity_row > td.tool_holder .maturity_tool_link,
+.maturity_table > li.tool_holder .maturity_tool_link {
+  display: inline-block;
+  clear: both;
+  float: left;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_check,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_check{
+  display: none;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link > *,
+.maturity_table > li.tool_holder .maturity_tool_link > * {
+  display: none;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link > *:first-child,
+.maturity_table > li.tool_holder .maturity_tool_link > *:first-child {
+  display: inline-block;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_edit,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_edit {
+  background-image: url("../img/icon/edit_tmp.png");
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_delete,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_delete {
+  background-image: url("../img/icon/delete_tmp.png");
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_check,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_check{
+  background-image: url("../img/icon/payment_tmp.png");
+  background-size: 25px auto;
+}
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler{
+  padding-left: 15px;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler{
+  /*background-image: url("../img/icon/arrow_down2_b2.svg");*/
+  background-size: 13px auto;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.maturity_row .maturity_tool_link_text.maturity_stop_payment,
+.maturity_row .maturity_tool_link_text.maturity_start_payment,
+.maturity_table .maturity_tool_link_text.maturity_stop_payment,
+.maturity_table .maturity_tool_link_text.maturity_start_payment {
+  position: relative;
+  display: inline-block;
+  margin: -3px 0 20px 0;
+  padding: 3px 0;
+  color: #005aa4;
+  border-bottom: 1px solid #005aa4;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_close,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_close {
+  margin: -10px 0 10px 0;
+  display: none;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_close > span,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_close > span {
+  position: absolute;
+  font-size: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #008ed2;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.maturity_row > td.tool_holder .maturity_tool_link.maturity_close > span:hover,
+.maturity_table > li.tool_holder .maturity_tool_link.maturity_close > span:hover {
+  color: #005aa4;
+
+}
+
+/***********************************************************
+
+
+
+/********************************* == == *******/
+.maturity_row .maturity_sort,
+.maturity_table .maturity_sort {
+  display: block;
+  position: relative;
+  padding : 0 30px 0 0;
+}
+
+.maturity_row .maturity_sort:before,
+.maturity_row .maturity_sort:after,
+.maturity_table .maturity_sort:before,
+.maturity_table .maturity_sort:after {
+  content: " ";
+  position: absolute;
+  right: 15px;
+  border-style: solid;
+  border-width: 6px;
+}
+
+.maturity_row .maturity_sort:before,
+.maturity_table .maturity_sort:before { 
+  top: 10px; 
+}
+
+.maturity_row .maturity_sort:after, 
+.maturity_table .maturity_sort:after  { 
+  top: -5px; 
+}
+
+.maturity_row .maturity_sort:before,
+.maturity_table .maturity_sort:before {
+  border-color: #999 transparent transparent transparent;
+}
+
+.maturity_row .maturity_sort.on_sort.decreasing:after,
+.maturity_row .maturity_sort:after,
+.maturity_table .maturity_sort.on_sort.decreasing:after,
+.maturity_table .maturity_sort:after {
+  border-color: transparent transparent #999 transparent;
+}
+
+.maturity_row .maturity_sort.on_sort:after,
+.maturity_table .maturity_sort.on_sort:after {
+  border-color: transparent transparent #0075d2 transparent;
+}
+
+.maturity_row .maturity_sort.decreasing:before,
+.maturity_table .maturity_sort.decreasing:before {
+  border-color: #0075d2 transparent transparent transparent;
+}
+
+
+/***********************************************************************/
+.on_edit .maturity_row .sb1_form_vatddation_error,
+.on_edit .maturity_row > td > .text.stay,
+.on_edit .maturity_row > td > .input,
+.on_edit .maturity_table .sb1_form_validation_error,
+.on_edit .maturity_table > li > .text.stay,
+.on_edit .maturity_table > li > .input {
+  display: block;
+}
+
+.on_edit.show_maturity_description .maturity_row > td.from_account > .number,
+.on_edit .maturity_row > td.from_account > .number,
+.on_edit .maturity_row > td > .text,
+.on_edit.show_maturity_description .maturity_table > li.from_account > .number,
+.on_edit .maturity_table > li.from_account > .number,
+.on_edit .maturity_table > li > .text {
+  display: none;
+}
+
+.on_edit .maturity_row > td.tool_holder .maturity_tool_link.maturity_edit,
+.on_edit .maturity_table > li.tool_holder .maturity_tool_link.maturity_edit {
+  background-image: url("../img/icon/document_edit_b.svg");
+}
+
+
+.show_maturity_description .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler > *,
+.show_maturity_description .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler > *,
+.on_edit .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler > *,
+.on_edit .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler > * {
+  display: block;
+}
+
+.show_maturity_description .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler > *:first-child,
+.show_maturity_description .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler > *:first-child,
+.on_edit .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler > *:first-child,
+.on_edit .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler > *:first-child {
+  display: none;
+}
+
+/***********************************************************************/
+
+@media only screen and (max-width: 700px) {
+
+  /***********************************************************************/
+  .calendar_interval {
+    margin-top: 15px;
+  }
+  /***********************************************************************/
+
+
+  /***********************************************************************/
+  #maturity_tool_holder,
+  #maturity_tool_holder h3,
+  .maturity_table_wrapper h3 {
+    padding-bottom: 0;
+  }
+
+  /***********************************************************************/
+
+  /***********************************************************************/
+
+  #maturity_tool_holder .sb1_slider_toggler {
+    margin-bottom: 20px;
+  }
+  /***********************************************************************/
+
+  /***********************************************************************/
+  #maturity_tool_holder .sb1_form_row {
+    padding-bottom: 0;
+  }
+
+   #maturity_tool_holder .calendar_interval {
+    margin-top: 0;
+   }
+
+  /***********************************************************************/
+
+  /***********************************************************************/
+  .maturity_add_L_N #main ol.maturity_category_list {
+    list-style-type: decimal; 
+  }
+
+  #main ol.maturity_category_list {
+    list-style: none;
+  }
+
+  #main ol.maturity_category_list > li {
+    padding-top: 10px; 
+    color: #999;
+  }
+  #main ol.maturity_category_list > li > form {
+    float: left;
+    width: 100%;
+ }
+
+
+  #main ol.maturity_category_list > li .maturity_row,
+  #main ol.maturity_category_list > li ul.maturity_table {
+    margin-top: -2px;
+  }
+
+  #main ol.maturity_category_list > li .maturity_row > li.tool_holder .tool_wrapper,
+  #main ol.maturity_category_list > li ul.maturity_table > li.tool_holder .tool_wrapper {
+    top: 0;
+  }
+
+  /***********************************************************************/
+
+
+  /***********************************************************************/
+  .maturity_row,
+  .maturity_table {
+    margin-top: 20px;
+  }
+
+  .maturity_row.footer > li,
+  .maturity_row.header,
+  .maturity_table.footer > li,
+  .maturity_table.header {
+    display: none;
+  }
+
+
+  .maturity_row.footer > td.amount_number,
+  .maturity_table.footer > li.amount_number {
+    display: block;
+  }
+
+  .maturity_description.maturity_row,
+  .maturity_description.maturity_table {
+    margin-top: -10px;
+    padding-bottom: 20px;
+  }
+
+  .maturity_description.maturity_row > td > .label,
+  .maturity_row > td > .label,
+  .maturity_description.maturity_table > li > .label,
+  .maturity_table > li > .label {
+    display: block;
+    float: left;
+    width: 90px;
+    margin-left: -90px;
+    text-align: left;
+    color: #002776;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+  }
+
+  .maturity_row > td > .amount,
+  .maturity_row .amount_number,
+  .maturity_table > li > .amount,
+  .maturity_table .amount_number {
+    text-align: left;
+  }
+
+  .maturity_hide_A_N .maturity_row > td > .number,
+  .maturity_hide_A_N .maturity_table > li > .number {
+   display: none;
+  }
+
+  .maturity_description.maturity_row > td.expire_date,
+  .maturity_description.maturity_row > td.amount_number, 
+  .maturity_description.maturity_row > td.to_account, 
+  .maturity_description.maturity_row > td.from_account,
+  .maturity_row > td.tool_holder, 
+  .maturity_row > td.expire_date,
+  .maturity_row > td.amount_number, 
+  .maturity_row > td.to_account, 
+  .maturity_row > td.from_account,
+  .maturity_row > td,
+
+  .maturity_description.maturity_table > li.expire_date,
+  .maturity_description.maturity_table > li.amount_number, 
+  .maturity_description.maturity_table > li.to_account, 
+  .maturity_description.maturity_table > li.from_account,
+  .maturity_table > li.tool_holder, 
+  .maturity_table > li.expire_date,
+  .maturity_table > li.amount_number, 
+  .maturity_table > li.to_account, 
+  .maturity_table > li.from_account,
+  .maturity_table > li {
+    width: 100% !important;
+    clear: both;
+    height: auto;
+    padding: 5px 50px 5px 100px;
+    min-height: 0;
+  }
+
+  .maturity_row > td.to_account, 
+  .maturity_row > td.tool_holder,
+  .maturity_table > li.to_account, 
+  .maturity_table > li.tool_holder {
+    border: 0 none;
+  }
+
+
+  /*
+  .maturity_row > td.tool_holder .maturity_tool_link,
+  .maturity_table > li.tool_holder .maturity_tool_link {
+    width: 35px;
+    height: auto;
+    padding: 20px 0 0 0;
+    background-position: center 0 !important; 
+    text-align: center;
+  }
+  */
+  /*
+  .maturity_row > td.tool_holder .maturity_tool_link,
+  .maturity_table > li.tool_holder .maturity_tool_link,
+  .maturity_row > td.tool_holder .maturity_tool_link > * ,
+  .maturity_table > li.tool_holder .maturity_tool_link > * {    
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+  }
+  */
+
+  .on_edit .maturity_row > td.tool_holder .tool_wrapper,
+  .on_edit .maturity_table > li.tool_holder .tool_wrapper {
+    margin-left: -30px;
+  }
+
+
+  .on_edit .maturity_row > td.tool_holder .tool_wrapper .maturity_tool_link > *,
+  .on_edit .maturity_table > li.tool_holder .tool_wrapper .maturity_tool_link > * {
+    visibility: hidden;
+  }
+
+  .maturity_row > td.tool_holder .tool_wrapper,
+  .maturity_table > li.tool_holder .tool_wrapper {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 100%;
+    margin-left: -60px;
+    z-index: 10;
+  }
+
+  .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler,
+  .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler{
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    padding: 5px 3px 5px 27px;
+    background-image: url("../img/icon/arrow_down2_b2.svg");
+    background-size: 13px auto;
+  }
+
+  .on_edit .maturity_row > td.tool_holder .maturity_tool_link.maturity_toggler,
+  .show_maturity_description .maturity_table > li.tool_holder .maturity_tool_link.maturity_toggler{
+    background-image: url("../img/icon/arrow_up_b2.svg");    
+    background-size: 18px auto;
+  }
+
+  .show_maturity_description .maturity_row > td > .number,
+  .maturity_row > td.tool_holder .,
+  .show_maturity_description .maturity_table > li > .number,
+  .maturity_table > li.tool_holder .maturity_tool_link {
+    display: block;
+  }
+
+  .maturity_description.maturity_row > td,
+  .maturity_description.maturity_row > td > div,
+  .maturity_description.maturity_table > li,
+  .maturity_description.maturity_table > li > div {
+    float: left;
+    width: auto;
+    padding: 5px 10px;
+    clear: none;    
+  }
+
+  .maturity_description.maturity_row > td.amount_number,
+  .maturity_description.maturity_row > td.tool_holder,
+  .maturity_description.maturity_table > li.amount_number,
+  .maturity_description.maturity_table > li.tool_holder {
+    clear: both;
+    float: none;
+    position: relative;
+  }
+  
+  .maturity_description.maturity_row > td > div,
+  .maturity_description.maturity_table > li > div {
+    padding: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+  }
+
+  .maturity_description.maturity_row > td.tool_holder > div:first-child,
+  .maturity_description.maturity_table > li.tool_holder > div:first-child {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+  }
+
+  /***********************************************************************/
+  .maturity_small_T .maturity_row > td.from_account,
+  .maturity_small_T .maturity_row > td.tool_holder,
+  .maturity_small_T .maturity_table > li.from_account,
+  .maturity_small_T .maturity_table > li.tool_holder {
+    display: none;
+  }
+
+  .maturity_small_T #main ol.maturity_category_list > li .maturity_row,
+  .maturity_small_T #main ol.maturity_category_list > li ul.maturity_table {
+    margin-top: -10px;
+    padding: 7px 0;
+  }
+
+  .maturity_small_T #main ol.maturity_category_list > li .maturity_row.maturity_description,
+  .maturity_small_T #main ol.maturity_category_list > li ul.maturity_table.maturity_description {
+    margin-top: -20px;
+  }
+
+  .maturity_small_T .maturity_row.footer > td.expire_date,
+  .maturity_small_T .maturity_row > td.tool_holder, 
+  .maturity_small_T .maturity_row > td.expire_date, 
+  .maturity_small_T .maturity_row > td.amount_number, 
+  .maturity_small_T .maturity_row > td.to_account, 
+  .maturity_small_T .maturity_row > td.from_account, 
+  .maturity_small_T .maturity_row > td,
+  .maturity_small_T .maturity_table.footer > li.expire_date,
+  .maturity_small_T .maturity_table > li.tool_holder, 
+  .maturity_small_T .maturity_table > li.expire_date, 
+  .maturity_small_T .maturity_table > li.amount_number, 
+  .maturity_small_T .maturity_table > li.to_account, 
+  .maturity_small_T .maturity_table > li.from_account, 
+  .maturity_small_T .maturity_table > li {
+    float: left;
+    min-height: 0;
+    height: auto;
+    padding: 5px;
+    clear: none;
+  }
+
+  .maturity_small_T .maturity_row.maturity_description td.from_account,
+  .maturity_small_T .maturity_row.maturity_description td > .label,
+  .maturity_small_T .maturity_row.footer > td.expire_date,
+  .maturity_small_T .maturity_table.maturity_description li.from_account,
+  .maturity_small_T .maturity_table.maturity_description li > .label,
+  .maturity_small_T .maturity_table.footer > li.expire_date {
+    display: block;
+    padding: 0;
+  }
+
+  .maturity_small_T .maturity_row.footer > td.expire_date,
+  .maturity_small_T .maturity_row > td.expire_date,
+  .maturity_small_T .maturity_table.footer > li.expire_date,
+  .maturity_small_T .maturity_table > li.expire_date {
+    width: 30% !important; 
+  } 
+
+  .maturity_small_T .maturity_row > td.to_account,
+  .maturity_small_T .maturity_table > li.to_account {
+    width: 35% !important;    
+  }
+
+  .maturity_small_T .maturity_row > td.amount_number,
+  .maturity_small_T .maturity_table > li.amount_number {
+    width: 35% !important;    
+  }
+
+  .maturity_small_T .maturity_row.footer > td.amount_number,
+  .maturity_small_T .maturity_table.footer > li.amount_number {
+    width: 70% !important;        
+  }
+
+
+  .maturity_small_T .maturity_row.footer > td.amount_number,
+  .maturity_small_T .maturity_row.header > td.amount_number,
+  .maturity_small_T .maturity_row > td.amount_number > .text,
+  .maturity_small_T .maturity_table.footer > li.amount_number,
+  .maturity_small_T .maturity_table.header > li.amount_number,
+  .maturity_small_T .maturity_table > li.amount_number > .text { 
+    text-align: right;
+  }
+
+  .maturity_small_T .maturity_row > td > .label,
+  .maturity_small_T .maturity_table > li > .label {
+    display: none;
+  }
+
+  /********* view_detail *********/
+  .maturity_small_T #main .view_detail ol.maturity_category_list {
+    list-style: none;
+  }
+
+  .maturity_small_T #main .maturity_table_wrapper.view_detail ol.maturity_category_list > li {
+    padding: 0;  
+  }
+
+  .maturity_small_T #main .maturity_table_wrapper.view_detail h3 {
+    margin-bottom: 20px;
+  }
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_row,
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_table {
+    display: none;
+  }
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_row > td.tool_holder .maturity_tool_link.maturity_close,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td > .label,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.from_account,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.tool_holder,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row,
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_table > li.tool_holder .maturity_tool_link.maturity_close,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li > .label,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.from_account,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.tool_holder,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table {
+    display: block;
+  }
+
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row.footer > td.amount_number,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row.header > td.amount_number,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.amount_number > .text,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table.footer > li.amount_number,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table.header > li.amount_number,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.amount_number > .text { 
+    text-align: left;
+  }
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.tool_holder, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.expire_date,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.amount_number, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.to_account, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td.from_account,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_row > td,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.tool_holder, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.expire_date,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.amount_number, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.to_account, 
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li.from_account,
+  .maturity_small_T .maturity_table_wrapper.view_detail .show_maturity_description .maturity_table > li {
+    width: 100% !important;
+    clear: both;
+    height: auto;
+    padding: 5px 50px 5px 100px;
+    min-height: 0;
+  }
+
+}
+
+@media only screen and (max-width: 470px) {
+  .calendar_interval .icon-calendar {
+    display: none;
+  }
+
+  .maturity_small_T .maturity_row > td.expire_date .year,
+  .maturity_small_T .maturity_table > li.expire_date .year {
+    display: none;
+  }
+
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_row > td.expire_date .year,
+  .maturity_small_T .maturity_table_wrapper.view_detail .maturity_table > li.expire_date .year {
+    display: inline;
+  }
+
+  .maturity_table_wrapper.view_detail .input.submit_wrapper {
+    float: left;
+    margin-left: -90px;
+  }
+}
+
+
+@media only screen and (max-width: 400px) {
+  .maturity_small_T .maturity_row > td.expire_date .maturity_sort::before, 
+  .maturity_small_T .maturity_row > td.expire_date .maturity_sort::after,
+  .maturity_small_T .maturity_table > li.expire_date .maturity_sort::before, 
+  .maturity_small_T .maturity_table > li.expire_date .maturity_sort::after{
+    right: 0;
+  }
+}

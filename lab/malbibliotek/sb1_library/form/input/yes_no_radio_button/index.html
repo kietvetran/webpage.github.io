@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - Yes and No button</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+label, legend {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.wrapper {
+  margin-bottom: 30px;
+}
+
+* {
+  padding: 0; margin:0;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+</style>
+
+<script type="text/javascript" src="./js/1.8.3.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+</head> 
+<body style="min-height:700px">
+<div>
+    <form id="application" method="post" action="" novalidate>  
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0;"></div> 
+
+      <div class="wrapper">        
+        <fieldset>
+          <legend>Hvilken årmodell er din bil?</legend> 
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper content elementBy3">
+            <input type="radio" class="sb1-input-radio" name="car_owner" id="yes_car_owner" data-rule="parent_target[.sb1_input_wrapper]" value="yes" required>
+            <label class="sb1_button" id="yes_car_owner_label" for="yes_car_owner"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="car_owner" id="no_car_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" required>
+            <label class="sb1_button" id="no_car_owner_label" for="no_car_owner"><span>Nei</span></label>
+            <input type="radio" class="sb1-input-radio" name="car_owner" id="dont_know_car_owner" data-rule="parent_target[.sb1_input_wrapper]" value="uknow" required>
+            <label class="sb1_button" id="dont_know_car_owner_label" for="dont_know_car_owner"><span>Veit ikkje</span></label> 
+          </div>
+        </fieldset>
+      </div>        
+
+      <div class="wrapper">        
+        <fieldset>
+          <legend>Vil du opprette BSU konto?</legend> 
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper content elementBy3">
+            <input type="radio" class="sb1-input-radio" name="bsu_owner" id="yes_bsu_owner" data-rule="parent_target[.sb1_input_wrapper]" value="yes" required>
+            <label class="sb1_button" id="yes_bsu_owner_label" for="yes_bsu_owner"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="bsu_owner" id="no_bsu_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" required>
+            <label class="sb1_button" id="no_bsu_owner_label" for="no_bsu_owner"><span>Nei</span></label>
+            <input type="radio" class="sb1-input-radio" name="bsu_owner" id="dont_know_bsu_owner" data-rule="parent_target[.sb1_input_wrapper]" value="uknow" required>
+            <label class="sb1_button" id="dont_know_bsu_owner_label" for="dont_know_bsu_owner"><span>Senere</span></label> 
+          </div>
+        </fieldset>
+      </div>        
+
+      <div class="wrapper">        
+        <fieldset>
+          <legend>Ønsker du å få nyhetsbrev?</legend> 
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper content elementBy3">
+            <input type="radio" class="sb1-input-radio" name="account_owner" id="yes_account_owner" data-rule="parent_target[.sb1_input_wrapper]" value="yes" required>
+            <label class="sb1_button" id="yes_account_owner_label" for="yes_account_owner"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="account_owner" id="no_account_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" required>
+            <label class="sb1_button" id="no_account_owner_label" for="no_account_owner"><span>Nei</span></label>
+          </div>
+        </fieldset>
+      </div>        
+
+
+      <div class="wrapper">        
+        <fieldset>
+          <legend>Lorem ipsum?</legend> 
+          <div class="sb1_input_radio_wrapper sb1_input_wrapper content elementBy3">
+            <input type="radio" class="sb1-input-radio" name="disabled_owner" id="yes_disabled_owner" data-rule="parent_target[.sb1_input_wrapper]" value="yes" disabled="true">
+            <label class="sb1_button" id="yes_disabled_owner_label" for="yes_disabled_owner"><span>Ja</span></label>        
+            <input type="radio" class="sb1-input-radio" name="disabled_owner" id="no_disabled_owner" data-rule="parent_target[.sb1_input_wrapper]" value="no" disabled="true" checked="true">
+            <label class="sb1_button" id="no_disabled_owner_label" for="no_disabled_owner"><span>Nei</span></label>
+          </div>
+        </fieldset>
+      </div>    
+
+      <div style="margin-top: 15px">
+        <input class="primary-btn" type="submit" value="valider">
+      </div>
+
+      <div class="error_summary_holder" style="overflow:hidden;padding: 10px 0"></div>
+
+    </form>
+</div>
+<script>
+  //var main = $('#application').SB1radioYesNoButton();  
+  $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder'
+  });
+</script>
+</body>
+</html>

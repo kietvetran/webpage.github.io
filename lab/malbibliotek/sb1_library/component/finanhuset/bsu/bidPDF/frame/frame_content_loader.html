@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)http://demosite.knowit.no/bankid2.0/frame/frame_content_loader.html?url=../media/img/doc/Sparegrisen_1.svg&index=0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>iframe content</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="frame_content.css">
+<style>
+html, body {
+    overflow: inherit;
+}
+</style> 
+    <script src="jquery.min.js"></script>
+    <!--
+    <script src="bid_files/jquery.js"></script>
+    <script src="bid_files/knockout-2.js"></script>
+    <script src="bid_files/modernizr.js"></script>
+    <script src="bid_files/iscroll.js"></script>
+
+    <script type="text/javascript" src="bid_files/core.js"></script>
+
+    <script type="text/javascript" src="bid_files/password.js"></script>
+    <script type="text/javascript" src="bid_files/otp.js"></script>
+    <script type="text/javascript" src="bid_files/scenario.js"></script>
+
+    <script type="text/javascript" src="bid_files/page.js"></script>
+    <script type="text/javascript" src="bid_files/outer_page.js"></script>
+    <script type="text/javascript" src="bid_files/mediator.js"></script>
+    <script type="text/javascript" src="bid_files/popover.js"></script>
+    <script type="text/javascript" src="bid_files/zoom.js"></script>
+    -->
+    <!--<script src="./bid_files/core.js"></script>-->
+
+    <!--
+    <script>
+        var url = getURLParameter('url');
+        var index = getURLParameter('index');
+
+        $(function () {
+            var index = url.lastIndexOf('.') + 1;
+            var fileType = url.substr(index);
+
+            $('body').addClass(fileType);
+
+            switch (fileType) {
+                case 'txt':
+                    addText();
+                    break;
+                case 'html':
+                    addHTML();
+                    break;
+                case 'svg':
+                case 'png':
+                    addImage();
+                    break;
+            }
+        });
+
+        function addImage() {
+            var $wrp = $('<div class="wrp"></div>');
+            var $img = $('<img />');
+
+            $img.bind('load', function () {
+
+                var param = getPostMessageParam();
+                param.cmd = bid.pm.PAGE_LOADED;
+                window.parent.postMessage(JSON.stringify(param), bid.domain);
+
+            });
+
+            $('body').append($wrp);
+            $('body .wrp').append($img);
+
+            $img.attr('src', url);
+
+            $img.bind('dragstart', function (ev) {
+                ev.preventDefault();
+            });
+
+        }
+
+        function addText() {
+
+            var $wrp = $('<div class="wrp"></div>');
+            var $pre = $('<pre></pre>');
+            $.ajax({
+                url: url,
+                success: function (data, textStatus, jqXHR) {
+                    $pre.text(data);
+                    $('body').append($wrp);
+                    $('body .wrp').append($pre);
+
+                    var param = getPostMessageParam();
+                    param.cmd = bid.pm.PAGE_LOADED;
+
+                    window.parent.postMessage( JSON.stringify(param), bid.domain );
+
+                    $(window).resize(onResize);
+                }
+            });
+        }
+
+        function addHTML() {
+            var $wrp = $('<div class="wrp"></div>');
+            $.ajax({
+                url: url,
+                success: function (data, textStatus, jqXHR) {
+                    $wrp.html(data);
+                    $('body').append($wrp);
+
+                    var param = getPostMessageParam();
+                    param.cmd = bid.pm.PAGE_LOADED;
+
+                    window.parent.postMessage( JSON.stringify(param), bid.domain );
+
+                    $(window).resize(onResize);
+                }
+            });
+        }
+
+        function getPostMessageParam() {
+            return {
+                width: $('body').width(),
+                height: $('body').height(),
+                index: index
+            };
+        }
+
+        var _timeout;
+        function onResize() {
+            clearTimeout(_timeout);
+
+            _timeout = setTimeout(function(){
+
+                var param = getPostMessageParam();
+                param.cmd = bid.pm.PAGE_RESIZED;
+
+                window.parent.postMessage( JSON.stringify(param), bid.domain );
+            }, 50);
+
+        }
+    </script>
+    -->
+</head>
+<body class="svg">
+
+<div class="wrp"><img src="Sparegrisen_1.svg"></div>
+<div class="wrp"><img src="Sparegrisen_2.svg"></div>
+<div class="wrp"><img src="Sparegrisen_3.svg"></div>
+<div class="wrp"><img src="Sparegrisen_4.svg"></div>
+<div class="wrp"><img src="Sparegrisen_5.svg"></div>
+</body>
+</html>

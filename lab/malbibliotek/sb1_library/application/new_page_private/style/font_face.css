@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'MuseoSans-100';
+  src: url('../sb1_library/src/fonts/MuseoSans-100.eto');
+  src: url('../sb1_library/src/fonts/MuseoSans-100.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSans-300';
+  src: url('../sb1_library/src/fonts/MuseoSans-300.eto');
+  src: url('../sb1_library/src/fonts/MuseoSans-300.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSans-500';
+  src: url('../sb1_library/src/fonts/MuseoSans-500.eto');
+  src: url('../sb1_library/src/fonts/MuseoSans-500.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSans-700';
+  src: url('../sb1_library/src/fonts/MuseoSans-700.eto');
+  src: url('../sb1_library/src/fonts/MuseoSans-700.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSans-900';
+  src: url('../sb1_library/src/fonts/MuseoSans-900.eto');
+  src: url('../sb1_library/src/fonts/MuseoSans-900.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSansRounded-100';
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-100.eto');
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-100.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSansRounded-300';
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-300.eto');
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-300.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSansRounded-500';
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-500.eto');
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-500.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSansRounded-700';
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-700.eto');
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-700.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MuseoSansRounded-900';
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-900.eto');
+  src: url('../sb1_library/src/fonts/MuseoSansRounded-900.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}

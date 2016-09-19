@@ -1,0 +1,47 @@
+#i-want-title-text {
+	float: left;
+	padding-left: 6%;
+	padding-right: 6%;
+	text-align: left;
+	font-size: 16px;
+
+	@media (min-width: 400px) {
+        font-size: 18px;
+    }
+}
+
+.i-want-subcategory-card-container {
+	&:extend(.subcategory-card-container all);
+	max-height: 100px;
+	float: left;
+	width: 100%;
+
+	@media (min-width: 600px) {
+        width: 50%;
+    }
+
+    @media (min-width: 1000px) {
+        width: 33%;
+    }
+}
+
+.i-want-subcategory-card {
+	margin: 5px 0px;
+	
+	@media (max-width: 400px) {
+    	height:60px;
+    }
+
+	@media (min-width: 400px) {
+    	margin: 15px 15px;
+    }
+}
+
+.i-want-dynamic-title {
+	position: absolute;
+	top: 30px;
+
+	@media (min-width: 960px) {
+    	top: 130px;
+    }
+}

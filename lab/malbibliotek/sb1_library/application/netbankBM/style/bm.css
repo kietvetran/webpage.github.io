@@ -1,0 +1,200 @@
+/******************************************************************************
+=== ===
+******************************************************************************/
+#main_content.bea-portal-book-primary-content {
+	padding-top: 0;
+}
+
+#sb1-outer-main-div {
+	min-width: 320px;
+}
+
+.container {
+	width: auto;
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+.container,
+#mainSection.container {
+  padding-right: 20px !important;
+}
+
+#topnavigation .container {
+  padding-left: 20px;
+}
+
+/******************************************************************************
+=== mainSection ===
+******************************************************************************/
+#copyright_footer {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+/******************************************************************************
+=== mainSection ===
+******************************************************************************/
+#mainSection {
+  position: relative;
+}
+
+
+#mainSection #engagementsList {
+  background-color: transparent;
+  padding: 10px 10px 10px 0;
+}
+
+#mainSection:after {
+  content: " ";
+  position: absolute;
+  right: 75%;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f1f0f0;
+  z-index:  0;
+  display: block;
+  margin-right: 14px;
+}
+
+#mainSection > .row {
+  position: relative;
+  z-index: 5;
+  clear: both;
+  padding: 0 0 0 25%;    
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+#mainSection:after,
+#mainSection > .row,
+#mainSection #leftColumn {
+  -webkit-transition: all .6s ease;                  
+  -moz-transition: all .6s ease;                 
+  -o-transition: all .6s ease;   
+  -ms-transition: all .6s ease;         
+  transition: all .6s ease;
+}
+
+#mainSection #leftColumn {
+  float: left;
+  margin: 0 0 0 -35%;
+  padding: 0;
+  margin-right: 0 !important;
+  width: 33% !important;  
+  padding-left: 10px;
+}
+
+#mainSection #leftColumn,
+#mainSection #leftColumn:before  {
+  background-color: #f1f0f0;
+}
+
+#mainSection #application {
+  float: left;
+  width: 100%;
+  margin-top: 0;
+}
+
+.accountList {
+	width: auto;
+	margin: 0;
+}
+
+.accountList button {
+	display: inline-block;
+  max-width: 300px;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+  width: 90% !important;
+  max-width: 280px;
+}
+
+.accountList h3, .accountList h2,
+.accountList ul, .accountList li {
+  border: 0 none !important;
+}
+
+/******************************************************************************
+=== .topnavigation ===
+******************************************************************************/
+.topnavigation .subMenuLevel li a, .topnavigation .topMenuLevel li a {
+  font-size: 16px;
+  font-family: "MuseoSansRounded-300";
+  color: #005aa4;  
+}
+
+.topnavigation .submenulevel-full-wrap .subMenuLevel ul {
+  padding: 0;
+  float: left;
+  margin-top: 0;
+}
+
+.topnavigation .submenulevel-full-wrap .subMenuLevel ul li a {
+  color: #005aa4;
+  font-size: 16px;
+}
+
+.topnavigation .topmenulevel-wrap .topMenuLevel ul li {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 57px;
+  line-height: 57px;
+}
+
+.topnavigation .topMenuLevel li a {
+  line-height: 51px;  
+}
+
+/* topmenulevel-wrap */
+.topnavigation .topmenulevel-wrap {
+}
+
+.topnavigation .topmenulevel-wrap .row {
+  padding-left: 200px;
+  overflow: hidden;
+}
+
+.topnavigation .topmenulevel-wrap .row .logo-wrap {
+  float: left;
+  margin: 0 0 0 -200px;
+  max-width: 200px !important;
+  overflow: hidden;
+}
+
+.topnavigation .topmenulevel-wrap .topMenuLevel {
+  float: none; 
+  width: auto;
+  display: block;
+}
+
+.topnavigation .topmenulevel-wrap .topMenuLevel .swipe_content {
+  float: right;
+}
+
+
+/* contact-info  */
+.topnavigation .informationbar-full-wrap .user-info, .topnavigation .informationbar-full-wrap .user-info {
+  line-height: 30px !important;
+  height: 30px !important;
+  padding-top: 5px;
+  max-width: 250px;
+  width: auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.topnavigation .informationbar-full-wrap .user-info, .topnavigation .informationbar-full-wrap .user-info .icon {
+  float: left;
+}
+
+/* contact-info  */
+.topnavigation .informationbar-full-wrap .contact-info {
+  position: relative;
+  z-index: 1000;
+}

@@ -1,0 +1,86 @@
+.category-overview{
+    text-align: center;
+    padding-bottom: 30px;
+    .se-more-btn{
+        position: relative;
+        margin: 0;
+        top: 33px;
+        z-index: 99;
+    }
+    .category-list{
+        display: none;
+    }
+}
+.list-box {
+    .bg-full-width;
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: @blue-flat;
+    .list-wrap{
+        max-width: 1200px;
+        width: 100%;
+        margin: auto;
+        text-align: left;
+        ul{
+            margin: 0;
+            padding: 30px 0px;
+            float: left;
+            width: 100%;
+            @media (min-width: 676px) {
+                width: 50%;
+                padding: 30px 40px;
+            }
+            @media (min-width: 1004px) {
+                width: 33.33%;
+            }
+            @media (min-width: 1408px) {
+                width: 25%;
+            }
+
+            li {
+                font-family: 'MuseoSansRounded-500';
+                list-style: none;
+                margin: 0;
+                padding-bottom: 10px;
+                width: 100%;
+                h2{
+                    &:extend(h3);
+                    color: @white;
+                    margin: 0;
+                    text-align: left;
+                    line-height: normal;
+                    padding-top: 20px;
+                }
+                &:first-child h2{
+                    padding-top: 0px;
+                }
+                .list-title {
+                    border-bottom: none;
+                    &:hover {
+                        border-bottom: none;
+                        h2 {
+                            color: @blue-royal-light-fifty;
+                        }
+                    }
+                }
+                a{
+                    display: inline-block;
+                    font-size: 16px;
+                    color: @white;
+                    transition: color 0.2s;
+                    border-bottom: 1px solid @blue-flat;
+                    text-decoration: none;
+                    &:hover {
+                        color: @white;
+                        border-bottom: 1px solid;
+                    }
+                    @media (min-width: @screen-sm){
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+}

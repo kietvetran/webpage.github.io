@@ -1,0 +1,181 @@
+/******************************************************************************
+=== register_payment ===
+******************************************************************************/
+#register_payment {
+
+}
+
+#register_payment_section .sb1_form_row .sb1_calender_field_parent,
+#register_payment_section .sb1_form_row .kr_and_or_ {
+  float: left;
+  width: 50%;
+}
+
+#register_payment_section .sb1_form_row #payment_expire_date_name_label_1 {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: 20px;
+}
+
+#register_payment_section .sb1_form_row .sb1_calender_field_parent {
+  padding: 0 0 0 10px;
+  position: relative;
+}
+
+#register_payment_section .sb1_form_row .sb1_calender_field_parent > label {
+  display: none;
+  padding-bottom: 10px;
+}
+
+#register_payment_bic_label_1,
+#maturity_date_from_label_1 {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: 5px;
+}
+
+
+.register_payment_structure_opt .sb1_calender_field_wrapper,
+#register_payment_invoice_date {
+	width: 100%;
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+.register_payment_header {
+	padding: 0 0 0 140px;
+}
+.register_payment_header h2 {
+	float: left;
+	width: 140px;
+	overflow: hidden;
+	margin-left: -140px !important;
+	line-height: 50px !important;
+}
+
+.register_payment_header #register_payment_tabs {
+	margin: 0 5px 0 0;
+	padding-top: 20px;
+	line-height: 60px;
+	white-space: nowrap;
+}
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 700px) {
+	#layout #main #register_payment_section #error_for_payment_amount_kr_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_kr_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_or_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_or_field.sb1_form_validation_error {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		margin-top: -10px;
+	}
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error {
+		left: 50%;
+	}
+
+	.register_payment_header #register_payment_tabs li {
+		margin-left: 15px;
+	}
+
+	.register_payment_header #register_payment_tabs li > a {
+		font-size: 15px;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	#register_payment_bic_label_1,
+	#maturity_date_from_label_1 {
+		display: none;
+	}
+
+  /********************************* == register_payment_section == *******/
+
+  #register_payment_section .sb1_form_row .sb1_calender_field_parent,
+  #register_payment_section .sb1_form_row .kr_and_or {
+    float: none;
+    width: auto;
+    clear: both;
+  }
+
+  #register_payment_section .sb1_form_row #payment_expire_date_name_label_1 {
+    display: none;
+  }
+
+  #register_payment_section .sb1_form_row .sb1_calender_field_parent {
+    padding: 0;
+    margin-top: 30px;
+  }
+
+  #register_payment_section .sb1_form_row .sb1_calender_field_parent > label {
+    display: block;
+  }
+
+	#layout #main #register_payment_section #error_for_payment_amount_kr_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_kr_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_or_field.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_amount_or_field.sb1_form_validation_error {	
+		position: relative;
+		left: auto;
+		top: auto;
+		right: auto;
+		bottom: auto;
+		margin: 5px 0 5px 0;
+	}
+
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error,
+	#layout #main #register_payment_section #error_for_payment_expire_date_name.sb1_form_validation_error {
+		margin-bottom: -20px;
+	}
+  /********************************* == END OF register_payment_section == *******/
+
+	#register_payment_section .sb1_form_row .sb1_calender_field_parent,
+	#register_payment_section .sb1_form_row .kr_and_or_ {
+		width: 100%;
+	}
+
+	#register_payment_section .sb1_form_row .kr_and_or_ input {
+		width: 100% !important;
+	}
+
+
+	#register_payment_section .sb1_form_row .sb1_calender_field_parent {
+		padding-top: 35px;
+	}
+
+	/******************************************/
+	.register_payment_header {
+		padding: 0;
+	}
+
+	.register_payment_header #register_payment_tabs,
+	.register_payment_header h2 {
+		float: none;
+		clear: both;
+		display: block;
+		text-align: left;
+	}
+	.register_payment_header h2 {
+		margin: 0 !important;
+	}
+	.register_payment_header #register_payment_tabs {
+		padding-top: 0;
+		padding-bottom: 10px;
+		line-height: 20px;
+	}
+
+	.register_payment_header #register_payment_tabs > li {
+		margin: 0 10px 0 0;
+	}
+}

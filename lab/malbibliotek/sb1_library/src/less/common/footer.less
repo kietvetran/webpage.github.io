@@ -1,0 +1,98 @@
+.footer-wrapper {
+    overflow: hidden;
+    padding-top: 40px;
+    background-color: @white;
+}
+.footer-top {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: auto;
+    .find-office {
+        text-align: center;
+        padding: 30px 0 40px 0;
+
+        .toggle-btn{
+            padding: 9px 30px 9px 45px;
+        }
+    }
+}
+
+.footer-bottom {
+    display: block;
+    margin-top: 40px;
+    .bottom-content {
+        max-width: 1280px;
+        margin: auto;
+        height: 100%;
+        text-align: center;
+    }
+
+    h4 {
+        &:extend(h5);
+    }
+    .address {
+        p {
+            color: @gray-dark;
+            font-size: 16px;
+        }
+    }
+
+    .links {
+        padding: 0 0 20px 0;
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li{
+                display: block;
+                @media (min-width: @screen-sm) {
+                    display: inline-block;
+                }
+                margin: 5px 10px;
+                a {
+                    color: @blue-royal-light-wcag;
+                    text-decoration: none;
+
+                    &:focus,
+                    &:hover {
+                        color: @blue-flat;
+                    }
+                }
+            }
+        }
+        &.small-links {
+            a {
+                font-size: 14px;
+            }
+        }
+
+    }
+
+    .social-heading {
+        margin: 0;
+    }
+    
+    .social-links {
+       > ul > li {
+            display: inline-block;
+            > span,
+            > a {
+                display: block;
+                font-size: 14px;
+                > span {
+                    display: block;
+                    width: 55px;
+                    height: 55px;
+                    margin: auto;
+                    background-size: cover;
+                }
+            }
+        }
+        
+        
+
+    }
+}

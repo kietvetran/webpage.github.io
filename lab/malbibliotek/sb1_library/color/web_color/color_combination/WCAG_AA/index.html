@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - color combination - WCAG AA</title>
+<!--<link rel="stylesheet" type="text/css" href="../../src/css/style.css">-->
+<style>
+* { margin:0; padding: 0;}
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;	
+	border: 1px solid #ccc;
+	font-size: 15px;
+	line-height: 20px;
+	box-shadow: 1px 1px 4px #ccc;
+}
+
+table td {
+	border-style: solid;
+	border-color: #ddd;
+	border-width: 1px 0 0 1px;
+	text-align: center;
+	vertical-align: middle;
+	padding: 3px;
+	width: 60px;
+	color: #333;
+	font-size: 12px;
+	line-height: 16px;
+  -webkit-transition: opacity .3s ease;                  
+  -moz-transition: opacity .3s ease;                 
+  -o-transition: opacity .3s ease;   
+  -ms-transition: opacity .3s ease;         
+  transition: opacity .3s ease;  
+}
+
+table td:first-child {
+	border-left: 0 none;
+}
+
+table tr:first-child td {
+	vertical-align: top;
+	border-top: 0 none;
+}
+
+table td:first-child {
+	text-align: left;
+}
+
+table td:first-child,
+table tr:first-child td {
+}
+
+table .odd  { background-color: #fff; }
+table .even { background-color: #fafafa; }
+
+table	td.view,
+table	tr.view td {
+	background-color: #FFFFCC;
+}
+
+/*
+table	tr:hover { background-color: #c9e8f7; } 
+table	tr:hover { 
+	background-color: #FFFF66; 
+}
+*/
+
+table .btn_wrapper,
+table .code,
+table .name {
+	display: block;
+}
+
+table .btn_wrapper {
+	position: relative;
+	height: 100%;
+}
+
+table .code:before {
+	content: " ";
+	height: 15px;
+	border: 1px solid #ccc;
+	display: block;
+}
+
+.blue_royal .code:before { background-color: #002776; }
+.blue_flat .code:before { background-color: #005AA4; }
+.blue_light .code:before { background-color: #008ED2; }
+.green_wcag .code:before { background-color: #008A00; }
+.orange .code:before { background-color: #FF9100; }
+.light_beige .code:before { background-color: #F3EEDF; }
+.purple_wcag .code:before { background-color: #A20076; }
+.black_gray .code:before { background-color: #262626; }
+.gray_dark .code:before { background-color: #676767; }
+.gray_light .code:before { background-color: #D8D8D8; }
+.white .code:before { background-color: #FFFFFF; }
+.black .code:before { background-color: #000000; }
+
+table .partial,
+table .bad,
+table .good {
+	display: inline-block;
+}
+
+table .good {
+	font-weight: bold;
+}
+
+/******************************************************************************
+=== Tablets ===
+******************************************************************************/
+@media only screen and (min-width: 461px) and (max-width: 800px) {
+	table td {
+		text-indent: -5000px;
+		font-size: 0;
+	}
+
+
+	table td:first-child,
+	table td.startup,
+	table td.view {
+		font-size: 12px;
+		text-indent: 0;
+		min-width: 90px;
+	}
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+	table td {
+		text-indent: -5000px;
+		font-size: 0;
+		display: none;
+	}
+
+	table td:first-child,
+	table td.startup,
+	table td.view {
+		font-size: 12px;
+		text-indent: 0;
+		min-width: none;
+		display: table-cell;
+	}
+}
+</style>
+<script>
+function trim( text, multipleWhiteSpace ) {
+	var out = (text || '').replace( /^\s+/, '').replace( /\s+$/g, '');
+	return multipleWhiteSpace ? out.replace( /\s+/g, ' ' ) : out;
+}
+
+function getURLoption() {
+  var opts    = {}, url =  window.location.href; 
+  //var matched = url.replace(/\?+/g,"?").match( /^([\w\.\-\s\_\#\%\/\:]+)\?(.*)/ );
+  var matched = url.replace(/\#+/g,'#').match( /^([\w\.\-\s\_\%\/\:]+)\#(.*)/ );
+  if ( ! matched )
+	  matched = url.replace(/\?+/g,'#').match( /^([\w\.\-\s\_\%\/\:]+)\#(.*)/ );
+
+  if (  matched ) { 
+    opts.pathname = matched[1];
+    var splited = (decodeURIComponent(matched[2]) || "")
+      .replace( /\#\?/g,"&" ).split("&");
+    for ( var i=0; i<splited.length; i++ ) {
+      var m = splited[i].match( /(\w+)\=(.*)/ );
+      if ( m ) opts[m[1]] = m[2].replace( /\#$/, "" );  
+    }
+  }
+  return opts;
+}
+
+function hasClass( target, type ){	
+	if ( ! target ) return;
+	var v = target && target.tagName ? (target.getAttribute('class') || '') : '';
+	var r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
+	return v.match( r ) != null;
+}
+
+function addClass( target, type ){
+	if ( ! target ) return;
+
+	var v = target.getAttribute('class');
+	if ( ! v  ) return target.setAttribute('class', type); 
+
+	var r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
+	if ( ! v.match( r ) ) target.setAttribute('class',  trim(v+' '+type,true));
+}
+
+function removeClass( target, type ){	
+	if ( ! target ) return;
+	
+	var v = target.getAttribute('class');
+	if ( ! v ) return;
+
+	var r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
+	if ( v.match( r ) ) 
+		target.setAttribute( 'class', trim((v.split(r)).join(' '), true) );
+}
+
+function addEvent( callback, target, type ) {
+	if ( target ) {
+		if (typeof target.addEventListener != 'undefined')
+	    target.addEventListener( type, callback, false );
+		else if (typeof target.attachEvent != 'undefined')
+	    target.attachEvent( 'on'+type, callback );
+  }
+}
+
+function toggleCellmode( indexCell, mode, startup ) {
+	var table = document.getElementById('table_body'); 
+	if ( ! table ) return;
+
+	var row = table.children || [], has =  row[indexCell] ? 
+		hasClass( row[indexCell], mode ) : false;
+	for ( var i=0; i<row.length; i++ ) {
+		indexCell == i && ! has ? addClass( row[i], mode ) : 
+			removeClass( row[i], mode );
+
+		if ( ! startup ) removeClass( row[i], 'startup' );
+
+		var cell = row[i].children || [];
+		for ( var j=0; j<cell.length; j++ ) {
+			indexCell == j && ! has ? addClass( cell[j], mode ) : 
+				removeClass( cell[j], mode );
+			if ( ! startup ) removeClass( cell[j], 'startup' );
+		}
+	}
+}
+
+function startup() {
+	var table = document.getElementById('table_body'); 
+	if ( ! table ) return;
+
+	var opt = getURLoption(), row = table.children || [], first = row[0];
+	if ( ! first ) return;
+
+	var fCell = first.children || [];
+	var getIndexColumn = function( name ) {
+		for ( var i=0; i<fCell.length; i++ ) {
+			if ( hasClass(fCell[i],name) ) return i;
+		}
+		return -1;
+	};
+
+	var click = function( e ) {
+		e.preventDefault();
+		var target = e.currentTarget, parent = target.parentNode;
+		var what   = parent.getAttribute('class') || '';
+		var index  = what ? getIndexColumn( what.split(' ')[0] ) : -1;
+		if ( index == -1 ) {
+			what = parent.parentNode.getAttribute('class') || '';
+			index  = what ? getIndexColumn( what.split(' ')[0] ) : -1;
+		}
+		if ( index == -1 ) return;
+		toggleCellmode( index, 'view');
+	};
+
+	for (var i=0; i<row.length; i++ ) {
+		var cell = row[i].children || [];
+		for ( var j=0; j<cell.length; j++ ) {
+			var element = (cell[j].children || [])[0];
+			if ( ! element || element.tagName.toLowerCase() != 'a' ) continue;
+			addEvent( click, element, 'click' ); 
+		}
+	}
+
+	var vIndex = opt['view'] ? getIndexColumn( opt['view'] ) : -1;
+	vIndex != -1 ? toggleCellmode( vIndex, 'view' ) : toggleCellmode( 1, 'startup', true );
+
+	/*
+	if ( ! opt['active'] ) return;
+	
+	var aIndex = opt['active'] ? getIndexColumn( opt['active'] ) : 1;
+	toggleCellmode( aIndex==-1 ? 1 : aIndex, 'active' );
+	for ( var i=0; i<row.length; i++ )
+		i == aIndex ? addClass( row[i], 'active' ) : removeClass( row[i], 'active');
+	*/
+}
+
+</script>
+</head>
+<body onload="javascript:startup();">
+<div style="margin: 10px;">
+	<table id="table">
+		<tbody id="table_body">
+			<tr class="odd">
+				<td>&nbsp;</td>
+				<td class="blue_royal"><a href="#" class="btn_wrapper"><span class="code">#002776</span><span class="name">Royal</span></a></td>
+				<td class="blue_flat"><a href="#" class="btn_wrapper"><span class="code">#005AA4</span><span class="name">Flat Blå</span></a></td>
+				<td class="blue_light"><a href="#" class="btn_wrapper"><span class="code">#008ED2</span><span class="name">Lys Royal</span></a></td>
+				<td class="green_wcag"><a href="#" class="btn_wrapper"><span class="code">#008A00</span><span class="name">Grønn WCAG</span></a></td>
+				<td class="orange"><a href="#" class="btn_wrapper"><span class="code">#FF9100</span><span class="name">Oransje</span></a></td>
+				<td class="light_beige"><a href="#" class="btn_wrapper"><span class="code">#F3EEDF</span><span class="name">Lightbeige</span></a></td>
+				<td class="purple_wcag"><a href="#" class="btn_wrapper"><span class="code">#A20076</span><span class="name">Lilla WCAG</span></a></td>
+				<td class="black_gray"><a href="#" class="btn_wrapper"><span class="code">#262626</span><span class="name">Sort</span></a></td>
+				<td class="gray_dark"><a href="#" class="btn_wrapper"><span class="code">#676767</span><span class="name">Mørkgrå (60%)</span></a></td>
+				<td class="gray_light"><a href="#" class="btn_wrapper"><span class="code">#D8D8D8</span><span class="name">Lys Grå (20%)</span></a></td>
+				<td class="white"><a href="#" class="btn_wrapper"><span class="code">#FFFFFF</span><span class="name">Hvit</span></a></td>
+				<td class="black"><a href="#" class="btn_wrapper"><span class="code">#000000</span><span class="name">Ren Sort</span></a></td>
+			</tr>
+			<tr class="blue_royal even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#002776</span><span class="name">Royal</span></a></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+			</tr>
+			<tr class="blue_flat odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#005AA4</span><span class="name">Flat Blå</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+			</tr>
+			<tr class="blue_light even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#008ED2</span><span class="name">Lys Royal</span></a></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="green_wcag odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#008A00</span><span class="name">Grønn WCAG</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="orange even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#FF9100</span><span class="name">Oransje</span></a></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="light_beige odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#F3EEDF</span><span class="name">Lys beige</span></a></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="purple_wcag even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#A20076</span><span class="name">Lilla WCAG</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+			</tr>
+			<tr class="dark odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#262626</span><span class="name">Sort</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+			</tr>
+			<tr class="dark_gray even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#676767</span><span class="name">Mørkgrå (60%)</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+			</tr>
+			<tr class="light_gray odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#D8D8D8</span><span class="name">Lys Grå (20%)</span></a></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td>&nbsp;</td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="white even">
+				<td><a href="#" class="btn_wrapper"><span class="code">#FFFFFF</span><span class="name">Ren hvit</span></a></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td>&nbsp;</td>
+				<td><span class="good">OK</span></td>
+			</tr>
+			<tr class="black odd">
+				<td><a href="#" class="btn_wrapper"><span class="code">#000000</span><span class="name">Ren Sort</span></a></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="bad">Nei</span></td>
+				<td><span class="partial">18pt+</span></td>
+				<td><span class="good">OK</span></td>
+				<td><span class="good">OK</span></td>
+				<td>&nbsp;</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>

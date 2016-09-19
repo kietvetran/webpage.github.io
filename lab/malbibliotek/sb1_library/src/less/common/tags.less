@@ -1,0 +1,39 @@
+.subtags,
+.tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.subtag,
+.tag {
+    display: inline-block;
+    margin: 5px;
+    color: @gray-dark;
+    border: 1px solid @gray-light;
+    border-radius: 3px;
+    font-family: 'MuseoSansRounded-700';
+    font-size: 16px;
+    background-color: @white;
+    &:hover,
+    &.active {
+        background-color: @blue-royal;
+        color: @white;
+        a {
+            color: @white;
+        }
+    }
+    a {
+        display: inline-block;
+        padding: 5px 10px;
+        color: @gray-dark;
+    }
+}
+.tags {
+    margin-bottom: 20px;
+}
+
+.subtags {
+    padding-top: 20px;
+    border-top: 1px solid @gray-light;
+}

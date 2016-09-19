@@ -1,0 +1,253 @@
+.btn {
+    padding: 11px 20px;
+    font-family: 'MuseoSansRounded-500';
+    line-height: 22px;
+    font-size: 16px;
+    @media (min-width: @screen-desktop) {
+        font-size: 18px;
+    }
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    .transition(color 200ms, background-color 200ms, border 200ms, opacity 200ms;);
+    color: white;
+    background-color: @blue-flat;
+
+    border: 0 none;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-flat, 5%);
+    }
+
+}
+.location{
+    .icon-location();
+    &:before {
+        position: absolute;
+        color: inherit;
+        left: 4px;
+        font-size: 193%;
+    }
+}
+
+.arrow-right{
+    .icon-arrow_right();
+    &:before {
+        position: absolute;
+        color: inherit;
+        right: 4px;
+        font-size: 162%;
+    }
+    padding: 12px 50px 12px 30px !important;
+    text-align: left;
+}
+.arrow-left{
+    .icon-arrow_left();
+    &:before {
+        position: absolute;
+        color: inherit;
+        left: 4px;
+        font-size: 162%;
+    }
+    padding: 12px 30px 12px 50px !important;
+    text-align: right;
+}
+.submit-btn,
+.action-btn {
+    &:extend(.btn all);
+    background-color: @green-wcag;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@green-wcag, 5%);
+        color: @white;
+        border: 0;
+    }
+}
+
+.shortcut-btn{
+    &:extend(.btn all);
+    background-color: @blue-royal;
+    color: @white;
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-royal, 5%);
+        color: @white;
+        border: 0;
+    }
+    &:focus {
+        outline: 2px solid @orange;
+    }
+    &:before {
+        right: 12px;
+    }
+}
+.footer-btn{
+    &:extend(.btn all);
+    background-color: @blue-royal-light-wcag;
+    color: @white;
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-royal-light-wcag, 5%);
+        color: @white;
+        border: 0;
+    }
+}
+
+.primary-btn {
+    &:extend(.btn all);
+    &:hover,
+    &:focus {
+        color: @white;
+        border: 0;
+    }
+}
+
+.secondary-btn {
+    &:extend(.btn all);
+    padding: 9px 30px;
+    border-radius: 3px;
+    color: @blue-royal-light-wcag;
+    background-color: white;
+    border: solid 2px @gray-light;
+
+    &:hover,
+    &:focus {
+        border-color: @blue-royal-light-wcag;
+        border: solid 2px;
+        background-color: white;
+    }
+}
+
+.login-btn {
+    &:extend(.btn all);
+    background-color: @white;
+    border: 1px solid @green-wcag;
+    color: @green-wcag;
+    border-radius: 30px;
+    padding: 9px 20px;
+    font-size: 16px;
+
+    &:hover,
+    &:focus {
+        background-color: @green-wcag;
+        color: @white;
+    }
+}
+
+.toggle-btn {
+    &:extend(.btn all);
+    padding: 9px 30px;
+    border: solid 2px @gray-light;
+    border-radius: 50px;
+    background-color: @white;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: @blue-royal-light-wcag;
+    .button-animation(@white, @blue-royal);
+
+    &:hover,
+    &:focus{
+        border: solid 2px @blue-royal-light-wcag;
+        background-color: @white;
+        color: @blue-royal-light-wcag;
+    }
+}
+
+.se-more-btn {
+    &:extend(.btn all);
+    border-radius: 34px;
+    margin: 30px 0;
+    .large-link();
+    padding: 12px 50px;
+    color: @white;
+    background-color: @blue-royal-light-wcag;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    .button-animation(@blue-royal-light-wcag, @white);
+
+    &:hover,
+    &:focus {
+        background-color:  darken(@blue-royal-light-wcag, 5%);
+        border: 0;
+        color: @white;
+    }
+}
+
+.send-btn {
+    &:extend(.btn all);
+    border-radius: 40px;
+    background-color: @green-wcag;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@green-wcag, 5%);
+        color: @white;
+        border: 0;
+    }
+}
+
+.button-wrapper{
+    margin: 10px 0;
+    &.center {
+        text-align: center;
+    }
+    &.right {
+        text-align: right;
+    }
+}
+
+.button-animation(@background-color, @icon-color){
+    &.open {
+        padding: 0px;
+
+        background: @background-color;
+        &.fixed{
+            position: fixed;
+            right: 12px;
+            top: 80px;
+            border: none;
+        }
+        .icon-close{
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            @media (min-width: @screen-sm){
+                width: 45px;
+                height: 45px;
+            }
+            display: table-cell;
+            vertical-align: middle;
+            &:before{
+                font-size: 40px;
+                color: @icon-color;
+                position: relative;
+                top: 7px;
+            }
+        }
+        .btn-text{
+            display: none;
+        }
+    }
+    .icon-close{
+        display: none;
+    }
+}
+
+.cancel-btn {
+    &:extend(.btn all);
+    color: @blue-royal-light-wcag;
+    background-color: @white;
+    &:hover,
+    &:focus {
+        background-color: @white;
+        border-bottom: none;
+    }
+}

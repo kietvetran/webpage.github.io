@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="js flexbox flexboxlegacy canvas canvastext webgl geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransarticles csstransarticles3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style="" lang="no"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <title>BankID NextGen</title>
+	<link rel="stylesheet" type="text/css" href="bid_files/bid.css">
+	<link rel="stylesheet" type="text/css" href="bid_files/debug.css">
+	<!-- <script src="template/js/html5shiv.js"></script>-->
+	<!--<script src="template/js/jquery-1.9.1.min.js"></script>-->
+	<script src="bid_files/jquery.js"></script>
+	<script src="bid_files/knockout-2.js"></script>
+	<script src="bid_files/modernizr.js"></script>
+	<script src="bid_files/iscroll.js"></script>
+
+	<script type="text/javascript" src="bid_files/core.js"></script>
+
+	<script type="text/javascript" src="bid_files/password.js"></script>
+	<script type="text/javascript" src="bid_files/otp.js"></script>
+	<script type="text/javascript" src="bid_files/scenario.js"></script>
+
+	<script type="text/javascript" src="bid_files/page.js"></script>
+	<script type="text/javascript" src="bid_files/outer_page.js"></script>
+	<script type="text/javascript" src="bid_files/mediator.js"></script>
+    <script type="text/javascript" src="bid_files/popover.js"></script>
+    <script type="text/javascript" src="bid_files/zoom.js"></script>
+	<script type="text/javascript" src="bid_files/core_bid.js"></script>
+
+    <!--
+    <script type="text/javascript" src="template/js/bid/debug.js"></script>
+    -->
+
+	<script type="text/html" id="tmpl_last">
+		<div class="popover arrow_box btm infobox" id="pop_last">
+			<div class="arrow"><div class="border"></div><div class="fill"></div></div>
+			<div class="wrp">
+				<div class="heading">
+					<span data-bind="text: heading"></span>
+				</div>
+				<div>
+					<span data-bind="text: date"></span>, <span data-bind="text: merchant"></span>
+				</div>
+				<div class="btn_close">
+					<button>
+						<div class="svg close" title="Lukk"></div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="tmpl_fail">
+		<div class="popover arrow_box btm infobox" id="pop_fail">
+			<div class="arrow"><div class="border"></div><div class="fill"></div></div>
+			<div class="wrp">
+				<div class="heading">
+					<span data-bind="text: heading"></span>
+				</div>
+				<div>
+					<span data-bind="text: date"></span>, <span data-bind="text: merchant"></span>
+				</div>
+				<div class="error">
+					<span data-bind="text: error"></span>
+				</div>
+				<div class="btn_close">
+					<button type="">
+						<div class="svg close" title="BankID logo"></div>
+					</button>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="tmpl_menu">
+		<div class="popover arrow_box top menu main" id="pop_menu">
+			<div class="arrow"><div class="border"></div><div class="fill"></div></div>
+			<div class="wrp">
+				<ul>
+					<li><a href="#" data-bind="click: $root.linkAboutClicked"><span>Om BankID appen</span></a></li>
+					<li><a href="#" data-bind="click: $root.linkPrivacyClicked"><span>Personvern</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="tmpl_sert">
+		<div class="popover arrow_box btm menu" id="pop_sert">
+			<div class="arrow"><div class="border"></div><div class="fill"></div></div>
+			<div class="wrp">
+				<ul data-bind="foreach: sertificates()">
+					<li>
+						<div>
+							<a href="#" data-bind="click: $root.linkSertificateClicked">
+								<span class="heading" data-bind="text: name"></span>
+								<span class="value">Vis sertifikat</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="tmpl_pid"><li class="pg pid">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_pid">Fødselsnummer</label>
+					</div>
+					<div class="row frm">
+						<label class="inp_wrp" for="inp_pid" data-bind="css: {error: err}">
+							<div class="ico">
+								<div class="svg fnr"></div>
+							</div><div class="inp"><input size="1" maxlength="11" id="inp_pid" data-bind="
+								attr: {type: inputType},
+	 							value: inputVal,
+	 							valueUpdate: 'keyup keypress afterkeydown'
+	 							" /></div></label><button class="c2a" type="submit" data-bind="css: { valid: isValid() }"><div class="svg next" title="Gå videre"></div></button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()"></span>
+					</div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_otp"><li class="pg otp" data-bind="css: {multiple: otp_multiple}">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_otp">Engangskode</label>
+					</div>
+					<div class="row frm">
+						<div class="inp_wrp" data-bind="css: {error: err}">
+							<!-- ko if: otp_multiple -->
+							<button class="ico" id="otp_select" type="button" data-bind="click: otpSelectClicked">
+								<div data-bind="attr: {'class': otpClassCurrent }" title="OTP enhet"></div><div class="arrows">
+									<div class="arrow up blue"></div><div class="arrow down blue"></div>
+								</div>
+							</button><!-- /ko --><!-- ko if: !otp_multiple --><div class="ico">
+								<div data-bind="attr: {'class': otpClassCurrent }" title="OTP enhet"></div>
+							</div><!-- /ko --><div class="inp">
+								<input size="1" data-bind="
+									hasfocus: inputFocus,
+									attr: {
+										maxlength: item().password.len,
+										type: inputType
+									},
+									value: inputVal,
+		 							valueUpdate: 'keyup keypress afterkeydown'
+		 							" id="inp_otp" />
+							</div>			
+						</div><button class="c2a" type="submit" data-bind="css: { valid: isValid() }">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()"></span>
+					</div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_pwd"><li class="pg pwd">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_pwd">Passord</label>
+					</div>
+					<div class="row frm">
+						<div class="inp_wrp" data-bind="css: {error: err}">
+							<div class="ico">
+								<div class="svg pwd" title="Passord symbol"></div>
+							</div><div class="inp">
+								<div class="showme" data-bind="css: {active: pwdVisible}">
+									<div class="outer">
+										<div class="text" data-bind="text: toggleText"></div>
+									</div>
+								</div><span class="value" data-bind="text: inputVal, css: {hide: !pwdVisible()}"></span><input type="password" size="1" id="inp_pwd" data-bind="
+										value: inputVal,
+										css: {hide: pwdVisible() },
+										hasfocus: inputFocus,
+										valueUpdate: 'keyup keypress afterkeydown'
+									" />
+							</div>
+						</div><button class="c2a" type="submit" data-bind="css: { valid: isValid() }">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()"></span>
+					</div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_chg_info"><li class="pg chg_info info">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row">
+						<h1>BankID inarticleasjon</h1>
+						<p>En bankID har en gyldighetsperiode på 2 år og er automatisk blitt fornyet. Du må endre ditt passord.</p>
+					</div>
+					<div class="row btn">
+						<button class="c2a valid" type="submit">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_chg_pwd"><li class="pg chg_pwd pwd">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_pwd_chg">Lag nytt passord</label>
+					</div>
+					<div class="row frm">
+						<div class="inp_wrp" data-bind="css: {error: errInput}">
+							<div class="inp">
+								<div class="showme" data-bind="css: {active: pwdVisible}">
+									<div class="outer">
+										<div class="text" data-bind="text: toggleText"></div>
+									</div>
+								</div><span class="value" data-bind="text: inputVal, css: {hide: !pwdVisible()}"></span><input type="password" size="1" id="inp_pwd_chg" placeholder="Minst 8 tegn" data-bind="
+										value: inputVal,
+										css: {hide: pwdVisible() },
+										hasfocus: inputFocus,
+										valueUpdate: 'keyup keypress afterkeydown'
+									" />
+							</div>
+						</div><button class="c2a" type="submit" data-bind="css: { valid: isValid() }">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()"></span>
+					</div>
+					<div class="row confirm"><input type="checkbox" id="chk_confirm" data-bind="checked: checkedConfirm" /><label for="chk_confirm">Passord er riktig skrevet</label></div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_chg_confirm"><li class="pg chg_confirm info">
+			<div class="wrp">
+				<article novalidate autocomplete="off">
+					<div class="row">
+						<h1>Passordet er endret</h1>
+					</div>
+					<div class="row btn">
+						<button class="c2a valid" type="submit">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+				</article>
+			</div>
+		</li></script>
+
+	<script type="text/html" id="tmpl_ft_btns">
+		<!-- ko if: show_fail -->
+		<button id="btn_last_failed" class="btn_popover" title="Sist feilet" data-bind="visible: show_button, click: btnFailClicked">
+			<span class="svg alarm"></span>
+		</button><!-- /ko --><!-- ko if: show_last --><button id="btn_last_success" class="btn_popover" title="Sist brukt" data-bind="visible: show_button, click: btnLastClicked">
+			<span class="svg clock"></span>
+		</button>
+		<!-- /ko -->
+	</script>
+
+    <script type="text/html" id="tmpl_sgn_intro"><li class="pg info sign">
+        <div class="wrp">
+            <article novalidate autocomplete="off">
+                <div class="row">
+                    <h1>Du skal nå signere et dokument hos Brukerstedsnavn</h1>
+                    <p>Innholdet kan leses på neste side.</p>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </li></script>
+
+    <script type="text/html" id="tmpl_sgn_document"><li class="pg sign document">
+        <div class="wrp" data-bind="foreach: pages, style: {top: (currentPageIndex() * -100) + '%'}">
+            <div class="wrp iframe" data-bind="css: { active: $index() == $root.currentPageIndex() }, attr: { id: 'iframe-doc-' + $index() }">
+                <div data-bind="style: { width: w() + 'px', height: h() + 'px' }, attr: { 'class': fileType } ">
+                    <iframe data-bind="style: { width: w() + 'px', height: h() + 'px' }" frameborder="0" id="contentFrame" name="contentFrame" ></iframe>
+                    <div class="veil" data-bind="css: {loading: loading}"></div>
+                </div>
+            </div>
+        </div>
+    </li></script>
+
+    <script type="text/html" id="tmpl_sgn_confirm"><li class="pg info sign">
+        <div class="wrp">
+            <article novalidate autocomplete="off">
+                <div class="row lbl">
+                    <h1>Du har sett dokumentet fra Brukerstedsnavn.</h1>
+                </div>
+                <div class="row confirm">
+                    <input type="checkbox" id="chk_confirm_document" data-bind="checked: checkedConfirm" /><label for="chk_confirm_document">Jeg har lest og forstått innholdet og er klar til å signere.</label>
+                </div>
+                <div class="row msg" data-bind="css: {error: err}">
+                    <span data-bind="text: feedback()"></span>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </li></script>
+
+    <script type="text/html" id="tmpl_sgn_receipt"><li class="pg info sign">
+        <div class="wrp">
+            <article novalidate autocomplete="off">
+                <div class="row lbl">
+                    <h1>Signering er fullført.</h1>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </li></script>
+
+    <script type="text/html" id="tmpl_waiting"><li class="pg info sign">
+        <div class="wrp">
+            <article novalidate autocomplete="off">
+                <div class="row lbl">
+                    <h1>Du har åpent et dokument i et annet vindu.</h1>
+                </div>
+                <div class="row">
+                    <p>Trykk på knappen for å vise dokumentet igjen.</p>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg switch" title="Gå videre"></div>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </li></script>
+
+</head>
+<script>
+function verifyInputPWD( ) {
+	// 080982
+	//clearTimeout( window.inputPWDtimer || 0 );
+	//window.inputPWDtimer = setTimeout( function() {
+	//	var input = $('#inp_pwd'), wrapper = input.closest('.inp_wrp');
+	//	if ( ! wrapper.size() || wrapper.hasClass('error') ) return;
+
+		var parent = window.parent;
+		var node = $(parent.document.body);
+		node.addClass('bankIDdone').click();
+
+		//parent.document.body.style.backgroundColor = "red";
+	//}, 200 );
+}
+
+function preventDefaultEvent( e ) {
+	if ( e ) {
+		if ( typeof(e.preventDefault)=='function' ) 
+			e.preventDefault();
+	  else 
+	  	e.returnValue = false;
+	}
+}
+
+function verifyNavigation( e, previous ) {
+	var parent = $('.pages').eq(0);
+	if ( ! parent.size() ) return false;
+
+	preventDefaultEvent(e);
+
+	var matched = (parent.attr('style') ||'').match( /left:(\s+)?(\-)?(\d+)/ );
+	var left = matched && matched[2] ? parseInt(matched[3] || matched[2]) : 0;
+	if ( isNaN(left) ) left = 0;
+
+	var index = left / 100, all = parent.children();
+	var next  =  index + (1*(previous ? -1: 1));
+	var current = all.removeClass('active').eq( next ).addClass('active');
+	parent.css({'left': (next*-100)+'%'});
+
+
+	current.hasClass('document') ? 
+		$('#my_btn_next_page').show() : $('#my_btn_next_page').hide();
+	
+
+	if ( current.hasClass('right_after_document') ) {
+		$('#linkLogoClicked').hide();
+		$('#my_btn_prev_page').show()
+	}
+	else {
+		$('#linkLogoClicked').show();
+		$('#my_btn_prev_page').hide();
+	}
+	//*/
+	return false;
+}
+
+function verifyConfirm( slc, msg, e  ) {
+	var input = $(slc), node = $(msg);
+
+	preventDefaultEvent(e);
+
+	if ( input.prop('checked') )
+		verifyNavigation( e );
+	else
+		node.show();
+	return false;
+}
+
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+</script>
+<style>
+#otp-calculator {
+  background-image: url("./svg/otp-calculator.svg");
+  min-height: 3.5em;
+  min-width: 3.5em;
+}
+</style>
+
+<body>
+	<div class="wrp top">
+		<div class="wrp">
+			<div class="pg noscript">
+				<header class="hd">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l">
+									<div class="logo_container">
+										<div class="svg logo" title="BankID logo"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+				<section class="bd" role="main">
+					<div class="wrp">
+						<noscript>
+						<h1>Javascript er slått av.</h1>
+						<p>For å kjøre BankID må du <a href="https://www.bankid.no/Hjelp-og-nyttige-verktoy/Problemer-med-a-bruke-BankID/Java-kjoremiljo-pa-brukerens-datamaskin/" target="_blank">slå på javascript</a>.</p>
+						</noscript>
+					</div>
+				</section>
+				<footer class="ft">
+				</footer>
+			</div>
+			<div class="pg preload" id="pg_preload">
+				<header class="hd">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l">
+									<div class="logo_container">
+										<div class="svg logo" title="BankID logo"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+				<section class="bd" role="main">
+					<div class="wrp">
+						<h1>Vennligst vent et øyeblikk...</h1>
+						<img src="bid_files/ajax-loader.gif" alt="Laste symbol">
+					</div>
+				</section>
+				<footer class="ft">
+				</footer>
+			</div>
+			<div class="pg privacy info" id="pg_privacy">
+				<header class="hd">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l">
+									<button class="btnBack">
+										<div class="svg back" title="Gå tilbake"></div>
+									</button>
+								</div>
+								<div class="col c">
+									<span class="lbl">Personvern</span>
+								</div>
+								<div class="col r">
+								</div>
+							</div>
+						</div>
+						<div class="sep"></div>
+					</div>
+				</header>
+				<section class="bd" role="main">
+					<div class="wrp">
+						<div>
+							<p>BankID gir deg enklere tilgang til din nettbank og andre nettsteder som krever pålogging eller signering med BankID.</p>
+							<p>De avtalevilkår og regler for behandling av personopplysninger
+ som gjelder mellom deg og din bank for bruk av BankID, gjelder også ved
+ bruk av BankID via appen. Banken vil behandle personopplysninger i 
+overensstemmelse med.</p>
+							<p>Les mer på <a href="http://bankid.no/" target="_blank">bankid.no</a>.</p>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="pg sertificate info" id="pg_sertificate">
+				<header class="hd">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l">
+									<button class="btnBack">
+										<div class="svg back" title="Gå tilbake"></div>
+									</button>
+								</div>
+								<div class="col c">
+									<span class="svg lock" title="Sertifikat"></span><span class="lbl">Brukerstedssertifikat</span>
+								</div>
+								<div class="col r">
+								</div>
+							</div>
+						</div>
+						<div class="sep"></div>
+					</div>
+				</header>
+				<section class="bd" role="main">
+					<div class="wrp">
+						<div>
+							<ul class="params">
+								<li>
+									<div>Utstedt til</div>
+									<div>Navn på brukersted</div>
+								</li>
+								<li>
+									<div>Bankforbindelse</div>
+									<div>Devlab UniCERT52 Bank</div>
+								</li>
+								<li>
+									<div>Utstedt av</div>
+									<div>BankID Devlab UniCERT52 CA 1</div>
+								</li>
+								<li>
+									<div>Type bankid</div>
+									<div>BrukerstedsBankID</div>
+								</li>
+								<li>
+									<ul class="side">
+										<li>
+											<div>Gyldig fra</div>
+											<div>18. aug 2008 15:29</div>
+										</li>
+										<li>
+											<div>Gyldig til</div>
+											<div>17. aug 2012 15:29</div>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="pg about info" id="pg_about">
+				<header class="hd">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l">
+									<button class="btnBack">
+										<div class="svg back" title="Gå tilbake"></div>
+									</button>
+								</div>
+								<div class="col c">
+									<span class="lbl">Om BankID appen</span>
+								</div>
+								<div class="col r">
+								</div>
+							</div>
+						</div>
+						<div class="sep"></div>
+					</div>
+				</header>
+				<section class="bd" role="main">
+					<div class="wrp">
+						<div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed 
+do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit 
+in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
+officia deserunt mollit anim id est laborum.</p>
+							<p>Les mer på <a href="http://bankid.no/" target="_blank">bankid.no</a>.</p>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="pg case active" id="pg_case">
+				<header style="" id="hd" class="hd" data-bind="css: { fullBorderWidth: page().header.fullBorderWidth }">
+					<div class="wrp">
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l" data-bind="if: bid.mode != bid.DOCUMENT_MODE">
+
+                  <button style="display: none;" class="btnBack" id="my_btn_prev_page" onClick="javascript:verifyNavigation(Event,true)" style="position:absolute">
+                  	<div class="svg back" title="Gå tilbake"></div>
+                  </button>									
+                                    <button style="display: none;" class="btnBack" data-bind="visible: page().header.btnBack, click: btnBackClicked">
+                                        <div class="svg back" title="Gå tilbake"></div>
+                                    </button>                                    
+									<div class="logo_container" data-bind="visible: page().header.bidLogo">
+										<button data-bind="click: linkLogoClicked" id="linkLogoClicked">
+											<div class="svg logo" title="Gå til scenariooversikt"></div>
+										</button>
+									</div>
+								</div>
+								<div class="col c">
+									<button id="btn_menu" class="btn_popover arrows" data-bind="click: btnMenuClicked">
+										<span class="lbl" data-bind="text: heading()">Identifisering</span>
+										<span class="arrow down"></span>
+									</button>
+								</div>
+								<div class="col r">
+									<button id="btn_close_case" data-bind="visible: (page().header.btnClose &amp;&amp; bid.mode != bid.DOCUMENT_MODE)">
+										<div class="svg close" title="Avbryt"></div>
+									</button>
+                                    <button style="display: none;" id="btn_close_document" class="btn_close_document c2a" data-bind="visible: bid.mode == bid.DOCUMENT_MODE">
+                                        <div class="svg close-white" title="Lukk dokument"></div>
+                                    </button>
+
+                                    <button style="display: none;" class="btn_next_page c2a" data-bind="visible: page().header.btnProceed &amp;&amp; bid.mode != bid.DOCUMENT_MODE, click: btnProceedClicked"><div class="svg next" title="Gå videre"></div></button>
+                  <button style="display: none;" class="btn_next_page c2a" id="my_btn_next_page" onClick="javascript:verifyNavigation(Event)">
+                  	<div class="svg next" title="Gå videre"></div>
+                  </button>
+
+								</div>
+							</div>
+						</div>
+						<div class="sep"></div>
+					</div>
+				</header>
+				<section id="bd" class="bd" role="main">
+					<div style="height: 809px;" class="wrp">
+						<div class="wrp">
+							<!-- The markup for pages goes here -->
+<ul class="pages" data-pageid="0" style="left: -600%;"><li class="pg info sign">
+        <div class="wrp">
+            <form novalidate="" autocomplete="off">
+                <div class="row">
+                    <h1>Du skal nå signere et dokument hos Brukerstedsnavn</h1>
+                    <p>Innholdet kan leses på neste side.</p>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </li>
+								<li class="pg sign document">
+								    <div class="wrp">
+								        <div class="wrp iframe active">
+								            <div class="svg">
+								                <iframe frameborder="0" id="contentFrame" name="contentFrame" src="./frame/frame_content_loader.html"></iframe>
+								            </div>
+								        </div>
+								    </div>
+								</li>
+    <li class="pg info sign">
+        <div class="wrp">
+            <form novalidate="" autocomplete="off">
+                <div class="row lbl">
+                    <h1>Du har sett dokumentet fra Brukerstedsnavn.</h1>
+                </div>
+                <div class="row confirm">
+                    <input type="checkbox" id="chk_confirm_document" data-bind="checked: checkedConfirm"><label for="chk_confirm_document">Jeg har lest og forstått innholdet og er klar til å signere.</label>
+                </div>
+                <div class="row msg" data-bind="css: {error: err}">
+                    <span data-bind="text: feedback()"></span>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </li>
+    <!--
+    <li class="pg pid">
+			<div class="wrp">
+				<form novalidate="" autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_pid">Fødselsnummer</label>
+					</div>
+					<div class="row frm">
+						<label class="inp_wrp" for="inp_pid" data-bind="css: {error: err}">
+							<div class="ico">
+								<div class="svg fnr"></div>
+							</div><div class="inp"><input size="1" maxlength="11" id="inp_pid" data-bind="
+								attr: {type: inputType},
+	 							value: inputVal,
+	 							valueUpdate: &#39;keyup keypress afterkeydown&#39;
+	 							" type="tel"></div></label><button class="c2a valid" type="submit" data-bind="css: { valid: isValid() }"><div class="svg next" title="Gå videre"></div></button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()">11 siffer</span>
+					</div>
+				</form>
+			</div>
+		</li>
+		-->
+		<li class="pg otp" data-bind="css: {multiple: otp_multiple}">
+			<div class="wrp">
+				<form novalidate="" autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_otp">Engangskode</label>
+					</div>
+					<div class="row frm">
+						<div class="inp_wrp" data-bind="css: {error: err}">
+							<!-- ko if: otp_multiple --><!-- /ko --><!-- ko if: !otp_multiple --><div class="ico">
+								<div data-bind="attr: {&#39;class&#39;: otpClassCurrent }" title="OTP enhet" id="otp-calculator" class="svg otp-calculator"></div>
+							</div><!-- /ko --><div class="inp">
+								<input size="1" data-bind="
+									hasfocus: inputFocus,
+									attr: {
+										maxlength: item().password.len,
+										type: inputType
+									},
+									value: inputVal,
+		 							valueUpdate: &#39;keyup keypress afterkeydown&#39;
+		 							" id="inp_otp" maxlength="6" type="tel">
+							</div>			
+						</div><button class="c2a valid" type="submit" data-bind="css: { valid: isValid() }">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()">DNB kodekalkulator, 6 siffer</span>
+					</div>
+				</form>
+			</div>
+		</li><li class="pg pwd">
+			<div class="wrp">
+				<form novalidate="" autocomplete="off">
+					<div class="row lbl">
+						<label for="inp_pwd">Passord</label>
+					</div>
+					<div class="row frm">
+						<div class="inp_wrp" data-bind="css: {error: err}">
+							<div class="ico">
+								<div class="svg pwd" title="Passord symbol"></div>
+							</div><div class="inp">
+								<div class="showme" data-bind="css: {active: pwdVisible}">
+									<div class="outer">
+										<div class="text" data-bind="text: toggleText">Vis</div>
+									</div>
+								</div><span class="value hide" data-bind="text: inputVal, css: {hide: !pwdVisible()}">44444444444444444444444444444444444444444444444</span><input type="password" size="1" id="inp_pwd" data-bind="
+										value: inputVal,
+										css: {hide: pwdVisible() },
+										hasfocus: inputFocus,
+										valueUpdate: &#39;keyup keypress afterkeydown&#39;
+									" class="">
+							</div>
+						</div><button class="c2a valid" type="submit" data-bind="css: { valid: isValid() }">
+							<div class="svg next" title="Gå videre"></div>
+						</button>
+					</div>
+					<div class="row msg" data-bind="css: {error: err}">
+						<span data-bind="text: feedback()">Minst 8 tegn</span>
+					</div>
+				</form>
+			</div>
+		</li><li class="pg info sign active">
+        <div class="wrp">
+            <form novalidate="" autocomplete="off">
+                <div class="row lbl">
+                    <h1>Signering er fullført.</h1>
+                </div>
+                <div class="row btn">
+                    <button class="c2a valid" type="submit" onClick="javascript:verifyInputPWD()">
+                        <div class="svg next" title="Gå videre"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </li></ul>
+							<!-- END -->
+						</div>
+					</div>
+				</section>
+				<footer style="" id="ft" class="ft" data-bind="css: { hide: !page().footer.display, fullBorderWidth: page().header.fullBorderWidth }, if: page().footer.display">
+					<div class="wrp">
+						<div class="sep"></div>
+						<div class="cols">
+							<div class="wrp">
+								<div class="col l" data-bind="visible: page().footer.sertificate">
+									<div>
+										<button id="btn_sertificate" class="btn_popover" data-bind="click: btnSertClicked">
+											<span class="svg lock" title="Sertifikat"></span>
+										</button>
+									</div>
+									<div>
+										<p class="heading" data-bind="text: sertificateType">Personsertifikat</p>
+										<p class="value" data-bind="text: sertificate().name">Fornavn Etternavn</p>
+									</div>
+								</div>
+
+                                <div class="col l" data-bind="if: page().footer.zoomTool"></div>
+
+                                <div class="col r" data-bind="if: ( page().footer.pageSelector &amp;&amp; pageselector.total() &gt; 1 )"></div>
+
+								<div class="col r" data-bind="template: 'tmpl_ft_btns'">
+		<!-- ko if: show_fail --><!-- /ko --><!-- ko if: show_last --><!-- /ko -->
+	</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<div class="dlg otp_menu">
+			<div class="wrp row">
+				<div class="wrp cell">
+					<div class="wrp cnt">
+						<div class="push_menu otp_menu" id="otp_menu">
+ 							<div class="header">
+								<h1><span>Velg BankID</span></h1>
+							</div>
+ 							<div class="list private active">
+								<table>
+									<tbody data-bind="foreach: otp_array()">
+										<tr class="active" data-bind="click: function(obj, e){ $root.otpDeviceClicked(obj, e, $index()); }, css: {active: $index() == $root.index()}">
+											<td title="DNB kodekalkulator" class="svg otp-calculator" data-bind="attr: {'class': $root.otpClass($data), title: name}"></td>
+											<td class="name" data-bind="text: name">DNB kodekalkulator</td>
+											<td class="radio"><input checked="checked" value="0" name="otp_select_private" data-bind="value: $index, checked: $root.index()" type="radio"></td>
+										</tr>
+									</tbody>
+ 								</table>
+							</div>
+ 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+/*
+	var pDoc = window.parent ? window.parent.document : null;
+	if ( pDoc ) {
+		var p = pDoc.getElementById('personnumber');
+		if ( p ) {
+			var n = document.getElementById('inp_pid');
+			if ( n ) { 
+				setTimeout( function() {
+					n.value = (p.value + '').replace( /\s+/g,'');
+					n = $(n).keyup();
+					n.closest('article').find('button').click();
+				}, 5150 );
+				setTimeout( function() {
+					$(n).closest('article').css({'display':'none'});
+				}, 4000 );
+			}
+		}
+	}
+*/
+</script>
+
+</body></html>

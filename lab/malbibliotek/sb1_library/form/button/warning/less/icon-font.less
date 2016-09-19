@@ -1,0 +1,289 @@
+@font-face {
+    font-family: "icon-font";
+    src: url('../fonts/icon-font.eot');
+    src: url('../fonts/icon-font.eot?#iefix') format('eot'),
+         url('../fonts/icon-font.woff') format('woff'),
+         url('../fonts/icon-font.ttf') format('truetype'),
+         url('../fonts/icon-font.svg#icon-font') format('svg');
+}
+
+.icon-base-pseudo {
+    font-family: 'icon-font';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.icon-char(@filename) {
+    @advisor: '\E001';
+    @arrow_down: '\E002';
+    @arrow_left: '\E003';
+    @arrow_right: '\E004';
+    @arrow_up: '\E005';
+    @atv: '\E006';
+    @become_customer: '\E007';
+    @boat_large: '\E008';
+    @boat_small: '\E009';
+    @buy: '\E00A';
+    @calculator: '\E00B';
+    @calendar: '\E00C';
+    @car: '\E00D';
+    @caravan: '\E00E';
+    @card: '\E00F';
+    @cash: '\E010';
+    @chat: '\E011';
+    @check: '\E012';
+    @child: '\E013';
+    @close: '\E014';
+    @construction: '\E015';
+    @consultant: '\E016';
+    @customer_support: '\E017';
+    @cutlery: '\E018';
+    @damage: '\E019';
+    @facebook: '\E01A';
+    @family: '\E01B';
+    @gift: '\E01C';
+    @hourglass: '\E01D';
+    @house: '\E01E';
+    @insurance: '\E01F';
+    @keyhole: '\E020';
+    @laptop: '\E021';
+    @life_insurance: '\E022';
+    @log_in: '\E023';
+    @menu: '\E024';
+    @mobile: '\E025';
+    @motorcycle: '\E026';
+    @motorhome: '\E027';
+    @payment: '\E028';
+    @pension: '\E029';
+    @percent: '\E02A';
+    @phone: '\E02B';
+    @questions: '\E02C';
+    @saving: '\E02D';
+    @school: '\E02E';
+    @search: '\E02F';
+    @service: '\E030';
+    @showing: '\E031';
+    @snowmobile: '\E032';
+    @tenant: '\E033';
+    @tips: '\E034';
+    @tractor: '\E035';
+    @trainee: '\E036';
+    @transport: '\E037';
+    @travle: '\E038';
+    @truck: '\E039';
+    @valuation: '\E03A';
+    @van: '\E03B';
+    @visitors: '\E03C';
+    @watchman: '\E03D';
+    @wireless: '\E03E';
+    @young: '\E03F';
+    
+    content: @@filename;
+}
+
+
+
+.icon(@filename, @insert: before) {
+    @pseudo-selector: ~':@{insert}';
+
+    &@{pseudo-selector} {
+        &:extend(.icon-base-pseudo);
+        .icon-char(@filename);
+    }
+}
+
+.icon-advisor {
+    .icon(advisor);
+}
+.icon-arrow_down {
+    .icon(arrow_down);
+}
+.icon-arrow_left {
+    .icon(arrow_left);
+}
+.icon-arrow_right {
+    .icon(arrow_right);
+}
+.icon-arrow_up {
+    .icon(arrow_up);
+}
+.icon-atv {
+    .icon(atv);
+}
+.icon-become_customer {
+    .icon(become_customer);
+}
+.icon-boat_large {
+    .icon(boat_large);
+}
+.icon-boat_small {
+    .icon(boat_small);
+}
+.icon-buy {
+    .icon(buy);
+}
+.icon-calculator {
+    .icon(calculator);
+}
+.icon-calendar {
+    .icon(calendar);
+}
+.icon-car {
+    .icon(car);
+}
+.icon-caravan {
+    .icon(caravan);
+}
+.icon-card {
+    .icon(card);
+}
+.icon-cash {
+    .icon(cash);
+}
+.icon-chat {
+    .icon(chat);
+}
+.icon-check {
+    .icon(check);
+}
+.icon-child {
+    .icon(child);
+}
+.icon-close {
+    .icon(close);
+}
+.icon-construction {
+    .icon(construction);
+}
+.icon-consultant {
+    .icon(consultant);
+}
+.icon-customer_support {
+    .icon(customer_support);
+}
+.icon-cutlery {
+    .icon(cutlery);
+}
+.icon-damage {
+    .icon(damage);
+}
+.icon-facebook {
+    .icon(facebook);
+}
+.icon-family {
+    .icon(family);
+}
+.icon-gift {
+    .icon(gift);
+}
+.icon-hourglass {
+    .icon(hourglass);
+}
+.icon-house {
+    .icon(house);
+}
+.icon-insurance {
+    .icon(insurance);
+}
+.icon-keyhole {
+    .icon(keyhole);
+}
+.icon-laptop {
+    .icon(laptop);
+}
+.icon-life_insurance {
+    .icon(life_insurance);
+}
+.icon-log_in {
+    .icon(log_in);
+}
+.icon-menu {
+    .icon(menu);
+}
+.icon-mobile {
+    .icon(mobile);
+}
+.icon-motorcycle {
+    .icon(motorcycle);
+}
+.icon-motorhome {
+    .icon(motorhome);
+}
+.icon-payment {
+    .icon(payment);
+}
+.icon-pension {
+    .icon(pension);
+}
+.icon-percent {
+    .icon(percent);
+}
+.icon-phone {
+    .icon(phone);
+}
+.icon-questions {
+    .icon(questions);
+}
+.icon-saving {
+    .icon(saving);
+}
+.icon-school {
+    .icon(school);
+}
+.icon-search {
+    .icon(search);
+}
+.icon-service {
+    .icon(service);
+}
+.icon-showing {
+    .icon(showing);
+}
+.icon-snowmobile {
+    .icon(snowmobile);
+}
+.icon-tenant {
+    .icon(tenant);
+}
+.icon-tips {
+    .icon(tips);
+}
+.icon-tractor {
+    .icon(tractor);
+}
+.icon-trainee {
+    .icon(trainee);
+}
+.icon-transport {
+    .icon(transport);
+}
+.icon-travle {
+    .icon(travle);
+}
+.icon-truck {
+    .icon(truck);
+}
+.icon-valuation {
+    .icon(valuation);
+}
+.icon-van {
+    .icon(van);
+}
+.icon-visitors {
+    .icon(visitors);
+}
+.icon-watchman {
+    .icon(watchman);
+}
+.icon-wireless {
+    .icon(wireless);
+}
+.icon-young {
+    .icon(young);
+}
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+#lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff none repeat 0 0;
+}
+
+#lightbox > div {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#lightbox a {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 20px;
+  margin: 10px;
+  display: inline-block;
+  width: 300px;
+}
+
+#lightbox a span {
+  display: block;
+}
+
+</style>
+
+</head> 
+<body>
+<div id="lightbox">
+  <div>
+    <a href="./bsu.html"><span>Start på prototype</span><span>"Opprett BSU-konto"</span></a>
+    <a href="./be_customer.html"><span>Start på prototype</span><span>"Å bli kunde"</span></a>
+    <a href="./saving_account.html"><span>Start på prototype</span><span>"Spareavtale med kontoer"</span></a>
+    <a href="./saving_account.html?noaccount=1"><span>Start på prototype</span><span>"Ingen konto"</span></a>
+  </div>
+</div>
+</body>
+</html>

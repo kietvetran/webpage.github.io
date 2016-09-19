@@ -1,0 +1,173 @@
+.btn,
+.submit-btn,
+.login-btn,
+.action-btn,
+.shortcut-btn,
+.footer-btn,
+.primary-btn,
+.secondary-btn,
+.login-btn,
+.toggle-btn,
+.se-more-btn,
+.send-btn,
+.cancel-btn,
+.header .overlay .login-btn {
+  padding: 11px 30px;
+  font-family: 'MuseoSansRounded-700';
+  line-height: 22px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 4px;
+  color: white;
+  background-color: #005aa4;
+  border: 0 none;
+  display: inline-block;
+  position: relative;
+  
+  -webkit-transition: color 200ms, background-color 200ms, border 200ms, opacity 200ms;
+  transition: color 200ms, background-color 200ms, border 200ms, opacity 200ms;
+}
+@media (min-width: 960px) {
+  .btn,
+  .submit-btn,
+  .login-btn,
+  .action-btn,
+  .shortcut-btn,
+  .footer-btn,
+  .primary-btn,
+  .secondary-btn,
+  .login-btn,
+  .toggle-btn,
+  .se-more-btn,
+  .send-btn,
+  .cancel-btn,
+  .header .overlay .login-btn {
+    font-size: 18px;
+  }
+
+  .btn:hover,
+  .btn:focus,
+  .submit-btn:hover,
+  .submit-btn:focus,
+  .login-btn:hover,
+  .login-btn:focus,
+  .action-btn:hover,
+  .action-btn:focus,
+  .shortcut-btn:hover,
+  .shortcut-btn:focus,
+  .footer-btn:hover,
+  .footer-btn:focus,
+  .primary-btn:hover,
+  .primary-btn:focus,
+  .secondary-btn:hover,
+  .secondary-btn:focus,
+  .login-btn:hover,
+  .login-btn:focus,
+  .toggle-btn:hover,
+  .toggle-btn:focus,
+  .se-more-btn:hover,
+  .se-more-btn:focus,
+  .send-btn:hover,
+  .send-btn:focus,
+  .cancel-btn:hover,
+  .cancel-btn:focus,
+  .header .overlay .login-btn:hover,
+  .header .overlay .login-btn:focus {
+    font-size: 18px;
+  }
+}
+.btn:hover,
+.btn:focus,
+.submit-btn:hover,
+.submit-btn:focus,
+.login-btn:hover,
+.login-btn:focus,
+.action-btn:hover,
+.action-btn:focus,
+.shortcut-btn:hover,
+.shortcut-btn:focus,
+.footer-btn:hover,
+.footer-btn:focus,
+.primary-btn:hover,
+.primary-btn:focus,
+.secondary-btn:hover,
+.secondary-btn:focus,
+.login-btn:hover,
+.login-btn:focus,
+.toggle-btn:hover,
+.toggle-btn:focus,
+.se-more-btn:hover,
+.se-more-btn:focus,
+.send-btn:hover,
+.send-btn:focus,
+.cancel-btn:hover,
+.cancel-btn:focus,
+.header .overlay .login-btn:hover,
+.header .overlay .login-btn:focus {
+  background-color: #004c8b;
+  font-family: 'MuseoSansRounded-700' !important;
+  line-height: 22px;
+  font-size: 18px;
+}
+
+.submit-btn,
+.login-btn,
+.action-btn {
+  background-color: #008a00;
+}
+.submit-btn:hover,
+.login-btn:hover,
+.action-btn:hover,
+.submit-btn:focus,
+.login-btn:focus,
+.action-btn:focus {
+  background-color: #007100;
+  color: #ffffff;
+  border: 0;
+}
+.primary-btn:hover,
+.primary-btn:focus {
+  color: #ffffff;
+  border: 0;
+}
+.secondary-btn {
+  padding: 9px 30px;
+  border-radius: 3px;
+  color: #0075d2 !important;
+  background-color: white;
+  border: solid 2px #d8d8d8 !important;
+}
+.secondary-btn:hover,
+.secondary-btn:focus {
+  border-color: #0075d2 !important;
+  border: solid 2px;
+  background-color: white;
+}
+.login-btn {
+  color: #002776;
+  background-color: white;
+  border: solid 2px #d8d8d8;
+  padding: 7px 20px;
+  font-size: 16px;
+}
+.login-btn:hover,
+.login-btn:focus {
+  border: solid 2px #002776 !important;
+  background-color: white !important;
+  color: #002776 !important;
+}
+
+/*****************************************************************/
+.subcategory-card {
+  border: 2px solid #d8d8d8 !important;
+}
+
+.subcategory-card:hover,
+.subcategory-card:focus,
+.subcategory-card:active {
+  border: 2px solid  #0075d2 !important;
+  box-shadow: 0 2px 2px 0 #EEEEEE;
+  box-shadow: none;
+}

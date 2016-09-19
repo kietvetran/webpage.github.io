@@ -1,0 +1,121 @@
+.table {
+
+	background: inherit;
+	overflow: hidden;
+
+	/* This class (with children) is applied by JS code, for small devices only */
+	> .frozen-wrapper {
+	        
+        position: relative;
+        overflow: hidden;
+        background: inherit;
+
+	    > .scrollable {
+	        
+	        overflow: auto;
+
+	        table {
+		        margin-left: 35%;
+
+		        th:first-child,
+		        td:first-child {
+		        	text-indent: -1000px;
+    				width: 0px;
+    				height: 1px;
+		        }
+		    }
+	    }
+	    
+	    > .pinned {
+
+	        position: absolute;
+	        left: 0;
+	        top: 0;
+	        background: inherit;
+	        width: 35%;
+	        overflow: auto;
+	        
+	    
+		    table {
+		        width: 100%;
+			}
+		    
+	    }
+	    
+	    > .side-shadow {
+	    	box-shadow: 0px 0px 4px 3px rgba(0,0,0,0.2);
+	    }
+
+	    /* Apply to all tables under .frozen-wrapper */
+	    table {
+		    
+		    td, th {
+		        position: relative;
+		        white-space: nowrap;
+		        overflow: hidden;
+		    }
+		}
+	}
+
+	> .table-wrapper {
+
+		overflow: auto;
+
+		table.wrap-td {
+			td {
+				white-space: normal;
+			}
+		}
+
+		table.wrap-th {
+			th {
+				white-space: normal;
+			}
+		}
+	}
+
+	/* Apply to all tables under .table */
+	table {
+
+		border: none;
+		background: inherit;
+		border-top: 1px solid @gray;
+		overflow: auto;
+
+		td, th {
+
+		    padding: 15px 10px;
+		    text-align: left;
+		    border: 0;
+		    border-bottom: 1px solid @gray;
+		    font-family: 'MuseoSansRounded-500';
+		    white-space: nowrap;
+		}
+
+		th {
+			color: @blue-royal;
+			font-family: 'MuseoSansRounded-700';
+		}
+
+		tbody tr:hover {
+			background: @sand-fifty;
+		}
+	}
+}
+
+
+.sticky-table-header {
+	margin: auto;
+	overflow: hidden;
+	max-width: @screen-lg;
+	margin-top: 15px;
+	background: inherit;
+}
+
+.sticky-table-header .sticky-inner {
+	overflow: hidden;
+	max-width: @screen-lg;
+	background: inherit;
+}
+
+

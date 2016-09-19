@@ -1,0 +1,8 @@
+/* line 3, ../../../sass/debug.scss */
+#dbg_size {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: white;
+  color: #000;
+}

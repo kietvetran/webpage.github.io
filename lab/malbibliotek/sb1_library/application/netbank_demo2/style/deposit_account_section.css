@@ -1,0 +1,152 @@
+/******************************************************************************
+=== deposit_account_section ===
+******************************************************************************/
+#deposit_account_section {
+}
+
+#deposit_account_section #landlord_person_phone,
+#deposit_account_section #landlord_person_name {
+	color: #005aa4;
+	font-size: 21px;
+  font-family: "MuseoSansRounded-300";
+}
+
+
+#deposit_account_section #landlord_change_person_data_link {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #0075D2;
+	border-bottom: 1px solid #0075D2;
+	margin-right: 20px;
+	font-family: "MuseoSans-300";
+}
+
+#deposit_account_section .person_profile_data .sb1_form_row.row_odd:after,
+#deposit_account_section .person_profile_data .sb1_form_row.row_even:after {
+	margin-bottom: 0;
+}
+#main #deposit_account_section .person_profile_data {
+	margin-bottom: -30px;
+}
+
+/******************************************************************************
+=== #sb1_accordion_menu ===
+******************************************************************************/
+#deposit_account_section .sb1_accordion_menu {
+	padding-top: 30px;
+}
+#deposit_account_section .sb1_accordion_menu.process_end {
+	margin-top: -30px;
+}
+
+
+#deposit_account_section .sb1_accordion_menu #deposit_tab1,
+#deposit_account_section .sb1_accordion_menu #deposit_tab2,
+#deposit_account_section .sb1_accordion_menu #deposit_tab3 {
+	overflow: hidden;
+  opacity: 1; 
+  filter: alpha(opacity=100);   
+  max-height: 300px;
+
+  -webkit-transition: all .6s ease;                  
+  -moz-transition: all .6s ease;                 
+  -o-transition: all .6s ease;   
+  -ms-transition: all .6s ease;         
+  transition: all .6s ease;
+}
+
+#deposit_account_section .sb1_accordion_menu.process_end #deposit_tab1,
+#deposit_account_section .sb1_accordion_menu.process_end #deposit_tab2,
+#deposit_account_section .sb1_accordion_menu.process_end #deposit_tab3 {
+	max-height: 0;
+  opacity: 0; 
+  filter: alpha(opacity=0);   
+ 	padding: 0;
+ 	margin: 0;
+}
+
+/******************************************************************************
+=== #deposit_tab4 ===
+******************************************************************************/
+#deposit_tab4 {
+	visibility: hidden;
+	height: 1px;
+	overflow: hidden;
+}
+
+#panel4 .deposit_end_message,
+#panel4 .deposit_end_description {
+	overflow: hidden;
+	padding: 20px 0;
+}
+
+#panel4 .deposit_end_message {
+	font-family: "MuseoSans-500";
+	font-size: 18px;
+	padding-left: 35px;
+	background: transparent url("../img/icon/checkmark.svg") no-repeat left center;
+	background-size: 30px auto;
+}
+
+#panel4 .deposit_end_message a,
+#panel4 .deposit_end_description a {
+	border-bottom: 1px solid #0075d2;
+  color: #0075d2;
+	font-family: "MuseoSans-300";
+	display: inline-block;
+}
+
+
+/******************************************************************************
+=== deposit_account_info_wrapper ===
+******************************************************************************/
+#deposit_account_section .deposit_account_info_wrapper {
+	overflow: hidden;
+	list-style: none;
+	padding: 50px 0;
+	margin: 0;
+	visibility: visible;
+	border: 1px solid transparent;
+}
+
+#deposit_account_section .deposit_account_info_wrapper .deposit_account_info_label,
+#deposit_account_section .deposit_account_info_wrapper .deposit_account_info_link_wrapper {
+	overflow: hidden;
+}
+
+#deposit_account_section .deposit_account_info_wrapper .deposit_account_info_label {
+  color: #262626;
+  font-family: "MuseoSansRounded-500";
+  font-size: 18px;
+  font-weight: normal;
+}
+
+#deposit_account_section .deposit_account_info_wrapper .deposit_account_info_link_wrapper {
+	padding-bottom: 30px;
+}
+
+#deposit_account_section .deposit_account_info_wrapper .deposit_account_info_link_wrapper > a {
+	display: inline-block;
+	color: #005aa4;
+	margin-right: 30px;
+	border-bottom: 1px solid #005aa4;
+}
+
+
+/******************************************************************************
+=== ===
+******************************************************************************/
+@media only screen and (max-width: 700px) {
+	#deposit_account_section #landlord_change_person_data_link {
+		margin-right: 20px;
+	}
+
+	#deposit_account_section .person_profile_data .sb1_form_row:first-child {
+		margin-bottom: -40px;
+	}
+
+	#deposit_account_section .sb1_accordion_menu .sb1_accordion_tab .accordion_status > span {
+		top: -5px;
+	}
+}

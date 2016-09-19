@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>1px</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+header, footer {
+  padding: 20px;
+  background: #002776 none repeat 0 0;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  font-family: "MuseoSansRounded-700";
+  font-weight: normal;
+}
+
+footer {
+  margin-top: 700px;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.alternative {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.alternative li {
+  padding: 5px 0;
+}
+
+.sb1_indentation {
+  padding-left: 30px;
+}
+
+.sb1_calender_field_wrapper {
+  position: relative;
+}
+
+.sb1_calender_field_wrapper input {
+  padding-right:  50px;
+  width: 100%;
+}
+
+.sb1_calender_field_wrapper .icon-calendar {
+  position: absolute;
+  right: 0;
+  top: 7px;
+  font-size: 50px;
+}
+
+
+.sb1_dropdown_menu .sb1_dropdown_list_wrapper, .sb1_dropdown_menu .sb1_dropdown_list,
+.sb1_dropdown_menu button, .sb1_dropdown_menu .sb1_dropdown_btn,
+.sb1-input-radio + label.sb1_button,
+textarea, input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]):not([type="reset"]) {
+  border-width: 1px;
+}
+
+.sb1-input-radio:checked + label.force2:before,
+.sb1-input-radio + label.force2:before,
+.sb1-input-checkbox:checked + label.force,
+.sb1-input-checkbox + label.force,
+.sb1-input-radio:checked + label.force,
+.sb1-input-radio + label.force {
+  background: transparent none no-repeat 0 0 !important;
+}
+
+.sb1-input-radio + label.force2 > span:after,
+.sb1-input-checkbox + label.force > span:before,
+.sb1-input-radio + label.force > span:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #adadad;
+}
+
+.sb1-input-checkbox + label.force > span:before {
+  border-radius: 4px;
+}
+
+.sb1-input-checkbox + label:hover.force > span:before,
+.sb1-input-checkbox:checked + label.force > span:before {
+  border-color: #028b03;
+}
+
+.sb1-input-radio + label.force2 > span:after,
+.sb1-input-radio + label.force > span:before {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+}
+
+.sb1-input-radio + label.force2:hover > span:after,
+.sb1-input-radio + label.force:hover > span:before,
+.sb1-input-radio:checked + label.force > span:before {
+  border-color: #008ED2;  
+}
+
+.sb1-input-radio + label.force2 > span:after {
+  width: 20px;
+  height: 20px;
+  top: 18px;
+  left: 8px;
+}
+
+.sb1-input-radio:checked + label.force2 > span:after {
+  border: 3px solid #fff;
+  background-color: #005aa4;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0 2px;
+}
+</style>
+<script type="text/javascript" src="./account.js"></script>
+<script type="text/javascript" src="./country.js"></script>
+
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+<script type="text/javascript" src="./js/sb1_calendar.js"></script>
+<script>
+  //$('#application').SB1formValidation({});
+
+function startup() {
+  $('#application').SB1formValidation({});
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      var menu = $(d);
+      if ( menu.hasClass('country_list') ) {
+        menu.SB1dropdownMenu({
+          'viewCount': 5,
+          'searchField' : true,
+          'list' : COUNTRY
+        });
+      } 
+      else if ( menu.hasClass('account_list') ) {
+        menu.SB1dropdownMenu({
+          'viewCount': 5,
+          'searchField' : true,
+          'type' : 'account',
+          'expander' : 'horizontal',
+          //'expander' : 'vertical',
+          //'multiple' : true
+          'list' : ACCOUNT,
+          'multipleLabel' : menu.hasClass('multiple_selection') ? {
+              'all'  : 'All kontoer ('+ACCOUNT.length+')',
+              'of'   : 'av',
+              'unit' : 'konto',
+              'units': 'kontoer'
+            } : null
+        });     
+      }
+      else { menu.SB1dropdownMenu({}); }
+    });
+
+    var ic = node.find('input.date_calendar_field');
+    if ( ic.size() ) {  
+      if ( ic.hasClass('maturity') ) {
+        var SCholder = node.parent().find('.shortcut_holder');
+        node.SB1calendar({
+          'min'           : 'today',
+          //'max'           : (new Date(2015,5,17,0,0,0,0)).getTime(),
+          'controller'    : ic,
+          'shortcutWrapper' : SCholder.size() ? SCholder : null,
+          //'shortcut'      : ['month','month+1','month+3'], 
+          //'shortcut'      : ['day+30','day+60','day+90'],
+          //'shortcut'      : ['day+30','month','month+1'],
+          'shortcut'      : ['month','MONTH+1',{'type':'all_maturity_shortcut_btn','label':'Alle'}],
+          'shortcutSelectedIndex' : 0,
+          'bfClickOnShortcutCallback' : bfClickOnShortcutCallback       
+        });
+      }
+      else {
+        
+        node.SB1calendar({
+          'min'           : (new Date()).getTime(),
+          'display_table' : 1,
+          'controller'    : ic.eq(0)
+        });
+      }
+    }
+  });
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<header>SpareBank&nbsp;1</header>
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+
+      <form id="application" method="post" action="" novalidate>
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <a aria-controls="purchase_information" href="#" class="sb1_info_btn" role="button">
+                Informasjon om Kjøpesum
+              </a>
+              <label data-shortname="" for="purchase">Kjøpesum</label>
+            </div>
+          </div>          
+          <div id="purchase_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+            <div class="content_holder">
+              <div class="text_holder">
+                Primærrom er rom du oppholder deg i. For eksempel stue, 
+                kjøkken, bad, soverom, entree. Primærrom het tidligere 
+                boligareal (BOA). Er du usikker på hvor stort primærrommet 
+                er så finner du dette i husets takstrapport/salgsprospekt.
+              </div>
+            </div>
+          </div>
+          <div class="sb1_row_content sb1_input_wrapper">
+            <div class="input_unit_wrapper">
+              <input id="purchase" class="display_accordion_summary" name="purchase" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kr" value="300 000">
+              <span class="input_unit">kr</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label data-shortname="" for="name">Navn</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input id="name" class="display_accordion_summary" name="purchase" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="">
+          </div>
+        </div>
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label data-shortname="" for="name">Forfallsdato</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <div class="sb1_calender_field_wrapper">
+              <input type="text" class="date_calendar_field" data-rule="date parent_target[.sb1_calender_field_parent]" autocomplete="off" spellcheck="false" required="" name="maturity_date_from" id="maturity_date_from" aria-required="true">
+              <span class="icon-calendar"></span>
+            </div>        
+          </div>
+        </div>
+
+        <div class="sb1_form_row">
+          <fieldset>
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <a aria-controls="sb1_house_insurance" href="#" class="sb1_info_btn" role="button">
+                  Informajson om bolig forsikring i SpareBank&nbsp;1
+                </a>
+                <legend id="change_house_insurance_company_label">
+                  <span>Ønsker du å forsikre boligen din i SpareBank&nbsp;1?</span> 
+                  <span class="help_text">Valgfritt</span>
+                </legend>
+              </div>
+            </div>          
+            <div id="sb1_house_insurance" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                  et tortor quis sem tempus accumsan eu vitae mi.
+                </div>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="yes_change_house_insurance_company" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_CHIC_tip]" required>
+              <label class="sb1_button force2" id="yes_change_house_insurance_company_label" for="yes_change_house_insurance_company"><span>Ja</span></label>        
+              <input type="radio" class="sb1-input-radio" name="change_house_insurance_company" id="no_change_house_insurance_company" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+              <label class="sb1_button force2" id="no_change_house_insurance_company_label" for="no_change_house_insurance_company"><span>Nei</span></label>
+              <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="change_house_insurance_company" id="later_change_house_insurance_company" value="later" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#later_CHIC_tip]" required>
+              <label class="sb1_button force2" id="later_change_house_insurance_company_label" for="later_change_house_insurance_company"><span>Senere</span></label>
+
+              <div id="yes_CHIC_tip" class="tip-wrapper sb1_hide">
+                <div class="tip-content">
+                  Takk! Du vil få mulighet til å bestille Husforsikring etter at du er ferdig med det du holder på men nå.
+                </div>
+              </div>
+
+              <div id="later_CHIC_tip" class="tip-wrapper sb1_hide">
+                <div class="tip-content">
+                  Takk! Vi har lagt produktet til i din huskeliste slik at du kan bestille det senere.
+                </div>
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+        
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <a aria-controls="marital_status" href="#" class="sb1_info_btn" role="button">
+                Informasjon om sivilstatus
+              </a>
+              <label id="marital_status_label">Sivilstatus</label>
+            </div>
+          </div>          
+          <div id="marital_status" class="sb1_info_wrapper" role="region" aria-expanded="false">
+            <div class="content_holder">
+              <div class="text_holder">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                et tortor quis sem tempus accumsan eu vitae mi.
+              </div>
+            </div>
+          </div>  
+          <div class="sb1_row_content sb1_input_wrapper">
+            <div class="sb1_dropdown_menu">
+              <a role="button" aria-controls="marital_status_list" href="#" class="sb1_dropdown_btn">Velg</a>
+              <input type="hidden" id="marital_status_input" name="marital_status" aria-hidden="true" required data-rule="parent_target[.sb1_input_wrapper]"> 
+              <ul role="listbox" id="marital_status_list" aria-expanded="false" class="sb1_dropdown_list">
+                <li data-value="" role="option" class="sb1_dropdown_option selected hide">Velg</li>                    
+                <li class="sb1_dropdown_option" role="option">Ugift</li>
+                <li class="sb1_dropdown_option" role="option">Gift</li>
+                <li class="sb1_dropdown_option" role="option">Enke / enkemann</li>
+                <li class="sb1_dropdown_option" role="option">Samboer</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label >Velg et land</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <div class="sb1_dropdown_menu _stay_open country_list">
+              <a role="button" aria-controls="country_list" href="#" class="sb1_dropdown_btn"></a>
+              <input type="hidden" name="country" aria-hidden="true" required>
+            </div>            
+          </div>
+        </div>        
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label>Velg et konto</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <div class="sb1_dropdown_menu _stay_open account_list">
+              <a role="button" aria-controls="country_list" href="#" class="sb1_dropdown_btn"></a>
+              <input type="hidden" name="country" aria-hidden="true" required>
+            </div>            
+          </div>
+        </div>
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label>Kommentar</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <textarea></textarea>            
+          </div>
+        </div>  
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label>Skjønn</label>
+            </div>
+          </div>          
+          <div class="sb1_row_content sb1_input_wrapper">
+            <input type="radio" class="sb1-input-radio" data-rule="parent_target[.sb1_input_wrapper]" name="sex" id="radioMale" required>
+            <label class="sb1-input-radio-label" for="radioMale"><span>Menn</span></label>            
+            <input type="radio" class="sb1-input-radio" data-rule="parent_target[.sb1_input_wrapper]" name="sex" id="radioFemale" required>
+            <label class="sb1-input-radio-label force" for="radioFemale"><span>Kvinne</span></label>
+          </div>
+        </div> 
+
+
+        <div class="sb1_form_row">
+          <div class="sb1_row_content sb1_label_wrapper">
+            <div class="content_holder">
+              <label data-shortname="">Hvilke banktjenester vil du bruke?</label>
+            </div>
+          </div>   
+          <div class="sb1_row_content sb1_input_wrapper">
+            <ul class="alternative">
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-bank_account" name="sb1-service1" value="bank_account" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-bank_account_label" checked="true">
+                <label class="sb1-input-checkbox-label force" for="csb1-bank_account" id="csb1-bank_account_label">
+                  <span>Bankkonto</span>
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-mobile_bank" name="sb1-service2" value="mobile_bank" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-mobile_bank_label">
+                <label class="sb1-input-checkbox-label force" for="csb1-mobile_bank" id="csb1-mobile_bank_label">
+                  <span>Mobilbank</span>
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-fund" name="sb1-service3" value="fund" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-fund_label">
+                <label class="sb1-input-checkbox-label force" for="csb1-fund" id="csb1-fund_label">
+                  <span>Fond</span>
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-shares" name="sb1-service4" value="shares" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-shares_label">
+                <label class="sb1-input-checkbox-label force" for="csb1-shares" id="csb1-shares_label">
+                  <span>Handle i aksjer</span>
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-deposit" name="sb1-service5" value="deposit" data-rule="parent_target[.alternative]" aria-labelledby="alternative_lead_2 csb1-deposit_label">
+                <label class="sb1-input-checkbox-label force" for="csb1-deposit" id="csb1-deposit_label">
+                  <span>Kontantinnskudd</span>
+                </label>
+              </li>   
+              <li>
+                <input type="checkbox" class="sb1-input-checkbox" id="csb1-pay_from_or_to_aboard" name="sb1-service6" value="pay_from_or_to_aboard" data-rule="parent_target[.alternative] tabpanel_target[#abroad_amount]" aria-labelledby="alternative_lead_2 csb1-pay_from_or_to_aboard_label">
+                <label class="sb1-input-checkbox-label force" for="csb1-pay_from_or_to_aboard" id="csb1-pay_from_or_to_aboard_label">
+                  <span>Betaling til/fra utlandet</span>
+                </label>
+
+                <div id="abroad_amount" class="alternative_collection sb1_hide sb1_indentation">
+                  <div>
+                    <input type="radio" class="sb1-input-radio" name="amount_size" id="amount_size_low" data-rule="parent_target[.alternative_collection] depending_on_target[#csb1-pay_from_or_to_aboard]" required aria-labelledby="csb1-pay_from_or_to_aboard_label amount_size_to_PR" value="low">
+                    <label class="sb1-input-radio-label" id="amount_size_to_PR" for="amount_size_low">
+                      <span>Mindre beløp</span>
+                    </label> 
+                  </div>
+                  <div>
+                    <input type="radio" class="sb1-input-radio" name="amount_size" id="amount_size_high" data-rule="parent_target[.alternative_collection] depending_on_target[#csb1-pay_from_or_to_aboard] tabpanel_target[#abroad_amount_field]" required aria-labelledby="csb1-pay_from_or_to_aboard_label send_amail_to_aa" value="high">
+                    <label class="sb1-input-radio-label" id="send_amail_to_aa" for="amount_size_high">
+                      <span>over 100&nbsp;000 NOK&nbsp;/&nbsp;år</span>
+                    </label>  
+                  </div>                    
+                  <div id="abroad_amount_field" class="alternative_collection _sb1_indentation sb1_hide">
+                    <label class="sb1-input-checkbox-label force" for="csb1-deposit" id="csb1-deposit_label">
+                      <span>Hvilke land er det aktuelt å betale til&nbsp;/&nbsp;motta fra?</span>
+                    </label>
+                    <input id="abroad_amount_textfield" class="sb1_input_textfield large" name="abroad_amount_textfield" type="tel" spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper] depending_on_target[#amount_size_high]">
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+
+</body>
+</html>

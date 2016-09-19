@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+<style>
+main {
+  display: block;
+  max-width: 1280px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.remember_list_empty {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  display: none;
+}
+
+.no_list .remember_list_empty {
+  display: block;
+}
+
+.no_list .sb1_remember_card_wrapper {
+  display: none;
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_remember_card.js"></script>
+
+<script>
+function startup() {
+  var opt = getURLoption(), body = $('body');
+  if ( opt['agreement']=='0' ) body.addClass('no_list');
+
+  var size = $( '.sb1_remember_card').each( function(i,d){
+    $(d).SB1rememberCard({
+      'continueCallback' : function() {
+        window.location.href = './saving_account.html';
+      },
+      'discardCallback' : function() {
+        setTimeout( function() {
+          body.addClass('no_list');
+        }, 100 );
+      }
+    });
+  }).size();
+
+  $('.sb1_remember_card_wrapper').addClass( 'count_'+size +(size>3? ' is_many' : '') );
+}
+
+function getURLoption() {
+  var opts    = {}, url =  window.location.href; 
+  //var matched = url.replace(/\?+/g,"?").match( /^([\w\.\-\s\_\#\%\/\:]+)\?(.*)/ );
+  var matched = url.replace(/\#+/g,'#').match( /^([\w\.\-\s\_\%\/\:]+)\#(.*)/ )
+    || url.replace(/\?+/g,"?").match( /^([\w\.\-\s\_\#\%\/\:]+)\?(.*)/ );
+
+  if (  matched ) { 
+    opts.pathname = matched[1];
+    var splited = (decodeURIComponent(matched[2]) || "")
+      .replace( /\#\?/g,"&" ).split("&");
+    for ( var i=0; i<splited.length; i++ ) {
+      var m = splited[i].match( /(\w+)\=(.*)/ );
+      if ( m ) opts[m[1]] = m[2].replace( /\#$/, "" );  
+    }
+  }
+  return opts;
+}
+
+</script>
+
+</head> 
+<body onload="javascript:startup()">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main style="overflow:hidden; min-height: 900px;">
+  <h1 style="text-align:center;padding:100px 0 0 0">Kvitteringsside</h1>
+
+  <div class="tip-wrapper center">
+    <div class="icon-wrapper">
+      <div class="icon-circle">
+        <picture>
+          <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+        </picture>
+      </div>
+    </div>
+    <div class="tip-content">
+      <h2>Bestilling</h2>
+      <p class="lead" style="text-align:left">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum sapien, facilisis venenatis urna sit amet, ultricies dapibus diam. Mauris feugiat, neque vitae bibendum pharetra, dui turpis bibendum sapien, elementum sodales est enim eget lorem. Proin justo ante, ullamcorper et elit nec, fermentum ornare nisi.
+      </p>
+    </div>
+  </div>
+
+  <h2 style="text-align:center;padding:100px 0 0 0">Min Huskeliste</h2>
+  <div class="remember_list_empty">Huskelisten er tomt for øyeblikk</div>
+  <ul class="sb1_remember_card_wrapper">
+    <li>
+      <article class="sb1_remember_card">
+        <div class="card_content">     
+          <h2>Opprett spareavtale</h2>
+          <p class="lead">Kr 2 550 000,- til 3,2% rent</p>
+          <div class="expire_date">
+            <span class="label">Gjelder til:</span> 
+            <span class="date"><i class="day">DD</i><i class="month">.MM</i><i class="year">.YYYY</i></span> 
+          </div>         
+          <div class="toggle_wrapper">
+            <a href="#" class="toggle_expander" aria-controls="a_information" role="button"></a>
+          </div>          
+        </div>
+        <div class="card_content" id="a_information" role="region">
+          <div class="note_description">
+            <div class="sb1_step_counter">
+              <!--<h3>Klar for signering</h3>-->
+              <div class="sb1_progress">    
+                <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:65%">
+                  <span class="sr">Steg 3 av 7</span>
+                </div>                
+              </div>
+              <div class="sb1_progress_description">Klar for signering</div>
+            </div>
+            <ul class="tool_wrapper">
+              <li>
+                <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+              </li>
+              <li>
+                <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+              </li>
+            </ul>
+          </div>    
+        </div>
+      </article>      
+    </li>
+  </ul>
+</main>
+<!--<footer>Footer</footer>-->
+
+</body>
+</html>

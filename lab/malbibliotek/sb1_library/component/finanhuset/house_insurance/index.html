@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 - house insurance</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+
+<style>
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+.info_wrapper {
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #f0ead7;
+}
+
+.monthly_price {
+  font-family: "MuseoSansRounded-700";
+  font-size: 25px;
+  margin-top: 15px;
+}
+
+.info_wrapper h2,
+.info_wrapper h3,
+.info_wrapper h4 {
+  text-align: center;
+}
+
+.summary_overview h3 {
+  text-align: left;
+  margin: 30px 0 15px 0;
+}
+.summary_overview h3:first-child {
+  margin-top: 0;
+}
+
+.summary_overview .sb1_list_overview {
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 60px;
+  -webkit-transition: height .6s ease .1s;
+  -moz-transition: height .6s ease .1s;
+  -o-transition: height .6s ease .1s;
+  -ms-transition: height .6s ease .1s;
+  transition: height .6s ease .1s;    
+}
+
+.summary_overview .sb1_list_overview .sb1_list_expander {
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  left : 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+} 
+
+.summary_overview .sb1_list_overview.expanded .sb1_list_expander .sb1_expander_btn > *:first-child,
+.summary_overview .sb1_list_overview .sb1_list_expander .sb1_expander_btn > * {
+  display: none;
+}
+
+.summary_overview .sb1_list_overview.expanded .sb1_list_expander .sb1_expander_btn > *,
+.summary_overview .sb1_list_overview .sb1_list_expander .sb1_expander_btn > *:first-child {
+  display: inline;
+}
+
+.summary_overview .sb1_list_item {
+  background-color: #fff;
+  margin: 10px 0 0 0;
+  padding: 20px;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.summary_overview .sb1_list_item.empty,
+.summary_overview .sb1_list_item.hide {
+  display: none;
+}
+
+.summary_overview .sb1_list_item > h3,
+.summary_overview .sb1_list_item > h4 {
+  text-align: left !important;
+}
+
+.summary_overview .sb1_list_item > div {
+  margin-top: 20px;
+  position: relative;
+  font-family: "MuseoSansRounded-700";
+  font-size: 20px;
+  padding-right: 50px;
+  color: #008ed2;
+}
+
+.summary_overview .sb1_list_item > div a {
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  font-family: "MuseoSansRounded-300";
+}
+
+.summary_overview .sb1_list_item:first-child {
+  margin-top: 0;
+}
+
+#my_loan_overview {
+  width: 100
+}
+
+.finished .form_header .main-lead,
+.finished .form_header ul,
+.finished form {
+  display: none;
+}
+
+.finished footer {
+  margin-top: 500px;
+}
+
+.finished .form_header {
+  position: relative;
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 100;
+  background: 
+}
+
+#loading:before {
+  content: " ";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -10px;
+  right: -10px;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+#loading > div {
+  position: relative;
+  z-index: 10;
+  padding: 40px 20px;
+}
+
+input[maxlength="2"] {
+  max-width: 100px !important;
+}
+
+input[maxlength="4"] {
+  max-width: 200px !important;
+  max-width: 200px !important;
+}
+
+.discard_saved,
+.sb1_form_row .sb1_row_content > .continue_later {
+  float: right;
+  margin-top: 10px;
+}
+
+.discard_saved {
+  margin-top: -42px;
+}
+
+.discard_saved,
+.change_item,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #0083D2;
+}
+
+.discard_saved:hover,
+.change_item:hover,
+.sb1_form_row .sb1_row_content > .continue_later {
+  color: #005AA4;
+}
+
+
+#person_id_required_wrapper .tip-content .discard_saved,
+#person_id_required_wrapper .tip-content .getting,
+#person_id_required_wrapper .tip-content .saving {
+  display: none;
+}
+
+#person_id_required_wrapper {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height .6s ease .1s;
+  -moz-transition: max-height .6s ease .1s;
+  -o-transition: max-height .6s ease .1s;
+  -ms-transition: max-height .6s ease .1s;
+  transition: max-height .6s ease .1s;    
+}
+
+.no_animation #person_id_required_wrapper {
+  display: none;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper,
+.need_personnumber_for_getting #person_id_required_wrapper {
+  max-height: 500px;
+}
+
+.need_personnumber_for_saving #person_id_required_wrapper .saving,
+.need_personnumber_for_getting #person_id_required_wrapper .getting {
+  display: block !important;
+}
+
+#person_id_required_wrapper input,
+#person_id_required_wrapper button {
+  margin-top: 15px;
+}
+
+.error_message {
+  color: #da3d00;
+  line-height: 22px;
+}
+
+
+/******************************************************************************
+=== form_end ===
+******************************************************************************/
+.content_house_insurance, .content_memory, .form_end, #iframe_wrapper,
+.finished.signature .form_end {
+  display: none;
+}
+
+
+.form_end .content_wrapper {
+  list-style: none;
+  text-align: center;
+}
+
+.form_end .content_wrapper > li {
+  margin-top: 40px;
+}
+
+.form_end .sb1_remember_card_wrapper {
+  margin-top: 40px;
+  display: none;
+}
+
+.finished.signature #iframe_wrapper,
+.display_house_insurance_link .content_house_insurance,
+.display_memory_card .content_memory,
+.finished .form_end {
+  display: block;
+}
+
+
+/******************************************************************************
+=== postnumber_label ===
+******************************************************************************/
+.postnumber_label {
+  display: inline-block;
+  width: 85px;
+  position: relative;
+}
+
+.postnumber_label span:first-child {
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
+
+/******************************************************************************
+=== insurance_offer_panel ===
+******************************************************************************/
+.insurance_offer_panel.sb1_active {
+  max-height: 2000px !important;
+  border: 1px solid #ccc;
+}
+
+.insurance_offer_panel {
+  overflow: hidden;
+  background: #F8F5EB none repeat 0 0;
+  display: block;
+  clear: both;
+  width: 100%;
+}
+
+.insurance_offer_panel .content {
+  padding: 30px;
+}
+
+.insurance_offer_panel ul {
+  list-style: none;
+  clear: both;
+  overflow: hidden;
+}
+
+.insurance_offer_panel .lead {
+  padding-left: 0;
+  margin: 0;
+  color: #333;
+}
+.insurance_offer_panel h3,
+.insurance_offer_panel h4 {
+  text-align: left;
+}
+
+.insurance_offer_panel h4 {
+  padding: 20px 0 20px 0;
+  border-top: 2px solid #ccc;
+}
+
+/* price view */
+.insurance_offer_panel .price_view {
+  margin: 20px 0;  
+}
+
+.insurance_offer_panel .price_view > li {
+  float: left;
+  margin-right: 10px;
+}
+
+.insurance_offer_panel .price_view > li:before {
+  content: "/";
+  display: inline-block;
+  padding: 0 10px 0 0;
+}
+
+.insurance_offer_panel .price_view > li:first-child:before {
+  display: none;
+}
+
+.insurance_offer_panel .price_view > li > span {
+  color: #999;
+}
+
+.insurance_offer_panel .price_view > li > span:first-child {
+  font-size: 27px;
+  color: #002776;
+  font-weight: bold;
+}
+
+/* sb1_checked_list */
+.insurance_offer_panel .sb1_unchecked_list,
+.insurance_offer_panel .sb1_checked_list {
+  padding: 0 0 20px 0;
+}
+
+.insurance_offer_panel .sb1_unchecked_list > li,
+.insurance_offer_panel .sb1_checked_list > li {
+  padding: 5px 0 5px 30px;
+}
+
+.insurance_offer_panel .sb1_unchecked_list > li:before,
+.insurance_offer_panel .sb1_checked_list > li:before {
+  display: inline-block;
+  content: " ";
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 3px 0 0 -30px;
+}
+
+.insurance_offer_panel .sb1_unchecked_list > li:before {
+  background: transparent url("./images/sb1_cross.svg") no-repeat scroll center center;
+  background-size: 10px auto;
+}
+
+.insurance_offer_panel .sb1_checked_list > li:before {
+  background: transparent url("./images/sb1_checkmark.svg") no-repeat scroll center center;
+  background-size: 25px auto;
+}
+
+
+/******************************************************************************
+=== #yes_contents_insurance_sub ===
+******************************************************************************/
+#yes_contents_insurance_sub {
+
+}
+
+#yes_contents_insurance_sub .contents_insurance_price {
+  padding: 10px 0;
+}
+
+#yes_contents_insurance_sub .contents_insurance_price .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #002776;
+}
+
+
+/******************************************************************************
+=== spinner ===
+******************************************************************************/
+.sb1_spinner {
+  margin: 0 auto;
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  font-size: 10px;
+  display: block;
+}
+
+.sb1_spinner > * {
+  background-color: #0075d2;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  padding: 0;
+  margin: 0 1px;
+  -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+  animation: sk-waveStretchDelay 1.2s infinite ease-in-out; 
+}
+
+.sb1_spinner .spinner_rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s; 
+}
+
+.sb1_spinner .spinner_rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s; 
+}
+
+.sb1_spinner .spinner_rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s; 
+}
+
+.sb1_spinner .spinner_rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s; 
+}
+
+@-webkit-keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+@keyframes sk-waveStretchDelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4); }
+
+  20% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1); } 
+}
+
+
+@media only screen and (max-width: 700px) { 
+  .summary_overview ul li > div {
+    font-size: 15px;
+  }
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  .discard_saved {
+    width: 100px;
+    line-height: 24px;
+    margin-top: -50px;
+  }
+  /*
+  .finished footer {
+    margin-top: 100px;
+  }
+  */
+}
+
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_radio_yes_no_button.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_accordion_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+
+<script>
+  //$('#application').SB1formValidation({});
+
+function startup() {
+  //eraseCookie( 'sb1_mortgage' );
+  $('#pIdF').SB1formValidation({}); 
+  $('#pId').prop('value','');
+  //setTimeout( function() {
+    var accordion = $('.sb1_accordion_menu').SB1accordionMenu({
+      'wizard' : true,
+      'appending' : true,
+      'fixed'     : $('header'), 
+      'nextClickCallback' : function(e) {
+        var btn = $(e.currentTarget);
+        if ( ! btn.hasClass('action-btn') ) return;
+        $('#person_id_required_wrapper').animate({ 'height': '0' },500, function(){
+          eraseCookie( 'sb1_mortgage' );
+          //_displaySpinner( null, 1200 );
+          _displayBankId();
+        });
+      },
+      'validation' : {
+        'language' : 'nb',
+        'changeCallback' : function (e) {
+          var input = $(e.currentTarget), name = input.attr('name'), value = input.val();
+          if ( name == 'contents_insurance' ) {
+            toggleRememberCard( value=='later' ? 2 : (
+              value=='yes' ? 1 : 0
+            ) );            
+          }
+        } 
+      }
+    }); 
+
+    
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('sb1_expander_btn') || parent.hasClass('sb1_expander_btn') ) {
+        e.preventDefault();
+        togglerListExpanding(  parent.hasClass('sb1_expander_btn') ? parent : target );
+      }
+      else if ( target.hasClass('change_item') ) {
+        e.preventDefault();
+        var input = $( '#'+target.attr('data-rule') );
+        if ( ! input.size() ) return
+
+        var panel = input.closest('.sb1_accordion_panel');
+        var allP  = accordion.SB1accordionMenu.getPanel();
+        var allT  = accordion.SB1accordionMenu.getTab();
+        var index = allP.index( panel );
+        if ( index < 0 ) return;
+
+        var last  = accordion.SB1accordionMenu.getIndexLastPassedTab()+1;
+        var top = allT.eq(0).offset().top-10;
+        $('html, body').animate({ 'scrollTop': top+'px' }, 300, function(){
+          accordion.SB1accordionMenu.updateTabPanelMode( function(source) {
+            if ( ! source ) source = {};
+            var id = input.attr('id'), label = $('label[for="'+id+'"]');
+            top = label.size() ? label.offset().top : input.offset().top;
+            setTimeout( function() {
+              $('html, body').animate({ 'scrollTop': (top-15)+'px' }, 300, function(){
+                input.focus();
+              });
+            }, source['duration'] || 300 );
+          }, 100, index, last );          
+        });
+        //accordion.SB1accordionMenu.updateTabPanelMode( function() {
+        //}, 600, index, last );
+      }
+      else if ( target.hasClass('continue_later') || target.hasClass('saving_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          _continueLater();
+        }, 100 );
+      }
+      else if ( target.hasClass('get_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          var input = $('#pId');
+          if ( ! input.hasClass('sb1_form_validation_has_error') )
+            _getContinue( input.prop('value') || '' );        
+        }, 100 );
+      }
+      else if ( target.hasClass('discard_saved') ) {
+        e.preventDefault();
+        _discardSaved();
+      }
+    });
+    
+  //}, 500 );
+  //*/
+  
+  _getContinue( null, true );
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    //node.find('.sb1_input_wrapper').SB1radioYesNoButton({});
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+
+
+  var later = $('#later_contents_insurance');
+  var yes   = $('#yes_contents_insurance');
+  toggleRememberCard( later.prop('checked') ? 2 : (yes.prop('checked') ? 1 : 0) );
+
+  var body = $('body').on('click', function() {
+    if ( ! body.hasClass('bankIDdone') ) return;
+    _displayAfterBankId();
+  });
+};
+
+function _displayAfterBankId() {
+  var body = $('body').removeClass('signature'), saved = readCookie('h_c_i');
+  if ( saved=='1' ) {
+    body.removeClass('display_memory_card');
+    body.addClass('display_house_insurance_link');
+  }
+  else if ( saved=='2' ) {
+    window.location.href = "./remember.html";
+  }
+  else {
+    body.removeClass('display_memory_card');
+    body.removeClass('display_house_insurance_link');
+  }
+}
+
+function _displayBankId() {
+  $('body').addClass('finished signature');
+  var wrapper = $('#iframe_wrapper')
+    .html('<iframe frameborder="0" id="bid_client" src="./bidPDF/bid.html"></iframe>');
+  var top = wrapper.offset().top-60;
+  $('html, body').animate({'scrollTop': top+'px' }, 50, function() {});
+}
+
+function getDuration( node ) {
+  var v = node && node.size() ? 
+    (node.css('transition-duration') || 0) : 0;
+  if ( v ) v = parseFloat( v ) * 1000;
+  return isNaN(v) ? 0 : v;
+};
+
+function toggleRememberCard( value ) {
+  value ? createCookie('h_c_i',value+'',1) : eraseCookie('h_c_i');
+}
+
+function togglerListExpanding( node ) {
+  var wrapper = node.closest('.sb1_list_overview');
+  if ( ! wrapper.size() ) return;
+  var mode   = 'expanded', has = wrapper.hasClass( mode );
+
+  var style  = 'position:absolute;z-index:-1;visibility:hidden;height:auto;display:block';
+  var cloned = wrapper.clone().removeAttr('id').attr('style',style).appendTo( wrapper.parent() );
+  has ? cloned.children().filter('._hide').addClass('hide').removeClass('_hide') :
+    cloned.children().filter('.hide').removeClass('hide').addClass('_hide');
+
+  var duration = getDuration( wrapper ) + 10;
+  var scrolled = getScrollPosition(), wSize = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+wSize[1]];
+  var data = [wrapper.prop('offsetHeight'), cloned.prop('offsetHeight')];
+
+  cloned.remove();
+  var render = function() {
+    setTimeout( function() {
+      wrapper.attr('style','height:'+data[1]+'px');
+      setTimeout( function() { 
+        wrapper.removeAttr('style');
+        if ( has ) {
+          wrapper.children().filter('._hide').addClass('hide').removeClass('_hide');
+          wrapper.removeClass( mode );
+        } else { wrapper.addClass( mode ); }
+      }, duration );
+    }, 20 );
+  };
+  wrapper.attr('style','height:'+data[0]+'px');
+  if ( has ) {
+    var l = wrapper.children().filter('.sb1_list_item').not('._hide').last().addClass('kietvetran');
+    var top = l.offset().top + l.prop('offsetHeight')-30;
+    data[1] -= parseFloat( l.css('margin-top') );
+    if ( top < view[0] ) {
+      $('html, body').animate({'scrollTop': top+'px' }, 500, function() {
+        render();
+      });
+    } else { render();}
+  }
+  else {
+    var f = wrapper.children().filter('.hide').removeClass('hide').addClass('_hide').eq(0);
+    if ( ! f.size() ) return;
+    var t = f.offset().top, h = data[1]-data[0];
+    if ( (view[1]-t)<h ) data[1] = data[0] + (view[1]-t);
+    render();
+  }
+};
+
+function _discardSaved() {
+  eraseCookie( 'sb1_mortgage' );
+  var wrapper = $('#person_id_required_wrapper').animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _getContinue( pId, startup ) { 
+  var key = 'sb1_mortgage', text = readCookie(key);
+  if ( ! text )
+    return $('body').removeClass('need_personnumber_for_getting');
+  if ( ! pId )
+    return $('body').addClass('need_personnumber_for_getting');
+
+  var wrapper = $('#person_id_required_wrapper'), data = JSON.parse( text );
+  if ( data['_p'] != (pId+'').replace(/\s+/g,'') ) {
+    wrapper.find( '.sb1_form_validation_error' ).remove();
+    return $('<div class="sb1_form_validation_error">Personnumer er ikke samme som det var lagret.</div>')
+      .insertAfter( wrapper.find('input') );
+  }
+
+  for ( var k in data ) {
+    $('input[name="'+k+'"]').each( function(i,dom) {
+      var input = $(dom), type = input.attr('type') || 'text';
+      if ( type.match(/radio|checkbox/) ) {
+        var v = input.prop('value') == data[k];
+
+        //debug('K: '+k +' I:'+input.prop('value') + ' D:'+data[k]);
+        input.prop('checked', v);
+        if ( v ) input.click();
+      } else { input.val( data[k] ); }
+    });
+  }
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+
+}
+
+function _continueLater() {
+  var key = 'sb1_house_insurance', wrapper = $('#person_id_required_wrapper');
+  var aInput = $('#personnumber'), bInput = $('#pId');
+  if ( bInput.hasClass('sb1_form_validation_has_error') || aInput.hasClass('sb1_form_validation_has_error') )
+    return;
+
+  var pId = aInput.prop('value') || bInput.prop('value'), data = {};
+  wrapper.find( '.sb1_form_validation_error' ).remove();
+
+  if ( ! pId ) {
+    return _scrollPersonIdRequiredWrapperIntoView( function() {
+      $('body').addClass('need_personnumber_for_saving')
+        .removeClass( 'need_personnumber_for_getting');
+    });
+  }
+
+  $('#application input').each( function(i,dom){
+    var name = dom.name || '', value = dom.value || '', type = dom.type || 'text';
+    if ( ! name || ! value || (type.match(/radio|checkbox/i) && ! dom.checked) )
+      return;
+    data[name] = value;
+  });
+  data['personnumber'] = pId;
+  data['_p'] = (pId+'').replace(/\s+/g,'');
+  eraseCookie( key );
+  createCookie( key, JSON.stringify(data), 360 );
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').addClass('no_animation').removeClass('need_personnumber_for_saving')
+      .removeClass( 'need_personnumber_for_getting');
+
+    _displayBankId();
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _scrollPersonIdRequiredWrapperIntoView( callback ) {
+  var wrapper = $('#person_id_required_wrapper').attr('style','max-height;1px'); 
+  var top = wrapper.offset().top-10;
+  wrapper.removeAttr('style');
+
+  var scrolled = getScrollPosition(), size = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+size[1]];
+  if ( top>=view[0] && top<=view[1] )
+    return typeof(callback) == 'function' ? callback() : null;
+  $('html, body').animate({'scrollTop': top+'px' }, 500, callback );
+}
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function eraseCookie( name ) { 
+  return createCookie( name, '', -1 ); 
+}
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset != 'undefined')
+    return [ window.pageXOffset, window.pageYOffset ];
+
+  if (
+    typeof document.documentElement.scrollTop != 'undefined' && 
+    document.documentElement.scrollTop > 0
+  ) { 
+    return [ 
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop != 'undefined' ? [
+      document.body.scrollLeft, document.body.scrollTop
+  ] : [0,0];
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<!--<header>SpareBank&nbsp;1</header>-->
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <div id="person_id_required_wrapper">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content" style="text-align: left">
+                <div class="getting">
+                  Legg inn ditt personnummer for å hente uferdige utfylling fra sist gang.
+                </div>
+                <div class="saving">
+                  Legg inn ditt personnummer for å lagre her du har stoppet på din søknad i nettleseren.
+                </div>
+                <form id="pIdF" method="post" action="" novalidate>
+                  <input id="pId" name="pid" type="tel" spellcheck="false" autocomplete="off" data-rule="personnumber">
+                </form>
+                <button class="get_continue getting secondary-btn">Hent</button>
+                <button class="saving_continue saving secondary-btn">Lagre</button>
+                <a href="#" class="getting discard_saved">Forkaste lokal lagret</a>
+              </div>
+            </div>
+          </div>
+          <div class="image_wrapper">
+            <img src="./icons/house.svg">
+          </div>
+          <h1>Kjøp husforsikring</h1>
+          <!--
+          <p class="main-lead">
+            Du blir enklere for deg å fylle ut skjemaet dersom du har disse opplysningene tilgjengelig:
+          </p>
+          <ul>
+            <li>Hvor mye du tjener i året.</li>
+            <li>Din nåværende gjeld.</li>
+          </ul>
+          -->
+        </div>
+      </div> 
+      <form id="application" method="post" action="" novalidate>
+        <div class="sb1_accordion_menu">
+          <a href="" tabindex="0" role="tab" aria-controls="panel1" class="sb1_accordion_tab" id="tab1" aria-label="Steg 1">
+            <h2>Husets adresse</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab1" class="sb1_accordion_panel" id="panel1" aria-hidden="true">
+            <div class="sb1_form_row" style="padding-bottom: 0">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="purchase_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om Kjøpesum
+                  </a>
+                  <label>Hvilket hus ønsker du å forsikre?</label>
+                </div>
+              </div>          
+              <div id="purchase_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Primærrom er rom du oppholder deg i. For eksempel stue, 
+                    kjøkken, bad, soverom, entree. Primærrom het tidligere 
+                    boligareal (BOA). Er du usikker på hvor stort primærrommet 
+                    er så finner du dette i husets takstrapport/salgsprospekt.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label for="postnumber" class="postnumber_label">
+                    <span>Postnummer</span>
+                    <span aria-hidden="true">Postnr.</span>
+                  </label>
+                  <label for="postcity" class="postcity_label">Poststed</label>
+                </div>
+              </div> 
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper address_postnumer">
+                  <input id="postnumber" name="postnumber" type="tel" spellcheck="false" autocomplete="off" data-rule="number parent_target[.input_unit_wrapper]" maxlength="4" value="" required>
+                  <input id="postcity" name="postcity" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="">
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label data-shortname="" for="address">Gatenavn</label>
+                </div>
+              </div> 
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="address" class="display_accordion_summary" name="address" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="">
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <label data-shortname="" for="housenumber">Husnummer</label>
+                </div>
+              </div> 
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="housenumber" class="display_accordion_summary" name="housenumber" type="text" required spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]" value="" maxlength="6">
+              </div>
+            </div>
+
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>
+          </div>
+          <!-- end of tabpel 1 -->
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel2" class="sb1_accordion_tab" id="tab2" aria-label="Steg 2">
+            <h2>Opplysninger om huset</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab2" class="sb1_accordion_panel" id="panel2" aria-hidden="true">
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="house_type_info" href="#" class="sb1_info_btn" role="button">
+                      Informasjon hus type
+                    </a>
+                    <legend id="change_house_insurance_company2_label">
+                      Hva slags type hus skal du forsikring?
+                    </legend>
+                  </div>
+                </div>     
+                <div id="house_type_info" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>                         
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <div class="clear-row">
+                    <input type="radio" class="sb1-input-radio" name="house_type" id="house_type1" data-rule="parent_target[.sb1_input_wrapper]" required value="house">
+                    <label class="sb1-input-radio-label" for="house_type1">Enebolig</label>                    
+                  </div>            
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_type" id="house_type2" data-rule="parent_target[.sb1_input_wrapper]" required value="chain_house">
+                    <label class="sb1-input-radio-label" for="house_type2">Kjedet enebolig</label>                    
+                  </div>
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_type" id="house_type3" data-rule="parent_target[.sb1_input_wrapper]" required value="townhouse">
+                    <label class="sb1-input-radio-label" for="house_type3">Rekkehus</label>                    
+                  </div>
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_type" id="house_type4" data-rule="parent_target[.sb1_input_wrapper]" required value="semi-detached-vertical">
+                    <label class="sb1-input-radio-label" for="house_type4">Vertikaldelt tomannsbolig</label>                    
+                  </div>
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_type" id="house_type5" data-rule="parent_target[.sb1_input_wrapper]" required value="semi-detached-horizontal">
+                    <label class="sb1-input-radio-label" for="house_type5">Horisontaldelt tomannsbolig</label>                    
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="house_year_info" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om husets byggeår
+                  </a>
+                  <label data-shortname="" for="hosue_year">
+                    Hva er husets byggeår?
+                  </label>
+                </div>
+              </div>          
+              <div id="house_year_info" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>  
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="hosue_year" class="display_accordion_summary" name="house_year" type="tel" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]" value="" maxlength="4">
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="number_person_in_house_info" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om antall personer bor i huset
+                  </a>
+                  <label data-shortname="">Hvor mange personer bor i huset?</label>
+                </div>
+              </div>          
+              <div id="number_person_in_house_info" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>  
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="sb1_dropdown_menu">
+                  <a role="button" aria-controls="person_count_in_house" href="#" class="sb1_dropdown_btn"></a>
+                  <input type="hidden" aria-hidden="true" required name="person_count_in_house ">                         
+                  <ul role="listbox" id="person_count_in_house" aria-expanded="false" class="sb1_dropdown_list">
+                    <li class="sb1_dropdown_option" role="option">1 person</li>
+                    <li class="sb1_dropdown_option selected" role="option">2-5 personer</li>
+                    <li class="sb1_dropdown_option" role="option">Over 5 personer</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="house_gross_size_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om husets bruttoareal
+                  </a>
+                  <label data-shortname="" for="house_gross_size">HVa er husets bruttoareal?</label>
+                </div>
+              </div>          
+              <div id="house_gross_size_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="house_gross_size" class="display_accordion_summary" name="house_gross_size" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kvm" value="">
+                  <span class="input_unit">Kvm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="house_primary_size_information" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om arealet av husets primærrom
+                  </a>
+                  <label data-shortname="" for="house_primary_size">HVa er arealet av husets primærrom?</label>
+                </div>
+              </div>          
+              <div id="house_primary_size_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="input_unit_wrapper">
+                  <input id="house_primary_size" class="display_accordion_summary" name="house_primary_size" type="tel" required spellcheck="false" autocomplete="off" data-rule="amount parent_target[.sb1_input_wrapper]" data-unit="kvm" value="">
+                  <span class="input_unit">Kvm</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>
+          </div>
+          <!-- end of tabpel 2 -->          
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel3" class="sb1_accordion_tab" id="tab3" aria-label="Steg 3">
+            <h2>Beskriv sikkerhetstiltak og få rabatt</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab3" class="sb1_accordion_panel" id="panel3" aria-hidden="true">
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="burglar_alarm" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om innbruddsalarm
+                    </a>
+                    <legend id="burglar_alarm_legend">
+                      Er det innstallert innbruddsalarm tilknyttet alarmsentral i boligen?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="burglar_alarm" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="burglar_alarm" id="yes_burglar_alarm" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required>
+                  <label class="sb1_button" id="yes_burglar_alarm_label" for="yes_burglar_alarm"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="burglar_alarm" id="no_burglar_alarm" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                  <label class="sb1_button" id="no_burglar_alarm_label" for="no_burglar_alarm"><span>Nei</span></label>
+                </div>
+              </fieldset>
+            </div> 
+           
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="fire_alarm" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om brannalarm
+                    </a>
+                    <legend id="fire_alarm_legend">
+                      Er det innstallert brannalarm tilknyttet alarmsentral i boligen?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="fire_alarm" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="fire_alarm" id="yes_fire_alarm" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required>
+                  <label class="sb1_button" id="yes_fire_alarm_label" for="yes_fire_alarm"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="fire_alarm" id="no_fire_alarm" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                  <label class="sb1_button" id="no_fire_alarm_label" for="no_fire_alarm"><span>Nei</span></label>
+                </div>
+              </fieldset>
+            </div> 
+
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="house_pipe" href="#" class="sb1_info_btn" role="button">
+                      Informasjon huset rør i rør
+                    </a>
+                    <legend id="house_pipe_legend">
+                      Hva slags type hus skal du forsikring?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="house_pipe" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>    
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <div class="clear-row">
+                    <input type="radio" class="sb1-input-radio" name="house_pipe" id="house_pipe1" data-rule="parent_target[.sb1_input_wrapper]" required value="whole_house">
+                    <label class="sb1-input-radio-label" for="house_pipe1">Hele huset</label>                    
+                  </div>            
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_pipe" id="house_pipe2" data-rule="parent_target[.sb1_input_wrapper]" required value="a_part_of_house">
+                    <label class="sb1-input-radio-label" for="house_pipe2">Deler av huset</label>                    
+                  </div>
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_pipe" id="house_pipe3" data-rule="parent_target[.sb1_input_wrapper]" required value="no">
+                    <label class="sb1-input-radio-label" for="house_pipe3">Nei</label>                    
+                  </div>
+                  <div class="clear-row">                    
+                    <input type="radio" class="sb1-input-radio" name="house_pipe" id="house_pipe4" data-rule="parent_target[.sb1_input_wrapper]" required value="unknow">
+                    <label class="sb1-input-radio-label" for="house_pipe4">Vet ikke</label>                    
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>
+          </div>
+          <!-- end of tabpel 3 -->          
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel4" class="sb1_accordion_tab" id="tab4" aria-label="Steg 4">
+            <h2>Garasje og andre bygninger</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab4" class="sb1_accordion_panel" id="panel4" aria-hidden="true">
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="house_garage" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om garasje eller carport
+                    </a>
+                    <legend id="house_garage_legend">
+                      Har du garasje eller carport som henger sammen med huset?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="house_garage" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="house_garage" id="yes_house_garage" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required>
+                  <label class="sb1_button" id="yes_house_garage_label" for="yes_house_garage"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="house_garage" id="no_house_garage" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                  <label class="sb1_button" id="no_house_garage_label" for="no_house_garage"><span>Nei</span></label>
+                </div>
+              </fieldset>
+            </div> 
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="other_house_property" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om bygninger på eiendommen
+                    </a>
+                    <legend id="other_house_property_legend">
+                      Har du andre bygninger på eiendommen du vil forsikre?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="other_house_property" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="other_house_property" id="yes_other_house_property" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required>
+                  <label class="sb1_button" id="yes_other_house_property_label" for="yes_other_house_property"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="other_house_property" id="no_other_house_property" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                  <label class="sb1_button" id="no_other_house_property_label" for="no_other_house_property"><span>Nei</span></label>
+                </div>
+              </fieldset>
+            </div> 
+  
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>
+          </div>
+          <!-- end of tabpel 4 -->      
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel5" class="sb1_accordion_tab" id="tab5" aria-label="Steg 5">
+            <h2>Verdien på husets innbo</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab5" class="sb1_accordion_panel" id="panel5" aria-hidden="true">
+           
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="contents_insurance" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om innboforsikring
+                    </a>
+                    <legend id="contents_insurance_legend">
+                      Ønsker du innboforsikring?
+                    </legend>
+                  </div>
+                </div>          
+                <div id="contents_insurance" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="contents_insurance" id="yes_contents_insurance" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_contents_insurance_sub]" required>
+                  <label class="sb1_button" id="yes_contents_insurance_label" for="yes_contents_insurance"><span>Ja</span></label>        
+                  <input type="radio" class="sb1-input-radio" name="contents_insurance" id="no_contents_insurance" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                  <label class="sb1_button" id="no_contents_insurance_label" for="no_contents_insurance"><span>Nei</span></label>
+                  <input type="radio" class="sb1-input-radio" name="contents_insurance" id="later_contents_insurance" value="later" data-rule="parent_target[.sb1_input_wrapper]" required>
+                  <label class="sb1_button" id="later_contents_insurance_label" for="later_contents_insurance"><span>Senere</span></label>
+
+                  <div id="yes_contents_insurance_sub" class="tip-wrapper sb1_hide">
+                    <div class="tip-content">
+                      <div>
+                        Vi foreslår en forsikringssum basert på hva andre med samme 
+                        bruttoareal har valgt. Sjekk om denne summen passer for deg.
+                      </div>
+                      <div class="contents_insurance_price">
+                        <span class="price">kr 1 000,-</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </fieldset>
+            </div>            
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn primary-btn">Neste</button>
+                <a href="#" class="continue_later">Fortsett senere</a>
+              </div>
+            </div>           
+          </div>
+          <!-- end of tabpel 5 -->      
+
+          <a href="" tabindex="0" role="tab" aria-controls="panel6" class="sb1_accordion_tab" id="tab6" aria-label="Steg 6">
+            <h2>Velg forsikring og få pris</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab6" class="sb1_accordion_panel" id="panel6" aria-hidden="true">
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <legend id="house_insurance_price_legend">
+                      Velg forsikring og få pris
+                    </legend>
+                  </div>
+                </div>          
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="house_insurance_price" id="type1_house_insurance_price" value="type1_house_insurance_price" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#type1_CHIC_tip]" required checked="true">
+                  <label class="sb1_button offer_tab" id="type1_house_insurance_price_label" for="type1_house_insurance_price">
+                    <span class="offer_name">Topp</span>
+                    <span class="offer_price">391,-</span>
+                    <span class="offer_text">per mnd</span>
+                  </label>        
+ 
+                  <input type="radio" class="sb1-input-radio tabpanel_target_right_below" name="house_insurance_price" id="type2_house_insurance_price" value="type2_house_insurance_price" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#type2_CHIC_tip]" required>
+                  <label class="sb1_button offer_tab" id="type2_house_insurance_price_label" for="type2_house_insurance_price">
+                    <span class="offer_name">Standard</span>
+                    <span class="offer_price">335,-</span>
+                    <span class="offer_text">per mnd</span>
+                  </label>
+
+                  <div class="clear-row" style="width:100%;">
+                    <div id="type1_CHIC_tip" class="insurance_offer_panel sb1_hide ">
+                      <div class="content">
+                        <h3>Topp husforsikring</h3>
+                        <p class="lead">Vår beste husforsikring</p>
+                        <ul class="price_view">
+                          <li><span>391,-</span> <span>per måned</span></li>
+                          <li><span>4692,-</span> <span>per år</span></li>
+                        </ul>
+                        <h4>Forsikring dekker</h4>
+                        <ul class="sb1_checked_list">
+                          <li>Skader på grunn av at vann trenger gjennom utett yttertak</li>
+                          <li>Skader på tilstøtende eller underliggende rom på grunn av utett våtrom</li>
+                          <li>Ved totalskade får du bygget opp huset slik det var - uten fradrag for aldring og slitasje</li>
+                          <li>Brann</li>
+                          <li>Naturskader</li>
+                          <li>Vannskader på grunn av rørbrudd, bruddskader på bygningsglass og sanitærporselen, og annen skade på bygning</li>
+                          <li>Sopp- og råteskader</li>
+                          <li>Hageanlegg, utvendig vannbasseng, gjerde og flaggstang</li>
+                          <li>Ansvarsforsikring og rettshjelp</li>
+                          <li>Skader på innboet ditt som følge av brann, naturskader, tveri og hærverk</li>
+                          <li>Skader på innboet ditt ved typiske uhell</li>
+                        </ul>
+                        <div class="description">
+                          <div>
+                          Dette er en forenkling av vilkårene. For fullstendig oversikt over 
+                          dekningsomfang og begrensninger, se gjeldende vilkår.
+                          </div>
+                          <a href="#">Fullstendige vilkår</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="type2_CHIC_tip" class="insurance_offer_panel sb1_hide">
+                      <div class="content">
+                        <h3>Standard husforsikring</h3>
+                        <p class="lead">Vår standard husforsikring</p>
+                        <ul class="price_view">
+                          <li><span>335,-</span> <span>per måned</span></li>
+                          <li><span>4020,-</span> <span>per år</span></li>
+                        </ul>                        
+                        <h4>Forsikring dekker ikke</h4>
+                        <ul class="sb1_unchecked_list">
+                          <li>Skader på grunn av at vann trenger gjennom utett yttertak</li>
+                          <li>Skader på tilstøtende eller underliggende rom på grunn av utett våtrom</li>
+                        </ul>
+                        <h4>Forsikring dekker</h4>
+                        <ul class="sb1_checked_list">
+                          <li>Ved totalskade får du bygget opp huset slik det var - uten fradrag for aldring og slitasje</li>
+                          <li>Brann</li>
+                          <li>Naturskader</li>
+                          <li>Vannskader på grunn av rørbrudd, bruddskader på bygningsglass og sanitærporselen, og annen skade på bygning</li>
+                          <li>Sopp- og råteskader</li>
+                          <li>Hageanlegg, utvendig vannbasseng, gjerde og flaggstang</li>
+                          <li>Ansvarsforsikring og rettshjelp</li>
+                          <li>Skader på innboet ditt som følge av brann, naturskader, tveri og hærverk</li>
+                          <li>Skader på innboet ditt ved typiske uhell</li>
+                        </ul>    
+                        <div class="description">
+                          <div>
+                          Dette er en forenkling av vilkårene. For fullstendig oversikt over 
+                          dekningsomfang og begrensninger, se gjeldende vilkår.
+                          </div>
+                          <a href="#">Fullstendige vilkår</a>
+                        </div>              
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!--
+            <div class="sb1_form_row">
+              <fieldset>
+                <div class="sb1_row_content sb1_label_wrapper">
+                  <div class="content_holder">
+                    <a aria-controls="deductible" href="#" class="sb1_info_btn" role="button">
+                      Informasjon om egenandel
+                    </a>
+                    <legend id="house_insurance_deductible_legend">
+                      </span>Egenandel</span>
+                      <span class="help_text">kostnaden du selv betaler ved en skade</span>
+                    </legend>
+                  </div>
+                </div>          
+                <div id="deductible" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                  <div class="content_holder">
+                    <div class="text_holder">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                      Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                      et tortor quis sem tempus accumsan eu vitae mi.
+                    </div>
+                  </div>
+                </div> 
+                <div class="sb1_row_content sb1_input_wrapper">
+                  <input type="radio" class="sb1-input-radio" name="house_insurance_deductible" id="type1_house_insurance_deductible" value="type1_house_insurance_deductible" data-rule="parent_target[.sb1_input_wrapper]" required>
+                  <label class="sb1_button offer_option" id="type1_house_insurance_deductible_label" for="type1_house_insurance_deductible">
+                    <span class="offer_name">Topp</span>
+                    <span class="offer_price">391,-</span>
+                  </label>
+                  <input type="radio" class="sb1-input-radio" name="house_insurance_deductible" id="type2_house_insurance_deductible" value="type2_house_insurance_deductible" data-rule="parent_target[.sb1_input_wrapper]" required>
+                  <label class="sb1_button offer_option" id="type2_house_insurance_deductible_label" for="type2_house_insurance_deductible">
+                    <span class="offer_name">Standard</span>
+                    <span class="offer_price">335,-</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            -->
+            
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="deductible_info" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om egenandel
+                  </a>
+                  <label data-shortname="">                      
+                    </span>Egenandel</span>
+                    <span class="help_text">kostnaden du selv betaler ved en skade</span>
+                  </label>
+                </div>
+              </div>          
+              <div id="deductible_info" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>  
+              <div class="sb1_row_content sb1_input_wrapper">
+                <div class="sb1_dropdown_menu position_relative">
+                  <a role="button" aria-controls="person_count_in_house" href="#" class="sb1_dropdown_btn"></a>
+                  <input type="hidden" aria-hidden="true" required name="house_insurance_deductible">                         
+                  <ul role="listbox" id="house_insurance_deductible" aria-expanded="false" class="sb1_dropdown_list">
+                    <li class="sb1_dropdown_option" role="option">kr 4 000,-</li>
+                    <li class="sb1_dropdown_option" role="option">kr 7 000,-</li>
+                    <li class="sb1_dropdown_option selected" role="option">kr 10 000,-</li>
+                    <li class="sb1_dropdown_option" role="option">kr 15 000,-</li>
+                    <li class="sb1_dropdown_option" role="option">kr 25 000,-</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row accordion_action_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn action-btn">Signer</button>
+              </div>
+            </div>           
+          </div> <!-- end of tabpel 6 -->      
+
+          <!--
+          <a href="" tabindex="0" role="tab" aria-controls="panel7" class="sb1_accordion_tab" id="tab7" aria-label="Steg 7">
+            <h2>Oppsummering - forsikring</h2>
+          </a>
+          <div role="tabpanel" aria-labeledby="tab7" class="sb1_accordion_panel" id="panel7" aria-hidden="true">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div>Dette er en oppsummering av din lånesøknad.</div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content">
+                <div class="sb1_clear summary_overview">
+                  <h3>Mitt lån</h3>
+                  <div id="my_loan_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Månedsbeløp</h4>
+                      <div class="monthly_price">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_item">
+                      <h4>Kjøpesum</h4>
+                      <div class="purchase">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Egenkapital</h4>
+                      <div class="equity">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_item hide">
+                      <h4>Lånesum</h4>
+                      <div class="loan_amount">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsket nedbetalingstid</h4>
+                      <div class="desired_repayment_field">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsker du å forsikre boligen din i SpareBank&nbsp;1?</h4>
+                      <div class="yes_change_house_insurance_company no_change_house_insurance_company later_change_house_insurance_company">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Ønsker du å forsikre deg om at du får beholde boligen dersom noe uforutsett skjer?</h4>
+                      <div class="yes_change_house_insurance_company2 no_change_house_insurance_company2 later_change_house_insurance_company2">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>                  
+                  
+                  <h3>Personopplysning</h3>
+                  <div id="my_info_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Fødselsnummer</h4>
+                      <div class="personnumber">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Lånetakere</h4>
+                      <div class="loaner">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Epost</h4>
+                      <div class="email">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Telefon</h4>
+                      <div class="telephone">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Sivilstatus</h4>
+                      <div class="marital_status">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <h3>Min økonomi</h3>
+                  <div id="my_income_overview" class="sb1_list_overview">
+                    <div class="sb1_list_item">
+                      <h4>Årsinntekt fra arbeidsgiver</h4>
+                      <div class="income">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item">
+                      <h4>Ansettelsesår</h4>
+                      <div class="year_employment">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Arbeidsgiver</h4>
+                      <div class="employer">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Andre inntekter</h4>
+                      <div class="income2">&nbsp;</div>
+                    </div>
+                    <div class="sb1_list_item hide">
+                      <h4>Andre lån</h4>
+                      <div class="rest">&nbsp;</div>
+                    </div>                    
+                    <div class="sb1_list_expander">
+                      <a href="#" class="sb1_expander_btn">
+                        <span>Vis alle</span><span>Vis færre</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <button class="sb1_accordion_next_btn action-btn">Signer</button>
+              </div>
+            </div>
+          </div> 
+          -->
+          <!-- end of tabpel 7 -->
+
+        </div> <!-- end of sb1_accordion_menu -->
+      </form>
+      <div class="form_end">
+        <ul class="content_wrapper">
+          <li class="">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./icons/tips.svg" alt="tips.svg" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content">
+                Takk! Vi har mottat din bestilling. Du kan se en 
+                oversikt over dine forsikringer i nettbanken.
+              </div>
+            </div>
+          </li>
+          <li class="content_house_insurance">
+            <div class="tip-wrapper center">
+              <div class="tip-content">
+                <div style="padding-bottom: 20px">
+                  Du har sagt at du er interessert i innboforsikring.
+                  Vil du bestille det nå?
+                </div>
+                <a href="./house_content_insurance.html" class="action-btn arrow-right">Bestill innboforsikring</a>
+              </div>
+            </div>
+          </li>
+          <li class="content_memory">
+            <a href="./remember.html">Min huskeliste</a>
+          </li>
+        </ul>
+        <!--
+        <ul class="sb1_remember_card_wrapper">
+          <li>
+            <article class="sb1_remember_card">
+              <div class="card_content">     
+                <h3>Opprett spareavtale</h3>
+                <p class="lead">Kr 2 550 000,- til 3,2% rent</p>
+                <div class="toggle_wrapper">
+                  <a href="#" class="toggle_expander"></a>
+                </div>
+              </div>
+              <div class="card_content">
+                <div class="note_description">
+                  <div class="sb1_step_counter">
+                    <h4>Klar for signering</h4>
+                    <div class="sb1_progress">    
+                      <div class="bar" role="progressbar" aria-valuenow="6" aria-valuemin="1" aria-valuemax="7" style="width:95%">
+                        <span class="sr">Steg 3 av 7</span>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="tool_wrapper">
+                    <li>
+                      <a href="#" role="button" class="action-btn arrow-right sb1_continue_remember_card">Fortsett</a>
+                    </li>
+                    <li>
+                      <a href="#" class="sb1_discard_remember_card">Fjern fra huskelisten</a>
+                    </li>
+                  </ul>
+                </div>    
+              </div>
+            </article>
+          </li>
+        </ul>
+        -->
+      </div>
+      <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper"></div>
+
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+
+</body>
+</html>

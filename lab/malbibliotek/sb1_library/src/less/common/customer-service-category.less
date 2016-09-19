@@ -1,0 +1,49 @@
+.customer-service-header {
+    padding: 40px 0;
+    text-align: center;
+    > .secondary-btn {
+        border: none;
+    }
+    > h1 {
+        color: @white;
+    }
+}
+
+.cs-subtags,
+.cs-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+
+    >.cs-subtag,
+     .cs-tag {
+
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 5px;
+        color: @gray-dark;
+        cursor: pointer;
+        border: 1px solid @gray-light;
+        border-radius: 3px;
+        font-family: 'MuseoSansRounded-700';
+        font-size: 16px;
+        
+        &.active {
+            background-color: @blue-royal;
+            color: @white;
+        }
+    }
+}
+
+.cs-tags {
+    margin-bottom: 20px;
+}
+
+.cs-subtags {
+    padding-top: 20px;
+    border-top: 1px solid @gray-light;
+}
+
+

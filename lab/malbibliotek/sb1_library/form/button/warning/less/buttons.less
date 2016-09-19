@@ -1,0 +1,133 @@
+.btn {
+    padding: 12px 30px;
+    font-family: 'MuseoSansRounded-700';
+    line-height: 22px;
+    font-size: 16px;
+    @media (min-width: @screen-tablet) {
+        padding: 14px 40px;
+    }
+    @media (min-width: @screen-desktop) {
+        font-size: 18px;
+    }
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    .transition(color 200ms, background-color 200ms, border 200ms;);
+    color: white;
+    background-color: @blue-flat;
+
+    border: 0 none;
+    display: inline-block;
+    position: relative;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-flat, 5%);
+        border: none;
+    }
+
+}
+.arrow-right{
+    .icon-arrow_right();
+    &:before {
+        transition: opacity 200ms;
+        position: absolute;
+        color: inherit;
+        right: 4px;
+        font-size: 125%;
+    }
+    padding: 12px 48px 12px 20px;
+    text-align: left;
+}
+
+.submit-btn,
+.login-btn,
+.action-btn {
+    &:extend(.btn all);
+    background-color: @green-wcag;
+
+    &:hover,
+    &:focus {
+        background-color: darken(@green-wcag, 5%);
+        color: @white;
+    }
+}
+
+.shortcut-btn{
+    &:extend(.btn all);
+    background-color: @blue-royal;
+    color: @white;
+    &:hover,
+    &:focus {
+        background-color: darken(@blue-royal, 5%);
+        color: @white;
+    }
+    &:before {
+        right: 12px;
+    }
+}
+
+.primary-btn {
+    &:extend(.btn all);
+}
+
+.secondary-btn {
+    &:extend(.btn all);
+    color: @blue-royal-light-wcag;
+    background-color: white;
+    border: solid 2px @gray-light;
+
+    &:hover,
+    &:focus {
+        border-color: @blue-royal-light-wcag;
+        background-color: white;
+    }
+}
+
+.info-btn {
+    &:extend(.btn all);
+    color: @red;
+    background-color: white;
+    border: solid 2px @gray-light;
+
+    &:hover,
+    &:focus {
+        border-color: @red;
+        background-color: white;
+    }
+}
+
+.se-more-btn {
+    &:extend(.btn all);
+    border-radius: 34px;
+    margin-top: 30px;
+    .large-link();
+    padding: 12px 50px;
+    color: @white;
+    background-color: @blue-royal-light-wcag;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border 200ms;
+    display: inline-block;
+
+    &:hover,
+    &:focus {
+        background-color:  darken(@blue-royal-light-wcag, 5%);
+        color: @white;
+    }
+}
+
+.button-wrapper{
+    margin: 22px 0 40px;
+
+    @media (min-width: 768px) {
+        margin: 40px 0 60px;
+    }
+    &.center {
+        text-align: center;
+    }
+    &.right {
+        text-align: right;
+    }
+}

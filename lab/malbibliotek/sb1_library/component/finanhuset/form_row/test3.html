@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_info_btn.css">
+<link rel="stylesheet" type="text/css" href="./css/sb1_form_row.css">
+<style>
+.layout {
+  max-width: 980px;
+  margin: 20px auto;
+}
+
+.layout > div {
+  border-top: 1px solid red;
+  margin: 0 20px;  
+  padding-top: 20px;
+}
+</style>
+<script type="text/javascript" src="./js/1.11.2.jquery.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+</head> 
+<body>
+<div class="layout">
+  <div>
+    <div class="sb1_form_row show_information">
+      <div class="sb1_row_content sb1_label_wrapper">
+        <div class="content_holder">
+          <a href="#" class="sb1_info_btn" aria-label="Informasjon om kjørelengde" role="button"></a>
+          <label for="kilometer">Hvor mange kilometer har du kjørt?</label>
+        </div>
+      </div>          
+      <div class="sb1_info_wrapper">
+        <div class="content_holder">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+          et tortor quis sem tempus accumsan eu vitae mi.
+          Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+          sapien eu, mollis nisl. Aliquam finibus maximus ipsum, vel commodo 
+          sem aliquet vel. Duis interdum sollicitudin nibh, quis tincidunt 
+          turpis aliquam in. Praesent accumsan ullamcorper felis, quis semper erat fermentum sed. 
+          <a href="#">Mere detaljer</a> 
+        </div>
+      </div>
+      <div class="sb1_row_content sb1_input_wrapper">
+        <input id="kilometer" class="sb1_input_textfield large" name="kilometer" type="text" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+        
+      </div>
+    </div>
+
+    <div class="sb1_form_row show_information">
+      <div class="sb1_row_content sb1_label_wrapper">
+        <div class="content_holder">
+          <a href="#" class="sb1_info_btn" aria-label="Informasjon om kjørelengde" role="button"></a>
+          <label for="kilometer_e">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</label>
+        </div>
+      </div>          
+      <div class="sb1_info_wrapper">
+        <div class="content_holder">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+          et tortor quis sem tempus accumsan eu vitae mi.
+          Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+          sapien eu, mollis nisl. Aliquam finibus maximus ipsum, vel commodo 
+          sem aliquet vel. Duis interdum sollicitudin nibh, quis tincidunt 
+          turpis aliquam in. Praesent accumsan ullamcorper felis, quis semper erat fermentum sed. 
+          <a href="#">Mere detaljer</a>
+        </div>
+      </div>
+      <div class="sb1_row_content sb1_input_wrapper">
+        <input id="kilometer_e" class="sb1_input_textfield large" name="kilometer" type="text" required spellcheck="false" autocomplete="off" data-rule="number parent_target[.sb1_input_wrapper]">
+      </div>
+    </div>  
+  </div>
+</div>
+<script>
+  $('.sb1_form_row').each(function(i,dom) { $(dom).SB1formRow();});
+</script>
+</body>
+</html>

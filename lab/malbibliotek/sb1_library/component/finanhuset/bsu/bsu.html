@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta content="width=device-width, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" name="viewport">
+<title>SpareBank1 Form Validation</title>
+
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./common.css">
+
+<script type="text/javascript" src="./js/1.11.2.jquery.min.js"></script>
+<script type="text/javascript" src="./js/sb1_form_row.js"></script>
+<script type="text/javascript" src="./js/sb1_dropdown_menu.js"></script>
+<script type="text/javascript" src="./js/sb1_form_validation.js"></script>
+
+<script>
+function startup() {
+  //eraseCookie( 'sb1_bsu' );
+  $('#pIdF').SB1formValidation({}); 
+  var form = $('#application').SB1formValidation({
+    'summary_error' : '.error_summary_holder',
+    'before_validation_callback' : function() {
+      if ( $('#submit_btn').hasClass('disabled') ) return false;
+    },
+    'changeCallback' : function (e) {
+      var input = $(e.currentTarget), name = input.attr('name');
+      if ( name == 'ended_bsu_account' ) {
+        toggleEndedBSU( input.val()=='yes' );          
+      }
+    }    
+  }).on( 'submit', function( e ) {
+    e.preventDefault();
+    if ( ! form.hasClass('sb1_form_validation_all_valid') ) return;
+    if ( $('#submit_btn').hasClass('disabled') ) return;
+
+    $('body').addClass('finished signature');
+    var wrapper = $('#iframe_wrapper')
+      .html('<iframe frameborder="0" id="bid_client" src="./bidNoPno/bid.html"></iframe>');
+
+    var top = wrapper.offset().top-60;
+    $('html, body').animate({'scrollTop': top+'px' }, 50, function() {});
+  });
+
+  //$('#iframe_wrapper').html('<iframe frameborder="0" id="bid_client" src="./bid/bid.html"></iframe>');
+  setTimeout( function() {
+    $( document ).on('click',function(e) {
+      var target = $(e.target), parent = target.parent();
+      if ( target.hasClass('continue_later') || target.hasClass('saving_continue') ) {
+        e.preventDefault();
+        setTimeout( function() { _continueLater(); }, 100 );
+      }
+      else if ( target.hasClass('get_continue') ) {
+        e.preventDefault();
+        setTimeout( function() {
+          var input = $('#pId');
+          if ( ! input.hasClass('sb1_form_validation_has_error') )
+            _getContinue( input.prop('value') || '' );        
+        }, 100 );
+      }
+      else if ( target.hasClass('discard_saved') ) {
+        e.preventDefault();
+        _discardSaved();
+      }
+      else if ( target.closest('#starttest').size() ) {
+        e.preventDefault();
+        $('body').addClass('start');
+      }
+    });
+
+    var body = $('body').on('click', function() {
+      if ( ! body.hasClass('bankIDdone') ) return;
+      var agreement = $('#later_saving_agreement').prop('checked') ? 1 : 
+        ($('#yes_saving_agreement').prop('checked') ? 2 : '');
+      window.location.href = './be_customer.html?personname=Karl Olsen'+
+        '&personnumber='+$('#personnumber').val()+
+        (agreement ? '&agreement='+agreement : '');
+    });
+  }, 500 );
+  
+  _getContinue( null, true );  
+  $('.sb1_form_row').each(function(i,dom) { 
+    var node = $(dom);
+    node.SB1formRow();
+    node.find('.sb1_dropdown_menu').each( function (i,d) { 
+      $(d).SB1dropdownMenu({});
+    });
+  });
+
+  $('#yes_ended_bsu_account').prop('checked',false);
+  $('input').removeAttr('disabled');
+};
+
+function toggleEndedBSU( yes_answer ) {
+  setTimeout( function() {
+    var btn = $('#submit_btn, #continue_later_btn');
+    var inp = $('input:not(.ended_bsu)');
+    if ( yes_answer ) { 
+      btn.addClass('disabled');
+      inp.prop('disabled',true);
+    }
+    else {
+      btn.removeClass('disabled');
+      inp.removeAttr('disabled');
+    }
+  }, 20 );
+}
+
+function getDuration( node ) {
+  var v = node && node.size() ? 
+    (node.css('transition-duration') || 0) : 0;
+  if ( v ) v = parseFloat( v ) * 1000;
+  return isNaN(v) ? 0 : v;
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function _discardSaved() {
+  eraseCookie( 'sb1_bsu' );
+  var wrapper = $('#person_id_required_wrapper').animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _getContinue( pId, startup ) { 
+  var key = 'sb1_bsu', text = readCookie(key);
+
+  if ( ! text )
+    return $('body').removeClass('need_personnumber_for_getting');
+  if ( ! pId )
+    return $('body').addClass('need_personnumber_for_getting');
+
+  var wrapper = $('#person_id_required_wrapper'), data = JSON.parse( text );
+  if ( data['_p'] != (pId+'').replace(/\s+/g,'') ) {
+    wrapper.find( '.sb1_form_validation_error' ).remove();
+    return $('<div class="sb1_form_validation_error">Personnumer er ikke samme som det var lagret.</div>')
+      .insertAfter( wrapper.find('input') );
+  }
+
+  for ( var k in data ) {
+    $('input[name="'+k+'"]').each( function(i,dom) {
+      var input = $(dom), type = input.attr('type') || 'text';
+      if ( type.match(/radio|checkbox/) ) {
+        var v = input.prop('value') == data[k];
+
+        //debug('K: '+k +' I:'+input.prop('value') + ' D:'+data[k]);
+        input.prop('checked', v);
+        if ( v ) input.click();
+      } else { input.val( data[k] ); }
+    });
+  }
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').removeClass('need_personnumber_for_getting');
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+
+}
+
+function _scrollPersonIdRequiredWrapperIntoView( callback ) {
+  var wrapper = $('#person_id_required_wrapper').attr('style','max-height;1px'); 
+  var top = wrapper.offset().top-10;
+  wrapper.removeAttr('style');
+
+  var scrolled = getScrollPosition(), size = getWindowSize();
+  var view = [scrolled[1],scrolled[1]+size[1]];
+  if ( top>=view[0] && top<=view[1] )
+    return typeof(callback) == 'function' ? callback() : null;
+  $('html, body').animate({'scrollTop': top+'px' }, 500, callback );
+}
+
+function _continueLater() {
+  var key = 'sb1_bsu', wrapper = $('#person_id_required_wrapper');
+  var aInput = $('#personnumber'), bInput = $('#pId');
+  if ( bInput.hasClass('sb1_form_validation_has_error') || aInput.hasClass('sb1_form_validation_has_error') )
+    return;
+
+  var pId = aInput.prop('value') || bInput.prop('value'), data = {};
+  wrapper.find( '.sb1_form_validation_error' ).remove();
+
+  if ( ! pId ) {
+    return _scrollPersonIdRequiredWrapperIntoView( function() {
+      $('body').addClass('need_personnumber_for_saving')
+        .removeClass( 'need_personnumber_for_getting');
+    });
+  }
+
+  $('#application input').each( function(i,dom){
+    var name = dom.name || '', value = dom.value || '', type = dom.type || 'text';
+    if ( ! name || ! value || (type.match(/radio|checkbox/i) && ! dom.checked) )
+      return;
+    data[name] = value;
+  });
+  data['personnumber'] = pId;
+  data['_p'] = (pId+'').replace(/\s+/g,'');
+  eraseCookie( key );
+  createCookie( key, JSON.stringify(data), 360 );
+
+  wrapper.animate({ 'height': '0' }, 600, function(){
+    $('body').addClass('no_animation').removeClass('need_personnumber_for_saving')
+      .removeClass( 'need_personnumber_for_getting');
+    _displaySpinner( null, 0, 'saved' );
+    setTimeout( function() { wrapper.removeAttr('style'); }, 1000 );
+  });
+}
+
+function _displaySpinner( callback, delay, mode ) {
+  setTimeout( function() {
+    var node = $('.form_body').eq(0);
+    var top = node.offset().top - 20;
+
+    $('#loading').remove();
+    $('html, body').animate({ 'scrollTop': top+'px' }, 600, function(){
+      $('<div id="loading"><div>'+ 
+          '<span class="sb1_spinner">'+
+            '<i class="spinner_rect1"></i>'+
+            '<i class="spinner_rect2"></i>'+
+            '<i class="spinner_rect3"></i>'+
+            '<i class="spinner_rect4"></i>'+
+            '<i class="spinner_rect5"></i>'+
+          '</span>'+
+        '</div></div>'
+      ).appendTo( node.css({'position':'relative'}) );
+      setTimeout( function() {
+        var t =  $('main').offset().top
+        $('html, body').animate({ 'scrollTop': t+'px' }, 600, function(){
+          if ( mode ) $('body').addClass( mode );
+          $('body').addClass('finished');
+        });
+      }, 5000 );
+
+      if ( typeof(callback)=='function') callback();
+    });
+  }, delay || 15 );  
+}
+
+function createCookie( name, value, days ) {
+  if ( ! name ) return;
+  var cookie = [ name+'='+(value||'') ];
+  var d = new Date(), expires = days || 100;
+  d.setTime( d.getTime() + (expires*24*60*60*1000) );
+  cookie.push( 'expires='+d.toGMTString() );
+  cookie.push( 'path=/' );
+  document.cookie = cookie.join('; ');
+}
+
+function readCookie( name ) {
+  var nameEQ = name + '=', ca = document.cookie.split(';');
+  for ( var i=0; i<ca.length; i++ ) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return '';
+}
+
+function eraseCookie( name ) {return createCookie( name, '', -1 ); }
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset != 'undefined')
+    return [ window.pageXOffset, window.pageYOffset ];
+
+  if (
+    typeof document.documentElement.scrollTop != 'undefined' && 
+    document.documentElement.scrollTop > 0
+  ) { 
+    return [ 
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop != 'undefined' ? [
+      document.body.scrollLeft, document.body.scrollTop
+  ] : [0,0];
+};
+
+function getWindowSize() {
+  var w = 0, h = 0, size = [0, 0];
+  if ( ! window.innerWidth ) { // IE 
+    //if ( !(document.documentElement.clientWidth === 0) ){
+    if ( ! document.documentElement.clientWidth ){
+      size[0] = document.documentElement.clientWidth;
+      size[1] = document.documentElement.clientHeight;
+    } 
+    else {
+      size[0] = document.body.clientWidth;
+      size[1] = document.body.clientHeight;
+    }
+  } 
+  else {
+    size[0] = window.innerWidth;
+    size[1] = window.innerHeight;
+  }
+
+  if ( size[0] ) size[0] -= 20;
+  return size;
+};
+
+function debug( text, value ) {
+  var debug = $('div#debugWidget'), v = '', d = new Date();
+  if ( ! debug.size() ) {
+    var s = 'z-index:1000; position:fixed; bottom:5px; right:5px; width:300px; height:300px;' +
+      'background-color:#FFFFFF; overflow:scroll; border:1px solid red; display:block;font-size:11px;line-height:15px;';
+    debug = $( '<div id="debugWidget" style="'+s+'"></div>').appendTo( $('body') );
+  }
+  
+  var t = d.getMinutes() + ':' + d.getSeconds();
+  if ( value != null ) {
+    if ( typeof(value) != 'object' )
+      v = value;
+      else if( value instanceof Array )
+      v = value.join('<br/>');
+    else {
+      var data = [];
+      for ( var k in value ) data.push( k + ' : ' + value[k]);
+      v = data.join( '<br/>' );
+    }
+  }
+  debug.html( t + '<br/>' + text + '<br/>' + v + '<div>&nbsp;</div>' + debug.html() );
+}  
+
+</script>
+
+</head> 
+<body onload="javascript:startup();">
+<header>
+ <a href="#" class="sb1_burger"></a>
+ <a href="#" class="sb1_logo"><img src="./Sparebank1_Logo.svg" title=""></a>
+ <a href="#" class="sb1_profile"></a>
+</header>
+<main>
+  <div class="sb1_form_layout">
+    <div class="form_wrapper">
+      <div class="form_header">
+        <div class="content_holder"> 
+          <div id="person_id_required_wrapper">
+            <div class="tip-wrapper center">
+              <div class="icon-wrapper">
+                <div class="icon-circle">
+                  <picture>
+                    <img src="./images/information.svg" alt="informasjon" class="inline-svg icon responsive">
+                  </picture>
+                </div>
+              </div>
+              <div class="tip-content" style="text-align: left">
+                <div class="getting">
+                  Legg inn ditt personnummer for å hente uferdige utfylling fra sist gang.
+                </div>
+                <div class="saving">
+                  Legg inn ditt personnummer for å lagre her du har stoppet på din søknad i nettleseren.
+                </div>
+                <form id="pIdF" method="post" action="" novalidate>
+                  <input id="pId" name="pid" type="tel" spellcheck="false" autocomplete="off" data-rule="personnumber" maxlength="12">
+                </form>
+                <button class="get_continue getting secondary-btn">Hent</button>
+                <button class="saving_continue saving secondary-btn">Lagre</button>
+                <a href="#" class="getting discard_saved">Forkaste lokal lagret</a>
+              </div>
+            </div>
+          </div>
+          <h1>Opprett BSU-konto</h1>
+        </div>
+      </div>
+      <div class="form_body">
+        <form id="application" method="post" action="" novalidate>
+          <div class="error_summary_holder"></div>
+          <h2><span aria-hidden="true">1. </span><span>Hvem er du?</span></h2>
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <!--
+                <a aria-controls="personnumber_information" href="#" class="sb1_info_btn" role="button">
+                  Informasjon om personnummer
+                </a>
+                -->
+                <label for="personnumber" data-shortname="">
+                  <span>Personnummer</span>
+                  <span class="help_text">11 siffer</span>
+                </label>
+              </div>
+            </div>          
+            <div id="personnumber_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                  et tortor quis sem tempus accumsan eu vitae mi.
+                </div>
+              </div>
+            </div>
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input id="personnumber" name="personnumber" type="tel" required spellcheck="false" autocomplete="off" data-rule="personnumber parent_target[.sb1_input_wrapper]" maxlength="12">
+            </div>
+          </div>
+
+          <h2><span aria-hidden="true">2. </span><span>Opprett BSU</span></h2>
+
+          <!--
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <label data-shortname="" for="account_name">Hva skal kontoen hete?</label>
+              </div>
+            </div>          
+            <div id="account_name_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                  Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                  et tortor quis sem tempus accumsan eu vitae mi.
+                  Aliquam mattis quis sem eu semper. Aenean at lectus cursus, aliquet 
+                  sapien eu, mollis nisl.
+                </div>
+              </div>
+            </div>
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input id="account_name" name="account_name" type="text" spellcheck="false" autocomplete="off" data-rule="parent_target[.sb1_input_wrapper]">
+            </div>
+          </div>
+          -->
+
+          <!--
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_label_wrapper">
+              <div class="content_holder">
+                <a aria-controls="account_another_bank" href="#" class="sb1_info_btn" role="button">
+                  Informasjon om BSU-konto i en annen bank
+                </a>
+                <label id="change_house_insurance_company2_label">
+                  Har du en aktiv BSU-konto i en annen bank?
+                </label>
+              </div>
+            </div>          
+            <div id="account_another_bank" class="sb1_info_wrapper" role="region" aria-expanded="false">
+              <div class="content_holder">
+                <div class="text_holder">
+                  Du kan bare ha èn BSU-konto. Om du har en BSU-konto 
+                  i en annen bank: svar 'ja', så hjelper vi deg å flytte den.
+                </div>
+              </div>
+            </div>          
+            <div class="sb1_row_content sb1_input_wrapper">
+              <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="account_another_bank" id="yes_account_another_bank" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required aria-labelledby="account_another_bank_label yes_account_another_bank_label">
+              <label class="sb1-input-radio-label" id="yes_account_another_bank_label" for="yes_account_another_bank">Ja</label>        
+              <input type="radio" class="sb1-input-radio" name="account_another_bank" id="no_account_another_bank" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required aria-labelledby="account_another_bank_label no_account_another_bank_label">
+              <label class="sb1-input-radio-label" id="no_account_another_bank_label" for="no_account_another_bank">Nei</label>
+              <input type="radio" class="sb1-input-radio" name="account_another_bank" id="later_account_another_bank" value="later" data-rule="parent_target[.sb1_input_wrapper]" required aria-labelledby="account_another_bank_label later_account_another_bank_label">
+              <label class="sb1-input-radio-label" id="later_account_another_bank_label" for="later_account_another_bank">Senere</label>
+            </div>
+          </div>
+          -->
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <a aria-controls="account_another_bank" href="#" class="sb1_info_btn" role="button">
+                    Informasjon om BSU-konto i en annen bank
+                  </a>
+                  <legend id="change_house_insurance_company2_label">
+                    Har du en aktiv BSU-konto i en annen bank?
+                  </legend>
+                </div>
+              </div>          
+              <div id="account_another_bank" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Du kan bare ha èn BSU-konto. Om du har en BSU-konto 
+                    i en annen bank: svar 'ja', så hjelper vi deg å flytte den.
+                  </div>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio _tabpanel_target_right_below" name="account_another_bank" id="yes_account_another_bank" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_account_other_bank_holder]" required>
+                <label class="sb1_button" id="yes_account_another_bank_label" for="yes_account_another_bank"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio" name="account_another_bank" id="no_account_another_bank" value="no" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#no__tip]" required>
+                <label class="sb1_button" id="no_account_another_bank_label" for="no_account_another_bank"><span>Nei</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div id="yes_account_other_bank_holder" class="sb1_hide sb1_form_row_wrapper sb1_indentation">
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <!--
+                  <a aria-controls="old_bsu_account_information" href="#" class="sb1_info_btn sb1_hide" role="button">
+                    Informasjon om kontonummer gammel BSU-konto
+                  </a>
+                  -->
+                  <label for="old_bsu_account">kontonummer gammel BSU-konto</label>
+                </div>  
+              </div>          
+              <div id="old_bsu_account_information" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input id="old_bsu_account" class="" name="old_bsu_account" type="tel" required spellcheck="false" autocomplete="off" data-rule="accountnumber parent_target[.sb1_input_wrapper] depending_on_target[#yes_account_another_bank]" maxlength="13">
+              </div>
+            </div>
+
+            <div class="sb1_form_row">
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="checkbox" data-rule="parent_target[.sb1_input_wrapper] depending_on_target[#yes_account_another_bank]" value="policy" name="smn_policy" id="smn_policy" required class="sb1-input-checkbox">
+                <label for="smn_policy" class="sb1-input-checkbox-label">
+                  Jeg samtykker i SpareBank&nbsp;1 SMN på min vegne flytter
+                  BSU-kontoen min til SpareBank&nbsp;1 SMN.
+                </label>
+              </div>            
+            </div>          
+          </div>
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <!--
+                  <a aria-controls="ended_bsu_account" href="#" class="sb1_info_btn sb1_hide" role="button">
+                    Informasjon om avsluttet BSU-konto
+                  </a>
+                  -->
+                  <legend id="change_house_insurance_company2_label">
+                    Har du tidligere avsluttet en BSU-konto?
+                  </legend>
+                </div>
+              </div>          
+              <div id="ended_bsu_account" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio tabpanel_target_right_below as_warning ended_bsu" name="ended_bsu_account" id="yes_ended_bsu_account" value="yes" data-rule="parent_target[.sb1_input_wrapper] tabpanel_target[#yes_CHIC_tip]" required>
+                <label class="sb1_button" id="yes_ended_bsu_account_label" for="yes_ended_bsu_account"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio ended_bsu" name="ended_bsu_account" id="no_ended_bsu_account" value="no" data-rule="parent_target[.sb1_input_wrapper]" required>
+                <label class="sb1_button" id="no_ended_bsu_account_label" for="no_ended_bsu_account"><span>Nei</span></label>             
+                <div id="yes_CHIC_tip" class="tip-wrapper sb1_hide">
+                  <div class="tip-content" style="background-color:#eee">
+                    Vi beklager - men du kan ikke opprette en BSU-konto for andre gang. 
+                    Vi anbefaler i stedet <a href="#" onClick="return false;">Sparekonto&nbsp;med&nbsp;Bonus.</a>
+                  </div>
+                </div> 
+              </div>
+            </fieldset>           
+          </div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content">
+              <div class="tip-wrapper">
+                <div class="icon-wrapper">
+                  <div class="icon-circle">
+                    <picture>
+                      <img src="./icons/tips.svg" alt="tips.svg" class="inline-svg icon responsive">
+                    </picture>
+                  </div>
+                </div>
+                <div class="tip-content">
+                  9 av 10 som sparer i BSU har en månedlig spareavtale.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sb1_form_row">
+            <fieldset>
+              <div class="sb1_row_content sb1_label_wrapper">
+                <div class="content_holder">
+                  <!--
+                  <a aria-controls="saving_agreement" href="#" class="sb1_info_btn sb1_hide" role="button">
+                    Informasjon om spareavtale
+                  </a>
+                  -->
+                  <legend id="change_house_insurance_company2_label">
+                    <span>Vil du opprette en spareavtale nå?</span>
+                    <span class="help_text">Valgfritt</span>
+                  </legend>
+                </div>
+              </div>          
+              <div id="saving_agreement" class="sb1_info_wrapper" role="region" aria-expanded="false">
+                <div class="content_holder">
+                  <div class="text_holder">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Pellentesque mattis sit amet nisi ac ullamcorper. Curabitur 
+                    et tortor quis sem tempus accumsan eu vitae mi.
+                  </div>
+                </div>
+              </div>          
+              <div class="sb1_row_content sb1_input_wrapper">
+                <input type="radio" class="sb1-input-radio" name="saving_agreement" id="yes_saving_agreement" value="yes" data-rule="parent_target[.sb1_input_wrapper]">
+                <label class="sb1_button" id="yes_saving_agreement_label" for="yes_saving_agreement"><span>Ja</span></label>        
+                <input type="radio" class="sb1-input-radio" name="saving_agreement" id="no_saving_agreement" value="no" data-rule="parent_target[.sb1_input_wrapper]">
+                <label class="sb1_button" id="no_saving_agreement_label" for="no_saving_agreement"><span>Nei</span></label>
+                <input type="radio" class="sb1-input-radio" name="saving_agreement" id="later_saving_agreement" value="later" data-rule="parent_target[.sb1_input_wrapper]">
+                <label class="sb1_button" id="later_saving_agreement_label" for="later_saving_agreement"><span>Senere</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="error_summary_holder"></div>
+
+          <div class="sb1_form_row">
+            <div class="sb1_row_content sb1_input_wrapper sb1_row_action">
+              <button class="action-btn" id="submit_btn">logg inn og fullfør</button>
+              <a href="#" class="continue_later" id="continue_later_btn">Fortsett senere</a>
+            </div>
+          </div>
+        </form>
+
+        <div id="iframe_wrapper" class="sb1_row_content sb1_input_wrapper"></div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>Footer</footer>
+</body>
+</html>

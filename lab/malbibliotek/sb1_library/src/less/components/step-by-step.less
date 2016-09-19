@@ -1,0 +1,118 @@
+.step-links {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 1000px;
+    > li {
+
+        &:first-child {
+            .step-head {
+                &:before {
+                    border: none;
+                }
+            }
+        }
+        &:last-child {
+            .step-head {
+                &:after {
+                    border: none;
+                }
+            }
+        }
+
+        > .step-head {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            padding: 15px 0;
+            margin: auto;
+            cursor: pointer;
+            position: relative;
+
+            &:after,
+            &:before {
+                content: '';
+                border-right: 3px solid @gray-light;
+                position: absolute;
+                top: 0;
+                bottom: 50%;
+                left: 23px;
+            }
+            &:after{
+                top: 50%;
+                bottom: 0;
+            }
+
+            .step-title,
+            .step-number {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            &.open {
+                > .step-number{
+                    > span {
+                        border: 3px solid @blue-royal;
+                    }
+                }
+                > .step-title {
+                    color: @blue-royal;
+                }
+                &:before {
+                    left: 23px;
+                }
+                &:after {
+                    border-right: 3px solid @blue-royal;
+                    left: 23px;
+                }
+            }
+
+            > .step-number{
+                margin-right: 20px;
+                width: 50px;
+                text-align: center;
+                position: relative;
+                > span {
+                    border: 3px solid @gray-light;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    display: table-cell;
+                    transition: all 200ms;
+                    position: relative;
+                    background-color: @white;
+                    z-index: 1;
+                    vertical-align: middle;
+                }
+                &:extend(h4);
+            }
+            > .step-title {
+                padding-left: 20px;
+                &:extend(h4);
+                font-family: 'MuseoSansRounded-500';
+                color: @blue-royal-light-wcag;
+                transition: all 200ms;
+            }
+            &:hover {
+                > .step-number > span{
+                    border: 3px solid @blue-royal;
+                }
+                > .step-title {
+                    color: @blue-royal;
+                }
+            }
+        }
+
+        > .step-content {
+            display: none;
+            border-top: 3px solid @blue-royal;
+            background-color: @sand-light;
+            padding: 20px;
+
+            &.open {
+                display: block;
+            }
+        }
+    }
+
+}

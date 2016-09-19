@@ -1,0 +1,186 @@
+* { padding: 0; margin: 0; }
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  position: relative;
+}
+
+header, footer {
+  padding: 20px;
+  background: #002776 none repeat 0 0;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  font-family: "MuseoSansRounded-700";
+  font-weight: normal;
+}
+
+footer {
+  margin-top: 100px;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+/******************************************************************************
+=== header ===
+******************************************************************************/
+header {
+  height: 60px;
+  background: #fff none repeat center center;
+  width: 100%;
+  z-index: 50;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+}
+
+/*Fix*/
+main { padding-top: 60px; }
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+header > div {
+  padding: 10px 40px 0 40px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+header > div:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  right: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+/********************/
+
+header a:hover,
+header a {
+  border-bottom: 0 none;
+  cursor: default;
+}
+
+
+header .sb1_logo {
+  display: block;
+  height: 100%;
+}
+
+header .sb1_profile,
+header .sb1_burger {
+  position: absolute;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  background: transparent none no-repeat center center;
+  background-size: 50px auto;
+}
+
+header .sb1_burger {
+  left: 10px;
+  background-image: url("./burger.svg");
+  background-size: 30px auto;
+}
+
+header .sb1_profile {
+  right: 10px;
+  background-image: url("./profile.svg");
+  background-size: 30px auto;
+}
+
+
+header .sb1_profile:before {
+  content: "1";
+  position: absolute;
+  left: -10px;
+  top: 10px;
+  opacity: 0; 
+  filter: alpha(opacity=0); 
+
+  -webkit-transition: opacity .6s ease;                  
+  -moz-transition: opacity .6s ease;                 
+  -o-transition: opacity .6s ease;   
+  -ms-transition: opacity .6s ease;         
+  transition: opacity .6s ease; 
+}
+
+header .sb1_profile.inc_message:before {
+  opacity: 1; 
+  filter: alpha(opacity=100);   
+}
+
+/******************************************************************************
+=== form_body ===
+******************************************************************************/
+.form_body {
+  float: left;
+  width: 100%;
+  position: relative;
+}
+
+/******************************************************************************
+=== iframe_application ===
+******************************************************************************/
+#iframe_wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px 5px;
+  margin: 15px auto;
+  width: 100%;
+  max-width: 1280px;
+
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+
+}
+
+#iframe_wrapper iframe {
+  min-height: 500px;  
+}
+
+#iframe_wrapper iframe,
+#bid_client {
+  width: 100%;
+  border: 0 none;
+  overflow: scroll;
+  /*height: 500px;*/
+}
+
+/******************************************************************************
+=== Tablet && mobile ===
+******************************************************************************/
+@media only screen and (max-width: 700px) { 
+  .sb1_form_layout .form_header {
+    margin-bottom: 10px;
+  }
+}
+
+/******************************************************************************
+=== Mobile ===
+******************************************************************************/
+@media only screen and (max-width: 460px) {
+  header img {
+    max-width: 160px;
+    width: 160px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #iframe_wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
