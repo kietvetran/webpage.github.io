@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <title>Chi restaurant</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, minimal-ui, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon" sizes="57x57" href="css/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="css/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="css/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="css/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="css/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="css/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="css/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="css/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon-180x180.png">
+
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+  <!-- data -->
+  <script type="text/javascript" src="./data/home-gallery.js"></script>
+  <script type="text/javascript" src="./data/menu-gallery.js"></script>
+  <script type="text/javascript" src="./data/menu.js"></script>
+
+  <!-- Script -->
+  <script type="text/javascript" src="./js/jquery/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="./js/fastclick.js"></script>
+  <script type="text/javascript" src="./js/carousel.js"></script> 
+  <script type="text/javascript" src="./js/main.js"></script> 
+
+</head>
+<body onload="javascript:startup()">
+  <div class="layout">
+    <header id="header" class="layout-table">
+      <div class="layout-row">
+        <div id="heading" class="layout-left">
+          <h1>
+            <span class="name">Chi</span>
+            <span class="lead">Restaurant & bar</span>
+          </h1>
+        </div>
+        <div id="navigation" class="layout-right">
+          <nav>
+            <ul class="tablist" role="tablist">
+              <li role="presentation">
+                <a href="#home" role="tab" id="tab-home" aria-selected="true" aria-controls="panel-home" class="tab-btn -main -show">
+                  Hjem
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#menu" role="tab" id="tab-menu" aria-selected="false" aria-controls="panel-menu" class="tab-btn -main">
+                  Meny
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#map" role="tab" id="tab-map" aria-selected="false" aria-controls="panel-map" class="tab-btn -main shy disabled">
+                  Kart
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+        <div id="panel-home" aria-hidden="false" aria-labelledby="tab-home" class="tab-panel -main -show">
+          <div class="layout-table -home-cnt">
+            <div class="layout-row">
+              <div class="layout-left">
+                <div id="home-gallary"></div>
+              </div>
+              <div class="layout-right">
+                <div class="open">
+                  <h2>Åpningstider</h2>
+                  <div>
+                    <span class="hour" aria-label="klokke">15:00 - 23:00</span>
+                    <span class="week-day" aria-label="Dag">Mandag - Torsdag</span>
+                    <span class="inforamtion">(kjøkkenet stenger 22:30)</span>
+                  </div>
+                  <div>
+                    <span class="hour" aria-label="klokke">15:00 - 24:00</span>
+                    <span class="week-day" aria-label="Dag">Fredag & Lørdag</span>
+                    <span class="inforamtion">(kjøkkenet stenger 22:30)</span>
+                  </div>
+                  <div>
+                    <span class="hour" aria-label="klokke">14:00 - 22:00</span>
+                    <span class="week-day" aria-label="Dag">Søndag</span>
+                    <span class="inforamtion">(kjøkkenet stenger 21:30)</span>
+                  </div>
+                </div>
+
+                <div class="contact">
+                  <h2>Kontakt</h2>
+                  <div>
+                    <span class="simular-label">Telefon</span>
+                    <a href="tlf:+4763818188" aria-label="telefonnummer" class="">+47 63 81 81 81</a>
+                  </div>
+                  <div>
+                    <span class="simular-label">Fax</span>
+                    <a href="fax:+4763818188" aria-label="faks" class="">+47 63 81 81 81</a>
+                  </div>
+                  <div>
+                    <span class="simular-label">E-post</span>
+                    <a href="mailto:post@chi-restaurant.no" aria-label="epost" class="">post@chi-restaurant.no</a>
+                  </div>
+                </div>
+
+                <div class="address">
+                  <h2>Besøksadresse</h2>
+                  <div class="street">
+                    Parkalleén 3 (Kinokvatalet)
+                  </div>
+                  <div class="city">
+                    2000 Lillestrøm
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="panel-menu" aria-hidden="true"  aria-labelledby="tab-menu" class="tab-panel -main">
+          <div id="menu">
+            <div id="menu-headline">
+              <nav>
+                <ul class="tablist -menu-headline" role="tablist">
+                  <li role="presentation">
+                    <a href="#a-la-carte-headline" role="tab" id="a-al-carte-head-link" aria-selected="true" aria-controls="a-la-carte-headline" class="tab-btn -menu-headline -show">
+                      A la carte
+                    </a>
+                    <a href="#setmenu-headline" role="tab" id="setmenu-head-link-exstra" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -cloned shy disabled">
+                      Selskapsmeny
+                    </a>
+                    <div id="a-la-carte-headline" aria-labelledby="a-al-carte-head-link" aria-hidden="false" class="tab-panel -menu-headline -show"></div>
+                  </li>
+                  <li role="presentation">
+                    <a  href="#setmenu-headline" role="tab" id="setmenu-head-link" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -original shy disabled">
+                      Selskapsmeny
+                    </a>
+                    <div id="setmenu-headline" ria-labelledby="setmenu-head-link" aria-hidden="true" class="tab-panel -menu-headline"></div>
+                  </li>
+                </ul>
+              </nav>
+
+            </div>
+            <div id="menu-content">
+              <div id="a-la-carte-content"></div>
+              <div id="setmenu-content"></div>
+            </div>
+          </div>
+        </div>
+        <div id="panel-map" aria-hidden="false" aria-labelledby="tab-map" class="tab-panel -main">
+        </div>
+    </main>
+    <footer id="footer">
+
+    </footer>    
+  </div>
+</body>
+</html>

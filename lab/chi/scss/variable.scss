@@ -1,0 +1,42 @@
+/******* COLOR ********/
+$red: #E60000;
+$sand: #E1D5AF;
+
+$green: #89b339;
+$green-light: #7fd41b;
+$green-dark: #6ab023;
+
+$orange : #E19100;
+
+$white: #FFFFFF;
+
+$grey: #ADADAD;
+$grey-light: #D8D8D8;
+$grey-dark: #676767;
+
+$black: #323232; 
+$black-dark: #212121; 
+
+$blue: #0075D2;
+$blue-dark: #002776; // Titles, lead, overlays
+$blue-light: #008ED2; // Anchor, text on white buttons, active radio buttons
+
+$purple-dark: #A20076;
+$purple: #552c87;
+$purple-light: #793ec1;
+$yellow : #e6e600;
+$bg-color: #ffffff;
+$bg-basic: #f3f2ee;
+$bg-disabled: #fafafa;
+
+//
+$breakpoint-sm: 480px;
+$breakpoint-md: 980px;
+$breakpoint-mdp: 768px;
+$breakpoint-lg: 1024px;
+
+/******* LAYOUT ********/
+$app-width: 1280px;
+$app-width-half: (1280px/2);
+$app-width-min: 320px;
+$app-width-min-half: (320px/2);

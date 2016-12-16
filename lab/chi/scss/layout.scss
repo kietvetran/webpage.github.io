@@ -1,0 +1,257 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;  
+  background: transparent url('../image/background/bg-wood1.jpg') repeat center center;
+  position: relative;
+}
+
+.layout {
+  width: 100%;
+  max-width: $app-width;
+  margin: 0 auto;
+  padding: 20px;
+
+  @media screen and (max-width: $breakpoint-sm) {
+    padding: 20px 5px;
+  }
+}
+
+.layout-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  .layout-row {
+    display: table-row;
+  }
+
+  .layout-left, .layout-right {
+    display: table-cell;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    vertical-align: top;
+  }
+
+  .layout-left {
+    width: 50%;
+  }
+
+  .layout-right {
+    width: 45%;
+    padding-left: 5%;
+  }
+
+  @media screen and (max-width: $breakpoint-mdp) {
+    &.-home-cnt {
+      &,.layout-row, .layout-left, .layout-right {
+        display: block;
+        width: 100%;
+        padding: 0;
+      }
+    }
+  }
+}
+
+#heading {
+  padding: 40px 0 0 0;
+  white-space: nowrap;
+  h1 {
+    padding: 0 0 0 85px;
+    text-shadow: 2px 2px #000;
+
+    &:before {
+      content: ' ';
+      background: transparent url('../image/logo/orange-01.png') no-repeat center center;
+      background-size: 80px auto;
+      display: inline-block;
+      width:80px;
+      height: 80px;
+      float: left;
+      margin: -20px 0 -20px -85px;
+    }
+
+    .name {
+      font-family: Georgia;
+      font-size: 80px;
+      font-weight: 700;      
+      display: block;
+    }
+
+    .lead {
+      margin-left: 10px;
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-md) {
+    h1 {
+      padding-left: 75px;
+      &:before {
+        background-size: 70px auto;
+        width: 70px;
+        height: 70px;
+        margin-left: -75px;
+      }
+      .name {
+        font-size: 65px;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-sm) {
+    padding: 5px 0 0 0;
+      h1 {
+        padding-left: 60px;
+        &:before {
+          background-size: 55px auto;
+          width: 55px;
+          height: 55px;
+          margin: -15px 0 -20px -60px;
+        }
+
+        .name {
+          font-size: 55px;
+        }
+
+        .lead {
+          display: none;
+        }
+      }
+  }
+}
+
+#navigation {
+  text-align: right;
+  vertical-align: bottom;
+  .tablist {
+    > li {
+      margin-left: 15px;
+      display: inline-block;
+      font-size: 110%;
+    }
+  }
+}
+
+.tab-btn {
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-style: solid;
+    border-width: 15px;
+    border-color: transparent transparent $white transparent;
+    margin: -15px 0 0 -15px;
+    display: none;
+  }
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+
+  &.-show {
+    font-weight: 700;
+    color: $orange;
+    &:before {
+      display: block;
+    }
+  }
+}
+
+.tab-panel {
+  border: 1px solid $white;
+  border-radius: 2px;
+  margin-top: 14px;
+  padding: 15px;
+  visibility: hidden;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: -2;
+  @include opacity( 0 );
+
+  > * {
+    position: relative;
+  }
+
+  &:before {
+    content: '';
+    background: $black none repeat 0 0;
+    @include opacity(.7);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.-show {
+    height: auto;
+    visibility: visible;
+    position: relative;
+    z-index: 1;
+    @include opacity( 1 );
+  }
+
+  &.-menu {
+    margin-top: 0;
+  }
+}
+
+#home-gallary {
+  border-radius: 2px;
+  background: $white none repeat 0 0;
+  padding: 15px;
+}
+
+.open, .contact, .address {
+  margin: 0 0 25px 0;
+  > div {
+    margin-bottom: 5px;
+  }
+}
+
+.open {
+  span {
+    display: inline-block;
+    &.hour {
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: $breakpoint-md) { 
+    margin-top: 15px;
+  }
+}
+
+.contact, .address {
+  float: left;
+  width: 50%;
+
+  @media screen and (max-width: $breakpoint-md) { 
+    width: 100%;
+    float: none;
+  }
+}
+
+.contact {
+  .simular-label {
+    @include opacity(.8);
+    display: inline-block;
+    width: 60px;
+  }
+}

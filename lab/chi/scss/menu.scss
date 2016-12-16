@@ -1,0 +1,173 @@
+#menu {
+  #menu-content {
+    float: left;
+    width: 70%;
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .page:first-child h2:first-child {
+      margin-top: 0;
+    }
+
+    .tab-panel {
+      min-height: 400px;
+    }
+  }
+
+  #menu-headline {
+    float: left;  
+    width: 30%;
+    padding-right: 20px;
+    text-align: right;
+
+    .tab-panel {
+      border: 0 none;
+      padding: 0;
+      margin: 0;
+
+      &.-show {
+        overflow: visible;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .tablist {
+      &.-menu-headline {
+        > li {
+          margin-bottom: 50px;
+          > .tab-btn {
+            &:before {
+              display: none;
+            }
+
+            &.-cloned {
+              display: none;
+            }
+
+            &, &.-show {
+              color: #fff;
+              font-size: 145%;
+            }
+          }
+        }
+      }
+
+      > li {
+        margin-top: 15px;
+      }
+
+      .tab-btn {
+        font-size: 105%;
+        &:before {
+          border-color: transparent $white transparent transparent;
+          left: 100%;
+          top: 0;
+          margin: -7px 0 0 -9px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-mdp) {
+    #menu-headline, #menu-content {
+      float: none;
+      clear: both;
+      width: 100%;
+      padding: 0;
+    }
+
+    #menu-content {
+      .tab-panel {
+        min-height: 0;
+      }
+    }
+
+    #menu-headline {
+      .tablist {
+        &.-menu-headline {
+          > li {
+            margin-bottom: 0;
+            > .tab-btn {
+              margin: 0 0 15px 15px;
+
+              &.-show {
+                color: $orange;
+                text-decoration: none;
+              }
+
+              &.-original {
+                display: none;
+              }
+
+              &.-cloned {
+                display: inline-block;
+              }
+            }
+          }
+        }
+
+        > li {
+          margin: 0;
+          display: inline-block;
+        }
+
+        .tab-btn.-menu {
+          display: inline-block;
+          padding: 5px 10px;
+          margin: 0 0 5px 5px;
+          border: 1px solid $white;
+
+          &:before {
+            display: none;
+          }
+
+          &.-show {
+            color: $black;
+            background-color: $orange;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }   
+}
+
+.food {
+  position: relative;
+  padding: 0 60px 15px 35px;
+
+  .number, .price {
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+  }
+  .number {
+    left: 0;
+    font-weight: 700;
+  }
+  .price {
+    right: 0;
+    &:after  {
+      content: ' kr';
+    }
+  }
+  .name {
+    font-weight: 700;
+  }
+
+  .notification {
+    font-style: italic;
+    &:before {
+      content: 'Allergener: ';
+    }
+  }
+
+  .notification, .description, .price {
+    @include opacity(.8);
+  }
+}
