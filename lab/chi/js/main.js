@@ -14,6 +14,21 @@ var ATTR = {
 /******************************************************************************
 === MAIN GLOBAL FUCNTION ===
 ******************************************************************************/
+function initMap() {
+  var center = {lat: 59.958088, lng: 11.049032};
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    'center': center,
+    'scrollwheel': false,
+    'zoom': 16
+  });
+
+  var marker = new google.maps.Marker({
+    'position': center,
+    'map': map,
+    'title': 'Chi restaurant & bar'
+  });
+}
 
 function startup() {
   initHomeGallary();
@@ -156,9 +171,7 @@ function clickOnTabBtn( data ) {
   var href = data.current.attr('href');
   if ( ! href ) { return; }
 
-  if ( href === '#map' ) {
-  
-  } else if ( data.current.hasClass('-menu-headline') ) {
+  if ( data.current.hasClass('-menu-headline') ) {
 
   } else if ( data.current.hasClass('-menu') ) {
     updateLocationHash({'menu': href.replace( /\#/g, '' )});

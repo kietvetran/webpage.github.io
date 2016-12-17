@@ -19,6 +19,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon-180x180.png">
 
   <!-- css -->
+  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 
   <!-- data -->
@@ -30,6 +31,7 @@
   <script type="text/javascript" src="./js/jquery/jquery-3.1.1.min.js"></script>
   <script type="text/javascript" src="./js/fastclick.js"></script>
   <script type="text/javascript" src="./js/carousel.js"></script> 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJht73HFeCyZAYmcyeHAns6ioP51E5mVA&callback=initMap" async defer></script>
   <script type="text/javascript" src="./js/main.js"></script> 
 
 </head>
@@ -57,7 +59,7 @@
                 </a>
               </li>
               <li role="presentation">
-                <a href="#map" role="tab" id="tab-map" aria-selected="false" aria-controls="panel-map" class="tab-btn -main shy disabled">
+                <a href="#map" role="tab" id="tab-map" aria-selected="false" aria-controls="panel-map" class="tab-btn -main">
                   Kart
                 </a>
               </li>
@@ -154,6 +156,7 @@
           </div>
         </div>
         <div id="panel-map" aria-hidden="false" aria-labelledby="tab-map" class="tab-panel -main">
+            <div id="map"></div>
         </div>
     </main>
     <footer id="footer">
