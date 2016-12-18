@@ -834,6 +834,11 @@ body {
       display: block;
       width: 100%;
       padding: 0; } }
+  @media screen and (max-width: 480px) {
+    .layout-table.-header, .layout-table.-header .layout-row, .layout-table.-header .layout-left, .layout-table.-header .layout-right {
+      display: block;
+      width: 100%;
+      padding: 0; } }
 
 #heading {
   padding: 40px 0 0 0;
@@ -880,9 +885,10 @@ body {
           height: 55px;
           margin: -15px 0 -20px -60px; }
         #heading h1 .name {
-          font-size: 55px; }
+          font-size: 55px;
+          display: inline-block; }
         #heading h1 .lead {
-          display: none; } }
+          display: inline-block; } }
 
 #navigation {
   text-align: right;

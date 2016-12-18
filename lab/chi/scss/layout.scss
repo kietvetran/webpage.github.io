@@ -56,7 +56,16 @@ body {
         width: 100%;
         padding: 0;
       }
-    }
+    }    
+  }
+  @media screen and (max-width: $breakpoint-sm) {
+    &.-header {
+      &,.layout-row, .layout-left, .layout-right {
+        display: block;
+        width: 100%;
+        padding: 0;
+      }
+    }    
   }
 }
 
@@ -120,10 +129,11 @@ body {
 
         .name {
           font-size: 55px;
+          display: inline-block;
         }
 
         .lead {
-          display: none;
+          display: inline-block;
         }
       }
   }
