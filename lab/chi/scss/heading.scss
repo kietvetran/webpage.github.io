@@ -1,0 +1,71 @@
+#heading {
+  padding: 40px 0 0 0;
+  white-space: nowrap;
+  h1 {
+    padding: 0 0 0 85px;
+    text-shadow: 2px 2px #000;
+
+    &:before {
+      content: ' ';
+      background: transparent url('../image/logo/orange-01.png') no-repeat center center;
+      background-size: 80px auto;
+      display: inline-block;
+      width:80px;
+      height: 80px;
+      float: left;
+      margin: -20px 0 -20px -85px;
+    }
+
+    .name {
+      font-family: Georgia;
+      font-size: 80px;
+      font-weight: 700;      
+      display: block;
+    }
+
+    .lead {
+      margin-top: 10px;
+      margin-left: 10px;
+      display: block;
+    }
+  }
+
+  /*
+  @media screen and (max-width: $breakpoint-md) {
+    h1 {
+      padding-left: 75px;
+      &:before {
+        background-size: 70px auto;
+        width: 70px;
+        height: 70px;
+        margin-left: -75px;
+      }
+      .name {
+        font-size: 65px;
+      }
+    }
+  }
+  */
+
+  @media screen and (max-width: $breakpoint-mdp) {
+    padding: 5px 0 0 0;
+    h1 {
+      padding-left: 60px;
+      &:before {
+        background-size: 55px auto;
+        width: 55px;
+        height: 55px;
+        margin: -15px 0 -20px -60px;
+      }
+
+      .name {
+        font-size: 55px;
+        display: inline-block;
+      }
+
+      .lead {
+        display: inline-block;
+      }
+    }
+  }
+}

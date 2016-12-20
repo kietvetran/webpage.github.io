@@ -19,13 +19,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon-180x180.png">
 
   <!-- css -->
-  <link rel="stylesheet" href="/maps/documentation/javascript/demos/demos.css">
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 
   <!-- data -->
   <script type="text/javascript" src="./data/home-gallery.js"></script>
   <script type="text/javascript" src="./data/menu-gallery.js"></script>
   <script type="text/javascript" src="./data/menu.js"></script>
+  <script type="text/javascript" src="./data/gallery.js"></script>
 
   <!-- Script -->
   <script type="text/javascript" src="./js/jquery/jquery-3.1.1.min.js"></script>
@@ -61,6 +61,11 @@
               <li role="presentation">
                 <a href="#map" role="tab" id="tab-map" aria-selected="false" aria-controls="panel-map" class="tab-btn -main">
                   Kart
+                </a>
+              </li>
+              <li role="presentation">
+                <a href="#gallery" role="tab" id="tab-gallery" aria-selected="false" aria-controls="panel-gallery" class="tab-btn -main">
+                  Galleri
                 </a>
               </li>
             </ul>
@@ -156,12 +161,20 @@
           </div>
         </div>
         <div id="panel-map" aria-hidden="false" aria-labelledby="tab-map" class="tab-panel -main">
-            <div id="map"></div>
+          <div id="map"></div>
+        </div>
+        <div id="panel-gallery" aria-hidden="false" aria-labelledby="tab-gallery" class="tab-panel -main">
+          <div id="gallery-content">
+            <h2>Bilde galleri</h2>
+            <div id="gallery-view"></div>
+          </div>
         </div>
     </main>
     <footer id="footer">
 
     </footer>    
   </div>
+
+  <div id="modal" role="dialog" aria-live="polite" aria-hidden="true"></div>
 </body>
 </html>

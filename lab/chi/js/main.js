@@ -5,6 +5,7 @@ try { CONFIG; } catch( error ){ CONFIG = {};   }
 try { HOMEGALLERY; } catch( error ){ HOMEGALLERY = null;   }
 try { MENUGALLERY; } catch( error ){ MENUGALLERY = null;   }
 try { MENU; } catch( error ){ MENU = [];   }
+try { GALLERY; } catch( error ){ GALLERY = [];   }
 var ATTR = {
   'timeout'  : 0,
   'interval' : 0,
@@ -35,6 +36,7 @@ function startup() {
   //initMenuGallary();
   initHome();
   initMenu();
+  initGallery();
 
   ATTR.tab   = $('.tab-btn.-main');
   ATTR.panel = $('.tab-panel.-main');
@@ -74,7 +76,6 @@ function initMenuGallary() {
 }
 
 function initHome() {
-
 }
 
 function initMenu() {
@@ -116,6 +117,24 @@ function initMenu() {
   $('#a-la-carte-content').html( output.join('') );
 }
 
+function initGallery() {
+  var out = [];
+  for ( var i=0; i<GALLERY.length; i++ ) {
+    out.push(
+      '<a href="#" class="gallery-image">' +
+        '<img src="'+GALLERY[i].src+'" alt="'+GALLERY[i].alt+'">' +
+        '<div class="title ellipsis">' + GALLERY[i].alt + '</div>'+
+      '</a>'
+    );
+  }
+
+  $('#gallery-view').html(
+    '<ul class="gallery-list">' +
+      '<li>' + out.join('</li><li>') + '</li>' +
+    '</ul>'
+  );
+}
+
 /******************************************************************************
 === EVENT FUCNTION ===
 ******************************************************************************/
@@ -135,8 +154,10 @@ function hashChangeHandler( e ) {
  */
 function clickHandler( e ) {
   var target = $(e.target), parent = target.parent(), order = [
-    {'type':'class', 'what':'tab-btn', 'handler':clickOnTabBtn  },
-    {'type':'id',    'what':'btnLogo', 'handler':clickOnBtnLogo }
+    {'type':'class', 'what':'tab-btn',       'handler':clickOnTabBtn        },
+    {'type':'class', 'what':'gallery-image', 'handler':clickOnGalleryImage  },
+    {'type':'class', 'what':'close-modal',   'handler':clickOnCloseModal    },
+    {'type':'id',    'what':'btnLogo',       'handler':clickOnBtnLogo       }
   ]; 
 
   var i = 0, loop = order.length, current = null; 
@@ -163,8 +184,12 @@ function clickHandler( e ) {
   }
 }
 
-function clickOnBtnLogo( data ) {
-  
+function clickOnBtnLogo( data ) {  
+}
+
+
+function clickOnCloseModal( data ) {
+  hideModal();
 }
 
 function clickOnTabBtn( data ) {
@@ -178,6 +203,10 @@ function clickOnTabBtn( data ) {
   } else {
     updateLocationHash({'tab': href.replace( /\#/g, '' )});
   }
+}
+
+function clickOnGalleryImage( data ) {
+  showModal( '<div class="image-cnt">'+data.current.html()+'</div>' );
 }
 
 function changeTab( name ) {
@@ -206,6 +235,21 @@ function changeMenu( name ) {
   ATTR.panelMenu.filter('#panel-menu-'+name).addClass('-show');
 }
 
+function showModal( html ) {
+  var close = '<a href="#" class="close-modal">' +
+    '<span aria-hidden="true">&#10060;</span>'+
+    '<span class="aria-visible">Lukk modal vindu</span>'+
+  '</a>';
+
+  $('#modal').html('<div class="content">' + close + html +'</div>')
+    .attr('aria-hidden', 'false').addClass('-open');
+  $('body').addClass('display-modal');
+}
+
+function hideModal() {
+  $('#modal').html('').attr('aria-hidden', 'true').removeClass('-open');
+  $('body').removeClass('display-modal');
+}
 
 /******************************************************************************
 === GENERAL FUCNTION ===

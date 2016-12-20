@@ -58,7 +58,7 @@ body {
       }
     }    
   }
-  @media screen and (max-width: $breakpoint-sm) {
+  @media screen and (max-width: $breakpoint-mdp) {
     &.-header {
       &,.layout-row, .layout-left, .layout-right {
         display: block;
@@ -66,76 +66,6 @@ body {
         padding: 0;
       }
     }    
-  }
-}
-
-#heading {
-  padding: 40px 0 0 0;
-  white-space: nowrap;
-  h1 {
-    padding: 0 0 0 85px;
-    text-shadow: 2px 2px #000;
-
-    &:before {
-      content: ' ';
-      background: transparent url('../image/logo/orange-01.png') no-repeat center center;
-      background-size: 80px auto;
-      display: inline-block;
-      width:80px;
-      height: 80px;
-      float: left;
-      margin: -20px 0 -20px -85px;
-    }
-
-    .name {
-      font-family: Georgia;
-      font-size: 80px;
-      font-weight: 700;      
-      display: block;
-    }
-
-    .lead {
-      margin-top: 10px;
-      margin-left: 10px;
-      display: block;
-    }
-  }
-
-  @media screen and (max-width: $breakpoint-md) {
-    h1 {
-      padding-left: 75px;
-      &:before {
-        background-size: 70px auto;
-        width: 70px;
-        height: 70px;
-        margin-left: -75px;
-      }
-      .name {
-        font-size: 65px;
-      }
-    }
-  }
-
-  @media screen and (max-width: $breakpoint-sm) {
-    padding: 5px 0 0 0;
-      h1 {
-        padding-left: 60px;
-        &:before {
-          background-size: 55px auto;
-          width: 55px;
-          height: 55px;
-          margin: -15px 0 -20px -60px;
-        }
-
-        .name {
-          font-size: 55px;
-          display: inline-block;
-        }
-
-        .lead {
-          display: inline-block;
-        }
-      }
   }
 }
 
@@ -269,4 +199,64 @@ body {
 
 #map {
   height: 500px;
+}
+
+#modal {
+  position: fixed;
+  z-index: 10;
+  display: none;
+
+  &, &:before {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8) none repeat 0 0;
+  }
+
+  &.-open {
+    display: block;
+  }
+
+  .close-modal {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 20;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 35px;
+    font-size: 20px;
+    text-decoration: none;
+    overflow: hidden;
+    border-radius: 100%;
+    font-weight: 700;
+    background-color: $orange;
+    @include shadow();
+  }
+
+  > .content {
+    width: $breakpoint-mdp;
+    margin: 20px auto 0 auto;
+    border-radius: 2px;
+    position: relative;
+    background: $white none repeat 0 0;
+    padding: 20px;
+
+    .image-cnt {
+      color: $black-dark;
+    }
+
+    @media screen and (max-width: $breakpoint-mdp) { 
+      width: 94%;
+      margin-left: 3%;
+      margin-right: 3%;
+    }
+  }
 }
