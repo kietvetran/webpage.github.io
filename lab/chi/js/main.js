@@ -30,7 +30,7 @@ function initMap() {
   var marker = new google.maps.Marker({
     'position': center,
     'map': map,
-    'title': 'Chi restaurant & bar'
+    'title': 'Chi restaurant & bar, Parkalleén 3'
   });
 }
 
