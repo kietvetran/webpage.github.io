@@ -199,6 +199,7 @@ body {
 
 #map {
   height: 500px;
+  border: 1px solid $white;
 }
 
 #modal {
@@ -231,14 +232,14 @@ body {
     text-align: center;
     width: 30px;
     height: 30px;
-    line-height: 35px;
-    font-size: 20px;
+    line-height: 30px;
     text-decoration: none;
     overflow: hidden;
     border-radius: 100%;
     font-weight: 700;
-    background-color: $orange;
-    @include shadow();
+    background-color: $white;
+    color: $orange;
+    font-size: 20px;
   }
 
   > .content {
@@ -254,6 +255,7 @@ body {
     }
 
     @media screen and (max-width: $breakpoint-mdp) { 
+      padding: 10px;
       width: 94%;
       margin-left: 3%;
       margin-right: 3%;

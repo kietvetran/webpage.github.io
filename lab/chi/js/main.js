@@ -6,6 +6,8 @@ try { HOMEGALLERY; } catch( error ){ HOMEGALLERY = null;   }
 try { MENUGALLERY; } catch( error ){ MENUGALLERY = null;   }
 try { MENU; } catch( error ){ MENU = [];   }
 try { GALLERY; } catch( error ){ GALLERY = [];   }
+try { MAPSTYLING; } catch( error ){ MAPSTYLING = [];   }
+
 var ATTR = {
   'timeout'  : 0,
   'interval' : 0,
@@ -21,7 +23,8 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     'center': center,
     'scrollwheel': false,
-    'zoom': 16
+    'zoom': 15,
+    'styles': MAPSTYLING
   });
 
   var marker = new google.maps.Marker({
@@ -236,8 +239,8 @@ function changeMenu( name ) {
 }
 
 function showModal( html ) {
-  var close = '<a href="#" class="close-modal">' +
-    '<span aria-hidden="true">&#10060;</span>'+
+  var close = '<a href="#" class="close-modal" title="Lukk modal vindu">' +
+    '<span aria-hidden="true">&#x2716;</span>'+
     '<span class="aria-visible">Lukk modal vindu</span>'+
   '</a>';
 
