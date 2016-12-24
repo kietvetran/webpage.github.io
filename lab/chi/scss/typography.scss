@@ -116,6 +116,10 @@ a.disabled, .disabled {
   }
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 
 @media screen and (max-width: $breakpoint-md) { 
   h1, .h1, {

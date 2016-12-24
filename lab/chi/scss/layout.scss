@@ -99,7 +99,7 @@ body {
   }
 
   &:hover, &:focus {
-    text-decoration: underline;
+    color: $orange;
   }
 
   &.-show, &.-stay-open {
@@ -238,8 +238,12 @@ body {
     border-radius: 100%;
     font-weight: 700;
     background-color: $white;
-    color: $orange;
+    color: $black-dark;
     font-size: 20px;
+
+    &:hover, &:focus {
+      color: $orange;
+    }
   }
 
   > .content {
@@ -264,6 +268,13 @@ body {
 }
 
 .facebook {
+  &:hover, &:focus {
+    .image {
+      background-color: $orange;
+      color: $white;
+    }
+  }
+
   .image {
     display: inline-block;
     width: 30px;

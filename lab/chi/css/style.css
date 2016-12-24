@@ -208,6 +208,9 @@ a.disabled, a.disabled:hover, a.disabled:focus, .disabled, .disabled:hover, .dis
   text-decoration: none;
   cursor: default; }
 
+.nowrap {
+  white-space: nowrap; }
+
 @media screen and (max-width: 980px) {
   h1, .h1 {
     font-size: 24px;
@@ -863,7 +866,7 @@ body {
     margin: -15px 0 0 -15px;
     display: none; }
   .tab-btn:hover, .tab-btn:focus {
-    text-decoration: underline; }
+    color: #E19100; }
   .tab-btn.-show, .tab-btn.-stay-open {
     font-weight: 700;
     color: #E19100; }
@@ -973,8 +976,10 @@ body {
     border-radius: 100%;
     font-weight: 700;
     background-color: #FFFFFF;
-    color: #E19100;
+    color: #212121;
     font-size: 20px; }
+    #modal .close-modal:hover, #modal .close-modal:focus {
+      color: #E19100; }
   #modal > .content {
     width: 768px;
     margin: 20px auto 0 auto;
@@ -990,6 +995,10 @@ body {
         width: 94%;
         margin-left: 3%;
         margin-right: 3%; } }
+
+.facebook:hover .image, .facebook:focus .image {
+  background-color: #E19100;
+  color: #FFFFFF; }
 
 .facebook .image {
   display: inline-block;
