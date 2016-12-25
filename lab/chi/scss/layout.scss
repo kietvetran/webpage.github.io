@@ -151,6 +151,10 @@ body {
 
   &.-menu {
     margin-top: 0;
+    h2 + .notification, h3 + .notification {
+      @include opacity(.8);
+      margin: -10px 0 20px 0;
+    }
   }
 }
 

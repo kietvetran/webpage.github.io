@@ -24,9 +24,11 @@
   <!-- data -->
   <script type="text/javascript" src="./data/home-gallery.js"></script>
   <script type="text/javascript" src="./data/menu-gallery.js"></script>
-  <script type="text/javascript" src="./data/menu.js"></script>
+  <script type="text/javascript" src="./data/menu-a-la-carte.js"></script>
+  <script type="text/javascript" src="./data/menu-setmenu.js"></script>
   <script type="text/javascript" src="./data/gallery.js"></script>
   <script type="text/javascript" src="./data/map-styling.js"></script>
+  <script type="text/javascript" src="./data/information.js"></script>
 
   <!-- Script -->
   <script type="text/javascript" src="./js/jquery/jquery-3.1.1.min.js"></script>
@@ -88,6 +90,8 @@
                 <div id="home-gallary"></div>
               </div>
               <div class="layout-right">
+                <div id="information-holder"></div>
+
                 <div class="open">
                   <h2>Åpningstider</h2>
                   <div>
@@ -143,16 +147,16 @@
               <nav>
                 <ul class="tablist -menu-headline" role="tablist">
                   <li role="presentation">
-                    <a href="#a-la-carte-headline" role="tab" id="a-al-carte-head-link" aria-selected="true" aria-controls="a-la-carte-headline" class="tab-btn -menu-headline -show">
+                    <a href="#a-la-carte-headline" role="tab" id="a-al-carte-head-link" aria-selected="true" aria-controls="a-la-carte-headline" class="tab-btn -menu-headline">
                       A la carte
                     </a>
-                    <a href="#setmenu-headline" role="tab" id="setmenu-head-link-exstra" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -cloned shy disabled">
+                    <a href="#setmenu-headline" role="tab" id="setmenu-head-link-exstra" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -cloned">
                       Selskapsmeny
                     </a>
                     <div id="a-la-carte-headline" aria-labelledby="a-al-carte-head-link" aria-hidden="false" class="tab-panel -menu-headline -show"></div>
                   </li>
                   <li role="presentation">
-                    <a  href="#setmenu-headline" role="tab" id="setmenu-head-link" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -original shy disabled">
+                    <a  href="#setmenu-headline" role="tab" id="setmenu-head-link" aria-selected="false" aria-controls="setmenu-headline" class="tab-btn -menu-headline -original">
                       Selskapsmeny
                     </a>
                     <div id="setmenu-headline" ria-labelledby="setmenu-head-link" aria-hidden="true" class="tab-panel -menu-headline"></div>

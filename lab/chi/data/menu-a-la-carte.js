@@ -1,4 +1,4 @@
-var MENU = [
+var ALACARTE = [
 {
 	"category": "Sushi"
 },
@@ -499,18 +499,16 @@ var MENU = [
 	"headline": "Dim sum",
 }, {
 	"number": "9",
-	"name": "Vietnamesiske Vårruller ",
+	"name": "Vietnamesiske Vårruller",
 	"description": "",
 	"price": "85",
 	"notification": "gluten - bygg, skalldyr, egg, fisk, soya, sennep"
-
 }, {
 	"number": "10",
 	"name": "Ha Gau",
 	"description": "Dampede marinerte scampi i en tynn rispasta",
 	"price": "72",
-	"notification": "gluten, skalldyr, egg, soya, sesamolje "
-
+	"notification": "gluten, skalldyr, egg, soya, sesamolje"
 }, {
 	"number": "11",
 	"name": "Siu Mai ",

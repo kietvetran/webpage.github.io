@@ -4,14 +4,17 @@
 try { CONFIG; } catch( error ){ CONFIG = {};   }
 try { HOMEGALLERY; } catch( error ){ HOMEGALLERY = null;   }
 try { MENUGALLERY; } catch( error ){ MENUGALLERY = null;   }
-try { MENU; } catch( error ){ MENU = [];   }
+try { ALACARTE; } catch( error ){ ALACARTE = [];   }
+try { SETMENU; } catch( error ){ SETMENU = [];   }
 try { GALLERY; } catch( error ){ GALLERY = [];   }
 try { MAPSTYLING; } catch( error ){ MAPSTYLING = [];   }
+try { INFORMATION; } catch( error ){ INFORMATION = [];   }
 
 var ATTR = {
   'timeout'  : 0,
   'interval' : 0,
-  'now'      : new Date()
+  'now'      : new Date(),
+  'reference': {'menu': {}}
 };
 
 /******************************************************************************
@@ -38,7 +41,8 @@ function startup() {
   initHomeGallary();
   //initMenuGallary();
   initHome();
-  initMenu();
+  initMenu( ALACARTE, 'a-la-carte');
+  initMenu( SETMENU, 'setmenu');
   initGallery();
 
   ATTR.tab   = $('.tab-btn.-main');
@@ -79,12 +83,28 @@ function initMenuGallary() {
 }
 
 function initHome() {
+  var list = [];
+  for ( var i=0; i<INFORMATION.length; i++ ) {
+    var data = INFORMATION[i], id = "information-pin"+ i;
+    list.push(
+      '<div class="information">' +
+        '<h2 aria-describedby="'+id+'">' + data.title +'</h2>'+
+        '<div id="'+id+'" class="description">' + data.description +'</div>'+
+      '</div>'
+    );
+  }
+
+  if ( list.length ) {
+    $('#information-holder').html(
+      '<ul class="information-list"><li>'+list.join('</li><li>') + '</li>'
+    );
+  }
 }
 
-function initMenu() {
+function initMenu( menu, name ) {
   var list = [], index = 0, i = 0;
-  for ( i=0; i<MENU.length; i++ ) {
-    var data = MENU[i];
+  for ( i=0; i<menu.length; i++ ) {
+    var data = menu[i];
     if ( data.category ) {
       list[index++] = { 'name': data.category, 'content': [] };
     } else if ( list[index-1] ) {
@@ -92,12 +112,10 @@ function initMenu() {
     }
   }
 
-  console.log( list );
-
   var output = [], category = [];
-  for ( i=0; i<list.length; i++ ) {
+  for ( i=0; i<list.length; i++ ) { 
     var id = 'm-'+list[i].name.substring(0,3) + i; 
-    var type = '-menu' + (i ? '' : ' -show');
+    var type = '-menu' + (i ? '' : ' -show') +  ' -'+name;
     category.push( 
       '<a href="#'+id+'" role="tab" id="tab-menu-'+id+'" aria-selected="false" aria-controls="panel-menu'+id+'" class="tab-btn '+type+'">'+
         list[i].name +
@@ -110,14 +128,14 @@ function initMenu() {
     );
   }
 
-  $('#a-la-carte-headline').html( 
+  $('#'+name+'-headline').html( 
     '<ul class="tablist" role="tablist">'+
       '<li role="presentation">'+
         category.join('</li><li role="presentation">')+
       '</li>'+
     '</ul>'
   );
-  $('#a-la-carte-content').html( output.join('') );
+  $('#'+name+'-content').html( output.join('') );
 }
 
 function initGallery() {
@@ -200,7 +218,12 @@ function clickOnTabBtn( data ) {
   if ( ! href ) { return; }
 
   if ( data.current.hasClass('-menu-headline') ) {
-
+    var parent = data.current.hasClass('-cloned') ? 
+      $('#setmenu-head-link').parent() : data.current.parent();
+    href = parent.find('.tablist .tab-btn').eq(0).attr('href');
+    if ( href ) {
+      updateLocationHash({'menu': href.replace( /\#/g, '' )});
+    } 
   } else if ( data.current.hasClass('-menu') ) {
     updateLocationHash({'menu': href.replace( /\#/g, '' )});
   } else {
@@ -234,8 +257,18 @@ function changeMenu( name ) {
   ATTR.tabMenu.removeClass('-show');
   ATTR.panelMenu.removeClass('-show');
 
-  ATTR.tabMenu.filter('#tab-menu-'+name).addClass('-show');
   ATTR.panelMenu.filter('#panel-menu-'+name).addClass('-show');
+  var btn = ATTR.tabMenu.filter('#tab-menu-'+name).addClass('-show');
+  var panel = btn.closest('.tab-panel');
+  if ( panel && panel.length ) {
+    panel.closest('.tablist').find('> li > .tab-panel, > li > a').removeClass('-show');
+    var category = panel.addClass('-show').parent().find('> a').eq(0).addClass('-show');
+    if ( category.hasClass('-original') ) {
+      var cloned = $('#setmenu-head-link-exstra');
+      category.hasClass('-show') ? cloned.addClass('-show') : 
+        cloned.removeClass('-show');
+    }
+  }
 }
 
 function showModal( html ) {
@@ -306,20 +339,21 @@ function _createFoodMenu( data ) {
     var id = getAutoId(); 
     html = '<h2 id="'+id+'">'+data.headline+'</h2>'+note;
   } else if ( data.subline ) {
-    html = '<h3>'+data.subline+'</h2>'+note;
+    html = '<h3>'+data.subline+'</h3>'+note;
   } else {
+    var name   = data.name ? '<div class="name">'+data.name+'</div>' : '';
+    var number = data.number ? '<div class="number">'+data.number+'</div>' : '';
+    var price  = data.price ? '<div class="price">'+data.price+'</div>' : '';
+
     var description = data.description ? 
       '<div class="description">'+data.description+'</div>' : '';
     var sashimi = data.sashimi ? 
       '<div class="price sashimi">'+data.sashimi+'</div>' : '';
     var type = 'food' + (data.type ? (' -'+data.type) : '') +
-      (sashimi ? ' -has-sashimi' : '');
+      (sashimi ? ' -has-sashimi' : '') + (number ? '' : ' -no-number');
 
     html = '<div class="'+type+'">' +
-      '<div class="number">'+data.number+'</div>'+
-      '<div class="name">'+data.name+'</div>'+
-      '<div class="price">'+data.price+'</div>'+
-      sashimi + description + note +
+      number + name + price + sashimi + description + note +
     '</div>';   
   }
   return html;
