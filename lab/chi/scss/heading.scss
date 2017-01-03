@@ -17,11 +17,34 @@
     }
 
     .name {
+      height: 30px;
+      display: block;
+      position: relative;
+      font-size: 1px;
+      color: transparent;
+
+      &:after {
+        content: ' ';
+        position: absolute;
+        left: 10px;
+        top: -20px;
+        bottom: -15px;        
+        display: inline-block;
+        width: 200px;
+        background: transparent url('../image/logo/chi-logo-white.png') no-repeat left center;
+        background-size: auto 55px;
+      }
+    }
+
+
+    /*
+    .name {
       font-family: Georgia;
       font-size: 80px;
       font-weight: 700;      
       display: block;
     }
+    */
 
     .lead {
       margin-top: 10px;
