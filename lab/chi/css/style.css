@@ -1086,10 +1086,17 @@ body {
           height: 55px;
           margin: -15px 0 -20px -60px; }
         #heading h1 .name {
-          font-size: 55px;
-          display: inline-block; }
+          float: left;
+          width: 118px; }
+          #heading h1 .name:after {
+            background-size: auto 40px;
+            top: -25px;
+            left: 5px; }
         #heading h1 .lead {
           display: inline-block; } }
+  @media screen and (max-width: 480px) {
+    #heading h1 .lead {
+      visibility: hidden; } }
 
 #menu #menu-content {
   float: left;

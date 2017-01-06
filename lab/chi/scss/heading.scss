@@ -82,12 +82,25 @@
       }
 
       .name {
-        font-size: 55px;
-        display: inline-block;
+        float: left;
+        width: 118px;
+        &:after {
+          background-size: auto 40px;
+          top: -25px;
+          left: 5px;
+        }
       }
 
       .lead {
         display: inline-block;
+      }
+    }
+  }
+
+  @media screen and (max-width: $breakpoint-sm) {
+    h1 {
+      .lead {
+        visibility: hidden;
       }
     }
   }
