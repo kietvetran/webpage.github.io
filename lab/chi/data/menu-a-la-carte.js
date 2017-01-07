@@ -439,7 +439,7 @@ var ALACARTE = [
 	"number": "35",
 	"name": "1/4 Crispy Duck for 1-2 personer",
 	"description": "1/2 Duck for 3-4 personer",
-	"price": "465",
+	"price": "265",
 	"notification": "gluten, skalldyr, soya, sesamolje"
 }, {
 	"separation": true
@@ -547,7 +547,7 @@ var ALACARTE = [
 	"notification": "gluten"
 }, {
 	"separation": true,
-	"category": "Hovedretter szechuan"
+	"category": "Hovedretter"
 }, {
 	"headline": "Hovedretter szechuan"
 }, {
@@ -641,8 +641,6 @@ var ALACARTE = [
 	"price": "169",
 	"notification": "gluten, soya, sesamolje,"
 }, {
-	"category": "Hovedretter kanton"
-}, {
 	"headline": "Hovedretter kanton"
 }, {
 	"number": "20",
@@ -669,8 +667,7 @@ var ALACARTE = [
 	"price": "228",
 	"notification": "gluten, soya, sesamolje, østersaus"
 }, {
-	"headline": "Hovedretter kontinental",
-	"category": "Hovedretter kontinental"
+	"headline": "Hovedretter kontinental"
 }, {
 	"number": "50",
 	"name": "Husets Indrefilet",
@@ -678,8 +675,7 @@ var ALACARTE = [
 	"price": "270",
 	"notification": "gluten, egg, soya, melk "
 }, {
-	"headline": "Chef's recommendation",
-	"category": "Kokkensanbefaling"
+	"headline": "Chef's recommendation"
 }, {
 	"number": "5",
 	"name": "1/2 Duck for 2 personer",
@@ -716,7 +712,7 @@ var ALACARTE = [
 	"separation": true
 }, {
 	"headline": "Desert",
-	"catetory": "Desert"
+	"category": "Desert"
 }, {
 	"number": "51",
 	"name": "Stekt Banan",

@@ -37,6 +37,10 @@ var SETMENU = [
 	"name": "Ostekake med assorterte frukte",
 	"description": "Ostekake med fersk frukt"
 }, {
+	"price": "495",
+	"type": "setmenu-price",
+	"notification": "minimum 4 personer og maks 10 personer"
+}, {
 	"separation": true,
 	"category": "Selskpasmeny 1"
 }, {
@@ -75,6 +79,10 @@ var SETMENU = [
 	"name": "Sorbet",
 	"description": "To kuler sorbet med fersk frukt"
 }, {
+	"price": "398",
+	"type": "setmenu-price",
+	"notification": "minimum 4 personer"
+}, {
 	"separation": true,
 	"category": "Selskpasmeny 2"
 }, {
@@ -112,6 +120,10 @@ var SETMENU = [
 	"name": "Sorbet",
 	"description": "To kuler sorbet med fersk frukt"
 }, {
+	"price": "460",
+	"type": "setmenu-price",
+	"notification": "minimum 4 personer"
+}, {
 	"separation": true,
 	"category": "Selskpasmeny 3"
 }, {
@@ -147,5 +159,9 @@ var SETMENU = [
 }, {
 	"name": "Ostekake med assorterte frukte",
 	"description": "Ostekake med fersk frukt"
+}, {
+	"price": "480",
+	"type": "setmenu-price",
+	"notification": "minimum 4 personer"
 }
 ];

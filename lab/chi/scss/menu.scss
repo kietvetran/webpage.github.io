@@ -174,3 +174,23 @@
     @include opacity(.8);
   }
 }
+
+.setmenu-price {
+  text-align: right;
+  font-size: 120%;
+
+  &:before {
+    content: ' Pris per person ';
+    font-size: 92%;
+    @include opacity(.8);
+  }
+
+  &:after  {
+    content: ' kr';
+  }
+
+  + .notification {
+    text-align: right;
+    @include opacity(.8);
+  }
+}

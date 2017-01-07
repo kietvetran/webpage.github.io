@@ -357,6 +357,8 @@ function _createFoodMenu( data ) {
     html = '<h2 id="'+id+'">'+data.headline+'</h2>'+note;
   } else if ( data.subline ) {
     html = '<h3>'+data.subline+'</h3>'+note;
+  } else if ( data.type === 'setmenu-price' ) {
+    html = '<div class="setmenu-price price">'+data.price+'</div>'+note;
   } else {
     var name   = data.name ? '<div class="name">'+data.name+'</div>' : '';
     var number = data.number ? '<div class="number">'+data.number+'</div>' : '';
