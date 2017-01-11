@@ -53,23 +53,6 @@
     }
   }
 
-  /*
-  @media screen and (max-width: $breakpoint-md) {
-    h1 {
-      padding-left: 75px;
-      &:before {
-        background-size: 70px auto;
-        width: 70px;
-        height: 70px;
-        margin-left: -75px;
-      }
-      .name {
-        font-size: 65px;
-      }
-    }
-  }
-  */
-
   @media screen and (max-width: $breakpoint-mdp) {
     padding: 5px 0 0 0;
     h1 {

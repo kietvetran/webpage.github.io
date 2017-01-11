@@ -38,7 +38,6 @@ function initMap() {
 
 function startup() {
   initHomeGallary();
-  //initMenuGallary();
   initHome();
   initMenu( ALACARTE, 'a-la-carte');
   initMenu( SETMENU, 'setmenu');
@@ -46,13 +45,16 @@ function startup() {
 
   ATTR.tab   = $('.tab-btn.-main');
   ATTR.panel = $('.tab-panel.-main');
-
-  ATTR.tabMenu   = $('.tab-btn.-menu');
+  ATTR.tabMenu = $('.tab-btn.-menu');
   ATTR.panelMenu = $('.tab-panel.-menu');
-
+  ATTR.body = $('body');  
+  ATTR.toTop = $(
+    '<a href="#" class="scroll-to-top-btn" title="Til top">Til toppen av side</a>'
+  ).appendTo( $('#menu') );
 
   $( document ).on('click', clickHandler);
   $( window ).on('hashchange', hashChangeHandler);
+  $( window ).on('scroll', scroll);
 
   hashChangeHandler();
 }
@@ -67,18 +69,6 @@ function initHomeGallary() {
       $('body').addClass('no-home-gallery');
     }
   }  
-}
-
-function initMenuGallary() {
-  var menuGallery = $('#menu-gallary');
-  if ( menuGallery.length ) {
-    if ( MENUGALLERY ) {
-      menuGallery.Carousel( MENUGALLERY );
-    } else {
-      menuGallery.remove();
-      $('body').addClass('no-menu-gallery');
-    }
-  }
 }
 
 function initHome() {
@@ -162,6 +152,18 @@ function initGallery() {
 * The function 
 * @return {Void}
 */
+function scroll( e ) {
+  clearTimeout( ATTR.timeout );
+  ATTR.timeout = setTimeout( function() {
+    var position = getScrollPosition();
+    position[1] > 20 ? ATTR.body.addClass('scrolled-passed') : 
+      ATTR.body.removeClass('scrolled-passed');
+  }, 100 );
+}
+/**
+* The function 
+* @return {Void}
+*/
 function hashChangeHandler( e ) {
   var opt = getURLoption();
   changeTab( opt.tab || 'home' );
@@ -174,10 +176,11 @@ function hashChangeHandler( e ) {
  */
 function clickHandler( e ) {
   var target = $(e.target), parent = target.parent(), order = [
-    {'type':'class', 'what':'tab-btn',       'handler':clickOnTabBtn        },
-    {'type':'class', 'what':'gallery-image', 'handler':clickOnGalleryImage  },
-    {'type':'class', 'what':'close-modal',   'handler':clickOnCloseModal    },
-    {'type':'id',    'what':'btnLogo',       'handler':clickOnBtnLogo       }
+    {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
+    {'type':'class', 'what':'gallery-image',     'handler':clickOnGalleryImage  },
+    {'type':'class', 'what':'close-modal',       'handler':clickOnCloseModal    },
+    {'type':'class', 'what':'scroll-to-top-btn', 'handler':scrollToTop          },
+    {'type':'id',    'what':'btnLogo',           'handler':clickOnBtnLogo       }
   ]; 
 
   var i = 0, loop = order.length, current = null; 
@@ -207,6 +210,9 @@ function clickHandler( e ) {
 function clickOnBtnLogo( data ) {  
 }
 
+function scrollToTop( data ) {
+  $('html, body').animate({ scrollTop: 0 }, 200);
+}
 
 function clickOnCloseModal( data ) {
   hideModal();
@@ -343,6 +349,26 @@ function getAutoId() {
   var random = Math.floor((Math.random() * 10) + 1);
   var time   = (new Date()).getTime();
   return 'auto_' + time + '_' + random;
+}
+
+function getScrollPosition() {
+  if (typeof window.pageYOffset !== 'undefined') {
+    return [ window.pageXOffset, window.pageYOffset ];
+  }
+
+  if (
+    typeof document.documentElement.scrollTop !== 'undefined' &&
+    document.documentElement.scrollTop > 0
+  ) {
+    return [
+      document.documentElement.scrollLeft,
+      document.documentElement.scrollTop
+    ];
+  }
+
+  return typeof document.body.scrollTop !== 'undefined' ? [
+    document.body.scrollLeft, document.body.scrollTop
+  ] : [0, 0];
 }
 
 /******************************************************************************
