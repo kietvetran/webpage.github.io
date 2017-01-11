@@ -1272,7 +1272,7 @@ body.scrolled-passed .scroll-to-top-btn {
 .information-list > li {
   margin: 0 0 20px 0;
   padding: 15px;
-  background: #008ED2 none repeat 0 0;
+  background: #E60000 none repeat 0 0;
   border-radius: 2px; }
   @media screen and (max-width: 768px) {
     .information-list > li {
