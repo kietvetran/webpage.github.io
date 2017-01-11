@@ -20,6 +20,7 @@ var ATTR = {
 === MAIN GLOBAL FUCNTION ===
 ******************************************************************************/
 function initMap() {
+  if ( ! $('#map').length ) { return; }
   var center = {lat: 59.958088, lng: 11.049032};
 
   var map = new google.maps.Map(document.getElementById('map'), {
