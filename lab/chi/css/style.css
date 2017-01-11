@@ -410,9 +410,9 @@ a.disabled, a.disabled:hover, a.disabled:focus, .disabled, .disabled:hover, .dis
     background-color: #fafafa;
     color: #000; }
   .input-field.-has-error, .input-field.-error {
-    box-shadow: 0 0 0 1px #E60000; }
+    box-shadow: 0 0 0 1px #d52700; }
     .input-field.-has-error, .input-field.-has-error:hover, .input-field.-error, .input-field.-error:hover {
-      border-color: #E60000; }
+      border-color: #d52700; }
     .input-field.-has-error:focus, .input-field.-has-error:active, .input-field.-error:focus, .input-field.-error:active {
       box-shadow: 0 0 0 2px #008ED2; }
   .input-field + .input-field-description {
@@ -444,7 +444,7 @@ a.disabled, a.disabled:hover, a.disabled:focus, .disabled, .disabled:hover, .dis
   .input-radio.-hide + label, .input-checkbox.-hide + label {
     display: none; }
   .input-radio.-has-error + label:before, .input-radio.-has-error + label:hover:before, .input-radio .-error + label:before, .input-radio .-error + label:hover:before, .input-checkbox.-has-error + label:before, .input-checkbox.-has-error + label:hover:before, .input-checkbox .-error + label:before, .input-checkbox .-error + label:hover:before {
-    border-color: #E60000; }
+    border-color: #d52700; }
   .input-radio:focus + label:after, .input-checkbox:focus + label:after {
     display: block; }
   .input-radio + label, .input-checkbox + label {
@@ -634,7 +634,7 @@ a.disabled, a.disabled:hover, a.disabled:focus, .disabled, .disabled:hover, .dis
   .select-box::-ms-expand {
     display: none; }
   .select-box.-has-error, .select-box .-error {
-    border-color: #E60000; }
+    border-color: #d52700; }
     .select-box.-has-error:focus, .select-box .-error:focus {
       outline-color: #FFFFFF; }
 
@@ -1272,7 +1272,7 @@ body.scrolled-passed .scroll-to-top-btn {
 .information-list > li {
   margin: 0 0 20px 0;
   padding: 15px;
-  background: #E60000 none repeat 0 0;
+  background: #d52700 none repeat 0 0;
   border-radius: 2px; }
   @media screen and (max-width: 768px) {
     .information-list > li {
