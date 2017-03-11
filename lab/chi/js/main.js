@@ -38,7 +38,7 @@ function initMap() {
 }
 
 function startup() {
-  $('#kiet').html( (new Date()).getTime() );
+  $('#tab-home').html( (new Date()).getTime() );
 
   initHomeGallary();
   initHome();
@@ -55,7 +55,7 @@ function startup() {
     '<a href="#" class="scroll-to-top-btn" title="Til top">Til toppen av side</a>'
   ).appendTo( $('#menu') );
 
-  $( document ).on('click touchend', clickHandler);
+  $( 'body' ).on('click touchend', clickHandler);
   $( window ).on('hashchange', hashChangeHandler);
   $( window ).on('scroll', scroll);
 
@@ -178,7 +178,7 @@ function hashChangeHandler( e ) {
  * @return {Void}
  */
 function clickHandler( e ) {
-    $('#kiet').html( 'click handler....' );
+    $('#tab-home').html( 'click handler....' );
 
   var target = $(e.target), parent = target.parent(), order = [
     {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
