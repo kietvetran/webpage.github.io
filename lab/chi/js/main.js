@@ -38,6 +38,8 @@ function initMap() {
 }
 
 function startup() {
+
+  alert('startup ....');
   initHomeGallary();
   initHome();
   initMenu( ALACARTE, 'a-la-carte');
