@@ -176,6 +176,7 @@ function hashChangeHandler( e ) {
  * @return {Void}
  */
 function clickHandler( e ) {
+  alert('kiet...');
   var target = $(e.target), parent = target.parent(), order = [
     {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
     {'type':'class', 'what':'gallery-image',     'handler':clickOnGalleryImage  },
@@ -220,6 +221,8 @@ function clickOnCloseModal( data ) {
 }
 
 function clickOnTabBtn( data ) {
+
+
   var href = data.current.attr('href');
   if ( ! href ) { return; }
 
