@@ -187,8 +187,11 @@
 
   <div id="modal" role="dialog" aria-live="polite" aria-hidden="true"></div>
   <script type="text/javascript">
-    alert('her...');
-
+    setTimeout( function() {
+      alert('delay....');
+      startup();
+      alert('done');
+    }, 4000 );
   </script>
 </body>
 </html>
