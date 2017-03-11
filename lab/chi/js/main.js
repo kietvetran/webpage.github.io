@@ -38,6 +38,8 @@ function initMap() {
 }
 
 function startup() {
+  $('#kiet').html( (new Date()).getTime() );
+
   initHomeGallary();
   initHome();
   initMenu( ALACARTE, 'a-la-carte');
@@ -176,6 +178,8 @@ function hashChangeHandler( e ) {
  * @return {Void}
  */
 function clickHandler( e ) {
+    $('#kiet').html( 'click handler....' );
+
   var target = $(e.target), parent = target.parent(), order = [
     {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
     {'type':'class', 'what':'gallery-image',     'handler':clickOnGalleryImage  },
