@@ -38,8 +38,6 @@ function initMap() {
 }
 
 function startup() {
-
-  alert('startup ....');
   initHomeGallary();
   initHome();
   initMenu( ALACARTE, 'a-la-carte');
@@ -55,7 +53,7 @@ function startup() {
     '<a href="#" class="scroll-to-top-btn" title="Til top">Til toppen av side</a>'
   ).appendTo( $('#menu') );
 
-  $( document ).on('click', clickHandler);
+  $( document ).on('click touchend', clickHandler);
   $( window ).on('hashchange', hashChangeHandler);
   $( window ).on('scroll', scroll);
 
@@ -178,7 +176,6 @@ function hashChangeHandler( e ) {
  * @return {Void}
  */
 function clickHandler( e ) {
-  alert('kiet...');
   var target = $(e.target), parent = target.parent(), order = [
     {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
     {'type':'class', 'what':'gallery-image',     'handler':clickOnGalleryImage  },
