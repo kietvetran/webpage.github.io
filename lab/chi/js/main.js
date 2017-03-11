@@ -55,7 +55,7 @@ function startup() {
     '<a href="#" class="scroll-to-top-btn" title="Til top">Til toppen av side</a>'
   ).appendTo( $('#menu') );
 
-  $( 'body' ).on('click touchend', clickHandler);
+  $( document ).on('click', clickHandler);
   $( window ).on('hashchange', hashChangeHandler);
   $( window ).on('scroll', scroll);
 
@@ -178,8 +178,6 @@ function hashChangeHandler( e ) {
  * @return {Void}
  */
 function clickHandler( e ) {
-    $('#tab-home').html( 'click handler....' );
-
   var target = $(e.target), parent = target.parent(), order = [
     {'type':'class', 'what':'tab-btn',           'handler':clickOnTabBtn        },
     {'type':'class', 'what':'gallery-image',     'handler':clickOnGalleryImage  },
