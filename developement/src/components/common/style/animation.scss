@@ -1,0 +1,42 @@
+@charset "UTF-8";
+@-webkit-keyframes left-appending{
+  0%   { left: 50px;  opacity: 0;}
+  100% { left: 0;  opacity: 1;}
+}
+
+@keyframes left-appending{
+  0%   { left: 50px;  opacity: 0;}
+  100% { left: 0;  opacity: 1;}
+}
+
+@-webkit-keyframes right-appending{
+  0%   { left: -50px;  opacity: 0;}
+  100% { left: 0;  opacity: 1;}
+}
+
+@keyframes right-appending{
+  0%   { left: -50px;  opacity: 0;}
+  100% { left: 0;  opacity: 1;}
+}
+
+/*****************************************************************************/
+@-webkit-keyframes static-top-appending{
+  0%   { opacity: .3; padding-top: 10px; margin-bottom: -10px;}
+  100% { opacity: 1; padding-top: 0; margin-bottom: 0;}
+}
+
+@keyframes static-top-appending{
+  0%   { opacity: .3; padding-top: 10px; margin-bottom: -10px;}
+  100% { opacity: 1; padding-top: 0; margin-bottom: 0;}
+}
+
+/*****************************************************************************/
+@-webkit-keyframes message-disappear{
+  0%   { opacity: 1; max-height: 200px;}
+  100% { opacity: 0; max-height: 0;}
+}
+
+@-webkit-keyframes message-disappear{
+  0%   { opacity: 1; max-height: 200px;}
+  100% { opacity: 0; max-height: 0;}
+}

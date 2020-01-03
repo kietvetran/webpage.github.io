@@ -1,0 +1,19 @@
+{
+  "name": "stoked",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server.js"
+  },
+  "repository": "",
+  "keywords": [],
+  "author": "Kiet Ve Tran",
+  "dependencies": {
+    "cross-env": "1.0.8",
+    "express": "4.14.0",
+    "http-proxy": "^1.16.2",
+    "request": "^2.83.0"
+  }
+}

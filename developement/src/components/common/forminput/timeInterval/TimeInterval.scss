@@ -1,0 +1,136 @@
+@import '../../style/mixin';
+@import '../../style/theme';
+
+.time-interval-wrapper {
+	position: relative;
+	clear: both;
+	float: left;		
+	width: 100%;
+	min-width: 680px;
+
+	&.-forward-checked {
+		.time-interval-repeat-list,
+		.time-interval-forward-wrapper .time-interval-repeat-holder,
+		.time-interval-item {
+			display: none;
+		}
+		.action-row {
+			visibility: hidden;
+			margin: 0;
+		}
+
+		.time-interval-item:first-child {
+			display: table;
+			.field-wrapper.-to {
+				display: none;
+			}
+		}
+	}
+
+	.time-interval-cnt {
+		position: relative;
+		padding-left: 50px;
+
+		.action-add-time-holder {			
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin: 0 0 0 1px;
+		}
+
+		.action-add-item-btn {
+			height: 40px;
+			width: 40px;
+			font-size: 13px;
+			padding: 0;
+			white-space: normal;
+			text-align: center;
+			border-color: $color-border;
+		}		
+	}
+
+  .time-interval-repeat-list {
+  	white-space: nowrap;
+  	margin-top: 10px;
+  	> li {
+  		display: inline-block;
+  		margin-right: -4px;
+  	}
+  }
+
+	.time-interval-item {
+		position: relative;
+		padding-right: 15px;
+		width: auto;
+		display: table;
+
+		&:first-child {
+			.field-wrapper .calendar-wrapper {
+				.field-list-item:after,
+				.calendar-cnt input.textfield {
+					visibility: visible;
+				}
+			}
+		}
+
+
+		.time-interval-remover {
+			position: absolute;
+			right: 100%;
+			top: 50%;
+			margin: -12px 15px 0 0;
+		}
+
+		.time-interval-forward-wrapper {
+			position: absolute;
+			white-space: nowrap;
+			left: 100%;
+			top: 50%;
+			margin: -12px 0 0 -25px;
+			> li {
+				display: inline-block;
+				position: relative;
+			}
+
+			.input-label {
+				padding-right: 0;
+				> span {
+					width: 50px;
+					display: inline-block;
+					white-space: normal;
+					margin-top: -10px;
+				}
+			}
+		}
+
+		.field-wrapper {
+			display: table-cell;
+			width: auto;
+			padding: 0 15px 0 75px;
+			position: relative;
+
+			.calendar-wrapper {
+				min-width: 0;
+				.calendar-cnt input.textfield {
+					width: 102px;
+				}
+
+				.field-list-item:after,
+				.calendar-cnt input.textfield {
+					visibility: hidden;
+				}
+			}
+
+			> input:first-child {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 70px;
+			}
+
+			legend {
+				display: none;
+			}
+		}
+	}
+}

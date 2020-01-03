@@ -1,0 +1,38 @@
+@import '../common/style/theme';
+@import '../common/style/mixin';
+
+.signin-wrapper {
+	position: relative;
+	max-width: $breakpoint-sm;
+	margin: 30px auto;
+	border-radius: $border-round;
+
+	h1, h2 {
+		&, + .lead {
+			text-align: center;
+		}
+	}
+
+	.form-wrapper .action-holder {
+     > li {
+      display: block;
+      text-align: center;
+      padding: 20px 0;
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
+  }
+
+	@media screen and (max-width: $breakpoint-sm) {
+		.form-wrapper .action-holder > li {
+			text-align: center;
+			width: 100%;
+      padding: 10px 0;
+      button[type="submit"] {
+        width: 100%;
+      }
+	  }
+	}
+}

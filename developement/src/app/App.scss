@@ -1,0 +1,137 @@
+/*
+@font-face {
+  font-family: 'DIN';
+  src: url('../static/font/DIN/DIN-Regular/DIN-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'DIN';
+  src: url('../static/font/DIN/DIN-Bold/DIN-Bold.woff') format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'DIN';
+  src: url('../static/font/DIN/DIN-Bold/DIN-Bold.woff') format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'DIN';
+  src: url('../static/font/DIN/DIN-Medium/DIN-Medium.woff') format('woff');
+  font-weight: 500;
+}
+*/
+
+@import '../components/common/style/theme';
+@import '../components/common/style/mixin';
+@import '../components/common/style/animation';
+@import '../components/common/style/typography';
+@import '../components/common/style/spinner';
+@import '../components/common/style/utils';
+@import '../components/common/style/btns';
+@import '../components/common/style/iconBtn';
+@import '../components/common/style/input';
+@import '../components/common/style/layout';
+
+html, body, #app {
+  background: $app-bg-color;
+}
+.app-wrapper {
+  height: 100%; /*Importen*/
+  /* &.-admin { border: 2px solid red; }*/
+  &.-error {
+    max-width: $breakpoint-md-p;
+    margin: 1.25rem auto 0 auto;
+  }
+}
+
+.app-header {
+  position: relative;
+  border-bottom: 1px solid $color-border;
+  box-shadow: 0 5px 5px $color-border-light;
+
+  .app-cnt.layout-outer {
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 14rem;
+    position: relative;
+  }
+
+  .logo-holder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 14rem;
+    padding-left: 3.5rem;
+
+    h1 {
+      padding: 0;
+      margin: .5rem 0 0 0;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3.5rem;
+      background: transparent url('../static/icon/hexagon/hexagon.svg') no-repeat .3rem center / 80% auto;    
+    }
+  }
+
+  #main-nav, .navigation-list, .navigation-list > li {
+    height: 100%;
+    display: inline-block;
+  }
+
+  #main-nav {
+    width: 100%;
+  }
+
+  ul.navigation-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .nav-link {
+    display: inline-block;
+    height: 100%;
+    font-size: 120%;
+    padding: 1.25rem 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    @include buttonActive();
+
+
+    > span {
+      position: relative;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        border-bottom: .1rem solid $color-border-light;
+      }
+    }
+
+    &.-active {
+      font-weight: 700;
+      > span:before {
+        border-bottom-color: $color-font;
+      }
+    }
+  }
+}
+
+.app-body {
+  position: relative;
+  padding: 1rem 0;
+}

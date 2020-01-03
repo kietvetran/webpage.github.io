@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Bower
+bower_components/
+
+.idea/
+*.iml
+
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+
+# .npmrc
+/deploy/dist
+*.orig

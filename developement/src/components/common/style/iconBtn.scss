@@ -1,0 +1,105 @@
+@import './theme';
+@import './mixin';
+
+/******************************************************************************
+  icon-btn
+******************************************************************************/
+a.icon-btn, button.icon-btn {
+  @include buttonActive();
+}
+
+button.icon-btn {
+  box-shadow: none;
+  border: 0 none;
+  color: $color-border;
+  text-decoration: none;  
+}
+
+.icon-btn {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+
+  &, &:before {
+    background: transparent none no-repeat center center / 1.5rem auto;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.hide, &.-hide {
+    display: none;
+  }
+
+  &.-block {
+    display: block;
+  }
+
+  &.-cross{
+    &:before {
+      background-image: url('../static/icon/cross/cross.svg');
+    }
+
+    &.-blue, &.-in-blue, &:hover, &:focus, &.-active {
+      &:before {
+        background-image: url('../static/icon/cross/cross-blue.svg');
+      }
+    }
+  }
+
+  &.-in-left {
+    /*
+    width: auto;
+    padding-left: 27px;
+    padding-right: 5px;
+    background-position: 10% center;
+    min-height: 26px;
+    height: auto;
+    line-height: inherit;
+    text-align: left;
+    &:before {
+      right: auto;
+      width: 27px;
+    }
+
+    &.-all-left {
+      background-position: 0 center;
+    }
+
+    &.-medium {
+      padding-left: 37px;
+      &.-bus, &.-stop {
+        background-position: 90% 8px;
+      }
+    }
+
+    &.-large {
+      padding-left: 47px;
+      &.-bus, &.-stop {
+        background-position: 90% 10px;
+      }
+    }
+    */
+  }
+}
+
+_:-ms-fullscreen, :root .icon-btn { /*IE11 hack*/
+  &.-in-left {
+    /*
+    background-size: 200px auto;
+    background-position: 0 0;
+    color: transparent;
+    */
+  }
+}

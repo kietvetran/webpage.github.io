@@ -1,0 +1,33 @@
+@import '../../style/theme';
+@import '../../style/mixin';
+
+.message-wrapper {
+  position: relative;
+  padding: 20px;
+
+  border: 1px solid $color-info-border;
+  background: $color-info-bg none repeat 0 0;
+
+  &.-info {
+  }
+
+  &.-danger{
+    border-color: $color-danger-border;
+    background-color: $color-danger-bg;
+  }
+
+  &.-warning {
+    border-color: $color-warning-border;
+    background-color: $color-warning-bg;
+  }
+
+  &.-success {
+    border-color: $color-success-border;
+    background-color: $color-success-bg;
+  }
+
+  h1, h2, .h1, .h2 {  
+    padding-top: 0;
+    margin-top: 0;
+  }
+}

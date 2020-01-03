@@ -1,0 +1,96 @@
+
+$max-width-small: 600px;
+
+/**
+ * Base stuff
+ */
+$base-font-size:       1rem;
+$base-font-size-sm:    .85rem;
+$base-font-family:     Helvetica, sans-serif, Arial;
+
+/**
+ * Font-sizes (in pixels). Refer to relevant sections for their implementations.
+ */
+$h1-size:           2.5rem;
+$h2-size:           2.2rem;
+$h3-size:           1.9rem;
+$h4-size:           1.6rem;
+$h5-size:           1.3rem;
+
+$h1-size-sm:        2.3rem;
+$h2-size-sm:        2rem;
+$h3-size-sm:        1.7rem;
+$h4-size-sm:        1.4rem;
+$h5-size-sm:        1.1rem;
+   
+/**
+ * Brand stuff
+ */
+$color-brand:           #e60000;
+$color-primary:         #76a300;
+$color-secondary:       #333941;  /*#32374b;*/
+$color-warning:         #ffc800;
+$color-error:           #a92424;
+
+$color-font:            #252525;
+$color-border-dark:     #333333;
+$color-border:          #999999;
+$color-border-light:    #cccccc;
+$color-focus:           #0874BF; /*#0874BF;*/
+$color-active:          #76a300; /*#0874BF;*/
+$color-action:          #89b339;
+$color-profile:         #0874BF;
+$color-link: 		    #0874BF;
+$color-tool-bg:         #f0f0f0;
+$color-required:        #e60000;
+$color-disabled:        #eaeaea;
+$color-checkbox:        #0075D2;
+
+$color-white:           #ffffff;
+$color-red:             #e60000;
+$color-green:           #76a300;
+$color-blue:           	#0874BF;
+$color-dark:           	#333333;
+$color-grey:            #999;
+$color-grey-light:      #ccc;
+$color-grey-dark:       #333;
+$border-round:          2px;
+
+
+$color-info          : #0874BD;
+$color-info-border   : #0874BD;
+$color-info-bg       : #EBF6FD;
+$color-success       : #5D8200;
+$color-success-border: #5D8200;
+$color-success-bg    : #F4F7EB;
+$color-warning       : #CCA000;
+$color-warning-border: #CCA000;
+$color-warning-bg    : #FFF4CD;
+$color-danger        : #D60606;
+$color-danger-border : #D60606;
+$color-danger-bg     : #FDEBEB;
+
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md-p: 768px;
+$breakpoint-md: 980px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1248px;
+
+
+$layout-breakpoint-xxs: $breakpoint-xs;
+$layout-breakpoint-sm: $breakpoint-sm;
+
+/*********************************************/
+$app-bg-color: #fcfcfc;
+
+/*********************************************/
+$list-table-header-bg: #333941;
+$list-table-body-bg: #FFFFFF;
+
+/*********************************************/
+$table-result-list-header-bg-color: #323740;
+$table-result-list-header-font-color: #fff;
+
+$hr-color: #8d8d8d;
+$link-color: #0066B3;

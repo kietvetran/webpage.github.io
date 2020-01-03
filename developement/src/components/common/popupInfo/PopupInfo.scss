@@ -1,0 +1,147 @@
+@import '../style/mixin';
+@import '../style/theme';
+
+.popup-info-wrapper {
+	position: relative;
+	z-index: 500;
+
+	&.-open {
+		.popup-info-widget {
+			display: block;
+		}
+	}
+
+	&.-left {
+		.popup-info-widget {
+			left: auto;
+			right: 100%;
+			margin: -15px 15px 0 0;
+
+			&:after, &:before {
+				margin: 15px 0 0 1px;
+				left: 100%;
+				right: auto;
+			}
+
+			&:before {
+				border-color: transparent transparent transparent $color-focus;
+			}
+
+			&:after {
+				border-color: transparent transparent transparent #fff;
+				margin-left: 0;
+			}
+		}
+	}
+
+	&.-error {
+		.icon-btn.-information {
+			background-color: $color-error;
+		}
+
+		.popup-info-widget {
+			border-color: $color-error;
+			&:before {
+				border-right-color: $color-error;
+			}
+		}
+
+		&.-left {
+			.popup-info-widget:before {
+				border-color: transparent transparent transparent $color-error;
+			}
+		}
+	}
+
+	.icon-btn.-information {
+		background-size: 15px auto;
+		border: 1px solid $color-border;
+		border-radius: 100%;
+		background-color: #FFF;
+	}
+
+	.popup-info-widget {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		z-index: 1000;
+		border: 1px solid $color-focus;
+		border-radius: $border-round;
+		margin: -15px 0 0 15px;
+		box-shadow: 0 1px 4px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.12);
+		display: none;
+
+		&:after, &:before {
+			content: '';
+			position: absolute;
+			right: 100%;
+			top: 0;
+			border-width: 10px;
+			border-style: solid;
+			z-index: 1;
+			margin: 15px 1px 0 0;
+		}
+
+		&:before {
+			border-color: transparent $color-focus transparent transparent;
+		}
+
+		&:after {
+			border-color: transparent #fff transparent transparent;
+			margin-right: 0;
+		}
+	}
+
+	.popup-info-widget-cnt {
+		padding: 10px;
+		background: #fff none no-repeat 0 0;
+		max-height: 550px;
+		min-height: 50px;
+		overflow: hidden;
+		overflow-y: scroll;
+		white-space: normal;
+		text-align: left;
+
+		table {
+			td, th {
+				vertical-align: top;
+			}
+
+			tr {
+				td {
+					border-top: 1px solid $color-border;
+				}
+			}
+		}
+
+		&.-affected-variable-defination {
+			min-width: 650px;
+
+			.info-output {
+				padding-top: 10px;
+
+				&:first-child {
+					padding-top: 0;
+				}
+			}
+		}
+
+		&.-option-defination,
+		&.-search-field-manual {
+			min-width: 450px;
+			td:first-child {
+				white-space: nowrap;
+			}
+		}
+
+		&.-option-defination {
+			th {
+				display: none;
+			}
+			tbody tr:first-child td {
+				border: 0 none;
+			}
+		}
+
+	}
+}

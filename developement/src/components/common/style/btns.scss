@@ -1,0 +1,184 @@
+
+/******************************************************************************
+  button
+******************************************************************************/
+.action-btn, .primary-btn, .secondary-btn {
+  position: relative;
+  display: inline-block;
+  border-radius: $border-round;
+  cursor: pointer;
+  margin: 0;
+  padding: .6rem .9rem;  
+  box-shadow: none;
+  border: 0 none;
+  color: $color-border;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 110%;
+
+  &, &.-active-bounce {
+    top: 0;
+    &:active {
+      top: 2px;
+    }
+  }
+
+  &.-hide {
+    display: none;
+  }
+
+  &.-block {
+    display: block;
+  }
+
+  &:hover, &:focus {
+    @include focusShadow();
+  }
+
+  &.-disabled {
+    cursor: default;
+    &, &:focus, &:hover, &:active, &:visited {
+      background-color: #e3e6ec !important;
+      color: #757575 !important;
+      top: 0 !important;
+    }
+  }
+
+  &.-as-link {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    text-decoration: underline;
+    color: $color-link;
+
+    &:hover, &:focus {
+      box-shadow: none;
+    }
+
+    &.-no-padding {
+      padding: 0;
+    }
+  }
+
+  &.-small {
+    padding: .3rem .6rem;
+    font-size: 100%;
+    font-weight: normal;
+  }
+
+  &.-ex-small {
+    padding: .18rem .3rem;
+    font-size: 100%;
+    font-weight: normal;
+    &.-uncheck, &.-check {
+      padding-left: 1.5rem;
+      &:before {
+        margin-left: .18rem;
+        background-size: auto .9rem;
+      }
+    }
+  }
+}
+
+.action-btn {
+  color: $color-white;
+  background: $color-green none repeat 0 0;
+  border: 1px solid $color-action;
+
+  &.-arrow-right:after {
+    border-color: transparent transparent transparent $color-action;
+  }
+  &.-arrow-left:after {
+    border-color: transparent $color-action transparent transparent;
+  }
+}
+
+.primary-btn {
+  border: 1px solid $color-primary;
+  background: $color-primary none repeat 0 0;
+  color: $color-white;
+
+  &.-arrow-right:after {
+    border-color: transparent transparent transparent $color-primary;
+  }
+  &.-arrow-left:after {
+    border-color: transparent $color-primary transparent transparent;
+  }
+}
+
+.secondary-btn {
+  border: 1px solid $color-border;
+  background: $color-white none no-repeat 0 0;
+  color: $color-font;
+
+  &.-close, &.-cross {
+    background-image: url('../static/icon/cross/cross.svg');
+    background-position: center center;
+    background-size: 40% auto;
+  }
+
+  &.-blue {
+    color: $color-link;
+    border-color: $color-link;
+    &.-fill {
+      background-color: $color-link;
+      color: $color-white;
+    }
+  }
+
+  &.-dark {
+    background-color: #444;
+    color: #fff; 
+  }
+
+  &.-brand-blue {
+    color: $color-secondary;
+    border-color: $color-secondary;
+    &.-fill {
+      background-color: $color-secondary;
+      color: $color-white;
+    }
+  }
+
+  &.-red, &.-brand-red {
+    color: $color-brand;
+    border-color: $color-brand;
+    &.-fill {
+      background-color: $color-brand;
+      color: $color-white;
+    }
+  }
+
+  &.-arrow-right:before {
+    border-color: transparent transparent transparent $color-border;
+  }
+  &.-arrow-left:before {
+    border-color: transparent $color-border transparent transparent;
+  }
+
+  &.-arrow-right:after {
+    border-color: transparent transparent transparent $color-white;
+  }
+  &.-arrow-left:after {
+    border-color: transparent $color-white transparent transparent;
+  }
+}
+
+a.action-btn, a.primary-btn {  
+  &, &:focus, &:active {
+    color: $color-white;
+  }
+}
+
+button.action-btn, button.primary-btn, button.secondary-btn {
+  &.-block {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: $layout-breakpoint-sm) { 
+  .action-btn, .primary-btn, .secondary-btn {
+    padding-left: .6rem;
+    padding-right: .6rem;
+  }
+}
+

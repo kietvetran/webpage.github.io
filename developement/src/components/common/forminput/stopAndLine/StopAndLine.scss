@@ -1,0 +1,10 @@
+@import '../../style/mixin';
+@import '../../style/theme';
+
+.stop-and-line-wrapper {
+	position: relative;
+
+  .suggestion-wrapper {
+    min-width: 250px;    
+  }
+}

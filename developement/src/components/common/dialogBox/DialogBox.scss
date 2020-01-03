@@ -1,0 +1,90 @@
+@import '../style/theme';
+@import '../style/mixin';
+
+
+
+.dialog-box-wrapper {
+  padding: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 30000;
+
+  .dialog-box-frame {
+    position: relative;
+    z-index: 2;
+    background: $color-white none no-repeat 0 0;
+    margin: 40px auto 0 auto;
+    border-radius: $border-round;
+    max-width: 840px;    
+    min-height: 100px;
+    max-height: 90%;
+    height: auto !important;
+  }
+
+  .dialog-box-footer,
+  .dialog-box-header {
+    text-align: right;
+  }
+
+  .dialog-box-header {
+    h1, h2, h3 {
+      text-align: left;
+      padding: 0 20px;
+      margin-top: -15px;
+      font-size: 200%;
+    }
+  }
+
+  .dialog-box-footer,
+  .dialog-box-body {
+    padding: 20px;
+  }
+
+  .dialogBox-bg-closer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.5) none repeat 0 0;
+  }
+
+  .dialog-box-close-btn {
+  }
+
+  @media screen and (max-width: $breakpoint-md-p) { 
+    background-color: $color-white;
+    .dialog-box-frame {
+      margin-top: 20px;
+    }
+  }
+}
+
+.vehicle-information-wrapper {
+  padding: 0 15px;
+
+  h1 {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .vehicle-information-list {
+    display: table;
+    margin: 0;
+    padding: 0;
+    > li {
+      display: table-row;
+      > div {
+        display: table-cell;
+        padding: 3px 15px 3px 0;
+
+        &.item-label {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
