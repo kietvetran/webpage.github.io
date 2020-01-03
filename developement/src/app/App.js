@@ -45,7 +45,7 @@ class App extends Component {
       ]
     };
 
-    this.props.actions.appInit();
+    //this.props.actions.appInit();
 
     this._changeRoute = this._changeRoute.bind(this);
     this._click       = this._click.bind(this);
@@ -130,8 +130,8 @@ App = hot(App);
 
 export default connect((state) => {//(state, props) => {
   return {
-    'environment'   : state.environment,
-    'appInitialized': state.appInitialized,
+    //'environment'   : state.environment,
+    //'appInitialized': state.appInitialized,
     'dialog'        : state.dialog
   };
 }, (dispatch) => {

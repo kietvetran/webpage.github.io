@@ -10,7 +10,8 @@
     "start-proxy": "node dev-server",
     "build": "webpack --mode production",
     "copy": "copyfiles -f ./src/favicon.ico ./src/*.png ./ ./dist && copyfiles -u 1 ./src/plugin/**/* ./dist",
-    "dist": "npm run build && npm run copy"
+    "dist": "npm run build && npm run copy",
+    "dist-copy": "npm run dist && copyfiles -f ./dist/* ../."
   },
   "repository": "",
   "keywords": [],

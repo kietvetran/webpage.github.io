@@ -32,7 +32,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, './dist'),
     publicPath: '/',
-    filename: '[name].[hash].js',
+    //filename: '[name].[hash].js',
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -51,8 +52,8 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
+          'css-loader',   // translates CSS into CommonJS
+          'sass-loader',  // compiles Sass to CSS, using Node Sass by default
         ],
       },
       {
