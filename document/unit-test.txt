@@ -1,0 +1,24 @@
+=== Unit test with mocha === 
+https://medium.com/serverlessguru/how-to-unit-test-with-nodejs-76967019ba56
+
+1. npm install --save-dev mocha @babel/core @babel/preset-env @babel/register 
+2. add "test": "mocha --require @babel/register" below "scripts" in file package.json for running command "npm run test".
+	!ops! => "@babel/register" == for => const {capitalize} = require('../src/components/common/General.js');
+3. touch test/example.test.js, example:
+
+const assert = require('assert');
+const {capitalize} = require('../src/components/common/General.js');
+
+describe('Mocha example Math Test', () => {
+	it('should return 2', () => {
+		assert.equal(1 + 1, 2);
+  	});
+
+	it('should return 9', () => {
+		assert.equal(3 * 3, 9);
+	});
+
+	it('Capitalize', () => {
+		assert.equal(capitalize('oslo'), 'Oslo');
+  	});
+});
