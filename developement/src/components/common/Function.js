@@ -54,53 +54,6 @@ export const generateReduxFormValidation = (template) => {
 }
 
 /******************************************************************************
-******************************************************************************/
-export const getContractBaselinesInfo = () => {
-  let days   = ['','monday','tuesday','wednesday','thursday','friday','saturday', 'sunday'];
-  let types  = ['no_school','school','summer'];
-  let info   = {
-    'namePin'  : {},
-    'dayList'  : [],
-    'fieldList': [],
-    'fieldPin' : {},
-    'keyPin'   : {},
-    'keyList'  : [],
-    'labels'   : {
-      'monday':'Mandag', 'tuesday':'Tirsdag', 'wednesday':'onsdag', 'thursday':'Torsdag', 'friday':'Fredag', 'saturday':'Lørdag', 'sunday':'Søndag',
-      'no_school':'Skolefri', 'school':'Skole', 'summer':'Sommer'
-    }
-  };
-
-  for (let i=0; i<days.length; i++ ) {
-    if ( ! days[i] ) { continue; }
-
-    info.labels[''+i] = info.labels[days[i]] || '';
-    let keys = [];
-    for ( let j=0; j<types.length; j++) {
-      let data = {'name': days[i], 'dayNumber': i};
-
-      data.dayType = types[j].toUpperCase();
-      data.field = data.name + capitalize(types[j]);
-
-      if ( ! info.dayList[i]         ) { info.dayList[i] = [];        }
-      if ( ! info.namePin[data.name] ) { info.namePin[data.name] = [] }
-
-      info.dayList[i].push( data );
-      info.namePin[data.name].push( data );
-
-      info.fieldList.push( data );
-      info.fieldPin[data.field] = data;
-
-      let key = data.dayType + data.dayNumber;
-      info.keyPin[key] = data;
-      keys.push(key);
-    }
-    info.keyList.push(keys);
-  }
-  return info
-}
-
-/******************************************************************************
 === ===
 ******************************************************************************/
 export const getPagingList = ( config ) =>{
