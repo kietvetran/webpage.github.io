@@ -1,0 +1,14 @@
+@import '../common/style/theme';
+@import '../common/style/mixin';
+
+.demo-wrapper {
+	position: relative;
+	.menu-list {
+		white-space: normal;
+		.link {
+  			margin: 0 .5rem  .2rem 0;
+  			white-space: nowrap;
+  			display: inline-block;
+  		}
+  	}
+}

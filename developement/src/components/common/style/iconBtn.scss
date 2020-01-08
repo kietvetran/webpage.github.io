@@ -29,6 +29,18 @@ button.icon-btn {
     background: transparent none no-repeat center center / 1.5rem auto;
   }
 
+  &.-small-view, &.-small {
+    &, &:before {
+      background-size: 1.1rem auto;
+    }
+  }
+
+  &.-small {
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+
   &:before {
     content: '';
     position: absolute;

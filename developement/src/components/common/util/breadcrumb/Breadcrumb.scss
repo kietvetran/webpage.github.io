@@ -1,0 +1,43 @@
+@import '../../style/theme';
+@import '../../style/mixin';
+
+.breadcrumb-list {
+  list-style: none;
+  margin: 0;
+  padding: .5rem 0;
+  text-align: left;
+  white-space: nowrap;
+
+  > li {
+    position: relative;
+    display: inline-block;
+    margin: 0 .2rem;
+    padding: 0 0 0 $base-font-size;
+
+    &:first-child {
+      padding-left: 0;
+      &:before, &:after {
+        display: none;
+      }
+    }
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: ($base-font-size / 1.9) * -1;
+      border-style: solid;
+      border-width: $base-font-size / 2;
+      border-color: transparent transparent transparent $color-font;
+    }
+
+    &:after {
+      border-color: transparent transparent transparent $color-white;
+      margin-left: -1px;      
+    }
+  }
+
+  .breadcrumb-item {
+  }
+}

@@ -1,17 +1,14 @@
-//import React, {Component} from 'react'
-//import {connect} from 'react-redux';
 import React from 'react';
 import './Calendar.scss';
 
+import {CalendarShortcuts, CalendarWidget} from './CalendarView';
+
 //class Calendar extends Component {
 export class Calendar extends React.Component {
-  static defaultProps = {
-    'mode': {'start': null, 'end': null}
-  }
-
   constructor (props) {
     super(props);
     this.state = {
+      'id': 'calendar-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1),
       'focus': false,
       'value': props.value,
       'interval': [],
@@ -19,17 +16,20 @@ export class Calendar extends React.Component {
       'date': new Date(),
       'error': null,
       'shortcuts': props.shortcuts || null,
-      'yearNavigation': props.yearNavigation || false,
+      'validation': props.shortcuts || false,
+      'clearButton': props.clearButton || false,
+      'allowOutOfMonth': props.allowOutOfMonth ? true : false,
       'opt' : {
         'calledBack': false,
         'legend': props.legend || 'Dato',
+        'label' : props.label ? ( props.label instanceof Array ? props.label : [props.label]) : null,
         'stamp': (new Date).getTime(),
         'keyupTimer':0, 'hideTimer':0, 'reg':null,  'interval': [], 'controller': 2,
         'aDay' : 24*60*60*1000,
         'month' : ['Januar','Februar','Mars','April','Mai','Juni','Juli','August','September','Oktober','November','Desember'],
         'week'  : ['Søndag','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag'],
-        'fieldA': {'name': props.fieldNameFrom || 'calendar-A', 'id': 'calendar-A', 'defaultValue': '', 'label': 'Fra dato' },
-        'fieldB': {'name': props.fieldNameTo || 'calendar-B', 'id': 'calendar-B', 'defaultValue': '', 'label': 'Til dato' },
+        'fieldA': {'name': props.fieldNameFrom || 'calendar-A', 'id': this._generateId(), 'defaultValue': '', 'label': 'Fra dato' },
+        'fieldB': {'name': props.fieldNameTo || 'calendar-B', 'id': this._generateId(), 'defaultValue': '', 'label': 'Til dato' },
         'hours': ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
         'minutes': ['00','05','10','15','20','25','30','35','40','45','50','55'],
         'messages': {
@@ -46,7 +46,8 @@ export class Calendar extends React.Component {
     this._focus = this._focus.bind(this);
     this._keyup = this._keyup.bind(this);
     this._keydown = this._keydown.bind(this);
-    this._clickShortcut = this._clickShortcut.bind(this);
+    this._clickShortcut   = this._clickShortcut.bind(this);
+    this._clearCalendar   = this._clearCalendar.bind(this);
 
     this.setIntervalDate = this.setIntervalDate.bind(this);
     this.getIntervalDate = this.getIntervalDate.bind(this);
@@ -78,66 +79,63 @@ export class Calendar extends React.Component {
   }
 
   render() {
-    let {disabled, placeholder, singleField, fieldStyle, calendarStyle, single, tabIndex, view} = this.props;
-    let {error, focus, clock, opt, shortcuts} = this.state;
-    let {fieldA, fieldB, messages, legend} = opt;
+    let {disabled, placeholder, singleField, fieldStyle, calendarStyle, single, tabIndex} = this.props;
+    let {error, focus, clock, opt, shortcuts, clearButton, interval} = this.state;
+    let {fieldA, fieldB, messages, legend, label} = opt;
 
     let invalidInputA = (error || {}).index === 0;
     let invalidInputB = (error || {}).index === 1;
-    let type = 'calendar-wrapper -stay-open_' + (opt.view > 1 ? ' -multiple' : ' -single') +
+    let type = 'calendar-wrapper -stay-open__' + (opt.view > 1 ? ' -multiple' : '') +
       (focus ? ' -on-focus' : '') +
-      (error ? ' -has-error' : '') +
+      //(error ? ' -has-error' : '') +
       (disabled ? ' -disabled' : '') +
       (shortcuts && shortcuts.length ? ' -has-shortcuts' : '')+
       ((singleField || single) ? ' -single-field' : '') +
       (calendarStyle ? ' '+calendarStyle : '');
-    let maxLength = clock ? '16' : '10';
+    let maxLength  = clock ? '16' : '10';
     let textholder = placeholder || ['',''];
+    let calendar   = this._getCalendarConfig((tabIndex === false));
 
-    return (
-      <div className={type}>
-        <div className="calendar-cnt">
-          <fieldset>
-            <legend className="input-label">{legend}</legend>
-            <ul className="field-list-wrapper">
-              <li ref="itemA" className="field-list-item">
+    return <div className={type} ref="calendarWrapper" role="application">
+      <div className="calendar-cnt">
+        <fieldset>
+          <legend className="input-label">{legend}</legend>
+          <ul className="field-list-wrapper">
+            <li className="field-list-cell">
+              <label htmlFor={fieldA.id} className="input-label">{((label || [])[0] || textholder[0] || 'A' )}</label>
+              <div ref="itemA" className="field-list-item">
                 <input ref="inputA" name={fieldA.name} id={fieldA.id} type="text" defaultValue={fieldA.defaultValue} maxLength={maxLength}
                   placeholder={textholder[0]}
-                  className={'textfield input-a' + (invalidInputA ? ' -invalid' : '') + (fieldStyle ? ' '+fieldStyle : '')}
+                  className={'textfield input-a' + (invalidInputA ? ' -invalid_' : '') + (fieldStyle ? ' '+fieldStyle : '')}
                   autoComplete="off" spellCheck="false" autoCapitalize="off" autoCorrect="off"
                   aria-label={fieldA.label} aria-invalid={invalidInputA} disabled={disabled ? true : false}
                   onBlur={this._blur} onKeyUp={this._keyup} onFocus={this._focus} onKeyDown={this._keydown}/>
-              </li>
-              <li ref="itemB" className="field-list-item">
+              </div>
+            </li>
+            <li className="field-list-cell">
+              <label htmlFor={fieldB.id} className="input-label">{((label || [])[1] || textholder[1] || 'B' )}</label>
+              <div ref="itemB" className="field-list-item">
                 <input ref="inputB" name={fieldB.name} id={fieldB.id} type="text" defaultValue={fieldB.defaultValue} maxLength={maxLength}
                   placeholder={textholder[1]}
-                  className={'textfield input-b' + (invalidInputB ? ' -invalid' : '')  + (fieldStyle ? ' '+fieldStyle : '')}
+                  className={'textfield input-b' + (invalidInputB ? ' -invalid_' : '')  + (fieldStyle ? ' '+fieldStyle : '')}
                   autoComplete="off" spellCheck="false" autoCapitalize="off" autoCorrect="off"
                   aria-label={fieldB.label} aria-invalid={invalidInputB} disabled={disabled ? true : false}
                   onBlur={this._blur} onKeyUp={this._keyup} onFocus={this._focus} onKeyDown={this._keydown}/>
-              </li>
-            </ul>
-          </fieldset>
-          { (shortcuts || []).length !== 0 &&
-              <ul className="shortcut-list">
-                { shortcuts.map( (data) => {
-                    return <li key={'shortcut-'+data.id} className={data.type || ''}>
-                      <a tabIndex={tabIndex === false ? '-1' : ''} href="#" role="button" className="link" onClick={(e)=>{this._clickShortcut(e,data);}}>{data.name}</a>
-                    </li>
-                }) }
-              </ul>
-          }
-          <div className="calendar-widget" onBlur={this._blur} onFocus={this._focus} onClick={this._click} tabIndex={tabIndex === false ? '-1' : ''}>
-            {this._getCalendar((tabIndex === false))}
-          </div>
-        </div>
-        {error && <div className="input-error-message" role="alert">{messages[error.type] || error.type}</div>}
+              </div>
+            </li>
+            {clearButton && (interval[0] || interval[1]) && <li className="field-list-item -clear-holder">
+              <a href="#" role="button" title={typeof(clearButton) === 'string' ? clearButton : ''}
+                className="icon-btn -cross -active -ex-small-icon-view clear-btn" onClick={(e)=>{this._clearCalendar(e)}}>
+                  <span className="aria-visible">Nullstilt kalendar</span>
+              </a>
+            </li>}
+          </ul>
+        </fieldset>
+        <CalendarShortcuts {...this.props} {...this.state} clickShortcut={this._clickShortcut}/>
+        <CalendarWidget {...this.props} {...this.state} calendar={calendar} focus={this._focus} blur={this._blur} click={this._click}/>
       </div>
-    );
-  }
-
-  componentWillUnmount() {
-    this.props.mode.unMount = true;
+      {error && false && <div className="input-error-message" role="alert">{messages[error.type] || error.type}</div>}
+    </div>
   }
 
   componentDidMount() {
@@ -153,16 +151,9 @@ export class Calendar extends React.Component {
     }
 
     if ( interval && interval[0] && typeof(interval[0]) !== 'number' ) {
-      if ( typeof(interval[0]) === 'string' ) {
-        interval[0] = this._convertTextToDate( interval[0] );
-      }
-      interval[0] = interval[0].getTime();
+      interval[0] = interval[0].getTime();      
     }
-    
     if ( interval && interval[1] && typeof(interval[1]) !== 'number' ) {
-      if ( typeof(interval[1]) === 'string' ) {
-        interval[1] = this._convertTextToDate( interval[1] );
-      }
       interval[1] = interval[1].getTime();      
     }
 
@@ -177,14 +168,9 @@ export class Calendar extends React.Component {
     }
 
     if ( updateField ) { this._updateField( true ); }
-    setTimeout( () => {
-      this.props.mode.unMount = false;
-      if ( updateField ) { this._triggerCallback('update-field'); }
-    }, 250 );
   }
 
   /****************************************************************************
-    ===  ===
   ****************************************************************************/
   convertDateToText(date, separator, clock ) {
     return this._convertDateToText( date, separator, clock );
@@ -231,13 +217,16 @@ export class Calendar extends React.Component {
     if ( update ) { this.setState({'opt': opt}); }
   }
 
-  updateInterval( stamp, where ) {
+  updateInterval( stamp, where, ignorField ) {
     this._updateInterval( stamp, where );
-    this._updateField( true );
+    if ( ! ignorField ) { this._updateField( true ); }
   }
 
-  setIntervalDate( interval, ignorCallback, updateCalendarView ) {
+  setIntervalDate( interval, ignorCallback, updateCalendarView, ignorLimit ) {
     let out = false;
+
+    //console.log('==SET INTERVAL ==='); console.log( interval );
+
     if ( interval && interval[0] && interval[1] ) {
       if ( typeof(interval[0]) === 'number' ) {
         interval[0] = new Date(interval[0]);
@@ -249,14 +238,13 @@ export class Calendar extends React.Component {
       this._updateInterval( null, 0 );
       this._updateInterval( null, 1 );
 
-      this._updateInterval( interval[0], 0 );
-      this._updateInterval( interval[1], 1 );
+      this._updateInterval( interval[1], 1, null, ignorLimit );
+      this._updateInterval( interval[0], 0, null, ignorLimit );
       this._updateField( ignorCallback );
       if ( this.state.error ) {
         this._toggleErrorMessage();
       }
       out = true;
-
 
       if ( updateCalendarView ) {
         this.setState({'date': interval[0]});
@@ -275,14 +263,14 @@ export class Calendar extends React.Component {
   }
 
   hideCalendar() {
-    if ( this.props.mode.unMount ) { return; }
+    if ( ! this.refs.calendarWrapper ) { return; }
     this.setState({'focus':false});
     this.state.opt.focusTarget = null;
   }
 
   showCalendar() {
     clearTimeout( this.state.opt.hideTimer );
-    if ( this.state.focus || this.props.mode.unMount ) { return; }
+    if ( this.state.focus || ! this.refs.calendarWrapper ) { return; }
 
     this.setState({'focus': true});
   }
@@ -302,29 +290,19 @@ export class Calendar extends React.Component {
   }
 
   /****************************************************************************
-    ===  ===
   ****************************************************************************/
   _initCalendarLimit( config ) {
     let opt = {}, src = config || {};
 
-    opt.max      = (src.max === null || src.max === false) ? null :
-      (src.max !== 'today' ? src.max : new Date());
-    opt.min      = src.min !== 'today' ? src.min : (new Date());
-
-    if ( src.min === 'today' && ! src.clock ) {
-      opt.min.setHours(0);
-      opt.min.setMinutes(0);
-      opt.min.setSeconds(0);
-      opt.min.getMilliseconds(0);
-    }
-
+    opt.max      = (src.max === null || src.max === false) ? null : (src.max || new Date());
+    opt.min      = src.min;
     opt.maxTime  = opt.max ? opt.max.getTime() : -1;
     opt.minTime  = opt.min ? opt.min.getTime() : -1;
+
     return opt;
   }
 
   /****************************************************************************
-    ===  ===
   ****************************************************************************/
   _getCloneDate( data, resetClock, setEndClock ) {
     let stamp = (new Date()).getTime() + '';
@@ -341,7 +319,7 @@ export class Calendar extends React.Component {
     );
   }
 
-  _updateInterval( stamp, where, viewDate ) {
+  _updateInterval( stamp, where, viewDate, ignorLimit, keyup ) {
     let {opt} = this.state, interval = opt.interval || [], index = where, tmp = null;
     if ( stamp !== null && typeof(stamp)==='object') {
       stamp = stamp.getTime();
@@ -352,34 +330,41 @@ export class Calendar extends React.Component {
     interval[index] = stamp;
     opt.active = {};
     if ( interval.length === 1 ) {
-      if      ( interval[0] < opt.minTime && opt.minTime > 0) { interval[0] = opt.minTime; }
-      else if ( interval[0] > opt.maxTime && opt.maxTime > 0) { interval[0] = opt.maxTime; }
+      if      ( ! ignorLimit && interval[0] < opt.minTime && opt.minTime > 0) { interval[0] = opt.minTime; }
+      else if ( ! ignorLimit && interval[0] > opt.maxTime && opt.maxTime > 0) { interval[0] = opt.maxTime; }
       tmp = this._getCloneDate( interval[0], true );
-      //opt.active[ interval[0] ] = true;
     } else if ( interval[0] === null && interval[1] ) {
-      if ( interval[1] > opt.maxTime && opt.maxTime > 0 ) { interval[1] = opt.maxTime; }
+      if ( ! ignorLimit && interval[1] > opt.maxTime && opt.maxTime > 0 ) { interval[1] = opt.maxTime; }
       tmp = this._getCloneDate( interval[1] );
-      //opt.active[ interval[1] ] = true;
     } else if ( interval[0] && interval[1] === null ) {
-      if ( interval[0] < opt.minTime && opt.minTime > 0 ) { interval[0] = opt.minTime; }
+      if ( ! ignorLimit && interval[0] < opt.minTime && opt.minTime > 0 ) { interval[0] = opt.minTime; }
       tmp = this._getCloneDate( interval[0], true );
-      //opt.active[ interval[0] ] = true;
     }
 
     if ( tmp ) { opt.active[ tmp.getTime() ] = true; }
 
     if ( interval[0] && interval[1] ) {
-      if ( interval[0] < opt.minTime && opt.minTime > 0 ) { interval[0] = opt.minTime; }
-      if ( interval[1] > opt.maxTime && opt.maxTime > 0 ) { interval[1] = opt.maxTime; }
-
+      //if ( ! ignorLimit && interval[0] < opt.minTime && opt.minTime > 0 ) { interval[0] = opt.minTime; }
+      //if ( ! ignorLimit && interval[1] > opt.maxTime && opt.maxTime > 0 ) { interval[1] = opt.maxTime; }
       let count = 0;
       if ( interval[0] > interval[1] ) {
-        let holder  = interval[1];
-        interval[1] = interval[0];
-        interval[0] = holder;
+        if ( where ) {
+          let d = new Date(interval[1]);          
+          d.setHours(0); d.setMinutes(0); d.setSeconds(0);
+          interval[0] = d.getTime();
+        } else {
+          let d = new Date(interval[0]);
+          d.setHours(23); d.setMinutes(59); d.setSeconds(59);
+          interval[1] = d.getTime();
+        }
       }
+
+      if ( ! ignorLimit && interval[0] < opt.minTime && opt.minTime > 0 ) { interval[0] = opt.minTime; }
+      if ( ! ignorLimit && interval[1] > opt.maxTime && opt.maxTime > 0 ) { interval[1] = opt.maxTime; }
+
       let a = new Date(interval[0]);
       let b = new Date(interval[1]);
+
       while ( a.getTime()<=b.getTime() && count<1000 ) {
         tmp = this._getCloneDate( a, true );
         opt.active[ tmp.getTime() ] = true;
@@ -396,6 +381,8 @@ export class Calendar extends React.Component {
     === EVENT ===
   ****************************************************************************/
   _focus( e ) {
+    if (typeof(this.props.focusCallback) === 'function') {this.props.focusCallback(e); }
+
     let target = e.currentTarget, id  = target.getAttribute( 'id' ) || '';
 
     if ( target.tagName.match( /input/i) ) {
@@ -403,20 +390,17 @@ export class Calendar extends React.Component {
       this.state.opt.focusTarget = id === aId ? 0 : 1;
     }
 
-    if ( this.props.mode.unMount ) {
-      this.props.mode.unMount = false;
-    }
-
     this.showCalendar();
     this._triggerCallback('focus');
   }
 
   _blur() {
-    if ( this.props.mode.unMount ) { return; }
+    if ( ! this.refs.calendarWrapper ) { return; }
+    if (typeof(this.props.blurCallback) === 'function') {this.props.blurCallback(); }
 
     clearTimeout( this.state.opt.hideTimer );
     let index = this.state.opt.focusTarget;
-    if ( ! isNaN(index) ) { this._toggleErrorMessage( true ); }
+    if ( ! isNaN(index) && this.state.validation ) { this._toggleErrorMessage( true ); }
 
     this.state.opt.hideTimer = setTimeout( () => {
       this.hideCalendar();
@@ -451,14 +435,26 @@ export class Calendar extends React.Component {
       }
 
       interval[index] = test.getTime();
-    } else { // year adjustment
+    } else if ( pos < 11 ) { // year adjustment
       interval[index] += (opt.aDay * 365 * mode);
-    }
+    } else if ( pos === 11) {
+      return; 
+    } else if ( pos < 14) {
+      let test = new Date(interval[index]);
+      test.setHours( test.getHours() + mode );
+      interval[index] = test.getTime();
+    } else if ( pos < 17) {
+      let test = new Date(interval[index]);
+      test.setMinutes( test.getMinutes() + mode );
+      interval[index] = test.getTime();
+    } 
 
     if ( opt.maxTime !== -1 && opt.maxTime < interval[index] ) { return; }
     if ( opt.minTime !== -1 && opt.minTime > interval[index] ) { return; }
 
+
     let date = new Date(interval[index]);
+
     this._updateInterval( interval[index], index );
     this._updateField();
     this._setCaretPosition( field, pos );
@@ -467,47 +463,44 @@ export class Calendar extends React.Component {
   }
 
   _keyup( e ) {
-    if ( this.props.mode.unMount ) { return; }
-    let {opt} = this.state, field = e.target, index = opt.focusTarget;
+    if ( ! this.refs.calendarWrapper ) { return; }
+    let {opt} = this.state, field = e.target, index = opt.focusTarget, keyCode = e.keyCode;
     let clock = this.state.clock;
+
     clearTimeout( opt.keyupTimer );
     setTimeout( () => {
-      if ( isNaN(index) || this.props.mode.unMount ) { return; }
+      if ( isNaN(index) || ! this.refs.calendarWrapper || keyCode === 9 ) { return; }
       
       let date = this._getDateOrErrorByVerifiedText(field.value);
+
       if ( date && clock && clock[index] ) {
         clock[index][0] = date.getHours();
         clock[index][1] = date.getMinutes();
         this.setState({'clock': clock});
       }
-
       let invalid = this._toggleErrorMessage();
-      this._updateInterval( date, index );
-      this._triggerCallback('keyup', invalid );
+
+      if ( date ) {
+        this._updateInterval( date, index, null, null, true );
+        this._updateField( true, index );
+      }
+      this._triggerCallback('keyup', invalid, keyCode );
     }, 100);
   }
 
-  _click( e ) {
+  _click( e, key, data ) {
     e.preventDefault();
-    let type = 'calendar-item', target = e.target;
-    let item = this._getClosestParent( target, type );
 
-    if ( item  ) {
-      return this._hasClass(item,'-out-of-month') ? null :
-        this._clickCalendarDate( item );
-    }
-
-    type = 'calendar-navigation';
-    item = this._getClosestParent( target, type );
-    if ( item ) {
+    if ( key === 'calendar-navigation' ) {
       this._triggerCallback('navigate-calendar');
-      return this._hasClass(item,'-disabled') ? null :
-        this._clickCalendarNavigation( item );
+      this._clickCalendarNavigation( data );
+    } else if ( key === 'calendar-item' ) {
+      this._clickCalendarDate( data );
     }
   }
 
-  _clickCalendarNavigation( item ) {
-    let  stamp = item ? parseFloat( item.getAttribute('data-stamp') ) : 0;
+  _clickCalendarNavigation( data ) {
+    let stamp = (data || {}).stamp || 0;
     if ( ! stamp || isNaN(stamp) ) { return; }
 
     let date = new Date( stamp );
@@ -522,12 +515,13 @@ export class Calendar extends React.Component {
     this.setState({'date': date});
   }
 
-  _clickCalendarDate( item ) {
-    let stamp = item ? parseFloat( item.getAttribute('data-stamp') ) : 0;
+  _clickCalendarDate( data ) {
+    let stamp = (data || {}).stamp || 0;
     if ( ! stamp || isNaN(stamp) ) { return; }
 
     let {opt} = this.state, clock = this.state.clock;
-    let isSelected = this._hasClass( item, 'selected' );
+    let isSelected = this._isStampSelected( stamp );
+
     let index = null, date = new Date( stamp );
     let controller = opt.controller, interval = opt.interval || [];
 
@@ -565,6 +559,16 @@ export class Calendar extends React.Component {
     }
   }
 
+  _isStampSelected( stamp ) {
+    let interval = this.state.interval || [];
+    return interval[0] === stamp || interval[1] === stamp ||
+      (interval[0] && interval[1] && interval[0] > stamp && stamp < interval[1]);
+  }
+
+  _clearCalendar( e ) {
+    if ( e ) { e.preventDefault(); }
+    this.resetIntervalDate();
+  }
 
   _clickShortcut( e, data ) {
     if ( e ) { e.preventDefault(); }
@@ -606,6 +610,7 @@ export class Calendar extends React.Component {
     this._updateInterval( date, index );
     this._updateField();
   }
+
 
   /****************************************************************************
   ****************************************************************************/
@@ -681,120 +686,37 @@ export class Calendar extends React.Component {
     return date;
   }
 
-
   /****************************************************************************
-    === OUTPUT ===
   ****************************************************************************/
-  _getCalendar( noTab ) {
-    let {opt} = this.state, index = opt.focusTarget || 0;
+  _getCalendarConfig( noTab ) {
+    let {opt, id} = this.state, index = opt.focusTarget || 0;
     let clock = this.state.clock || [];
     let date = this.state.date ? new Date( this.state.date.getTime() ) : date;
-    let loop = (opt.view || 1) - 1, month = date.getMonth(), tables = [];
+    let loop = (opt.view || 1) - 1, month = date.getMonth(), tableList = [];
 
     for ( let i = 0; i <= loop; i++ ) {
       date.setMonth((month-i));
-      tables.push( this._getCalendarView(date, noTab) );
+      tableList.push( this._getCalendarData( date, noTab ) );
     }
 
-    let reverse = tables.reverse(), timer = clock[index] ? {
+    let timer = clock[index] ? {
       'hourValue'  : (clock[index][0] < 10 ? ('0'+clock[index][0]) : clock[index][0])+'',
       'minuteValue': (clock[index][1] < 10 ? ('0'+clock[index][1]) : clock[index][1])+'',
       'hours'      : opt.hours,
       'minutes'    : opt.minutes
     } : null;
 
-    return (
-      <div className="collection">
-        <ul>
-          { reverse.map( (table, i) => {
-              let type = 'calendar-holder' + (i === 0 ? ' -first' : '') +
-                (i === loop ? ' -last' : '');
-              return (<li className={type} key={'calendar-table-'+i}>{table}</li>);
-            })
-          }
-        </ul>
-        { timer &&
-          <div className="calendar-timer">
-            <div className="timer-cnt">
-              <div className="timer-hour">
-                <label htmlFor="calendar-hour">Time</label>
-                <select tabIndex={noTab ? '-1' : ''} id="calendar-hour" name="input-hour" className="select-box" value={timer.hourValue}
-                  onChange={(e)=> { this._changeTimer(e.target.value,'hour', index); }}>
-                  { timer.hours.map( (data, i) => {
-                    return <option key={'calendar-hour-'+i} value={data}>{data}</option>
-                  }) }
-                </select>
-              </div>
-              <div className="timer-minute">
-                <label htmlFor="calendar-minute">Minute</label>
-                <select tabIndex={noTab ? '-1' : ''} id="calendar-minute" name="input-minute" className="select-box" value={timer.minuteValue}
-                  onChange={(e)=> { this._changeTimer(e.target.value,'minute',index); }}>
-                  { timer.minutes.map( (data, i) => {
-                    return <option key={'calendar-minute-'+i} value={data}>{data}</option>
-                  }) }
-                </select>
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-    );
-  }
-
-  _getCalendarView( date, noTab ) {
-    if ( ! date ) { date = new Date(); }
-    let {yearNavigation} = this.state;
-    let data  = this._getCalendarData( date, noTab );
-    let table = this._getCalendarTable( data, noTab );
-    let yearNavigationInfo = [];
-
-    if ( yearNavigation ) {
-      let previous = new Date(data.minStamp);
-      previous.setDate(1);
-      previous.setMonth( (previous.getMonth() + 1));
-      previous.setFullYear( previous.getFullYear() - 1 );
-      yearNavigationInfo[0] = {'stamp' : previous.getTime(), 'title': previous.getFullYear() };
-
-
-      let next = new Date(data.maxStamp);
-      next.setDate(1);
-      next.setMonth( (next.getMonth() - 1));      
-      next.setFullYear((next.getFullYear() + 1));
-      yearNavigationInfo[1] = {'stamp' : next.getTime(), 'title': next.getFullYear() };
-    }
-
-    return (
-      <div className="calendar-view">
-        <div className="calendar-header" role="">
-          <div className="calendar-name">{data.name}</div>
-          <div className={'calendar-navigation-holder -previous' + (yearNavigation ? ' -has-year-navigation' : '')}>
-            { yearNavigation && <a tabIndex={noTab ? '-1' : ''} href="" className="calendar-navigation -previous -year" title={yearNavigationInfo[0].title} data-stamp={yearNavigationInfo[0].stamp}>
-                <span className="aria-visible">{data.minAria}</span>
-              </a>
-            }
-            <a tabIndex={noTab ? '-1' : ''} href="" className="calendar-navigation -previous" title={data.minAria} data-stamp={data.minStamp}>
-              <span className="aria-visible">{data.minAria}</span>
-            </a>
-          </div>
-          <div className={'calendar-navigation-holder -next' + (yearNavigation ? ' -has-year-navigation' : '')}>
-            <a tabIndex={noTab ? '-1' : ''} href="" className="calendar-navigation -next" title={data.maxAria} data-stamp={data.maxStamp}>
-              <span className="aria-visible">{data.maxAria}</span>
-            </a>
-            { yearNavigation &&  <a tabIndex={noTab ? '-1' : ''} href="" className="calendar-navigation -next -year" title={yearNavigationInfo[1].title} data-stamp={yearNavigationInfo[1].stamp}>
-                <span className="aria-visible">{data.minAria}</span>
-              </a>
-            }
-          </div>
-        </div>
-        {table}
-      </div>
-    );
+    return {
+      'noTab'    : noTab,
+      'timer'    : timer,
+      'tableList': tableList.reverse() 
+    };
   }
 
   _getCalendarData( date ) {
     if ( ! date ) { return ''; }
 
-    let {opt, clock} = this.state;
+    let {opt, clock, allowOutOfMonth} = this.state;
     let d = this._getDateAsList( date ), c = null, f = new Date(d[0],d[1],1,0,0,0,0);
     let monthTimestamp = f.getTime(), row = [], count = 0, day = opt.aDay;
     let current = opt.nowTime || 0, i = 0, j = 0;
@@ -821,8 +743,8 @@ export class Calendar extends React.Component {
 
         let mode = ''+
           (max > -1 ? (max<tMax ? ' -disabled': '') : '' ) +
-          (min > -1 ? ((min-1000)>tMin ? ' -disabled': '') : '' ) +
-          (n[1] === d[1] ? '' : ' -out-of-month') +
+          (min > -1 ? (min>tMin ? ' -disabled': '') : '' ) +
+          (n[1] === d[1] ? '' : (allowOutOfMonth ? ' -allow-out-of-month' : ' -out-of-month')) +
           (current>=t && current<(t+day) ? ' -is-today' : '') +
           (active && active[t] ? ' -selected' : '')+
           (focus && focus[t] ? ' -focus' : '' ) +
@@ -833,7 +755,7 @@ export class Calendar extends React.Component {
           'aria'  : this._getCalendarDateAriaText( c ),
           'name'  : c.getDate(),
           'mode'  : mode,
-          'off'   : mode.match( /out-of-month|disabled/) ? true: false,
+          'off'   : (! allowOutOfMonth && mode.match(/out-of-month|disabled/)) || (allowOutOfMonth &&  mode.match(/disabled/)) ? true: false,
           'stamp' : t,
           'date'  : this._convertDateToText(c,''),
           'selected': active && active[t] ? true : false
@@ -877,44 +799,6 @@ export class Calendar extends React.Component {
     };
   }
 
-  _getCalendarTable( data, noTab ) {
-    if ( ! data ) return;
-
-    let week = data.week.map( function(item, i){
-      return (
-        <th role="presentation" key={i+'-h'}>
-          <span className="aria-visible">{item.aria}</span>
-          <span className="week-name" aria-hidden="true">{item.name}</span>
-        </th>
-      );
-    });
-
-    let out = data.row.map( function(row, i){
-      let column = row.column.map( function(item, j){
-        let type = 'calendar-item at-row'+i+
-          (item.mode ? ' '+item.mode : '') +
-          (item.selected ? ' selected' : '');
-
-        return (
-          <td key={j+'-c'} className={item.off ? 'off':'on'}>
-            <a href="#" className={type} aria-selected={item.selected} data-stamp={item.stamp} tabIndex={item.off || noTab ? '-1': ''}>
-                <span className="aria-visible">{item.aria}</span>
-                <span aria-hidden="true">{item.name}</span>
-            </a>
-          </td>
-        );
-      });
-      return (<tr role="presentation" key={i+'t'}>{column}</tr>);//
-    });
-
-    return (
-        <table className="calendar-table" aria-label="Kalender" role="application">
-          <thead><tr className="calendar-table-header calendar-weak" role="presentation">{week}</tr></thead>
-          <tbody>{out}</tbody>
-        </table>
-    );
-  }
-
   _getDateAsList( date ) {
     return [
       date.getFullYear(), date.getMonth(), date.getDate(),
@@ -949,40 +833,18 @@ export class Calendar extends React.Component {
   }
 
   _convertTextToDate( text, wantTimestamp ) {
-    let r = /^(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.](\d{4})(\s+(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d))?/;
+    let r = /^(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.](\d{4})(\s+(([0-1]\d)|(2[0-3])):([0-5]\d))?$/;
     let t = (text ||'').replace( /^\s+/,'').replace( /\s+$/,'');
-    let m = t.match( r ), s = null;
-    if ( m ) {
-      s = [m[3], m[2], m[1], m[5], m[8], (m[9]|| '0'), '0'];
-    } else {
-      r = /^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.]([0][1-9]|[12][0-9]|3[01])(\w+(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d))?/;
-      m = t.match( r );
-      if ( m ) {
-        s = [m[1], m[2], m[3], m[5], m[8], (m[9]|| '0'), '0'];
-      }
-    }
+    let m = t.match( r );
+    if ( ! m ) { return null; }
 
-    if ( ! s ) { return; }
-
+    let s = [m[3], m[2], m[1], m[5], m[8], '0', '0'];
     for ( let i=0; i<s.length; i++ ) {
       s[i] = parseInt( ((s[i] || '').replace( /^0/, '' ) || '0'), 10);
     }
     let date = new Date(s[0],s[1]-1,s[2],s[3],s[4],s[5],s[6]);
-
-    if ( text.match( /Z$/i) ) {
-      let zone = this._getTimeZone( date ).replace( /\:00/g, '' );
-      let number = parseFloat( zone ), hour = date.getHours();
-      date.setHours( (hour + number) );
-    }
-
     return wantTimestamp ? date.getTime() : date;
   }
-
-  _getTimeZone( date ) {
-    let current =  date || new Date();
-    var offset = current.getTimezoneOffset(), o = Math.abs(offset);
-    return (offset < 0 ? '+' : '-') + ('00' + Math.floor(o / 60)).slice(-2) + ':' + ('00' + (o % 60)).slice(-2);
-  };
 
   /************************************************************************/
   _toggleErrorMessage( onBlur ) {
@@ -1015,18 +877,65 @@ export class Calendar extends React.Component {
     }
   }
 
-  _getDateOrErrorByVerifiedText( text ) {
-    let date = text ? this._convertTextToDate( text ) : null;
+  _getDateOrErrorByVerifiedText( text) {
+    let value = this._getTextDateInCorrectFormat( text );
+    let date = value ? this._convertTextToDate(value) : null;
     if ( ! date ) { return null; }
 
     let invalid = this._isDateLessThanMin( date ) || this._isDateGreatThanMax( date );
     return invalid ? null : date;
   }
 
+  _getTextDateInCorrectFormat( text ) {
+    let cnt = (text || '').replace(/\s+/g, ' ').split(' '), value = '';
+    if ( cnt.length && cnt[0]) {
+      let splited = cnt[0].replace(/[\.]+/g, '.').split('.');
+      for ( let i=0; i<splited.length; i++ ) {
+        let v = parseInt( this._trim( splited[i], true ).replace(/^[0]+/i, ''));
+        if ( v < 10 ) { splited[i] = '0'+v; }
+      }
+
+      let out = [splited.join('.')];
+      if ( cnt[1] ) {
+        out[1] = this._getCharacterForSplitingHourAndMinute( cnt[1] );
+      }
+      value = out.join(' ');
+    }
+    return value || text;
+  }
+
+  _getCharacterForSplitingHourAndMinute( value ) {
+    let splited = (value || '').replace(/[\s\:]+/g, '').split(''), out = [];
+    if ( splited.length >= 2 ) {
+      let verify = (hour, minute) => {
+        return parseInt((hour+'').replace(/^0/,'')) < 24 && parseInt((minute+'').replace(/^0/,'')) < 59;
+      };
+
+      if ( splited.length === 2 ) {
+        if ( verify(splited.join(''), '00') ) {
+          out = [splited.join(''), '00'];
+        } else if ( verify('0'+splited[0], '0'+splited[1]) ) {
+          out = ['0'+splited[0], '0'+splited[1]];
+        }
+      } else if ( splited.length === 3 ) {
+        if ( verify(splited[0]+splited[1], '0'+splited[2]) ) {
+          out = [splited[0]+splited[1], '0'+splited[2]];
+        } else if ( verify('0'+splited[0], splited[1]+splited[2]) ) {
+          out = ['0'+splited[0], splited[1]+splited[2]];
+        }
+      } else if ( splited.length === 4 ) {
+        if ( verify(splited[0]+splited[1], splited[2]+splited[3]) ) {
+          out = [splited[0]+splited[1], splited[2]+splited[3]];
+        }
+      }
+    }
+    return out.length ? out.join(':') : value;
+  }
+
   _isDateLessThanMin( date ) {
     if ( ! date ) { return false; }
     let {opt} = this.state,  time = date.getTime();
-    return opt.minTime > -1 && (time + 1000) <= opt.minTime;
+    return opt.minTime > -1 && time < opt.minTime;
   }
 
   _isDateGreatThanMax( date ) {
@@ -1059,13 +968,13 @@ export class Calendar extends React.Component {
     return '';
   }
 
-  _updateField( ignorCallback ) {
+  _updateField( ignorCallback, ignorIndexField ) {
     let {opt} = this.state, interval = opt.interval || [];
     let clock = this.state.clock ? true : false;
     let field = [this.refs.inputA, this.refs.inputB];
     let item  = [this.refs.itemA, this.refs.itemB];
     for ( let i=0; i<field.length; i++ ) {
-      if ( ! field[i] ) { continue; }
+      if ( ! field[i] || ignorIndexField === i ) { continue; }
 
       let text = ! interval[i] ? '' :
         this._convertDateToText( (new Date(interval[i])), null, clock );
@@ -1110,84 +1019,30 @@ export class Calendar extends React.Component {
     }
   }
 
-  _getClosestParent( dom, what, idTest ) {
-    let verify = ( parent, type, specific ) => {
-      if ( ! parent || (parent.tagName||'').match(/^html/i) ) { return; }
-
-      if ( specific ) {
-        let t = parent.getAttribute('id')==type;
-        return t ? parent : verify( parent.parentNode, type, specific );
-      }
-      return this._hasClass(parent,type) ? parent :
-        verify( parent.parentNode, type, specific );
-    };
-    return what ? verify( dom, what, idTest ) : null;
-  }
-
-  _hasClass( target, type ) {
-    if ( ! target ) { return; }
-    let v = target && target.tagName ? (target.getAttribute('class') || '') : '';
-    let r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
-    return v.match( r ) != null;
-  }
-
-  _addClass( target, type ){
-    if ( ! target ) { return; }
-
-    let v = target.getAttribute('class');
-    if ( ! v ) { return target.setAttribute('class', type); }
-
-    let r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
-    if ( ! v.match(r) ) { target.setAttribute('class',  this._trim(v+' '+type,true)); }
-  }
-
-  _removeClass( target, type ) {
-    if ( ! target ) { return; }
-    
-    let v = target.getAttribute('class');
-    if ( ! v ) { return; }
-
-    let r = new RegExp( '(^|\\s+)'+type+'($|\\s+)', 'g' );
-    if ( v.match( r ) ) {
-      target.setAttribute( 'class', this._trim((v.split(r)).join(' '), true) );
-    }
-  }
-
   _trim ( text, multipleWhiteSpace ) {
     let out = (text || '').replace( /^\s+/, '').replace( /\s+$/g, '');
     return multipleWhiteSpace ? out.replace( /\s+/g, ' ' ) : out;
   }
 
-  _triggerCallback( action, invalid ) {
+  _generateId() {
+    return 'calenar-' + new Date().getTime() + '-' + Math.floor(Math.random() * 100000 + 1);
+  }
+
+  _triggerCallback( action, invalid, keyCode ) {
     let {callback} = this.props;
     if ( typeof(callback) !== 'function' ) { return; }
 
-    let inputA = this.refs.inputA || {}, inputB = this.refs.inputB || {};
     callback({
-      'action':action,
-      'from' : inputA.value,
-      'to'   : inputB.value,
-      'stampFrom': this._convertTextToDate( inputA.value, true),
-      'stampTo': this._convertTextToDate( inputB.value, true),
-      'refs': [inputA, inputB],
-      'error': invalid || this.state.error,
+      'action'      : action,
+      'keyCode'     : keyCode,
+      'from'        : this._getTextDateInCorrectFormat( this.refs.inputA.value ),
+      'to'          : this._getTextDateInCorrectFormat( this.refs.inputB.value ),
+      'stampFrom'   : this._convertTextToDate( this.refs.inputA.value, true),
+      'stampTo'     : this._convertTextToDate( this.refs.inputB.value, true),
+      'refs'        : [this.refs.inputA, this.refs.inputB],
+      'error'       : invalid || this.state.error,
       'componentId' : this.props.componentId,
       'componentKey': this.props.componentKey
     });
   }
 }
-
-/*
-CalendarComponent.propTypes = {
-};
-
-const Calendar = connect( () => {
-  return {};
-}, (dispatch) => {
-  return {
-    dispatch
-  };
-})(CalendarComponent);
-
-export default Calendar;
-*/

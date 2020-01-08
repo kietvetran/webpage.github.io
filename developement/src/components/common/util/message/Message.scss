@@ -3,7 +3,7 @@
 
 .message-wrapper {
   position: relative;
-  padding: 20px;
+  padding: 1.3rem;
 
   border: 1px solid $color-info-border;
   background: $color-info-bg none repeat 0 0;
@@ -26,7 +26,7 @@
     background-color: $color-success-bg;
   }
 
-  h1, h2, .h1, .h2 {  
+  h1, h2, .h1, .h2, .h3, .h3 {  
     padding-top: 0;
     margin-top: 0;
   }

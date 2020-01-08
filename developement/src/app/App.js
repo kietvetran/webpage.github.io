@@ -16,7 +16,7 @@ import * as DialogActions from './../actions/dialogActions';
 /* component */
 import Signin from '../components/signIn/SignIn';
 import Home from '../components/home/home';
-import Lab from '../components/lab/Lab';
+import Demo from '../components/demo/Demo';
 import {DialogBox} from '../components/common/dialogBox/DialogBox';
 import './App.scss';
 
@@ -41,12 +41,11 @@ class App extends Component {
       'rootPath': window.location.origin, 
       'menus': [
         {'id': 'home', 'path': '/home', 'name': 'Home'},
-        {'id': 'lab',  'path': '/lab',  'name': 'Lab' }
+        {'id': 'demo', 'path': '/demo', 'name': 'Demo' }
       ]
     };
 
     //this.props.actions.appInit();
-
     this._changeRoute = this._changeRoute.bind(this);
     this._click       = this._click.bind(this);
     this.state.browser.listen(this._changeRoute);
@@ -66,7 +65,7 @@ class App extends Component {
         <header className="app-header flex-header">
           <div className="app-cnt layout-outer">
             <a href={rootPath} className="logo-holder">
-              <h1>Kiet lab</h1>
+              <h1>KietTran</h1>
             </a>
             <nav id="main-nav" className="navigation" aria-label="hovedmenu" role="navigation">
               <ul className="navigation-list">
@@ -85,13 +84,13 @@ class App extends Component {
           <div className="app-cnt layout-outer">
             <Switch>
               <Route exact path='/home' render={(e) => { return <Home {...e} {...common} /> }} />
-              <Route exact path='/lab' render={(e) => { return <Lab {...e} {...common} /> }} />
+              <Route exact path='/Demo' render={(e) => { return <Demo {...e} {...common} /> }} />
               <Route exact path='/signin' render={(e) => { return <Signin {...e} {...common} /> }} />              
               <Redirect from='/*' to='/home'/>
             </Switch>
           </div>
         </main>
-        {dialog && dialog.type && <DialogBox ref="dialogbox" {...dialog} {...common} />}
+        {dialog && <DialogBox ref="dialogbox" {...dialog} {...common} />}
       </div>
     </Router>
   }

@@ -103,7 +103,7 @@ html, body, #app {
   .nav-link {
     display: inline-block;
     height: 100%;
-    font-size: 120%;
+    font-size: 115%;
     padding: 1.25rem 1.5rem;
     font-weight: 500;
     text-align: center;
@@ -134,4 +134,25 @@ html, body, #app {
 .app-body {
   position: relative;
   padding: 1rem 0;
+}
+
+@media screen and (max-width: $breakpoint-sm) { 
+  .app-header {
+    .logo-holder {
+      width: 12rem;
+      padding-left: 3rem;
+
+      h1 {
+        margin-top: .4rem;
+      }
+
+      &:before {
+        width: 3rem;
+      }
+    }
+    
+    .nav-link {
+      padding: 1rem .6rem;
+    }
+  }
 }

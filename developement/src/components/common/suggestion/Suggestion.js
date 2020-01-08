@@ -4,14 +4,11 @@ import {Calendar} from '../calendar/Calendar';
 import './Suggestion.scss';
 
 export class Suggestion extends React.Component {
-  static defaultProps = {
-    'mode': {'timerSearch': 0, 'previous': {}, 'timerBlur': {}, 'categoryFilter': {}}
-  }
-
   constructor(props) {
     super(props);
     this.state = {
       'id'          : props.fieldId || 'suggestion-'+(new Date()).getTime(),
+      'mode'        : {'timerSearch': 0, 'previous': {}, 'timerBlur': {}, 'categoryFilter': {}},
       'searchText'  : props.searchText || '',
       'searchKeys'  : props.searchKeys || ['name'],
       'storage'     : {},
@@ -27,7 +24,13 @@ export class Suggestion extends React.Component {
       'calendarReg' : /(\s+|^)(calendar|date)\:/i,
       'hasCalendar' : false,
       'staticFilter': props.staticFilter ? true : false,
-      'hideWidgetOnClickMatchedItem': props.hideWidgetOnClickMatchedItem || false
+      'hideWidgetOnClickMatchedItem': props.hideWidgetOnClickMatchedItem || false,
+
+      'clearSelectedText'  : props.clearSelected  || 'Clear all selected',
+      'clearFieldText'     : props.clearField     || 'Clear search field',
+      'deleteSelectedText' : props.deleteSelected || 'Delete seleected option',
+      'inputLabel'         : props.label || 'Suggestion list',
+      'foundText'          : 'Found ###, use up and down to review.'
     };
 
     this._initOptionCategory();
@@ -49,8 +52,12 @@ export class Suggestion extends React.Component {
   }
 
   render() {
-    const {label, placeholder, dropdownMenu, fieldName, fieldStyle, hideWidget, inputField, tagBtnAddition, ignorInnerTabbing, mode, matchedItemDetailClick} = this.props;
-    const {id, selectedList, matchedList, storage, focusIndex, searchText, loading, category, originalText, hasCalendar, calendarReg, staticFilter} = this.state;
+    const {placeholder, dropdownMenu, fieldName, fieldStyle, hideWidget, inputField, tagBtnAddition, ignorInnerTabbing, matchedItemDetailClick} = this.props;
+    const {
+      id, mode, selectedList, matchedList, storage, focusIndex, searchText, loading, category,
+      originalText, hasCalendar, calendarReg, staticFilter, foundText, inputLabel,
+      clearSelectedText, clearFieldText, deleteSelectedText
+    } = this.state;
 
     let inputName  = fieldName || 'suggestion';
     let tabbing    = ignorInnerTabbing ? {'tabIndex': '-1'} : {};
@@ -62,26 +69,39 @@ export class Suggestion extends React.Component {
       (staticList.length ? (' -static-category ' + (staticList.length > 1 ? '-multiple' : staticList.join(' '))) : '');
 
     return (
-      <div className={style}>
-        {label && <label htmlFor={id}>{label}</label>}
+      <div className={style} ref="suggestionWrapper" role="application">
+        <label id={id+'-label'} htmlFor={id}>{inputLabel}</label>
         <div className={'suggestion-cnt' + (dropdownMenu ? ' -dropdown-menu': '')}>
           {selectedList.length > 0 && <div className="selected-wrapper">
               <ul className="suggestion-holder"> {selectedList.map( (suggestion, i) => {
                 return <li key={'message-suggestion-'+i} className="inline-block">
                   <SuggestionTagbtn text={suggestion.name || suggestion.text} unit={suggestion.unit} id={suggestion.id} callback={this._click}
-                    type="-white" inputField={inputField} category={suggestion.category} tagBtnAddition={tagBtnAddition} inputName={inputName}/>
+                    type="-white" inputField={inputField} category={suggestion.category} tagBtnAddition={tagBtnAddition} inputName={inputName}
+                    deleteText={deleteSelectedText}
+                  />
                 </li>
               }) } </ul>
-              <a href="#" className="icon-btn -cross -ex-small-icon-view clear-btn -blue" onClick={(e)=>{this._click(e,'clear-all-selection');}} />
+              <a role="button" href="#" className="icon-btn -cross -small-view clear-btn -blue" onClick={(e)=>{this._click(e,'clear-all-selection');}}>
+                <span className="aria-visible">{clearSelectedText}</span>
+              </a>
             </div>
           }
           <div className={'suggestion-field-wrapper' + (searchText ? ' -has-search-text' : '')}>
-            <input type="text" name={inputName} id={id} className={'textfield' + (fieldStyle ? ' '+fieldStyle : '')} ref="searchField"
+            <input role="combobox" aria-autocomplete="list" aria-controls={id+'-listbox'}  type="text" name={inputName} id={id}
+              className={'textfield' + (fieldStyle ? ' '+fieldStyle : '')} ref="searchField"
               spellCheck="false" autoComplete="off" autoCorrect="off" placeholder={placeholder || ''}
               onKeyUp={(e)=>{this._keyup(e);}} onKeyDown={(e)=>{this._keydown(e);}} onFocus={(e)=>{this._focus(e);}} onBlur={(e)=>{this._blur(e);}}/>
-            <a href="#" {...tabbing} className="icon-btn -cross -ex-small-icon-view clear-btn" onClick={(e)=>{this._click(e,'clear');}} />
+
+            <a role="button" href="#" {...tabbing} className="icon-btn -cross -small-view clear-btn" onClick={(e)=>{this._click(e,'clear');}}>
+              <span className="aria-visible">{clearFieldText}</span>
+            </a> 
+
+            <div id={id+'-options'} className="aria-visible" aria-live="assertive">
+              {foundText.replace( '###', matchedList.length) }
+            </div>
+
             { hideWidget !== true &&
-                <div tabIndex="-1" className="suggestion-widget" onClick={(e)=>{this._click(e, 'click-widget');}}>
+                <div role="listbox" aria-labelledby={id+'-label'} id={id+'-listbox'} tabIndex="-1" className="suggestion-widget" onClick={(e)=>{this._click(e, 'click-widget');}}>
                   {loading && <div className="loader-wrapper"><div className="loader -small"></div></div>}
                   {matchedList.length > 0 && ! loading ? <ul ref="matchedList" className="matched-list"> {matchedList.map( (matched, i) => {
                     let itemStye = 'matched-item' +(storage[matched.id] ? ' -selected': '') + (i===focusIndex ? ' -focus': '') +
@@ -92,7 +112,7 @@ export class Suggestion extends React.Component {
                           <span>{matched.name}</span>
                           {matched.unit && <span className="unit-info">{' '+matched.unit}</span>}
                           {matched.reserved && <span className="reserved-info">{matched.reserved}</span>}
-                        </div> : <a {...tabbing} href="#" className={itemStye} onClick={(e)=>{this._clickMatchedItem(e,matched);}} title={matched.title || ''}>
+                        </div> : <a {...tabbing} role="option" href="#" className={itemStye} onClick={(e)=>{this._clickMatchedItem(e,matched);}} title={matched.title || ''}>
                           <span>{matched.name}</span>
                           {matched.unit && <span className="unit-info">{' '+matched.unit}</span>}
                           {matched.reserved && <span className="reserved-info">{matched.reserved}</span>}
@@ -100,7 +120,7 @@ export class Suggestion extends React.Component {
                       }
                       {!! matchedItemDetailClick && <a href="#" role="button" className="matched-item-detail icon-btn -more" onClick={(e)=>{matchedItemDetailClick(e,'click-matched-item-detail',matched);}}/> }
                     </li>
-                  }) } </ul> : (this.props.mode.previous[this.state.id] && <div ref="matchedList" className="empty-list">No matched</div>)}                  
+                  }) } </ul> : (this.state.mode.previous[this.state.id] && <div ref="matchedList" className="empty-list">No matched</div>)}                  
                   {category.list.length > 0 && ! loading && (matchedList.length > 0 || originalText) && <div className="suggestion-category-wrapper">
                       <ul className="suggestion-category-list">
                         { category.list.map( (text, i) => {
@@ -127,16 +147,8 @@ export class Suggestion extends React.Component {
     );
   }
 
-  componentDidMount() {
-    setTimeout( () => { this.props.mode.unMount = false; }, 250 );
-  }
-
-  componentWillUnmount() {
-    this.props.mode.unMount = true;
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    if ( prevProps.dynamicOptionList && ! this.props.mode.unMount ) {
+    if ( prevProps.dynamicOptionList && this.refs.suggestionWrapper ) {
       let aList = JSON.stringify(prevProps.list  || []);
       let bList = JSON.stringify(this.props.list || []); 
       if ( aList !== bList  ) {
@@ -185,7 +197,6 @@ export class Suggestion extends React.Component {
               field.value = selectedList[0].name;
               this._selectText(0, selectedList[0].name.length, field );
               this.closeWidget();
-              //this._search( selectedList[0].name, true );
             } else {
               field.value = '';
             }
@@ -194,16 +205,16 @@ export class Suggestion extends React.Component {
       }
       this._triggerCallback('enter');
     } else if ( code === 38 || code === 40 ) {
-      clearTimeout( this.props.mode.timerSearch || 0 );
+      clearTimeout( this.state.mode.timerSearch || 0 );
       let {focusIndex, matchedList } = this.state;
       if ( matchedList.length ) {
         //let next = focusIndex + (code === 40 ? 1 : -1);
         this.setState({'focusIndex': this._getFocusIndex( matchedList, focusIndex, (code === 38))});
       }
-    //} else if ( this.props.mode.previous[this.state.id] !== value ) {
+    //} else if ( this.state.mode.previous[this.state.id] !== value ) {
     } else if ( key !== 'Escape' ) {
-      clearTimeout( this.props.mode.timerSearch || 0 );
-      this.props.mode.timerSearch = setTimeout( () => {
+      clearTimeout( this.state.mode.timerSearch || 0 );
+      this.state.mode.timerSearch = setTimeout( () => {
         let asEnter = this.props.asEnterCharacter;
         let splited = asEnter ? value.split( asEnter ) : [];
         if ( splited.length > 1 ) {
@@ -217,21 +228,21 @@ export class Suggestion extends React.Component {
 
   _focus(e) {  
     const target = e.target, value = target.value || '';
-    clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
+    clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
 
     // setTimeout necessary: Set first focus on the suggestion field, click outside from this browser,
     // click back to the page on another element.
-    this.props.mode.timerBlur[this.state.id] = setTimeout( () => {
-      clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
+    this.state.mode.timerBlur[this.state.id] = setTimeout( () => {
+      clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
       this._search( value );
     }, 50);
   }
 
   _blur(e) {
     if ( e ) { e.preventDefault(); }
-    clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
-    this.props.mode.timerBlur[this.state.id] = setTimeout( () => {
-      if ( this.props.mode.unMount ) { return; }
+    clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
+    this.state.mode.timerBlur[this.state.id] = setTimeout( () => {
+      if ( ! this.refs.suggestionWrapper ) { return; }
       this.closeWidget();
     }, 200 );
   }
@@ -252,10 +263,10 @@ export class Suggestion extends React.Component {
       }
     } else if ( key === 'click-category' && data ) {
       if ( this.state.staticFilter ) {
-        if ( this.props.mode.categoryFilter[data] ) {
-          delete(this.props.mode.categoryFilter[data]);
+        if ( this.state.mode.categoryFilter[data] ) {
+          delete(this.state.mode.categoryFilter[data]);
         } else {
-          this.props.mode.categoryFilter[data] = 1;
+          this.state.mode.categoryFilter[data] = 1;
         }
         this._search();
       } else {
@@ -266,8 +277,8 @@ export class Suggestion extends React.Component {
     } else if ( key === 'click-widget' && e ) {
       let parent = this._getClosestParent( e.target, 'calendar-widget');
       if ( parent ) {
-        clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
-        this.props.mode.timerBlur[this.state.id] = setTimeout( () => {
+        clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
+        this.state.mode.timerBlur[this.state.id] = setTimeout( () => {
           if ( this.refs.calendarInterval ) {
             let opt = this.refs.calendarInterval.getConfig();
             let field = opt.focusTarget ? opt.fieldB : opt.fieldA;
@@ -314,14 +325,14 @@ export class Suggestion extends React.Component {
   ****************************************************************************/
   _calendarCallback( info ) {
     if ( info.action === 'blur' ) {
-      clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
-      this.props.mode.timerBlur[this.state.id] = setTimeout( () => {
+      clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
+      this.state.mode.timerBlur[this.state.id] = setTimeout( () => {
         this.closeWidget();
       }, 200);
     } else {
-      clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
+      clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
       setTimeout( () => {
-        clearTimeout( this.props.mode.timerBlur[this.state.id] || 0 );
+        clearTimeout( this.state.mode.timerBlur[this.state.id] || 0 );
       }, 100);
     }
 
@@ -346,7 +357,7 @@ export class Suggestion extends React.Component {
   _search( text, ignorDropdownMenu, callbackBeforeIgnorSetState ) {
     if ( ! text ) { text = ''; }
 
-    let {setMatchedListWeight, searchDoubleCheck, searchPrefillMatchedList, mode, allowFreeTextTag} = this.props;
+    let {setMatchedListWeight, searchDoubleCheck, searchPrefillMatchedList, allowFreeTextTag} = this.props;
     let searched = (result) => {
       if ( typeof(setMatchedListWeight) === 'function' ) {
         result.matchedList = setMatchedListWeight( result ) || [];
@@ -374,7 +385,7 @@ export class Suggestion extends React.Component {
       if ( this.props.dropdownMenu && ! ignorDropdownMenu ) {
         this._searchForwardDropdownMenu( text, result );
       }
-      this.props.mode.previous[this.state.id] = result.text;
+      this.state.mode.previous[this.state.id] = result.text;
     };
 
     let originalText = text || '';
@@ -383,10 +394,12 @@ export class Suggestion extends React.Component {
       if ( done ) { return; }
     }
 
-    let {copyList, maxSearch, searchKeys, matchStart, category, selectedList, blockSuggestionCategory} = this.state;
-    let list = copyList;
+    let {
+      mode, copyList, maxSearch, searchKeys, matchStart,
+      category, selectedList, blockSuggestionCategory
+    } = this.state;
 
-    let i = 0, j = 0, reg = matchStart ?
+    let list = copyList, i = 0, j = 0, reg = matchStart ?
       this._createRegexp(text,1,1,2) : this._createRegexp(text,1,1,1);
 
     /** start verify is category */
@@ -445,10 +458,7 @@ export class Suggestion extends React.Component {
         found = searchDoubleCheck(data, searchKeys, {'key': found, 'reg': reg, 'text': text}, selectedList );
       }
 
-      if ( found ) {
-        data.reg = reg;
-        matchedList.push( data );
-      }
+      if ( found ) { matchedList.push({...data, 'reg': reg}); }
       i++;
     }
 
@@ -471,7 +481,7 @@ export class Suggestion extends React.Component {
     }
 
     if ( name || (this.state.selectedList && this.state.selectedList[0]) ) {
-      if ( text.length >= this.props.mode.previous[this.state.id].length ) {
+      if ( text.length >= this.state.mode.previous[this.state.id].length ) {
         let field = this.refs.searchField;
         let value = name || this.state.selectedList[0].name;
 
@@ -624,14 +634,6 @@ export class Suggestion extends React.Component {
   }
 
   _createRegexp (text, g, i, b, f) {
-
-    //if ( text == '*' ) { return /.*/; }
-    //let v = text.replace( /\*/, '.*' ).replace( /\+/g, '\\+' );
-    //let m = (g && i) ? 'gi' : ( (g || i) ? (g ? 'g' : 'i') : '' );
-    //let s = b ? (b === 2 ? '^' : (b === 3 ? '(^|\/|\\s+|\,)' : '(^|\/|\\s+)')) : '';
-    //let e = f ? (f === 2 ? '$' : (f === 3 ? '($|\/|\\s+|\,)' : '($|\/|\\s+)')) : '';
-    //return new RegExp( s+'('+v+')'+e, m );
-
     if ( text == '*' ) { return /.*/; }
     let v = text.replace( /\*/, '.*' ).replace( /\+/g, '\\+' )
       .replace( /\(/g, '\\(' ).replace( /\)/g, '\\)' ).replace( /\?/g, '\\?' ).replace( /\-/g, '\\-' );
@@ -891,7 +893,7 @@ export class Suggestion extends React.Component {
   }
 
   closeWidget() {
-    this.props.mode.previous[this.state.id] = '';
+    this.state.mode.previous[this.state.id] = '';
     this.setState({'matchedList': [], 'focusIndex': -1, 'originalText': '', 'searchText': '', 'copyList': this.state.optionList});
     //this.setState({'matchedList': [], 'focusIndex': -1});
   }

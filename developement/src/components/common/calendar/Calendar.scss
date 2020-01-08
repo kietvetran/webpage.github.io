@@ -2,27 +2,8 @@
 @import '../style/mixin';
 
 .calendar-wrapper {
-	min-width: 270px;
+	min-width: 17rem;
 	position: relative;
-
-	/* over write rds style */
-	ul, ol {
-		list-style: none  !important;
-		margin: 0  !important;
-		padding: 0 !important;
-
-		&:not([class]) li:before {
-			display: none;
-		}
-	}
-
-	table tr td, table tr th {
-		border-right: 0 none;
-	}
-	table thead {
-		border: 0 none;
-	}
-	/* end of over write rds style */
 
 	&.-on-focus, &.-stay-open {
 		.calendar-widget {
@@ -38,83 +19,70 @@
 		}
 	}
 
-	&.-single {
-		.calendar-name {
-			padding-top: 13px;			
-		}
-
-		.calendar-widget .calendar-view .calendar-header .calendar-navigation-holder {
-			&.-previous {
-				margin: -10px 40px 0 0;
-			}
-			&.-next {
-				margin: -10px 0 0 0;
-			}
-		}
-	}
-
 	&.-multiple {
 		.calendar-name {
-			padding-right: 35px;
-			padding-left: 35px;
+			padding-right: 2.2rem;
+			padding-left: 2.2rem;
 			text-align: center;
 		}
 
-		.calendar-navigation-holder {
+		.calendar-navigation {
 			display: none;
 		}
 
-		.calendar-navigation-holder.-previous {
+		.calendar-navigation.-previous {
 			right: auto;
-			left: 0;
-			margin-left: 15px;
-			&.-has-year-navigation {
-				margin-left: 5px;
-			}
+			left: 1rem;
 		}
 
 		.calendar-holder {
 			&.-first {
-				.calendar-navigation-holder.-previous {
+				.calendar-navigation.-previous {
 					display: block;
 				}
 			}
 
 			&.-last {
-				.calendar-navigation-holder.-next {
+				.calendar-navigation.-next {
 					display: block;
 				}
 			}
 		}
 
 		.calendar-header {
-			min-width: 300px;
+			min-width: 20rem;
 		}
 	}
 
 	&.-single-field {
-  	.calendar-cnt {
-  		input.textfield {
-  			float: none;
-  			width: 100%;
-  			max-width: none;
+	  	.calendar-cnt {
+	  		input.textfield {
+	  			float: none;
+	  			width: 100%;
+	  			max-width: none;
 
-  			&.input-b {
-					display: none;  				
-  			}
-  		}
-  	}		
+	  			&.input-b {
+						display: none;  				
+	  			}
+	  		}
+	  	}		
 	}
 
 	&.-small-view .calendar-widget {
 		.calendar-header {
-			min-width: 150px;
-			padding: 10px 5px;
+			min-width: 10rem;
+			padding: .6rem .3rem;
 		}
 
 		table .calendar-item {
-			min-width: 26px;
+			min-width: 1.5rem;
 		}
+	}
+
+	ul {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
 	}
 
 	.field-list-wrapper {
@@ -123,43 +91,32 @@
 			display: table-cell;
 			position: relative;
 
-			&:after {
-				content: attr(data-fieldtext);
-				position: absolute;
-				right: 15px;
-				top: -2px;
-				font-style: italic;
-				z-index: 10;
-				font-size: 80%;
+			.input-label {
+				@include ariaVisible();
 			}
 		}
 	}
 
+	.field-list-item {
+		position: relative;
+		&:after {
+			content: attr(data-fieldtext);
+			position: absolute;
+			right: 1rem;
+			top: -2px;
+			font-style: italic;
+			z-index: 10;
+			font-size: 80%;
+		}
+	}
+
 	input {
-		width: 166px;
+		width: 10.6rem;
 		float: left;
-		margin-right: 10px;
-		margin-top: 0.25rem;
+		margin-right: .6rem;
 		&.input-b {
 			margin-right: 0;
 		}
-
-		&:after {
-			content: 'kiet';
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-
-	}
-
-	.invisible {
-		color: transparent;
-		font-size: 1px;
-		text-indent: -500px;
-		position: absolute;
-		top: 0;
-		right: 100%;
 	}
 
 	.calendar-cnt {
@@ -174,8 +131,8 @@
 		background: #fff none repeat 0 0; 
 		overflow: hidden;
 		border: 1px solid $color-border;
-		border-radius: 2px;
-		margin: 5px 0 0 0;
+		border-radius: $border-round;
+		margin: .3rem 0 0 0;
 		display: none;
 
 		> .collection > ul, > ul {
@@ -187,35 +144,27 @@
 
 		.calendar-view {
 			table {
-				margin: 10px;
+				margin: .6rem;
 			}
 			.calendar-header {
-				padding: 20px 15px;
-				margin: 0 0 20px 0;
+				padding: 1.25rem 1rem;
+				margin: 0 0 1.25rem 0;
 				position: relative;
-				background: #ccc none repeat 0 0;
-				border-bottom: 1px solid #333;
+				background: $color-border-light none repeat 0 0;
+				border-bottom: 1px solid $color-border-dark;
 				position: relative;
 
 				.calendar-name {
-					font-size: 22px;
-				}
-
-				.calendar-navigation-holder {
-					position: absolute;
-					right: 0;
-					top: 50%;
-					margin: -15px 15px 0 0;
-					&.-has-year-navigation {
-						margin-right: 5px;
-					}
+					font-size: 22px;				
 				}
 
 				.calendar-navigation {
-					width: 30px;
-					height: 30px;
-					display: inline-block;
-					position: relative;
+					width: 1.25rem;
+					height: 2rem;
+					position: absolute;
+					right: 0;
+					top: 50%;
+					margin: -1rem 1rem 0 0;
 
 					&:before, &:after {
 						content: " ";
@@ -223,60 +172,42 @@
 						left: 0;
 						top: 0;
 						border-style: solid;
-						border-width: 15px 13px;
-						border-color: transparent transparent transparent #454545;
-						margin: 0 0 0 5px;
+						border-width: 1rem .8rem;
+						border-color: transparent transparent transparent $color-border-dark;
+						margin: 0 0 0 .3rem;
 					}
 
 					&:after {
-						border-color: transparent transparent transparent #ccc;						
+						border-color: transparent transparent transparent $color-border-light;						
 						margin-left: 2px;
 					}
 
 					&:hover, &:focus {
 						&:before {
-							border-color: transparent transparent transparent $color-blue;
-						}
-					}
-
-					&.-year {
-						&:before, &:after {
-							left: 5px;
-						}
-						&:after {
-							margin-left: -1px;
+							border-color: transparent transparent transparent $color-focus;
 						}
 					}
 
 					&.-previous {
-						-ms-transform: rotate(180deg); 
-						-moz-transform: rotate(180deg);
-						-webkit-transform: rotate(180deg);
-						transform: rotate(180deg); 						
-					}
-
-					/*
-					&.-previous {
-						margin-right: 45px;
+						margin-right: 4.3rem;
 						&:before, &:after {
-							border-color: transparent #333 transparent transparent;
+							border-color: transparent $color-border-dark transparent transparent;
 							left: auto;
 							right: 0;
-							margin: 0 5px 0 0;
+							margin: 0 .3rem 0 0;
 						}
 
 						&:after {
-							border-color: transparent #ccc transparent transparent;
+							border-color: transparent $color-border-light transparent transparent;
 							margin-right: 2px;
 						}
 
 						&:hover, &:focus {
 							&:before {
-								border-color: transparent $color-blue transparent transparent;
+								border-color: transparent $color-focus transparent transparent;
 							}
 						}
 					}
-					*/
 				}
 			}
 		}
@@ -306,16 +237,16 @@
 
 		th {
 			font-weight: 700;
-			color: #333;
+			color: $color-border-dark;
 		}
 
 		.calendar-item {
 			display: inline-block;
-			min-width: 35px;
+			min-width: 2.2rem;
 			text-decoration: none;
-			border: 1px solid #ccc;
-			border-radius: 2px;
-			padding: 5px;
+			border: 1px solid $color-border-light;
+			border-radius: $border-round;
+			padding: .3rem;
 			margin: 2px;
 			font-weight: 500;
 			background: transparent none repeat 0 0;
@@ -323,18 +254,11 @@
 
 			&.-is-today {
 				font-weight: 700;
-				&:after {
-					content: ' ';
-					position: absolute;
-					bottom: 4px;
-					left: 5px;
-					right: 5px;
-					border-bottom: 2px solid #333;
-				}
+				text-decoration: underline;
 			}
 
 			&:hover, &.-selected {
-				background-color: $color-blue;
+				background-color: $color-focus;
 				color: #fff;
 				&:after {
 					border-bottom-color: #fff;
@@ -342,7 +266,7 @@
 			}
 
 			&:focus {
-				border-color: #333;
+				border-color: $color-border-dark;
 			}
 
 			&.-out-of-month, &.-disabled {
@@ -354,21 +278,13 @@
 		    	background-color: inherit;
 		   	}
 			}
-		}
-	}
 
-	.calendar-timer {
-		display: none;
-
-		border-top: 1px solid #333;
-		.timer-cnt {
-			display: table;
-			width: 100%;
-			max-width: 290px;
-			margin: 0 auto;
-			> div {
-				display: table-cell;
-				padding: 15px;
+			&.-allow-out-of-month {
+				border-style: dashed;			
+				border-color: #999;
+				&.-selected {
+					background-color: #009dd2;
+				}
 			}
 		}
 	}
@@ -376,26 +292,26 @@
 	.shortcut-list {
 		position: absolute;
 		top: 0;
-		left: 45px;
+		left: 5rem;
 		margin: 0 0 0 0;
 		white-space: nowrap;
 		> li {
 			display: inline-block;
-			margin: 0 10px 0 0;
+			margin: 0 .6rem 0 0;
 		}
 	}
 
-	@media screen and (max-width: 620px) {
+	@media screen and (max-width: $breakpoint-sm) { 
 		&.-multiple {
 			.calendar-name {
-				padding-right: 50px;
+				padding-right: 3.2rem;
 				padding-left: 0;
 				text-align: left;
 			}
 
 			.calendar-holder {
 				&.-first {
-					.calendar-navigation-holder {
+					.calendar-navigation {
 						display: block;
 
 						&.-previous {
