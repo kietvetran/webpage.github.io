@@ -2,5 +2,47 @@
 @import '../common/style/mixin';
 
 .home-wrapper {
-  position: relative;
+	position: relative;
+
+	.application-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		text-align: left;
+		clear: both;
+		width: 100%;
+
+		> li {
+			float: left;
+			text-align: left;
+			padding: 1rem;
+			width: 32%;
+			height: 30rem;
+			margin: 0 0 1rem 2%;
+			border-radius: $border-round;
+			border: 1px solid $color-border;
+			background-color: #eee;
+			@include boxShadow();
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			h1 {
+				text-align: center;
+				padding-top: 0;
+				margin-top: 0;
+			}
+		}
+	}
+
+  @media screen and (max-width: $breakpoint-md) { 
+		.application-list {
+			> li {
+				width: 100%;
+				margin-left: 0;
+				height: auto;
+			}
+		}
+  }
 }

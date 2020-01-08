@@ -80,14 +80,6 @@ input:-webkit-autofill:active {
     }
   }
 
-  &.-short {
-    textarea {
-      height: 2.9rem;
-      min-height: 2.9rem;
-      resize: none;
-    }
-  }
-
   > .input-content {
     padding-bottom: 0;
   }

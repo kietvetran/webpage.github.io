@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import {Speech} from '../common/speech/Speech';
+
 import './Home.scss';
 
 class Home extends Component {
@@ -18,6 +20,17 @@ class Home extends Component {
   render() {
     return <div className="home-wrapper">
       <h1>Home</h1>
+      <ul className="application-list">
+        <li className="application-item">
+          <Speech {...this.props} />
+        </li>
+        <li className="application-item">
+          <div className="message-wrapper -info">Coming soon</div>
+        </li>
+        <li className="application-item">
+          <div className="message-wrapper -info">Coming soon</div>
+        </li>
+      </ul>
     </div>
   }
 
