@@ -1,7 +1,7 @@
 const assert = require('assert');
 const {capitalize} = require('../src/components/common/General.js');
 
-describe('Mocha example Math Test', () => {
+describe('Mocha example', () => {
 	it('should return 2', () => {
 		assert.equal(1 + 1, 2);
   	});

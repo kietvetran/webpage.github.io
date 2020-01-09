@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {Speech} from '../common/speech/Speech';
+import {Recognition} from '../common/recognition/Recognition';
 
 import './Home.scss';
 
@@ -25,7 +26,7 @@ class Home extends Component {
           <Speech {...this.props} />
         </li>
         <li className="application-item">
-          <div className="message-wrapper -info">Coming soon</div>
+          <Recognition {...this.props} />
         </li>
         <li className="application-item">
           <div className="message-wrapper -info">Coming soon</div>

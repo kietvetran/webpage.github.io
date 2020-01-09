@@ -96,7 +96,7 @@ export class Speech extends React.Component {
 
   _loadVoices() {
     if ( ! ('speechSynthesis' in window) )  {
-      return this.state({'error': 'The browser does not support speech synthesis.'});
+      return this.setState({'error': 'The browser does not support speech synthesis.'});
     }
 
     let languageList = window.speechSynthesis.getVoices(), list = [], top = [];

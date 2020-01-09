@@ -22,3 +22,9 @@ describe('Mocha example Math Test', () => {
 		assert.equal(capitalize('oslo'), 'Oslo');
   	});
 });
+
+------------ React component test ------------------
+It need to install: npm intsall --save-dev mocha chai enzyme
+Example: 
+a => https://www.robinwieruch.de/react-testing-mocha-chai-enzyme-sinon
+b => https://hackernoon.com/react-unit-test-example-tutorial-jest-enzyme-jsdom-mocha-chai-state-props-component-7ec850a98566
