@@ -33,3 +33,24 @@ https://facebook.github.io/react-native/docs/native-components-android
   </View>
   <View><Text>Noa</Text></View>
 </View>
+
+
+Navigate to a route multiple times
+https://reactnavigation.org/docs/en/navigating.html
+
+
+
+====================================================================================
+
+import { Dimensions } from 'react-native';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
+
+export default {
+  window: {
+    width,
+    height,
+  },
+  isSmallDevice: width < 375,
+};
