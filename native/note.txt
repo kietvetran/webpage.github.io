@@ -1,0 +1,35 @@
+Youtube: https://www.youtube.com/watch?v=qSRrxpdMpVc
+
+install expo:  npm install -g expo-cli
+
+expo init contact --template blank
+
+cd contact
+yarn start
+
+install expo app in mobile
+
+Scane the QR-code and turn on tunnel connection
+
+
+============= react navite component ===============================================================
+https://facebook.github.io/react-native/docs/textinput
+https://facebook.github.io/react-native/docs/native-components-android
+
+
+<View style={{
+  'flex': 1,
+  'flexDirection': 'column',
+  'justifyContent': 'center',
+  'alignItems': 'stretch'
+}}>
+  <View><Text>Noa</Text></View>
+  <View><Text>Description</Text></View>
+  <View>
+    <TextInput style={} onChange={} contentTextType="emailAdress">
+  </View>
+  <Vsiew>
+    <TextInput style={} onChange={} contentTextType="password" secureTextEntry={true}>
+  </View>
+  <View><Text>Noa</Text></View>
+</View>
