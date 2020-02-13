@@ -1,8 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-
-import Header from './src/header/Header';
-import Footer from './src/footer/Footer';
 import { Theme }  from './src/common/style/theme.js';
 
 export default class App extends React.Component {
@@ -11,31 +8,30 @@ export default class App extends React.Component {
     this.state = {
       'text': 'Hei Kiet'
     };  
-    this._click       = this._click.bind(this)
-    this._changeState = this._changeState.bind(this)
+    this._click = this._click.bind(this)
   }
 
   render() {
     const {text} = this.state;
-    const action =  {
-      'changeState': this._changeState
-    };
 
     return (
       <View ref="frame" style={styles.frame}>
         <View ref="header" style={styles.header}>
-          <Header {...action}/>
+          <Text>Header</Text>
+          <Button title="Filter" onPress={()=>{this._click(null, 'toggle-filter')}}/>
         </View>
         <View ref="body" style={styles.body}>
           <Text>Body</Text>
         </View>
         <View ref="footer" style={styles.footer}>
-          <Footer {...action}/>
+          <Text>Footer</Text>
         </View>
       </View>
     );
   }
 
+  /****************************************************************************
+  ****************************************************************************/
   _click(e, key) {
     if (e) { e.preventDefault(); }
 
@@ -46,8 +42,6 @@ export default class App extends React.Component {
     }
   }
 
-  _changeState() {
-  }
 }
 
 const styles = StyleSheet.create({
@@ -58,6 +52,7 @@ const styles = StyleSheet.create({
     'backgroundColor': Theme.color.appBg
   },
   'header': {
+    ...Theme.debug
   },
   'body': {
     'flex': 1,
@@ -65,5 +60,6 @@ const styles = StyleSheet.create({
     ...Theme.debug
   },
   'footer': {
+    ...Theme.debug
   }
 });

@@ -1,5 +1,9 @@
 Youtube: https://www.youtube.com/watch?v=qSRrxpdMpVc
 
+React native navigate between screens
+https://snack.expo.io/@derewith/react-native-navigate-between-screens
+
+
 install expo:  npm install -g expo-cli
 
 expo init contact --template blank
