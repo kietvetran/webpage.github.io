@@ -1,5 +1,64 @@
+
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Contact from './src/contact/Contact';
+import Organization from './src/organization/Organization';
+import Profile from './src/profile/Profile';
+
+const Tab = createBottomTabNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Contact" component={(props)=><Contact {...props}/>} />
+        <Tab.Screen name="Organization" component={(props)=><Organization {...props}/>} />
+        <Tab.Screen name="Profile" component={(props)=><Profile {...props}/>} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+/*
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home!</Text>
+    </View>
+  );
+}
+
+function SettingsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Contact" component={HomeScreen} />
+        <Tab.Screen name="Profile" component={SettingsScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
+*/
+
+/*
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Header from './src/header/Header';
 import Footer from './src/footer/Footer';
@@ -67,3 +126,4 @@ const styles = StyleSheet.create({
   'footer': {
   }
 });
+*/

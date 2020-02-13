@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Organization extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        Organization!
+        <Text>Organization</Text>
       </View>
     );
   }
