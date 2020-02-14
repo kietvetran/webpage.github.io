@@ -11,6 +11,9 @@ export default function FormButton({
   iconConfig = {
    'filter': {
       'basic': require('../../../assets/icon/filter/filter.svg')
+    },
+   'search': {
+      'basic': require('../../../assets/icon/search/search.svg')
     }
   }
 }) {

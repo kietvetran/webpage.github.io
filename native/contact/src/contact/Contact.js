@@ -46,7 +46,6 @@ export default class Contact extends React.Component {
 const styles = StyleSheet.create({
   'container': {
     'flex': 1,
-    'backgroundColor': '#fff',
     'position': 'relative',
   },
   'header': {
@@ -66,11 +65,10 @@ const styles = StyleSheet.create({
         elevation: 20,
       },
     }),
-    'backgroundColor': '#fbfbfb',
-    'height': Theme.space.header,
+    'backgroundColor': Theme.color.headerBg,
     ...Theme.shadow.level1
   },
   'contentContainer': {
-    'paddingTop': (Theme.space.header + 10)
+    'paddingTop': (Theme.space.header + (Theme.space.headerGap*3))
   }
 });

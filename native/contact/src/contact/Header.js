@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInput, View} from 'react-native';
 import FormButton from '../common/form/formButton';
+import FormInput from '../common/form/formInput';
 import { Theme }  from '../common/style/theme.js';
 
 
@@ -14,7 +15,9 @@ export default function Header({
       <View style={styles.left}>
       </View>
       <View style={styles.middle}>
-        <TextInput style={styles.searchField} onChange={(e)=>{change(e, 'search-change')}}/>
+        <FormInput style={styles.searchField} onChange={change} actionKey='search-change'
+          icon={{'type':'search'}}
+        />
       </View>
       <View style={styles.right}>
         <FormButton title="Filter" type="filter" onPress={()=>{click(null,'toogle-filter')}} />
@@ -26,7 +29,9 @@ export default function Header({
 const styles = StyleSheet.create({
   'wrapper': {
     'flex': 1,
-    'flexDirection': 'row'
+    'flexDirection': 'row',
+    'paddingTop': Theme.space.headerGap,
+    'paddingBottom': Theme.space.headerGap,
   },
   'left': {
   },
@@ -36,8 +41,6 @@ const styles = StyleSheet.create({
   'right': {
   },
   'searchField': {
-    'height': Theme.space.header,
-    'paddingLeft': 5,
-    'paddingRight': 5
+    'height': Theme.space.header
   }
 });

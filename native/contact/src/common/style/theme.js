@@ -4,7 +4,9 @@ export const Theme = {
     'primary'  : '#76a300',
     'secondary': '#0075D2',
     'appFont'  : '#2D2D2D',
-    'appBg'    : '#f0f0f0',
+    'appBg'    : '#eee',
+    'headerBg' : '#FFFFFF',
+    'footerBg' : '#FFFFFF',
     'border'   : '#ccc',
     'succes'   : '#76a300',
     'error'    : '#e60000',
@@ -37,7 +39,8 @@ export const Theme = {
   },
   'space': {
     'basic': 20,
-    'header': 30
+    'header': 30,
+    'headerGap': 5,
   },
   'shadow': {
     'level1': {
