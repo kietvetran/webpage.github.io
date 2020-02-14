@@ -84,8 +84,7 @@ export const Theme = {
     'fontWeight': 'normal',
     'overflow': 'hidden',
     'padding': 5,
-    'textAlign':'center',
-    'whiteSpace': 'nowrap'
+    'textAlign':'center'
   },
   'buttonIcon': {
     'width': 30,

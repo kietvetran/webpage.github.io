@@ -13,9 +13,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Contact" component={(props)=><Contact {...props}/>} />
-        <Tab.Screen name="Organization" component={(props)=><Organization {...props}/>} />
-        <Tab.Screen name="Profile" component={(props)=><Profile {...props}/>} />
+        <Tab.Screen name="Contact" component={Contact}/>
+        <Tab.Screen name="Organization" component={Organization}/>
+        <Tab.Screen name="Profile" component={Profile}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
