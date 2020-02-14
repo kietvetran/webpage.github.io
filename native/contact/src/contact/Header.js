@@ -4,7 +4,6 @@ import FormButton from '../common/form/formButton';
 import FormInput from '../common/form/formInput';
 import { Theme }  from '../common/style/theme.js';
 
-
 export default function Header({
   keyword = 'kiet',
   click  = () => {},

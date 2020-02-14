@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, ImageBackground, View, TextInput } from 'react-native';
-import FormButton from './FormButton';
+import FormButton from './formButton';
 import { Theme }  from '../style/theme.js';
 
 export default function FormInput({
