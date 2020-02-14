@@ -12,7 +12,8 @@ export const Theme = {
     'error'    : '#e60000',
     'warning'  : '#ffc800',
     'info'     : '#e4f4fc',
-    'link'     : '#2e78b7'
+    'link'     : '#2e78b7',
+    'focus'    : '#0075D2'
   },
   'font': {
     'basic': {

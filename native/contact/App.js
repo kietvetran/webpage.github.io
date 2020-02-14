@@ -1,6 +1,5 @@
-
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -8,18 +7,138 @@ import Contact from './src/contact/Contact';
 import Organization from './src/organization/Organization';
 import Profile from './src/profile/Profile';
 
+//import { Ionicons } from '@expo/vector-icons';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+
 const Tab = createBottomTabNavigator();
+//export default function App() {
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      'tabIcon': {
+        'contact': {
+          'basic': require('./assets/icon/contact/contact.svg'),
+          'focus': require('./assets/icon/contact/contact-blue.svg')
+        },
+        'profile': {
+          'basic': require('./assets/icon/profile/profile.svg'),
+          'focus': require('./assets/icon/profile/profile-blue.svg'),
+        },
+        'organization': {
+          'basic': require('./assets/icon/organization/organization.svg'),
+          'focus': require('./assets/icon/organization/organization-blue.svg')
+        }
+      }
+    };
+    this._renderScreenOptions = this._renderScreenOptions.bind(this);
+    this._renderTabBarIcon = this._renderTabBarIcon.bind(this);
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={this._renderScreenOptions}>
+          <Tab.Screen name="Contact" component={Contact}/>
+          <Tab.Screen name="Organization" component={Organization}/>
+          <Tab.Screen name="Profile" component={Profile}/>
+        </Tab.Navigator>
+      </NavigationContainer>
+    );
+  }
+
+  _renderScreenOptions({ route }) {
+    return {
+      'tabBarIcon': (props) => this._renderTabBarIcon({...props, route})
+    };
+  }
+
+  _renderTabBarIcon({focused, color, size, route}) {
+    let name  = (route.name || '').toLowerCase();
+    let icons = this.state.tabIcon || {};
+    let source = icons[name] ? (focused ? icons[name].focus : icons[name].basic) : null;
+    return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
+    //return <Icon name="rocket" size={30} color="#900" />;
+    //return <Ionicons name={'user'} size={size} color={color} />;
+  }
+}
+
+/*
+import * as React from 'react';
+import { Button, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+function DetailsScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Details!</Text>
+    </View>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
+    </View>
+  );
+}
+
+function SettingsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
+    </View>
+  );
+}
+
+const HomeStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Details" component={DetailsScreen} />
+    </HomeStack.Navigator>
+  );
+}
+
+const SettingsStack = createStackNavigator();
+
+function SettingsStackScreen() {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+      <SettingsStack.Screen name="Details" component={DetailsScreen} />
+    </SettingsStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
+
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Contact" component={Contact}/>
-        <Tab.Screen name="Organization" component={Organization}/>
-        <Tab.Screen name="Profile" component={Profile}/>
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+*/
+
+
 /*
 import * as React from 'react';
 import { Text, View } from 'react-native';
