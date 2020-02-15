@@ -1,24 +1,14 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-//import DialogManager, { ScaleAnimation, DialogContent } from 'react-native-dialog-component';
-
-import Header from './Header';
-import EmployeeCard from './EmployeeCard';
 import Message from '../common/message/Message';
-import { PeopleList } from '../../assets/data/PeopleList';
 import { Theme }  from '../common/style/Theme.js';
 
-export default class Contact extends React.Component {
+export default class Guideline extends React.Component {
   constructor(props) {
     super(props);
-    this.state   = {
-      'keyword': '',
-      'peopleList': PeopleList,
-      'resultList': [PeopleList[0], PeopleList[1]]
-    };
+    this.state   = {};
     this._click  = this._click.bind(this);
-    this._change = this._change.bind(this);
   }  
 
   render() {
@@ -27,20 +17,14 @@ export default class Contact extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Header {...this.state} change={this._change} click={this._click}/>
+          <Text style={styles.headerTitle}>Guideline</Text>
         </View>
 
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          { (resultList || []).length === 0 ? <Message type="empty" text="Empty..."/> : <React.Fragment>
-              <View style={styles.listContainer}>
-                { resultList.map( (data, i) => (
-                    <EmployeeCard key={'employee-'+i} data={data} size="small" styleContainer={{'marginBottom': 10}}
-                      onPress={this._click}
-                    />
-                ) )}
-              </View>
-            </React.Fragment>
-          }
+          <Message type="info" text="Info text" title="Info title"/>
+          <Message type="warning" text="Warning text" title="Warning title"/>
+          <Message type="error" text="Error text" title="Error title"/>
+          <Message type="empty" text="Empty text" title="Empty title"/>
         </ScrollView>
       </View>
     );
@@ -48,28 +32,14 @@ export default class Contact extends React.Component {
 
   /****************************************************************************
   ****************************************************************************/
-  _click(e, key, data) {
-    if (e && e.preventDefault) { e.preventDefault(); }
-
-    console.log('==> '+ key);
-
-    if (key === 'reset-search') {
-      this.props.resetSearch();
-    } else if ( key === 'change-state' ){
-      this.setState({'text': 'Abc'});
-    }
-  }
-
-  _change( e, key ) {
+  _click(e, key) {
   }
 }
 
 const styles = StyleSheet.create({
   'container': {
-    'flex': 1
-  },
-  'listcContainer': {
-    'flex': 1
+    'flex': 1,
+    'position': 'relative',
   },
   'header': {
     'position': 'absolute',
@@ -90,6 +60,10 @@ const styles = StyleSheet.create({
     }),
     'backgroundColor': Theme.color.headerBg,
     ...Theme.shadow.level1
+  },
+  'headerTitle': {
+    ...Theme.font.h1,
+
   },
   'contentContainer': {
     'paddingTop': (Theme.space.header + (Theme.space.headerGap*3))

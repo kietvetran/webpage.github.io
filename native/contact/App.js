@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Contact from './src/contact/Contact';
 import Organization from './src/organization/Organization';
 import Profile from './src/profile/Profile';
+import Guideline from './src/guideline/Guideline';
+
+import { Theme }  from './src/common/style/Theme.js';
 
 //import { Ionicons } from '@expo/vector-icons';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -37,13 +40,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={this._renderScreenOptions}>
-          <Tab.Screen name="Contact" component={Contact}/>
-          <Tab.Screen name="Organization" component={Organization}/>
-          <Tab.Screen name="Profile" component={Profile}/>
-        </Tab.Navigator>
-      </NavigationContainer>
+      <View style={styles.container}>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={this._renderScreenOptions}>
+            <Tab.Screen name="Contact" component={Contact}/>
+            <Tab.Screen name="Organization" component={Organization}/>
+            <Tab.Screen name="Profile" component={Profile}/>
+            <Tab.Screen name="Guideline" component={Guideline}/>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </View>
     );
   }
 
@@ -58,10 +64,19 @@ export default class App extends React.Component {
     let icons = this.state.tabIcon || {};
     let source = icons[name] ? (focused ? icons[name].focus : icons[name].basic) : null;
     return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
+    //return source ? <SVGImage style={{'width':size, 'height': size}} source={source} /> : null;
+    //return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
     //return <Icon name="rocket" size={30} color="#900" />;
     //return <Ionicons name={'user'} size={size} color={color} />;
   }
 }
+
+const styles = StyleSheet.create({
+  'container': {
+    'flex': 1,
+    'backgroundColor': Theme.color.appBg
+  }
+});
 
 /*
 import * as React from 'react';

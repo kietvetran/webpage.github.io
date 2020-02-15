@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, TextInput, View} from 'react-native';
-import FormButton from '../common/form/formButton';
-import FormInput from '../common/form/formInput';
-import { Theme }  from '../common/style/theme.js';
+import FormButton from '../common/form/FormButton';
+import FormInput from '../common/form/FormInput';
+import { Theme }  from '../common/style/Theme.js';
 
 export default function Header({
   keyword = 'kiet',

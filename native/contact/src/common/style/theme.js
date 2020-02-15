@@ -7,39 +7,61 @@ export const Theme = {
     'appBg'    : '#eee',
     'headerBg' : '#FFFFFF',
     'footerBg' : '#FFFFFF',
-    'border'   : '#ccc',
+    'border'   : 'rgba(0, 0, 0, .2)',
     'succes'   : '#76a300',
-    'error'    : '#e60000',
-    'warning'  : '#ffc800',
-    'info'     : '#e4f4fc',
+    'error'    : 'rgba(217, 30, 24, .6)',
+    'errorBg'  : 'rgba(217, 30, 24, .3)',
+    'warning'  : 'rgba(247, 202, 24, 1)',
+    'warningBg': 'rgba(247, 202, 24, .3)',
+    'info'     : 'rgba(25, 181, 254, 1)',
+    'infoBg'   : 'rgba(25, 181, 254, .2)',
     'link'     : '#2e78b7',
     'focus'    : '#0075D2'
   },
+  'border': {
+    'basic': {
+      'borderWidth': 2,
+      'borderStyle': 'solid',
+      'borderColor': 'rgba(0, 0, 0, .2)',
+      'borderRadius': 2
+    }
+  },
   'font': {
     'basic': {
-      'size': 17,
-      'lineHeight': 24
+      'fontSize': 17,
+      'lineHeight': 24,
+      'fontFamily': 'Cochin'
     },
     'small': {
-      fontSize: 14,
-      lineHeight: 19,
+      'fontSize': 14,
+      'lineHeight': 19,
+      'fontWeight': 'bold',
+      'fontFamily': 'Cochin'
     },
     'h1': {
-      'size': 30,
-      'lineHeight': 35
+      'fontSize': 30,
+      'lineHeight': 35,
+      'fontWeight': 'bold',
+      'fontFamily': 'Cochin'
     },
     'h2': {
-      'size': 25,
-      'lineHeight': 30
+      'fontSize': 25,
+      'lineHeight': 30,
+      'fontWeight': 'bold',
+      'fontFamily': 'Cochin'
     },
     'h3': {
-      'size': 20,
-      'lineHeight': 25
+      'fontSize': 20,
+      'lineHeight': 25,
+      'fontWeight': 'bold',
+      'fontFamily': 'Cochin'
     },
     'family': 'Cochin'
   },
   'space': {
-    'basic': 20,
+    'small': 5,
+    'medium': 10,
+    'large': 15,
     'header': 30,
     'headerGap': 5,
   },
