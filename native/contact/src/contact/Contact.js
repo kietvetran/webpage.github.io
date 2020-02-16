@@ -19,10 +19,9 @@ export default class Contact extends React.Component {
     super(props);
     this.state   = {
       'keyword': '',
-      'hideHeader': false,
       'peopleList': PeopleList,
       'resultList': PeopleList.filter( (d,i) => i < 20 ),
-      'birthdayList': this._getBirthdayList(PeopleList),
+      'birthdayList': this._getBirthdayList(PeopleList)
     };
     this._click  = this._click.bind(this);
     this._change = this._change.bind(this);
@@ -30,13 +29,11 @@ export default class Contact extends React.Component {
   }  
 
   render() {
-    const {peopleList, resultList, birthdayList, hideHeader } = this.state;
+    const {peopleList, resultList, birthdayList } = this.state;
 
     return (
       <View style={styles.container}>
-        <View ref="headerWrapper" style={[styles.header, (hideHeader ? styles.hideHeader : {})]}>
-          <Header {...this.state} change={this._change} click={this._click}/>
-        </View>
+        <Header ref="header" {...this.state} change={this._change} click={this._click}/>
 
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} 
           scrollEventThrottle={16} onScroll={(e)=>{this._scroll(e, 'scroll-vertical-list')}}
@@ -91,19 +88,18 @@ export default class Contact extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _verifyHeaderToggling( e ) {
-    if ( ! e ) { return; }
-    let {hideHeader} = this.state, {headerConfig} = this.props;
-    let current  = e.nativeEvent.contentOffset.y || 0;
+    if ( ! e || ! this.refs.header ) { return; }
 
-    //console.log( current + ' ===  ' + headerConfig.scolled);
+    let hideHeader = this.refs.header.getHide(), {headerConfig} = this.props;
+    let current  = e.nativeEvent.contentOffset.y || 0;
 
     if ( current > headerConfig.max ) {
       let hide = current >= headerConfig.scolled;
       if ( hide !== hideHeader ) {
-        //this.setState({'hideHeader': hide});
+        this.refs.header.toggleHide(hide);
       }
     } else if ( hideHeader ) {
-      //this.setState({'hideHeader': false});
+      this.refs.header.toggleHide(false);
     }
     headerConfig.scolled = current;
   }
@@ -136,29 +132,6 @@ const styles = StyleSheet.create({
   },
   'verticleListContainer': {
     'position': 'relative'
-  },
-  'header': {
-    'position': 'absolute',
-    'top': 0,
-    'left': 0,
-    'right': 0,
-    'zIndex': 1,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    'backgroundColor': Theme.color.headerBg,
-    ...Theme.shadow.level1
-  },
-  'hideHeader': {
-    'display': 'none'
   },
   'contentContainer': {
     'paddingTop': (Theme.space.header + (Theme.space.headerGap*3))
