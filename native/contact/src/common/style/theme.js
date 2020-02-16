@@ -1,60 +1,69 @@
+export const iconSize = {
+  'width': 40,
+  'height': 40
+};
+
+export const colorStorage = {
+  'brand'    : '',
+  'primary'  : '#76a300',
+  'secondary': '#0075D2',
+  'appFont'  : '#2D2D2D',
+  'appBg'    : '#eee',
+  'headerBg' : '#FFFFFF',
+  'footerBg' : '#FFFFFF',
+  'border'   : 'rgba(0, 0, 0, .2)',
+  'succes'   : '#76a300',
+  'error'    : 'rgba(217, 30, 24, .6)',
+  'errorBg'  : 'rgba(217, 30, 24, .3)',
+  'warning'  : 'rgba(247, 202, 24, 1)',
+  'warningBg': 'rgba(247, 202, 24, .3)',
+  'info'     : 'rgba(25, 181, 254, 1)',
+  'infoBg'   : 'rgba(25, 181, 254, .2)',
+  'link'     : '#2e78b7',
+  'focus'    : '#0075D2'
+};
+
 export const Theme = {
   'color': {
-    'brand'    : '',
-    'primary'  : '#76a300',
-    'secondary': '#0075D2',
-    'appFont'  : '#2D2D2D',
-    'appBg'    : '#eee',
-    'headerBg' : '#FFFFFF',
-    'footerBg' : '#FFFFFF',
-    'border'   : 'rgba(0, 0, 0, .2)',
-    'succes'   : '#76a300',
-    'error'    : 'rgba(217, 30, 24, .6)',
-    'errorBg'  : 'rgba(217, 30, 24, .3)',
-    'warning'  : 'rgba(247, 202, 24, 1)',
-    'warningBg': 'rgba(247, 202, 24, .3)',
-    'info'     : 'rgba(25, 181, 254, 1)',
-    'infoBg'   : 'rgba(25, 181, 254, .2)',
-    'link'     : '#2e78b7',
-    'focus'    : '#0075D2'
+    ...colorStorage 
   },
   'border': {
     'basic': {
       'borderWidth': 2,
       'borderStyle': 'solid',
-      'borderColor': 'rgba(0, 0, 0, .2)',
+      'borderColor': colorStorage.border,
       'borderRadius': 2
     }
   },
   'font': {
     'basic': {
       'fontSize': 17,
-      'lineHeight': 24,
-      'fontFamily': 'Cochin'
+      'lineHeight': 24
     },
     'small': {
       'fontSize': 14,
       'lineHeight': 19,
-      'fontWeight': 'bold',
-      'fontFamily': 'Cochin'
+      'fontWeight': 'bold'
     },
     'h1': {
       'fontSize': 30,
       'lineHeight': 35,
-      'fontWeight': 'bold',
-      'fontFamily': 'Cochin'
+      'fontWeight': 'bold'
     },
     'h2': {
       'fontSize': 25,
       'lineHeight': 30,
-      'fontWeight': 'bold',
-      'fontFamily': 'Cochin'
+      'fontWeight': 'bold'
     },
     'h3': {
       'fontSize': 20,
       'lineHeight': 25,
-      'fontWeight': 'bold',
-      'fontFamily': 'Cochin'
+      'fontWeight': 'bold'
+    },
+    'h4': {
+      'fontSize': 17,
+      'lineHeight': 25,
+      'fontWeight': 'bold'
     },
     'family': 'Cochin'
   },
@@ -62,7 +71,7 @@ export const Theme = {
     'small': 5,
     'medium': 10,
     'large': 15,
-    'header': 30,
+    'header': iconSize.height,
     'headerGap': 5,
   },
   'shadow': {
@@ -109,10 +118,16 @@ export const Theme = {
     'padding': 5,
     'textAlign':'center'
   },
+  'inputText': {
+    'height': iconSize.height,
+    'paddingLeft': 5,
+    'paddingRight': 5,
+    'borderWidth': 1,
+    'borderColor': colorStorage.border
+  },
   'buttonIcon': {
-    'width': 30,
-    'height':30,
-    'padding': 5
+    ...iconSize,
+    'padding': 8
   },
   'debug': {    
     'borderWidth': 1,

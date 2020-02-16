@@ -5,12 +5,13 @@ import { Theme }  from '../style/Theme.js';
 export default function Message({
   type  = '',
   title = '',
-  text  = ''
+  text  = '',
+  styleConfig = {}
 }) {
   if ( ! text && ! title ) { return null; }
-  return <View style={[styles.container, styles[type+'Container'] || {}]}>
-    { !! title && <Text style={[styles.title, styles[type+'Title'] || {}]}>{title}</Text> }
-    <Text style={[styles.text, styles[type+'Text'] || {}]}>{text}</Text>
+  return <View style={[styles.container, styles[type+'Container'] || {}, styleConfig.container || {}]}>
+    { !! title && <Text style={[styles.title, styles[type+'Title'] || {},, styleConfig.title || {}]}>{title}</Text> }
+    <Text style={[styles.text, styles[type+'Text'] || {}, styleConfig.text || {}]}>{text}</Text>
   </View>
 };
 

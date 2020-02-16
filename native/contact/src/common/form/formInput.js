@@ -56,10 +56,7 @@ const styles = StyleSheet.create({
     'top': 0
   },
   'textfield': {
-    'paddingLeft': 5,
-    'paddingRight': 5,
-    'borderWidth': 1,
-    'borderColor': Theme.color.border
+    ...Theme.inputText
   },
   'searchFieldStartSpace': {
     'paddingLeft': (Theme.buttonIcon.width + 5)

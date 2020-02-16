@@ -8,16 +8,17 @@ export const Person = ({data, fieldList=['name'], styleConfig}) => {
   return <React.Fragment>
     {fieldList.map( (field,i) => (
       <View key={'info-row-'+i} style={styleConfig.infoRow}>
-        <Text style={styleConfig[field+'Text'] || {}}>{data[field]}</Text>
+        <Text ellipsizeMode='tail' numberOfLines={1} style={styleConfig[field+'Text'] || {}}>
+          {data[field]}
+        </Text>
       </View>
     ))}
   </React.Fragment>
-
 };
+
 export default function EmployeeCard({
   data      = null,
-  size      = 'small',
-  mode      = 'verticalList',
+  type      = 'verticalScrollList',
   display   = null,
   actionKey = 'click-on-person',
   onPress   = null,
@@ -32,7 +33,7 @@ export default function EmployeeCard({
   ];
   const fieldList = display || ['name'];
   const styleConfig = ['infoRow', 'nameText'].reduce( (p,k) => {
-    p[k] = styles[k+'_'+size] || {};
+    p[k] = styles[k+'_'+type] || {};
     return p;
   }, {});
 
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
     'flex': 1,
     'flexDirection': 'row',
     'backgroundColor': '#fff',
-    'overflow': 'hidden'
+    'overflow': 'hidden', 
+    ...Theme.shadow.level1
   },
   'mainContainer': {
     'flex': 1    
@@ -70,24 +72,21 @@ const styles = StyleSheet.create({
   'actionContainer': {
   },
   'iconButton': {
-    'width': 40,
-    'height': 40,
-    'padding': 8
+    'width': 46,
+    'height': 46,
+    'padding': 13
   },
-  'verticalList': {
-    'marginBottom': Theme.space.medium
-  },
-  'infoRow_small': {
+  'infoRow_verticalScrollList': {
     'flex': 1,
-    'padding': 10
+    'padding': 10,
   },
-  'nameText_small': {
-    ...Theme.font.h3
+  'nameText_verticalScrollList': {
+    ...Theme.font.h4
   },
   'infoRow_large': {
     'flex': 1,
   },
   'nameText_large': {
-    ...Theme.font.h2
+    ...Theme.font.h3
   }
 });

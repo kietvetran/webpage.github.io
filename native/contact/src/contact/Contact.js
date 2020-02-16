@@ -6,35 +6,56 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Header from './Header';
 import EmployeeCard from './EmployeeCard';
 import Message from '../common/message/Message';
+import {isBirthday} from '../util/Function';
 import { PeopleList } from '../../assets/data/PeopleList';
 import { Theme }  from '../common/style/Theme.js';
 
 export default class Contact extends React.Component {
+  static defaultProps = {
+    'headerConfig': {'scolled': 0, 'max': 40, 'timer': 0}
+  };
+
   constructor(props) {
     super(props);
     this.state   = {
       'keyword': '',
+      'hideHeader': false,
       'peopleList': PeopleList,
-      'resultList': [PeopleList[0], PeopleList[1]]
+      'resultList': PeopleList.filter( (d,i) => i < 20 ),
+      'birthdayList': this._getBirthdayList(PeopleList),
     };
     this._click  = this._click.bind(this);
     this._change = this._change.bind(this);
+    this._scroll = this._scroll.bind(this);
   }  
 
   render() {
-    const {peopleList, resultList } = this.state;
+    const {peopleList, resultList, birthdayList, hideHeader } = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
+        <View ref="headerWrapper" style={[styles.header, (hideHeader ? styles.hideHeader : {})]}>
           <Header {...this.state} change={this._change} click={this._click}/>
         </View>
 
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} 
+          scrollEventThrottle={16} onScroll={(e)=>{this._scroll(e, 'scroll-vertical-list')}}
+        >
+          { birthdayList.length > 0 && <View style={styles.birthdayContainer}>
+              <ScrollView style={styles.birthdayContainer} horizontal={true}>
+                <View style={styles.horizontalListContainer}>
+                  { birthdayList.map((data,i) => (
+                    <EmployeeCard key={'birthday-employee-'+i} data={data} styleContainer={i ? {'marginLeft': 10} : {}}/>
+                  ))}
+                </View>
+              </ScrollView>
+            </View>
+          }
+
           { (resultList || []).length === 0 ? <Message type="empty" text="Empty..."/> : <React.Fragment>
-              <View style={styles.listContainer}>
+              <View style={styles.verticleListContainer}>
                 { resultList.map( (data, i) => (
-                    <EmployeeCard key={'employee-'+i} data={data} size="small" styleContainer={{'marginBottom': 10}}
+                    <EmployeeCard key={'employee-'+i} data={data} styleContainer={{'marginBottom': 10}}
                       onPress={this._click}
                     />
                 ) )}
@@ -51,8 +72,6 @@ export default class Contact extends React.Component {
   _click(e, key, data) {
     if (e && e.preventDefault) { e.preventDefault(); }
 
-    console.log('==> '+ key);
-
     if (key === 'reset-search') {
       this.props.resetSearch();
     } else if ( key === 'change-state' ){
@@ -62,14 +81,61 @@ export default class Contact extends React.Component {
 
   _change( e, key ) {
   }
+
+  _scroll( e, key ) {
+    if ( key === 'scroll-vertical-list' ) {
+      this._verifyHeaderToggling(e);
+    }
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  _verifyHeaderToggling( e ) {
+    if ( ! e ) { return; }
+    let {hideHeader} = this.state, {headerConfig} = this.props;
+    let current  = e.nativeEvent.contentOffset.y || 0;
+
+    //console.log( current + ' ===  ' + headerConfig.scolled);
+
+    if ( current > headerConfig.max ) {
+      let hide = current >= headerConfig.scolled;
+      if ( hide !== hideHeader ) {
+        //this.setState({'hideHeader': hide});
+      }
+    } else if ( hideHeader ) {
+      //this.setState({'hideHeader': false});
+    }
+    headerConfig.scolled = current;
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  _getBirthdayList( list ) {
+    return (list || this.state.peopleList || []).reduce( (prev,data) => {
+      let age = isBirthday(data.birthday);
+      if ( age ) {
+        data.age = age;
+        prev.push( data ); 
+      }
+      return prev;
+    }, []);
+  }
 }
 
 const styles = StyleSheet.create({
   'container': {
-    'flex': 1
+    'flex': 1,
+    'position': 'relative'
   },
-  'listcContainer': {
-    'flex': 1
+  'birthdayContainer': {
+    'flex': 1,
+    'marginBottom': 10
+  },
+  'horizontalListContainer': {
+    'flexDirection': 'row'
+  },
+  'verticleListContainer': {
+    'position': 'relative'
   },
   'header': {
     'position': 'absolute',
@@ -90,6 +156,9 @@ const styles = StyleSheet.create({
     }),
     'backgroundColor': Theme.color.headerBg,
     ...Theme.shadow.level1
+  },
+  'hideHeader': {
+    'display': 'none'
   },
   'contentContainer': {
     'paddingTop': (Theme.space.header + (Theme.space.headerGap*3))
