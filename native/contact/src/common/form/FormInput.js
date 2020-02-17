@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, ImageBackground, View, TextInput } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
+import Image from 'react-native-remote-svg';
 
 export const Field = ({icon, styleConfig, iconConfig, error='', ...rest})=> {
   return <View style={[styles.container, styleConfig.container]}>
@@ -14,7 +15,7 @@ export const Field = ({icon, styleConfig, iconConfig, error='', ...rest})=> {
     { !! icon.type && <View style={icon.position === 'start' ? styles.iconStart : styles.iconEnd}>
         { icon.onPress ? <FormButton type={icon.type} onPress={()=>{icon.onPress()}} /> : 
           <View style={styles.icon}>
-            { !! iconConfig[icon.type] && <ImageBackground style={styles.image} source={iconConfig[icon.type].basic}/> }
+            { !! iconConfig[icon.type] && <Image style={styles.image} source={iconConfig[icon.type].basic}/> }
           </View>
         }
       </View> 
@@ -56,7 +57,9 @@ const styles = StyleSheet.create({
     ...Theme.buttonIcon
   },
   'image': {
-    'flex': 1
+    'flex': 1,
+    'width': '100%',
+    'height': '100%'
   },
   'iconStart': {
     'position': 'absolute',

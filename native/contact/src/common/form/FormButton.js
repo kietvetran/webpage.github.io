@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, ImageBackground, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import { Theme }  from '../style/Theme.js';
+import Image from 'react-native-remote-svg';
 
 export default function FormButton({
   title       = '',
@@ -29,7 +30,7 @@ export default function FormButton({
 }) {
   return <TouchableOpacity onPress={()=>{onPress()}}>
   { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}]}>
-      <ImageBackground style={styles.image} source={iconConfig[type].basic}/>
+      <Image style={styles.image} source={iconConfig[type].basic}/>
     </View> : <Text style={styles[type] || styles.basic}>{title}</Text>
   }
   </TouchableOpacity>
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
     'backgroundColor': Theme.color.secondary
   },
   'image': {
-    'flex': 1
+    'flex': 1,
+    'width': '100%',
+    'height': '100%'
   }
 });

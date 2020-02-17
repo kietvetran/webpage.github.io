@@ -22,6 +22,9 @@ https://onlinepngtools.com/create-transparent-png
 React navtive passocde:
 https://stackoverflow.com/questions/42371023/how-to-autofocus-next-textinput-on-react-native
 
+React native SVG: 
+https://github.com/seekshiva/react-native-remote-svg
+
 
 =====================================================================================================
 install expo:  npm install -g expo-cli
