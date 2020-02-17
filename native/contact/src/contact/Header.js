@@ -19,7 +19,7 @@ export default class Header extends React.Component {
         <View style={styles.left}>
         </View>
         <View style={styles.middle}>
-          <FormInput style={styles.searchField} onChange={change} actionKey='search-change'
+          <FormInput styleConfig={{'field':styles.searchField}} onChange={(e)=>{change(e,'search')}}
             icon={{'type':'search'}}
           />
         </View>

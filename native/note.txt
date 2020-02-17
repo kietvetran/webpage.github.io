@@ -13,10 +13,17 @@ https://expo.github.io/vector-icons/
 image
 https://facebook.github.io/react-native/docs/image
 
+React Native Safe Area: 
+https://reactnavigation.org/docs/en/handling-iphonex.html
 
 online convert png to transparent png
 https://onlinepngtools.com/create-transparent-png
 
+React navtive passocde:
+https://stackoverflow.com/questions/42371023/how-to-autofocus-next-textinput-on-react-native
+
+
+=====================================================================================================
 install expo:  npm install -g expo-cli
 
 expo init contact --template blank
@@ -27,7 +34,6 @@ yarn start
 install expo app in mobile
 
 Scane the QR-code and turn on tunnel connection
-
 
 ============= react navite component ===============================================================
 https://facebook.github.io/react-native/docs/textinput

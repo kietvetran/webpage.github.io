@@ -31,6 +31,10 @@ export default class App extends React.Component {
         'organization': {
           'basic': require('./assets/icon/organization/organization.svg'),
           'focus': require('./assets/icon/organization/organization-blue.svg')
+        },
+        'guideline': {
+          'basic': require('./assets/icon/puzzle/puzzle.svg'),
+          'focus': require('./assets/icon/puzzle/puzzle-blue.svg')
         }
       }
     };
@@ -43,10 +47,10 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <NavigationContainer>
           <Tab.Navigator screenOptions={this._renderScreenOptions}>
+            <Tab.Screen name="Guideline" component={Guideline}/>
             <Tab.Screen name="Contact" component={Contact}/>
             <Tab.Screen name="Organization" component={Organization}/>
             <Tab.Screen name="Profile" component={Profile}/>
-            <Tab.Screen name="Guideline" component={Guideline}/>
           </Tab.Navigator>
         </NavigationContainer>
       </View>

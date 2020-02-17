@@ -14,7 +14,7 @@ export const colorStorage = {
   'border'   : 'rgba(0, 0, 0, .2)',
   'succes'   : '#76a300',
   'error'    : 'rgba(217, 30, 24, .6)',
-  'errorBg'  : 'rgba(217, 30, 24, .3)',
+  'errorBg'  : 'rgba(217, 30, 24, .2)',
   'warning'  : 'rgba(247, 202, 24, 1)',
   'warningBg': 'rgba(247, 202, 24, .3)',
   'info'     : 'rgba(25, 181, 254, 1)',
@@ -118,12 +118,24 @@ export const Theme = {
     'padding': 5,
     'textAlign':'center'
   },
+  'inputLabel': {
+    'height': iconSize.height,
+    'lineHeight': iconSize.height,
+    'fontWeight': '500',
+    'paddingLeft': 5,
+    'paddingRight': 10,
+    'opacity': .7
+  },
   'inputText': {
     'height': iconSize.height,
     'paddingLeft': 5,
     'paddingRight': 5,
     'borderWidth': 1,
     'borderColor': colorStorage.border
+  },
+  'inputError': {
+    'borderColor': colorStorage.error,
+    'backgroundColor': colorStorage.errorBg
   },
   'buttonIcon': {
     ...iconSize,
