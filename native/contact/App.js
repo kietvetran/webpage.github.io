@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Contact from './src/contact/Contact';
 import Organization from './src/organization/Organization';
@@ -44,16 +45,18 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={this._renderScreenOptions}>
-            <Tab.Screen name="Guideline" component={Guideline}/>
-            <Tab.Screen name="Contact" component={Contact}/>
-            <Tab.Screen name="Organization" component={Organization}/>
-            <Tab.Screen name="Profile" component={Profile}/>
-          </Tab.Navigator>
-        </NavigationContainer>
-      </View>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={this._renderScreenOptions}>
+              <Tab.Screen name="Guideline" component={Guideline}/>
+              <Tab.Screen name="Contact" component={Contact}/>
+              <Tab.Screen name="Organization" component={Organization}/>
+              <Tab.Screen name="Profile" component={Profile}/>
+            </Tab.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </SafeAreaProvider>
     );
   }
 
