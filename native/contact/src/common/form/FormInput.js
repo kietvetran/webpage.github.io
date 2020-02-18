@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, TextInput, Picker } from 'react-native';
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
 
-export const Field = ({icon, styleConfig, iconConfig, error='', ...rest})=> {
+export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
   return <View style={[styles.container, styleConfig.container]}>
     <TextInput {...rest} style={[
       styles.textfield,
@@ -23,8 +23,20 @@ export const Field = ({icon, styleConfig, iconConfig, error='', ...rest})=> {
   </View>
 };
 
+export const Selector = ({list = [], styleConfig, error, ...rest}) => {
+  return <View style={[styles.container, styleConfig.container]}>
+    <Picker style={[styles.selector, styleConfig.selector, (error ? styles.texterror : {})]} {...rest}>
+      {list.map( (data,i) => (
+        <Picker.Item key={'form-picker-'+i} label={data.name || data.label || data.id} value={data.id || data.value} />
+      ) )}
+    </Picker>
+  </View>
+};
+
 export default function FormInput({
   icon        = {'type': '', 'position': 'start', 'onPress': null, 'actionKey': ''},
+  error       = '',
+  type        = 'field',
   labelConfig = {'text': ''},
   styleConfig = {},
   iconConfig  = {
@@ -40,8 +52,12 @@ export default function FormInput({
   return (
     labelConfig.text ? <View style={[styles.container, styles.inlineContainer, styleConfig.container]}>
       <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text>
-      <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} {...rest} />
-    </View> : <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} {...rest} />
+      {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />}
+      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
+    </View> : <React.Fragment>
+      {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} />}
+      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
+    </React.Fragment>
   );
 };
 
@@ -79,6 +95,10 @@ const styles = StyleSheet.create({
   },
   'texterror': {
     ...Theme.inputError,
+  },
+  'selector': {
+    ...Theme.inputText,
+    'width': 'auto'
   },
   'searchFieldStartSpace': {
     'paddingLeft': (Theme.buttonIcon.width + 5)

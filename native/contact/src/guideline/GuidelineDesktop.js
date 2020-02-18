@@ -1,10 +1,9 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Alert, Animated } from 'react-native';
+import { StyleSheet, Text, View, Picker } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import Image from 'react-native-remote-svg';
 import FormButton from '../common/form/FormButton';
-
 import { Theme }  from '../common/style/Theme.js';
 
 export default class GuidelineDesktop extends React.Component {

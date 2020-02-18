@@ -12,7 +12,15 @@ export default class GuidelineFormInput extends React.Component {
     super(props);
     this.state   = {
       'phone' : {'value': formatPhone('41474947','no'), 'error': ''},
-      'amount': {'value': formatAmount('5556525'), 'error': ''}
+      'amount': {'value': formatAmount('5556525'), 'error': ''},
+      'picker': {
+        'selected': 'c',
+        'list': [
+          {'id': 'a', 'name': 'Alfa'},
+          {'id': 'b', 'name': 'Beta'},
+          {'id': 'c', 'name': 'Gamma'}
+        ]
+      }
     };
     this._click  = this._click.bind(this);
     this._focus  = this._focus.bind(this);
@@ -21,7 +29,7 @@ export default class GuidelineFormInput extends React.Component {
   } 
 
   render() {
-    const {phone, amount, person} = this.state;
+    const {phone, amount, picker} = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -39,6 +47,13 @@ export default class GuidelineFormInput extends React.Component {
               onFocus={(e)=>{this._focus(e,'focus-amount');}}
               onBlur={(e)=>{this._blur(e,'blur-amount');}}
               onChangeText={(e)=>{this._change(e,'change-amount-text','amount');}}
+            />
+          </View>
+
+          <View style={styles.collection}>
+            <FormInput labelConfig={{'text': 'Selector', 'style': styles.labelFiel}} styleConfig={{'container': styles.spacing}}
+              type="selector" list={picker.list} value={picker.selected}
+              onValueChange={(e)=>{this._change(e,'change-picker')}}
             />
           </View>
         </ScrollView>
@@ -59,6 +74,8 @@ export default class GuidelineFormInput extends React.Component {
       let note = JSON.parse(JSON.stringify(this.state[field]));
       note.value = e;
       this.setState({[field]: note});
+    } else if ( key === 'change-picker' ) {
+      this.setState({'picker': {...this.state.picker, 'selected': e}});
     }
   }
 
@@ -112,13 +129,13 @@ const styles = StyleSheet.create({
   'collection': {
     'marginBottom': Theme.space.medium,
     'backgroundColor': '#fff',
+    'padding': Theme.space.medium,
     ...Theme.shadow.level1
   },
   'labelFiel': {
     'width': 70
   },
   'spacing': {
-    'marginBottom': Theme.space.medium,      
-    'paddingRight': 10
+    'marginBottom': Theme.space.medium
   }
 });
