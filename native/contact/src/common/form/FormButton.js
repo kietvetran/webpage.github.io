@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+//import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
 import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
 
 export default function FormButton({
   title       = '',
+  label       = '',
   type        = '',
   mode        = '',
   disabled    = false,
@@ -25,13 +27,17 @@ export default function FormButton({
     },
    'search': {
       'basic': require('../../../assets/icon/search/search.svg')
+    },
+    'brand': {
+      'basic': require('../../../assets/icon/hexagon/hexagon.svg')
     }
   }
 }) {
   return <TouchableOpacity onPress={()=>{onPress()}}>
   { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}]}>
       <Image style={styles.image} source={iconConfig[type].basic}/>
-    </View> : <Text style={styles[type] || styles.basic}>{title}</Text>
+      { !! label && <Text style={styles.invisibleText}>{label}</Text> }
+    </View> : <Text style={[styles[type] || styles.basic, styleConfig.button]}>{title}</Text>
   }
   </TouchableOpacity>
 };
@@ -50,6 +56,9 @@ const styles = StyleSheet.create({
   'secondary': {
     ...Theme.button,
     'backgroundColor': Theme.color.secondary
+  },
+  'invisibleText': {
+    ...Theme.invisibleText
   },
   'image': {
     'flex': 1,

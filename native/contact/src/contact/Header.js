@@ -17,6 +17,7 @@ export default class Header extends React.Component {
     return hide ? null : <View style={styles.container}>
       <View style={styles.wrapper}>
         <View style={styles.left}>
+          <FormButton label="MyApp" type="brand" />
         </View>
         <View style={styles.middle}>
           <FormInput styleConfig={{'field':styles.searchField}} onChange={(e)=>{change(e,'search')}}
@@ -24,7 +25,7 @@ export default class Header extends React.Component {
           />
         </View>
         <View style={styles.right}>
-          <FormButton title="Filter" type="filter" onPress={()=>{click(null,'toogle-filter')}} />
+          <FormButton label="Filter" type="filter" onPress={()=>{click(null,'toogle-filter')}} />
         </View>
       </View>
     </View>

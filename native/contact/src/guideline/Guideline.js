@@ -1,11 +1,11 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
+import { Platform, StyleSheet, Text, View, Alert, Animated } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Message from '../common/message/Message';
 import FormInput from '../common/form/FormInput';
+import Panel from '../common/panel/Panel';
 import {formatPhone, formatAmount} from '../util/ValueFormat';
 import {validatePhone, validateAmount} from '../util/ValueValidation';
-
 
 import { Theme }  from '../common/style/Theme.js';
 
@@ -47,6 +47,16 @@ export default class Guideline extends React.Component {
               onBlur={(e)=>{this._blur(e,'blur-amount');}}
               onChangeText={(e)=>{this._change(e,'change-amount-text','amount');}}
             />
+          </View>
+          <View style={styles.collection}>
+            <Text style={styles.collectionTitle}>Panel</Text>
+            <Panel title="Lorem ipsum">
+              <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus arcu velit, pulvinar sed imperdiet id,
+                cursus eget lorem. Morbi magna enim, euismod sit amet arcu vel, maximus tristique diam. Suspendisse potenti.
+                Nam nisi ex, suscipit ut sodales et, facilisis at orci. Nam rhoncus nisi id dapibus hendrerit. Nulla et neque orci
+              </Text>
+            </Panel>
           </View>
           
           <View style={styles.collection}>

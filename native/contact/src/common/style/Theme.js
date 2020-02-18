@@ -4,7 +4,7 @@ export const iconSize = {
 };
 
 export const colorStorage = {
-  'brand'    : '',
+  'brand'    : '#d2a241',
   'primary'  : '#76a300',
   'secondary': '#0075D2',
   'appFont'  : '#2D2D2D',
@@ -115,7 +115,7 @@ export const Theme = {
     'color': '#fff',
     'fontWeight': 'normal',
     'overflow': 'hidden',
-    'padding': 5,
+    'padding': 8,
     'textAlign':'center'
   },
   'inputLabel': {
@@ -140,6 +140,14 @@ export const Theme = {
   'buttonIcon': {
     ...iconSize,
     'padding': 8
+  },
+  'invisibleText': {
+    'position': 'absolute',
+    'left': 0,
+    'top': 0,
+    'zIndex': -1,
+    'fontSize': 1,
+    'color': 'transparent'
   },
   'debug': {    
     'borderWidth': 1,

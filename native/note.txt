@@ -25,6 +25,9 @@ https://stackoverflow.com/questions/42371023/how-to-autofocus-next-textinput-on-
 React native SVG: 
 https://github.com/seekshiva/react-native-remote-svg
 
+React Native Animation ideer: 
+https://medium.com/react-native-motion/transition-challenge-9bc9fdef56c7
+
 
 =====================================================================================================
 install expo:  npm install -g expo-cli

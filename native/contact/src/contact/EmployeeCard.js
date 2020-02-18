@@ -47,7 +47,7 @@ export default function EmployeeCard({
     { !! onPress && <React.Fragment>
       { actionList.map( (note, i) => (
           <View key={'employee-actiono-'+i} style={styles.actionContainer}>
-            <FormButton title={note.id} type={note.type}
+            <FormButton label={note.id} type={note.type}
               styleConfig={{'icon':styles.iconButton}}
               onPress={()=>{onPress(null,note.action,data)}}
             />
