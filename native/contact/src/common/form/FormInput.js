@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, Picker } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker } from 'react-native';
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
@@ -24,7 +24,7 @@ export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
 };
 
 export const Selector = ({list = [], styleConfig, error, ...rest}) => {
-  return <View style={[styles.container, styleConfig.container]}>
+  return <View style={[styles.container, styleConfig.container, styles.textfield, (error ? styles.texterror : {})]}>
     <Picker style={[styles.selector, styleConfig.selector, (error ? styles.texterror : {})]} {...rest}>
       {list.map( (data,i) => (
         <Picker.Item key={'form-picker-'+i} label={data.name || data.label || data.id} value={data.id || data.value} />
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
   },
   'selector': {
     ...Theme.inputText,
-    'width': 'auto'
+    'width': 'auto',
+    'borderWidth': 0
   },
   'searchFieldStartSpace': {
     'paddingLeft': (Theme.buttonIcon.width + 5)

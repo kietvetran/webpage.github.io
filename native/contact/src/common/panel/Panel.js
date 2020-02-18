@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   },
   'titleSeparation': {
     'borderLeftWidth': 2,
-    'borderLeftStyle': 'solid',
     'borderLeftColor': Theme.color.border
   },
   'icon': {
@@ -163,7 +162,6 @@ const styles = StyleSheet.create({
     'flex': 1,
     'overflow': 'hidden',
     'padding': 8,
-    'borderTopStyle': 'dashed',
     'borderTopWidth': 1,
     'borderTopColor': Theme.color.border
   }
