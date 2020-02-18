@@ -7,6 +7,7 @@ import Image from 'react-native-remote-svg';
 export default function FormButton({
   title       = '',
   label       = '',
+  children    = null,
   type        = '',
   mode        = '',
   disabled    = false,
@@ -30,14 +31,32 @@ export default function FormButton({
     },
     'brand': {
       'basic': require('../../../assets/icon/hexagon/hexagon.svg')
-    }
+    },
+    'arrowLeft': {
+      'basic': require('../../../assets/icon/arrow/arrow-left.svg')
+    },
+    'arrowRight': {
+      'basic': require('../../../assets/icon/arrow/arrow-right.svg')
+    },
+    'arrowDown': {
+      'basic': require('../../../assets/icon/arrow/arrow-down.svg')
+    },
+    'arrowUp': {
+      'basic': require('../../../assets/icon/arrow/arrow-up.svg')
+    },
   }
 }) {
   return <TouchableOpacity onPress={()=>{onPress()}}>
-  { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}]}>
-      <Image style={styles.image} source={iconConfig[type].basic}/>
+  { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null)]}>
+
+      { title || children ? <View style={[styles.icon, styles.toRight]}>
+          <Image style={styles.image} source={iconConfig[type].basic}/>
+        </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
+      }
       { !! label && <Text style={styles.invisibleText}>{label}</Text> }
-    </View> : <Text style={[styles[type] || styles.basic, styleConfig.button]}>{title}</Text>
+      { !! title && <Text style={[styles.plainButton, styleConfig.text]}>{title}</Text>}
+      { !! children && <View>{children}</View> }
+    </View> : (title ? <Text style={[styles[type] || styles.basic, styleConfig.button]}>{title}</Text> : <View>{children}</View>)
   }
   </TouchableOpacity>
 };
@@ -48,6 +67,12 @@ const styles = StyleSheet.create({
   },
   'icon': {
     ...Theme.buttonIcon
+  },
+  'iconWidthAuto': {
+    'width': 'auto',
+    'paddingTop': 2,
+    'paddingBottom': 0,
+    'paddingRight': (Theme.buttonIcon.width + 5)
   },
   'primary': {
     ...Theme.button,
@@ -64,5 +89,19 @@ const styles = StyleSheet.create({
     'flex': 1,
     'width': '100%',
     'height': '100%'
+  },
+  'toRight': {
+    'position': 'absolute',
+    'right': 0,
+    'top': 0,
+    'padding': 12
+  },
+  'plainButton': {
+    'borderWidth': 0,
+    'textAlign': 'left',
+    'backgroundColor': 'transparent',
+    'color': Theme.color.font,
+    'padding': 8,
+    'fontWeight': '500'    
   }
 });

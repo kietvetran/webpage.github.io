@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     'position': 'absolute',
     'right': 0,
     'top': 0,
-    'padding': 10
+    'padding': 12
   },
   'image': {
     'flex': 1,
