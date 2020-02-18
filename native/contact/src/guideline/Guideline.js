@@ -50,13 +50,27 @@ export default class Guideline extends React.Component {
           </View>
           <View style={styles.collection}>
             <Text style={styles.collectionTitle}>Panel</Text>
-            <Panel title="Lorem ipsum">
+            <Panel title="Lorem ipsum"  styleConfig={{'container': styles.inputSpacing}}>
+              <Text>
+                First paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus arcu velit, pulvinar sed imperdiet id,
+                cursus eget lorem. Morbi magna enim, euismod sit amet arcu vel, maximus tristique diam. 
+              </Text>
+              <Text>
+                Second paragraph:
+              </Text>
+            </Panel>
+
+            <Panel title={['Lopem ipsum', 'Animal']}  styleConfig={{'container': styles.inputSpacing}}>
               <Text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus arcu velit, pulvinar sed imperdiet id,
                 cursus eget lorem. Morbi magna enim, euismod sit amet arcu vel, maximus tristique diam. Suspendisse potenti.
                 Nam nisi ex, suscipit ut sodales et, facilisis at orci. Nam rhoncus nisi id dapibus hendrerit. Nulla et neque orci
               </Text>
+              <Text>
+                Dog, cat, mouse, bat
+              </Text>
             </Panel>
+
           </View>
           
           <View style={styles.collection}>
@@ -174,5 +188,8 @@ const styles = StyleSheet.create({
   'inputSpacing': {
     'marginBottom': Theme.space.medium,      
     'paddingRight': 10
+  },
+  'debug': {
+    ...Theme.debug
   }
 });
