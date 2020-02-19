@@ -1,6 +1,6 @@
 export const iconSize = {
-  'width': 40,
-  'height': 40
+  'width': 44,
+  'height': 44
 };
 
 export const colorStorage = {
@@ -11,7 +11,8 @@ export const colorStorage = {
   'appBg'    : '#eee',
   'headerBg' : '#FFFFFF',
   'footerBg' : '#FFFFFF',
-  'border'   : 'rgba(0, 0, 0, .2)',
+  'fieldBg'  : 'rgba(0, 0, 0, .1)',  
+  'border'   : 'rgba(0, 0, 0, .3)',
   'succes'   : '#76a300',
   'error'    : 'rgba(217, 30, 24, .6)',
   'errorBg'  : 'rgba(217, 30, 24, .2)',
@@ -23,9 +24,45 @@ export const colorStorage = {
   'focus'    : '#0075D2'
 };
 
+export const fontStorage = {
+  'basic': {
+    'fontSize': 16,
+    'lineHeight': 20,
+  },
+  'small': {
+    'fontSize': 14,
+    'lineHeight': 18,
+    'fontWeight': 'bold'
+  },
+  'h1': {
+    'fontSize': 30,
+    'lineHeight': 35,
+    'fontWeight': 'bold'
+  },
+  'h2': {
+    'fontSize': 25,
+    'lineHeight': 30,
+    'fontWeight': 'bold'
+  },
+  'h3': {
+    'fontSize': 20,
+    'lineHeight': 25,
+    'fontWeight': 'bold'
+  },
+  'h4': {
+    'fontSize': 17,
+    'lineHeight': 25,
+    'fontWeight': 'bold'
+  },
+  'family': 'Cochin'
+};
+
 export const Theme = {
   'color': {
     ...colorStorage 
+  },
+  'font': {
+    ...fontStorage
   },
   'border': {
     'basic': {
@@ -34,38 +71,6 @@ export const Theme = {
       'borderColor': colorStorage.border,
       'borderRadius': 2
     }
-  },
-  'font': {
-    'basic': {
-      'fontSize': 17,
-      'lineHeight': 24
-    },
-    'small': {
-      'fontSize': 14,
-      'lineHeight': 19,
-      'fontWeight': 'bold'
-    },
-    'h1': {
-      'fontSize': 30,
-      'lineHeight': 35,
-      'fontWeight': 'bold'
-    },
-    'h2': {
-      'fontSize': 25,
-      'lineHeight': 30,
-      'fontWeight': 'bold'
-    },
-    'h3': {
-      'fontSize': 20,
-      'lineHeight': 25,
-      'fontWeight': 'bold'
-    },
-    'h4': {
-      'fontSize': 17,
-      'lineHeight': 25,
-      'fontWeight': 'bold'
-    },
-    'family': 'Cochin'
   },
   'space': {
     'small': 5,
@@ -119,27 +124,29 @@ export const Theme = {
     'textAlign':'center'
   },
   'inputLabel': {
-    'height': iconSize.height,
-    'lineHeight': iconSize.height,
-    'fontWeight': '500',
-    'paddingLeft': 5,
-    'paddingRight': 10,
-    'opacity': .7
+    'fontWeight': '700',
+    'opacity': .7,
+    ...fontStorage.basic
   },
   'inputText': {
-    'height': iconSize.height,
-    'paddingLeft': 5,
-    'paddingRight': 5,
+    'minHeight': iconSize.height,
+    'paddingLeft': 10,
+    'paddingRight': 10,
     'borderWidth': 1,
-    'borderColor': colorStorage.border
+    'borderColor': colorStorage.border,
+    ...fontStorage.basic
   },
   'inputError': {
     'borderColor': colorStorage.error,
-    'backgroundColor': colorStorage.errorBg
+    'backgroundColor': colorStorage.errorBg,
+    ...fontStorage.basic
   },
   'buttonIcon': {
     ...iconSize,
-    'padding': 8
+    'padding': 10
+  },
+  'buttonText': {
+    ...fontStorage.basic
   },
   'invisibleText': {
     'position': 'absolute',

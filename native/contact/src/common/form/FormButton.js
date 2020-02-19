@@ -54,9 +54,9 @@ export default function FormButton({
         </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
       }
       { !! label && <Text style={styles.invisibleText}>{label}</Text> }
-      { !! title && <Text style={[styles.plainButton, styleConfig.text]}>{title}</Text>}
+      { !! title && <Text style={[styles.plainButton, styles.buttonText, styleConfig.text]}>{title}</Text>}
       { !! children && <View>{children}</View> }
-    </View> : (title ? <Text style={[styles[type] || styles.basic, styleConfig.button]}>{title}</Text> : <View>{children}</View>)
+    </View> : (title ? <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title}</Text> : <View>{children}</View>)
   }
   </TouchableOpacity>
 };
@@ -103,5 +103,8 @@ const styles = StyleSheet.create({
     'color': Theme.color.font,
     'padding': 8,
     'fontWeight': '500'    
+  },
+  'buttonText': {
+    ...Theme.buttonText
   }
 });

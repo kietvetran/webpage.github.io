@@ -34,14 +34,14 @@ export default class GuidelineFormInput extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.collection}>
-            <FormInput labelConfig={{'text': 'Name',  'style': styles.labelFiel}} styleConfig={{'container': styles.spacing}}/>
-            <FormInput labelConfig={{'text': 'phone', 'style': styles.labelFiel}} styleConfig={{'container': styles.spacing}}
+            <FormInput labelConfig={{'text': 'Name',  'style': styles.labelField}} styleConfig={{'container': styles.spacing}}/>
+            <FormInput labelConfig={{'text': 'phone', 'style': styles.labelField}} styleConfig={{'container': styles.spacing}}
               //keyboardType="number-pad"
               value={phone.value} error={phone.error}
               onChangeText={(e)=>{this._change(e,'change-phone-text');}}
               onBlur={(e)=>{this._blur(e,'blur-phone');}}
             />
-            <FormInput labelConfig={{'text': 'Amount', 'style': styles.labelFiel}} styleConfig={{'container': styles.spacing}}
+            <FormInput labelConfig={{'text': 'Amount', 'style': styles.labelField}} styleConfig={{'container': styles.spacing}}
               //keyboardType="number-pad"
               value={amount.value} error={amount.error}
               onFocus={(e)=>{this._focus(e,'focus-amount');}}
@@ -51,8 +51,8 @@ export default class GuidelineFormInput extends React.Component {
           </View>
 
           <View style={styles.collection}>
-            <FormInput labelConfig={{'text': 'Selector', 'style': styles.labelFiel}} styleConfig={{'container': styles.spacing}}
-              type="selector" list={picker.list} value={picker.selected}
+            <FormInput labelConfig={{'text': 'Selector', 'style': styles.labelField}} styleConfig={{'container': styles.spacing}}
+              type="selector" list={picker.list} selectedValue={picker.selected}
               onValueChange={(e)=>{this._change(e,'change-picker')}}
             />
           </View>
@@ -132,10 +132,14 @@ const styles = StyleSheet.create({
     'padding': Theme.space.medium,
     ...Theme.shadow.level1
   },
-  'labelFiel': {
-    'width': 70
+  'collectionTitle': {
+    ...Theme.font.h2,
+    'paddingTop': Theme.space.small,
+    'paddingBottom': Theme.space.small
+  },
+  'labelField': {
   },
   'spacing': {
-    'marginBottom': Theme.space.medium
+    'paddingBottom': Theme.space.medium
   }
 });

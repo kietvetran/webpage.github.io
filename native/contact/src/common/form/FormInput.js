@@ -50,7 +50,7 @@ export default function FormInput({
   ...rest
 }) {
   return (
-    labelConfig.text ? <View style={[styles.container, styles.inlineContainer, styleConfig.container]}>
+    labelConfig.text ? <View style={[styles.container, styleConfig.container]}>
       <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text>
       {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />}
       {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
@@ -64,7 +64,7 @@ export default function FormInput({
 const styles = StyleSheet.create({
   'container': {
     'flex': 1,
-    'position': 'relative',
+    'position': 'relative'
   },
   'inlineContainer': {
     'flexDirection': 'row'
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
     'top': 0
   },
   'textLabel': {
-    ...Theme.inputLabel
+    ...Theme.inputLabel,
+    'lineHeight': (Theme.inputLabel.fontSize + 12),
   },
   'textfield': {
     ...Theme.inputText
