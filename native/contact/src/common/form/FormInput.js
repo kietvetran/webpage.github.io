@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker, CheckBox } from 'react-native';
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
@@ -24,7 +24,7 @@ export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
 };
 
 export const Selector = ({list = [], styleConfig, error, ...rest}) => {
-  return <View style={[styles.container, styleConfig.container, styles.textfield, (error ? styles.texterror : {})]}>
+  return <View style={[styles.selectorContainer, styleConfig.container, (error ? styles.texterror : {})]}>
     <Picker style={[styles.selector, styleConfig.selector, (error ? styles.texterror : {})]} {...rest}>
       {list.map( (data,i) => (
         <Picker.Item key={'form-picker-'+i} label={data.name || data.label || data.id} value={data.id || data.value} />
@@ -33,10 +33,24 @@ export const Selector = ({list = [], styleConfig, error, ...rest}) => {
   </View>
 };
 
+export const Check = ({labelConfig, styleConfig, ...rest}) => {
+  return <View style={[styles.container, styles.checkboxContainer, styleConfig.container, styles.inlineContainer]}>
+    <CheckBox {...rest}/>
+    { !! labelConfig.checkboxLabel && <React.Fragment>
+        { typeof(labelConfig.onPress) === 'function' ? <TouchableOpacity onPress={()=>{labelConfig.onPress()}}>
+            <Text style={[styles.textLabel, styles.checkboxLabel]}>{labelConfig.checkboxLabel}</Text>
+          </TouchableOpacity> : <Text style={[styles.textLabel, styles.checkboxLabel]}>{labelConfig.checkboxLabel}</Text>
+        }
+      </React.Fragment>
+    }
+  </View>
+};
+
 export default function FormInput({
-  icon        = {'type': '', 'position': 'start', 'onPress': null, 'actionKey': ''},
+  icon        = {'type': '', 'position': 'start', 'onPress': null},
   error       = '',
   type        = 'field',
+  lineNumber  = 4,
   labelConfig = {'text': ''},
   styleConfig = {},
   iconConfig  = {
@@ -52,11 +66,16 @@ export default function FormInput({
   return (
     labelConfig.text ? <View style={[styles.container, styleConfig.container]}>
       <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text>
+      { !! labelConfig.description && <Text style={[styles.textLabel, styles.textDesciption]}>{labelConfig.description}</Text>}
       {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />}
+      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
       {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
+      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
     </View> : <React.Fragment>
       {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} />}
+      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
       {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
+      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
     </React.Fragment>
   );
 };
@@ -87,6 +106,9 @@ const styles = StyleSheet.create({
     'right': 0,
     'top': 0
   },
+  'textDesciption': {
+    ...Theme.inputDescription
+  },
   'textLabel': {
     ...Theme.inputLabel,
     'lineHeight': (Theme.inputLabel.fontSize + 12),
@@ -97,10 +119,27 @@ const styles = StyleSheet.create({
   'texterror': {
     ...Theme.inputError,
   },
+  'textarea': {
+    'textAlignVertical': 'top',
+    'paddingTop': 5,
+    'paddingBottom': 5,
+  },
+  'selectorContainer': {
+    'borderWidth': 1,
+    'borderColor': Theme.color.border,
+  },
   'selector': {
-    ...Theme.inputText,
+    //...Theme.inputText,
     'width': 'auto',
-    'borderWidth': 0
+    'minHeight': Theme.inputText.minHeight,
+  },
+  'checkboxContainer': {
+  },
+  'checkboxWrapper': {
+  },
+  'checkboxLabel': {
+    'paddingLeft': 5,
+    'paddingRight': 5
   },
   'searchFieldStartSpace': {
     'paddingLeft': (Theme.buttonIcon.width + 5)

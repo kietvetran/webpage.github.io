@@ -124,9 +124,14 @@ export const Theme = {
     'textAlign':'center'
   },
   'inputLabel': {
+    ...fontStorage.basic,
     'fontWeight': '700',
     'opacity': .7,
-    ...fontStorage.basic
+    'textAlignVertical': 'top'
+  },
+  'inputDescription': {
+    ...fontStorage.small,
+    'fontWeight': 'normal',
   },
   'inputText': {
     'minHeight': iconSize.height,

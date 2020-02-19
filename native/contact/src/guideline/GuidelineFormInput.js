@@ -11,9 +11,11 @@ export default class GuidelineFormInput extends React.Component {
   constructor(props) {
     super(props);
     this.state   = {
-      'phone' : {'value': formatPhone('41474947','no'), 'error': ''},
-      'amount': {'value': formatAmount('5556525'), 'error': ''},
-      'picker': {
+      'phone'  : {'value': formatPhone('41474947','no'), 'error': ''},
+      'amount' : {'value': formatAmount('5556525'), 'error': ''},
+      'comment': {'value': '', 'error': ''},
+      'agreed' : {'value': true, 'error': ''},   
+      'picker' : {
         'selected': 'c',
         'list': [
           {'id': 'a', 'name': 'Alfa'},
@@ -29,7 +31,7 @@ export default class GuidelineFormInput extends React.Component {
   } 
 
   render() {
-    const {phone, amount, picker} = this.state;
+    const {phone, amount, comment, agreed, picker} = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -51,11 +53,34 @@ export default class GuidelineFormInput extends React.Component {
           </View>
 
           <View style={styles.collection}>
+            <FormInput labelConfig={{'text': 'Comment', 'style': styles.labelField}} styleConfig={{'container': styles.spacing}}
+              type="textarea" value={comment.value} error={comment.error}
+              onFocus={(e)=>{this._focus(e,'focus-comment');}}
+              onBlur={(e)=>{this._blur(e,'blur-comment');}}
+              onChangeText={(e)=>{this._change(e,'change-comment-text','comment');}}
+            />
+          </View>
+
+          <View style={styles.collection}>
             <FormInput labelConfig={{'text': 'Selector', 'style': styles.labelField}} styleConfig={{'container': styles.spacing}}
               type="selector" list={picker.list} selectedValue={picker.selected}
               onValueChange={(e)=>{this._change(e,'change-picker')}}
             />
           </View>
+
+          <View style={styles.collection}>
+            <FormInput labelConfig={{
+                'text': 'Agreement',
+                'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent et urna a lorem semper efficitur vitae vel purus.',
+                'checkboxLabel': 'Yes, I agree...',
+                'onPress': ()=>{ this._click(null, 'toggle-agreed')}
+              }}
+              styleConfig={{'container': styles.spacing}}
+              type="checkbox" value={agreed.value} error={agreed.error}
+              onChange={(e)=>{this._change(e,'change-agreed');}}
+            />
+          </View>
+
         </ScrollView>
       </View>
     );
@@ -63,7 +88,11 @@ export default class GuidelineFormInput extends React.Component {
 
   /****************************************************************************
   ****************************************************************************/
-  _click(e, key) {}
+  _click(e, key) {
+    if ( key === 'toggle-agreed' ) {
+      this.setState({'agreed': {...this.state.agreed, 'value': ! this.state.agreed.value}})
+    }
+  }
 
   _change(e, key, field) {    
     if ( key === 'change-phone-text' ) {
@@ -76,6 +105,8 @@ export default class GuidelineFormInput extends React.Component {
       this.setState({[field]: note});
     } else if ( key === 'change-picker' ) {
       this.setState({'picker': {...this.state.picker, 'selected': e}});
+    } else if ( key === 'change-agreed' ) {
+      this.setState({'agreed': {...this.state.agreed, 'value': ! this.state.agreed.value}})
     }
   }
 
