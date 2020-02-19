@@ -9,7 +9,6 @@ export default function FormButton({
   label       = '',
   children    = null,
   type        = '',
-  mode        = '',
   disabled    = false,
   onPress     = ()=>{},
   styleConfig = {}, 
@@ -46,22 +45,23 @@ export default function FormButton({
     },
   }
 }) {
-  return <TouchableOpacity onPress={()=>{onPress()}}>
+  return <TouchableOpacity onPress={()=>{onPress()}} style={[styles.container, styleConfig.container]}>
   { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null)]}>
-
       { title || children ? <View style={[styles.icon, styles.toRight]}>
           <Image style={styles.image} source={iconConfig[type].basic}/>
         </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
       }
       { !! label && <Text style={styles.invisibleText}>{label}</Text> }
-      { !! title && <Text style={[styles.plainButton, styles.buttonText, styleConfig.text]}>{title}</Text>}
+      { !! title && <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.text]}>{title}</Text>}
       { !! children && <View>{children}</View> }
-    </View> : (title ? <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title}</Text> : <View>{children}</View>)
+    </View> : (title ? <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> : <View>{children}</View>)
   }
   </TouchableOpacity>
 };
 
 const styles = StyleSheet.create({
+  'container': {
+  },
   'basic': {
     ...Theme.button
   },
@@ -76,11 +76,27 @@ const styles = StyleSheet.create({
   },
   'primary': {
     ...Theme.button,
-    'backgroundColor': Theme.color.primary  
+    'fontWeight': '700',
+    'borderColor': Theme.color.primary,
+    'backgroundColor': Theme.color.primary,
+    'paddingTop': 10,
+    'paddingBottom': 10,
   },
   'secondary': {
     ...Theme.button,
-    'backgroundColor': Theme.color.secondary
+    'fontWeight': '700',
+    'borderColor': Theme.color.secondary,
+    'backgroundColor': Theme.color.secondary,
+    'paddingTop': 10,
+    'paddingBottom': 10,
+  },
+  'plain': {
+    ...Theme.button,
+    'fontWeight': '700',
+    'backgroundColor': '#fff',
+    'color': Theme.color.font,
+    'paddingTop': 10,
+    'paddingBottom': 10,
   },
   'invisibleText': {
     ...Theme.invisibleText
@@ -95,6 +111,10 @@ const styles = StyleSheet.create({
     'right': 0,
     'top': 0,
     'padding': 12
+  },
+  'inLeft': {
+    'textAlign':'left',
+    'borderWidth': 0
   },
   'plainButton': {
     'borderWidth': 0,

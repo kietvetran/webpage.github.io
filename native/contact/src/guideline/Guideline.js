@@ -7,6 +7,7 @@ import GuidelineDesktop from './GuidelineDesktop';
 import GuidelineMessage from './GuidelineMessage';
 import GuidelinePanel from './GuidelinePanel';
 import GuidelineFormInput from './GuidelineFormInput';
+import GuidelineFormButton from './GuidelineFormButton';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function Guideline() {
       <Stack.Screen name="Panel" component={GuidelinePanel} />
       <Stack.Screen name="Message" component={GuidelineMessage} />
       <Stack.Screen name="FormInput" component={GuidelineFormInput} />
+      <Stack.Screen name="FormButton" component={GuidelineFormButton} />
     </Stack.Navigator>
   );
 };

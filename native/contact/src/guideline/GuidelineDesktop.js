@@ -11,9 +11,10 @@ export default class GuidelineDesktop extends React.Component {
     super(props);
     this.state  = {
       'pageList': [
-        {'id': 'Message'  },
-        {'id': 'Panel'    },
-        {'id': 'FormInput'}
+        {'id': 'Message'   },
+        {'id': 'Panel'     },
+        {'id': 'FormInput' },
+        {'id': 'FormButton'}
       ]
     };
     this._click = this._click.bind(this);
@@ -29,7 +30,6 @@ export default class GuidelineDesktop extends React.Component {
             <View key={'page-'+i} style={styles.collection}>
               <FormButton type="arrowRight" title={page.id}
                 onPress={(e)=>{this._click(e,'switch-page', page)}}
-                styleConfig={{'button': styles.button}}
               />
             </View>            
           ) )}
@@ -58,5 +58,8 @@ const styles = StyleSheet.create({
   'collection': {
     'marginBottom': Theme.space.medium,
     'backgroundColor': '#fff'
+  },
+  'spacing': {
+    'marginBottom': Theme.space.medium
   }
 });
