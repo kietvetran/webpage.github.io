@@ -52,9 +52,13 @@ export default function FormButton({
         </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
       }
       { !! label && <Text style={styles.invisibleText}>{label}</Text> }
-      { !! title && <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.text]}>{title}</Text>}
+      { !! title && <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>}
       { !! children && <View>{children}</View> }
-    </View> : (title ? <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> : <View>{children}</View>)
+    </View> : (
+      title ?
+        <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> :
+        <View>{children}</View>
+    )
   }
   </TouchableOpacity>
 };

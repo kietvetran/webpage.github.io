@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, ImageBackground, View, Animated } from 'react-native';
-import Image from 'react-native-remote-svg';
 
 import FormButton from '../form/FormButton';
 import { Theme }  from '../style/Theme.js';
@@ -10,8 +9,6 @@ export default class Panel extends React.Component {
     super(props);
     this.state  = {
       ...this._initState( props ),
-      'arrowDown': require('../../../assets/icon/arrow/arrow-down.svg'),
-      'arrowUp': require('../../../assets/icon/arrow/arrow-up.svg'),
       'animationConfig': {'duration': 600, 'delay': 0}
     };
     this._click = this._click.bind(this);
@@ -27,11 +24,10 @@ export default class Panel extends React.Component {
         <View style={single ? styles.singleContainer : styles.multipleContainer}>
           { title.map( (text, i) => (
               <View key={'panel-title'+i} style={[styles.title, (i ? styles.titleSeparation : {})]}>
-                <View style={styles.icon}>
-                  <Image style={styles.image} source={hide[i] ? arrowDown : arrowUp}/>
-                </View>
-                <FormButton title={title[i]} onPress={(e)=>{this._click(e,'toggle-panel', i)}}
-                  styleConfig={{'button': styles.button}}
+                <FormButton title={title[i]}
+                  type={hide[i] ? 'arrowDown' : 'arrowUp'}
+                  onPress={(e)=>{this._click(e,'toggle-panel', i)}}
+                  styleConfig={{'button': (single ? {} : (hide[i] ? styles.multipleOnOpen : styles.multipleOnHide)),}}
                 />              
               </View>
           ) )}
@@ -138,25 +134,11 @@ const styles = StyleSheet.create({
     'borderLeftWidth': 2,
     'borderLeftColor': Theme.color.border
   },
-  'icon': {
-    ...Theme.buttonIcon,
-    'position': 'absolute',
-    'right': 0,
-    'top': 0,
-    'padding': 12
+  'multipleOnHide': {
+    'opacity': .3,
   },
-  'image': {
-    'flex': 1,
-    'width': '100%',
-    'height': '100%'
-  },
-  'button': {
-    'borderWidth': 0,
-    'textAlign': 'left',
-    'backgroundColor': 'transparent',
-    'color': Theme.color.font,
-    'padding': 8,
-    'fontWeight': '500'
+  'multipleOnOpen': {
+    'opacity': 1,
   },
   'content': {
     'flex': 1,
