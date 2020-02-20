@@ -96,3 +96,55 @@ export const separatePhoneCountryCode = (text) =>{
   }
   return out;
 }
+
+/******************************************************************************
+******************************************************************************/
+export const convertDateToText = ( date, separator, clock, americanFormat, clockSeparation ) => {
+  let s = typeof(separator)==='undefined' || separator === null ? (
+    americanFormat ? '-' : '.'
+  ) : separator;
+  let l = [date.getDate(),date.getMonth()+1,date.getFullYear()], i = 0;
+  if ( americanFormat ) {
+    let y = l[2];
+    l[2] = l[0];
+    l[0] = y;
+  }
+
+  for ( i=0; i<l.length; i++ ) {
+    if ( l[i] < 10 ) { l[i] = '0'+l[i]; }
+  }
+
+  let out = l.join( s );
+  if ( ! clock ) { return out; }
+
+  l = [date.getHours(), date.getMinutes()];
+  for ( i=0; i<l.length; i++ ) {
+    if ( l[i] < 10 ) { l[i] = '0'+l[i]; }
+  }
+  return out + (clockSeparation || ' ') + l.join(':');
+}
+
+/******************************************************************************
+******************************************************************************/
+export const convertTextToDate = ( text ) => {
+  let r = /^(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.](\d{4})(\s+(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d))?/;
+  let t = (text ||'').replace( /^\s+/,'').replace( /\s+$/,'');
+  let m = t.match( r ), s = null;
+  if ( m ) {
+    s = [m[3], m[2], m[1], m[5], m[8], (m[9]|| '0'), '0'];
+  } else {
+    r = /^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.]([0][1-9]|[12][0-9]|3[01])(\w+(([0-1]\d)|(2[0-3])):([0-5]\d):([0-5]\d))?/;
+    m = t.match( r );
+    if ( m ) {
+      s = [m[1], m[2], m[3], m[5], m[8], (m[9]|| '0'), '0'];
+    }
+  }
+
+  if ( ! s ) { return; }
+
+  for ( let i=0; i<s.length; i++ ) {
+    s[i] = parseInt( ((s[i] || '').replace( /^0/, '' ) || '0'), 10);
+  }
+  let date = new Date(s[0],s[1]-1,s[2],s[3],s[4],s[5],s[6]);
+  return wantTimestamp ? date.getTime() : date;
+}

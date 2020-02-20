@@ -14,7 +14,8 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'Message'   },
         {'id': 'Panel'     },
         {'id': 'FormInput' },
-        {'id': 'FormButton'}
+        {'id': 'FormButton'},
+        {'id': 'Schedule'  },
       ]
     };
     this._click = this._click.bind(this);
