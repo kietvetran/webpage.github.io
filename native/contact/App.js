@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Modal, TouchableHighlight } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -40,11 +40,16 @@ export default class App extends React.Component {
         }
       }
     };
+
     this._renderScreenOptions = this._renderScreenOptions.bind(this);
     this._renderTabBarIcon = this._renderTabBarIcon.bind(this);
+    this._openModal = this._openModal.bind(this);
+    this._closeModal = this._closeModal.bind(this);
   }
 
   render() {
+    const {modalConfig={}} = this.state;
+
     return (
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
@@ -55,13 +60,25 @@ export default class App extends React.Component {
               <Tab.Screen name="Organization" component={Organization}/>
               <Tab.Screen name="Profile" component={Profile}/>
             </Tab.Navigator>
+
+            { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}
+              transparent={false} visible={true} 
+                //onRequestClose={() => {this._click(null,'close-modal')}}
+              ><View style={styles.modalContainer}>{modalConfig.children}</View></Modal>
+            }
           </NavigationContainer>
         </SafeAreaView>
       </SafeAreaProvider>
     );
   }
 
+  /****************************************************************************
+  ****************************************************************************/
   _renderScreenOptions({ route }) {
+    route.action = {
+      'openModal' : this._openModal,
+      'closeModal': this._closeModal
+    };
     return {
       'tabBarIcon': (props) => this._renderTabBarIcon({...props, route})
     };
@@ -77,12 +94,23 @@ export default class App extends React.Component {
     //return <Icon name="rocket" size={30} color="#900" />;
     //return <Ionicons name={'user'} size={size} color={color} />;
   }
+
+  _closeModal() {
+    this.setState({'modalConfig': null});
+  }
+
+  _openModal( config={} ) {
+    config.children ? this.setState({'modalConfig': config}) : this._closeModal();
+  }
 }
 
 const styles = StyleSheet.create({
   'container': {
     'flex': 1,
     'backgroundColor': Theme.color.appBg
+  },
+  'modalContainer': {
+    'marginTop': 22
   }
 });
 

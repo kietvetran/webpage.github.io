@@ -12,9 +12,12 @@ import GuidelineSchedule from './GuidelineSchedule';
 
 const Stack = createStackNavigator();
 
-export default function Guideline() {
+export default function Guideline(props={}) {
   return (
-    <Stack.Navigator initialRouteName="Destop">
+    <Stack.Navigator initialRouteName="Destop" screenOptions={({route})=>{
+      route.action = (props.route || {}).action;
+      return {};
+    }}>
       <Stack.Screen name="Desktop" component={GuidelineDesktop} />
       <Stack.Screen name="Panel" component={GuidelinePanel} />
       <Stack.Screen name="Message" component={GuidelineMessage} />
