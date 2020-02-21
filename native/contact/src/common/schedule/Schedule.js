@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, Alert, Animated, Dimensions, TouchableOpacity } from 'react-native';
+import { Platform, Modal, StyleSheet, Text, View, Alert, Animated, Dimensions, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import FormButton from '../form/FormButton';
@@ -23,7 +23,7 @@ export default class Schedule extends React.Component {
 
   render() {
     //const {styleConfig={}} = this.props;
-    const {animation, schedule, header, scheduleDate, title} = this.state;
+    const {animation, schedule, header, scheduleDate, title, modalConfig={}} = this.state;
 
     return (
       <View style={styles.container}>
@@ -56,6 +56,18 @@ export default class Schedule extends React.Component {
             ))}
           </ScrollView>
         </View>
+
+         { !! modalConfig.data && <Modal animationType='slide'transparent={false} visible={true}>
+            <View style={styles.modalContainer}>
+              <View style={styles.modalBody}>
+                <Text style={styles.modalTitle}>Schedule modal</Text>
+              </View>
+              <View style={styles.modalFooter}>
+                <FormButton title="Close" onPress={()=>{this._click(null, 'close-schedule')}}/>
+              </View>
+            </View>
+          </Modal>
+        }
       </View>
     );        
   }
@@ -67,45 +79,53 @@ export default class Schedule extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _click( e, key, data ) {
-    if ( key === 'open-schedule' && data ) {
+
+    if ( key === 'close-schedule' ) {
+      this.setState({'modalConfig': undefined});
+    } else if ( key === 'open-schedule' && data ) {
+      this.setState({'modalConfig': {'data': data}});
     } else if ( key === 'get-schedule' && data && data.date instanceof Date ) {
       let state = {'scheduleDate': this._getDate(data.date) };
       state.schedule = this._getSchedule( state );
       this.setState( state );
       this.refs.scheduleScroller.scrollTo({'y': 0, 'animated': true});
     } else if ( (key === 'get-next-header' || key === 'get-previous-header') && data && data.date instanceof Date ) {
-      let {display, header} = this.state, isNext = key === 'get-next-header';
-      let state = {'headerDate': this._getDate(data.date) };
-      let list  = this._getHeader( state );
-
-      if ( display === 'weekly' ) {
-        state.header = list;
-        isNext ? this.refs.headerScroller.scrollTo({'x':0, 'animated': false}) :
-          this.refs.headerScroller.scrollToEnd({'animated': false});
-      } else {
-        if ( isNext ) {
-          list.shift();
-          header.pop();
-          state.header = header.concat( list );
-        } else {
-          list.pop();
-          header.shift();
-          state.header = list.concat( header );
-
-          let position = (list.length - 1) * headerItemWidth;
-          setTimeout( () => {
-            this.refs.headerScroller.scrollTo({'x':position, 'animated': false});
-          }, 50);
-        }
-      }
-
-      state.title = this._getTitle( state ); 
-      this.setState( state );
+      this._expandHeaderList( data, (key === 'get-next-header'));
     }
   }
 
   /****************************************************************************
   ****************************************************************************/
+  _expandHeaderList( data, isNext ) {
+    let {display, header} = this.state;
+    let state = {'headerDate': this._getDate(data.date) };
+    let list  = this._getHeader( state );
+
+    if ( display === 'weekly' ) {
+      state.header = list;
+      isNext ? this.refs.headerScroller.scrollTo({'x':0, 'animated': false}) :
+        this.refs.headerScroller.scrollToEnd({'animated': false});
+    } else {
+      if ( isNext ) {
+        list.shift();
+        header.pop();
+        state.header = header.concat( list );
+      } else {
+        list.pop();
+        header.shift();
+        state.header = list.concat( header );
+
+        let position = (list.length - 1) * headerItemWidth;
+        setTimeout( () => {
+          this.refs.headerScroller.scrollTo({'x':position, 'animated': false});
+        }, 50);
+      }
+    }
+
+    state.title = this._getTitle( state ); 
+    this.setState( state );
+  }
+
   _scrollHeaderIntoView( timestamp ) {
     if ( ! this.refs.headerScroller ) { return; }
 
@@ -340,11 +360,8 @@ const styles = StyleSheet.create({
   'scheduleItem': {
     'height': scheduleItemHeight,
     'position': 'relative',
-    'borderWidth': 1,
+    'borderTopWidth': 1,
     'borderTopColor': Theme.color.border,
-    'borderBottomColor': Theme.color.border,
-    'borderLeftColor': 'transparent',
-    'borderRightColor': 'transparent',
     'overflow': 'hidden'
   },
   'scheduleItemText': {
@@ -361,5 +378,21 @@ const styles = StyleSheet.create({
     'padding': 8,
     'borderTopWidth': 1,
     'borderTopColor': Theme.color.border
+  },
+
+  /***************************************************************************/
+  'modalContainer': {    
+    'marginTop': 22,
+    'padding': 10,
+    'flex': 1
+  },
+  'modalBody': {
+    'flex': 1,
+  },
+  'modalFooter': {
+  },
+  'modalTitle': {
+    ...Theme.font.h1,
+    'marginBottom': 10
   }
 });
