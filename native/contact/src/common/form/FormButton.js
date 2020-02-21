@@ -51,11 +51,12 @@ export default function FormButton({
         }
         { !! description && <Text style={[styles.plain, styles.inLeft, styles.buttonDescription, styleConfig.description]}>{description}</Text>}
         { !! children && <View>{children}</View> }
-      </View> : (
-        title ?
+      </View> : <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAutoNoIcon : null)]}>
+        { title ?
           <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> :
           <View>{children}</View>
-      )
+        }
+      </View>
     }
   </TouchableOpacity>
 };
@@ -79,6 +80,10 @@ const styles = StyleSheet.create({
     'paddingTop': 2,
     'paddingBottom': 0,
     'paddingRight': (Theme.buttonIcon.width + 5)
+  },
+  'iconWidthAutoNoIcon': {
+    'width': 'auto',
+    'padding': 0
   },
   'primary': {
     ...Theme.button,

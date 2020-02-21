@@ -11,7 +11,7 @@ class Step extends PureComponent {
   render () {
     let {nextStep, prevStep, isLast, finish, children, onChange, values} = this.props;
     return (
-      <View style={styles.container}>
+      <View style={styles.stepContainer}>
         <View style={styles.wizardBody}>
           { children({
               'onChange': onChange,
@@ -96,13 +96,18 @@ export default class Wizard extends PureComponent {
 
 const styles = StyleSheet.create({
   'container': {
+    'flex': 1
+  },
+  'stepContainer': {
     'flex': 1,
+    'paddingLeft': 10,
+    'paddingRight': 10,
   },
   'wizardBody': {
     'flex': 1,
-    'alignItems': 'center',
+    'alignItems': 'stretch',
     'justifyContent': 'center',
-  },
+ },
   'wizardFooter': {
   },
   'stepButton': {

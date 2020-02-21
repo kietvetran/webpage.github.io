@@ -16,7 +16,7 @@ export default class GuidelineWizard extends React.Component {
         <Wizard values={{'name': '', 'email': '', 'phone': ''}}>
           <Wizard.Step name="name">
             { ({onChange, values}) => (
-                <View>
+                <View style={styles.wizardContent}>
                   <FormInput labelConfig={{'text': 'Name', 'style': styles.labelField}} 
                     value={values.name}
                     onChangeText={(e)=>{onChange('name', e)}}
@@ -26,7 +26,7 @@ export default class GuidelineWizard extends React.Component {
           </Wizard.Step>
           <Wizard.Step name="email">
             { ({onChange, values}) => (
-                <View>
+                <View style={styles.wizardContent}>
                   <FormInput labelConfig={{'text': 'Email', 'style': styles.labelField}} 
                     value={values.email}
                     onChangeText={(e)=>{onChange('email', e)}}
@@ -36,7 +36,7 @@ export default class GuidelineWizard extends React.Component {
           </Wizard.Step>
           <Wizard.Step name="phone">
             { ({onChange, values}) => (
-                <View>
+                <View style={styles.wizardContent}>
                   <FormInput labelConfig={{'text': 'Phone', 'style': styles.labelField}} 
                     value={values.phone}
                     onChangeText={(e)=>{onChange('phone', e)}}
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
   'container': {
     'flex': 1,
     'flexDirection': 'column'
+  },
+  'wizardContent': {
   },
   'labelField': {
     'textAlign': 'center'
