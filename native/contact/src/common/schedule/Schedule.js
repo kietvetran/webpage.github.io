@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View, Alert, Animated, Dimensions, Touchabl
 import { ScrollView } from 'react-native-gesture-handler';
 
 import FormButton from '../form/FormButton';
+import FormInput from '../form/FormInput';
 
 import {convertTextToDate, convertDateToText} from '../../util/Function';
 import { Theme }  from '../style/Theme.js';
@@ -59,26 +60,67 @@ export default class Schedule extends React.Component {
     );        
   }
 
+  componentDidMount() {
+    this._scrollHeaderIntoView();
+  }
+
   /****************************************************************************
   ****************************************************************************/
   _click( e, key, data ) {
-    if ( key === 'toggle-schedule' && data ) {
-
+    if ( key === 'open-schedule' && data ) {
     } else if ( key === 'get-schedule' && data && data.date instanceof Date ) {
       let state = {'scheduleDate': this._getDate(data.date) };
       state.schedule = this._getSchedule( state );
       this.setState( state );
       this.refs.scheduleScroller.scrollTo({'y': 0, 'animated': true});
     } else if ( (key === 'get-next-header' || key === 'get-previous-header') && data && data.date instanceof Date ) {
+      let {display, header} = this.state, isNext = key === 'get-next-header';
       let state = {'headerDate': this._getDate(data.date) };
-      state.header   = this._getHeader( state );
-      state.title    = this._getTitle( state ); 
-      this.setState( state );
+      let list  = this._getHeader( state );
 
-      key === 'get-next-header' ?
-        this.refs.headerScroller.scrollTo({'x':0, 'animated': false}) :
-        this.refs.headerScroller.scrollToEnd({'animated': false});
+      if ( display === 'weekly' ) {
+        state.header = list;
+        isNext ? this.refs.headerScroller.scrollTo({'x':0, 'animated': false}) :
+          this.refs.headerScroller.scrollToEnd({'animated': false});
+      } else {
+        if ( isNext ) {
+          list.shift();
+          header.pop();
+          state.header = header.concat( list );
+        } else {
+          list.pop();
+          header.shift();
+          state.header = list.concat( header );
+
+          let position = (list.length - 1) * headerItemWidth;
+          setTimeout( () => {
+            this.refs.headerScroller.scrollTo({'x':position, 'animated': false});
+          }, 50);
+        }
+      }
+
+      state.title = this._getTitle( state ); 
+      this.setState( state );
     }
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  _scrollHeaderIntoView( timestamp ) {
+    if ( ! this.refs.headerScroller ) { return; }
+
+    let {header, scheduleDate} = this.state;
+    let stamp = timestamp || scheduleDate.getTime();
+    let index = -1, i = 0, length = header.length;
+    for ( i; i<length; i++ ) {
+      if ( stamp !== header[i].stamp ) { continue; }
+      index = i;
+      i = length;
+    }
+
+    if ( index < 0 ) { return; }
+    let position = (index * headerItemWidth) - headerItemWidth;
+    this.refs.headerScroller.scrollTo({'x':position, 'animated': false});
   }
 
   /****************************************************************************
@@ -124,9 +166,10 @@ export default class Schedule extends React.Component {
 
   _getSchedule( state ) {
     let date  = (state || this.state).scheduleDate  || this._getDate();
-    let begin = (state || this.state).scheduleBegin || 0;
+    let begin = (state || this.state).clockBegin || 0;
     let dayName   = (state || this.state).dayName || this._getDayName();
     let monthName = (state || this.state).monthName || this._getMonthName();
+    let planned = state.planned || {}; // Not in use jet-
 
     let list = [], i = 0, max = 24;
     let cloned = new Date(date.getTime()), number = cloned.getDate();
@@ -141,6 +184,7 @@ export default class Schedule extends React.Component {
       data.date     = new Date( data.stamp );
       data.timeText = this._getTimeTextByDate( data.date );
       data.dateText = dateText;
+      data.planned  = planned[data.stamp]; 
 
       if ( i && list[(i-1)] ) {
         list[(i-1)].interval.push(data.stamp);
@@ -149,9 +193,13 @@ export default class Schedule extends React.Component {
     }
 
     if ( begin > 0 && begin < 24 ) {
-      let sorted = [];
-      for ( i=begin; i<max; i++ ) { sorted.push( list[i] ); }
-      for ( i=0; i<begin; i++   ) { sorted.push( list[i] ); } 
+      let sorted = [], active = false;
+      for ( i=0; i<max; i++ ) {
+        active = active || list[i].planned || i === begin;
+        if ( ! active ) { continue; }
+        sorted.push( list[i] );
+      }
+
       list = sorted;
     }
 
@@ -195,9 +243,10 @@ export default class Schedule extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _initState( props ) {
-    let {display, scheduleDate, headerDate, scheduleBegin} = props, state = {
-      'scheduleBegin': scheduleBegin || 6,
-      'headerView': 7,
+    let {display, scheduleDate, headerDate, clockBegin, headerView} = props, state = {
+      'display': display || '',
+      'clockBegin': clockBegin || 6,
+      'headerView': headerView || 14,
       'dayName'   : this._getDayName(),
       'monthName' : this._getMonthName(),
       'dimension' : {
@@ -209,7 +258,7 @@ export default class Schedule extends React.Component {
     state.scheduleDate = this._getDate( scheduleDate );
     state.headerDate   = this._getDate((headerDate || scheduleDate));
 
-    if ( display === 'weekly' ) {
+    if ( state.display === 'weekly' ) {
       let day = state.headerDate.getDay() || 7;
       if ( day !== 1 ) {
         let number = state.headerDate.getDate() - (day - 1);
@@ -245,6 +294,8 @@ const styles = StyleSheet.create({
   },
   'contentContainerRowHeaderScroller': {
   },
+
+  /***************************************************************************/
   'headerItemArrow': {
     'width': Theme.buttonIcon.width,
     'position': 'relative'
@@ -284,6 +335,8 @@ const styles = StyleSheet.create({
     'paddingBottom': 8,
     'fontWeight': 'normal'
   },
+
+  /***************************************************************************/
   'scheduleItem': {
     'height': scheduleItemHeight,
     'position': 'relative',
