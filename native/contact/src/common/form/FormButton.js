@@ -6,71 +6,73 @@ import Image from 'react-native-remote-svg';
 
 export default function FormButton({
   title       = '',
-  label       = '',
   children    = null,
   type        = '',
+  value       = '',
+  description  = '',
   disabled    = false,
   onPress     = ()=>{},
   styleConfig = {}, 
   iconConfig  = {
-   'filter': {
-      'basic': require('../../../assets/icon/filter/filter.svg')
-    },
-   'phone': {
-      'basic': require('../../../assets/icon/phone/phone.svg')
-    },
-   'sms': {
-      'basic': require('../../../assets/icon/sms/sms.svg')
-    },
-   'email': {
-      'basic': require('../../../assets/icon/at/at.svg')
-    },
-   'search': {
-      'basic': require('../../../assets/icon/search/search.svg')
-    },
-    'brand': {
-      'basic': require('../../../assets/icon/hexagon/hexagon.svg')
-    },
-    'arrowLeft': {
-      'basic': require('../../../assets/icon/arrow/arrow-left.svg')
-    },
-    'arrowRight': {
-      'basic': require('../../../assets/icon/arrow/arrow-right.svg')
-    },
-    'arrowDown': {
-      'basic': require('../../../assets/icon/arrow/arrow-down.svg')
-    },
-    'arrowUp': {
-      'basic': require('../../../assets/icon/arrow/arrow-up.svg')
-    },
+    'filter'    : {'basic': require('../../../assets/icon/filter/filter.svg')},
+    'phone'     : {'basic': require('../../../assets/icon/phone/phone.svg')},
+    'sms'       : {'basic': require('../../../assets/icon/sms/sms.svg')},
+    'email'     : {'basic': require('../../../assets/icon/at/at.svg')},
+    'search'    : {'basic': require('../../../assets/icon/search/search.svg')},
+    'edit'      : {'basic': require('../../../assets/icon/edit/edit.svg')},
+    'brand'     : {'basic': require('../../../assets/icon/hexagon/hexagon.svg')},
+    'arrowLeft' : {'basic': require('../../../assets/icon/arrow/arrow-left.svg')},
+    'arrowRight': {'basic': require('../../../assets/icon/arrow/arrow-right.svg') },
+    'arrowDown' : {'basic': require('../../../assets/icon/arrow/arrow-down.svg')},
+    'arrowUp'   : {'basic': require('../../../assets/icon/arrow/arrow-up.svg')},
   }
 }) {
-  return <TouchableOpacity onPress={()=>{onPress()}} style={[styles.container, styleConfig.container]}>
-  { iconConfig[type] ? <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null)]}>
-      { title || children ? <View style={[styles.icon, styles.toRight]}>
-          <Image style={styles.image} source={iconConfig[type].basic}/>
-        </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
-      }
-      { !! label && <Text style={styles.invisibleText}>{label}</Text> }
-      { !! title && <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>}
-      { !! children && <View>{children}</View> }
-    </View> : (
-      title ?
-        <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> :
-        <View>{children}</View>
-    )
-  }
+  return <TouchableOpacity onPress={()=>{onPress()}} style={[
+    styles.container,
+    ((iconConfig[type] && (title || children)) || type === 'action') ? styles.containerAction : {},
+    styleConfig.container
+  ]}>
+    { iconConfig[type] || type === 'action' ?
+      <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null)]}>
+        { !! (iconConfig[type] || {}).basic && <React.Fragment>
+            { title || children ? <View style={[styles.icon, styles.toRight]}>
+                <Image style={styles.image} source={iconConfig[type].basic}/>
+              </View> : <Image style={styles.image} source={iconConfig[type].basic}/>
+            }
+          </React.Fragment>
+        }
+
+        { title && value ? <View style={styles.titleAndValueWrapper}>
+            <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>
+            <Text style={[styles.plain, styles.inRight, styles.buttonValue, styleConfig.value]}>{value}</Text>            
+          </View> : <React.Fragment>
+            { !! title && <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>}
+          </React.Fragment>
+        }
+        { !! description && <Text style={[styles.plain, styles.inLeft, styles.buttonDescription, styleConfig.description]}>{description}</Text>}
+        { !! children && <View>{children}</View> }
+      </View> : (
+        title ?
+          <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> :
+          <View>{children}</View>
+      )
+    }
   </TouchableOpacity>
 };
 
 const styles = StyleSheet.create({
   'container': {
   },
+  'containerAction': {
+    'backgroundColor': '#fff'
+  },
   'basic': {
     ...Theme.button
   },
   'icon': {
-    ...Theme.buttonIcon
+    ...Theme.buttonIcon,
+    'minHeight': Theme.buttonIcon.height,
+    'height': 'auto'
   },
   'iconWidthAuto': {
     'width': 'auto',
@@ -102,9 +104,6 @@ const styles = StyleSheet.create({
     'paddingTop': 10,
     'paddingBottom': 10,
   },
-  'invisibleText': {
-    ...Theme.invisibleText
-  },
   'image': {
     'flex': 1,
     'width': '100%',
@@ -120,6 +119,10 @@ const styles = StyleSheet.create({
     'textAlign':'left',
     'borderWidth': 0
   },
+  'inRight': {
+    'textAlign':'right',
+    'borderWidth': 0
+  },
   'plainButton': {
     'borderWidth': 0,
     'textAlign': 'left',
@@ -129,6 +132,24 @@ const styles = StyleSheet.create({
     'fontWeight': '500'    
   },
   'buttonText': {
+    'flex': 1,
     ...Theme.buttonText
+  },
+  'buttonValue': {
+    'flex': 1,
+    ...Theme.buttonText,
+    'fontWeight': 'normal',
+    'opacity': .8
+  },
+  'buttonDescription': {
+    ...Theme.buttonText,
+    'fontWeight': 'normal',
+    'opacity': .8,
+    'marginTop': -5
+  },
+  'titleAndValueWrapper': {
+    'flex': 1,
+    'flexDirection': 'row',
+    'alignItems': 'stretch',
   }
 });

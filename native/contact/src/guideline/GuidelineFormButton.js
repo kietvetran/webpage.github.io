@@ -18,6 +18,11 @@ export default class GuidelineFormInput extends React.Component {
             {'type': 'plain',     'title': 'plain'},
           ]
         }, { 
+          'name': 'Action button',
+          'list': [
+            {'type': 'edit', 'title': 'Name', 'value': 'Kiet Ve Tran', 'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt elit ac dolor tempus vulputate et commodo metus.'},
+          ]
+        }, { 
           'name': 'Icon',
           'list': [
             [
@@ -52,7 +57,7 @@ export default class GuidelineFormInput extends React.Component {
                         <View key={'collection-row-'+i+'-'+x} style={styles.collectionRow}>
                           { note.map( (data,j) =>(
                               <FormButton key={'button-'+i+'-'+x+'-'+j}
-                                type={data.type} title={data.title} styleConfig={{'container': styles.spacing}}
+                                type={data.type} title={data.title} value={data.value} description={data.description} styleConfig={{'container': styles.spacing}}
                               />
                           ) )}
                         </View>
@@ -60,7 +65,7 @@ export default class GuidelineFormInput extends React.Component {
                   </React.Fragment> : <React.Fragment>
                     { collection.list.map( (data,j) =>(
                         <FormButton key={'button-'+i+'-'+j}
-                          type={data.type} title={data.title} styleConfig={{'container': styles.spacing}}
+                          type={data.type} title={data.title} value={data.value} description={data.description} styleConfig={{'container': styles.spacing}}
                         />
                     ) )}
                   </React.Fragment>
@@ -93,8 +98,10 @@ const styles = StyleSheet.create({
   },
   'collectionTitle': {
     ...Theme.font.h2,
-    'paddingTop': Theme.space.small,
-    'paddingBottom': Theme.space.small
+    'backgroundColor': Theme.color.appBg,
+    'padding': Theme.space.small,
+    'paddingTop': 0,
+    'marginBottom': Theme.space.medium
   },
   'spacing': {
     'marginBottom': Theme.space.medium

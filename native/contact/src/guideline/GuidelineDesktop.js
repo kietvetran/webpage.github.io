@@ -32,8 +32,12 @@ export default class GuidelineDesktop extends React.Component {
               <FormButton type="arrowRight" title={page.id}
                 onPress={(e)=>{this._click(e,'switch-page', page)}}
               />
-            </View>            
+            </View>
           ) )}
+
+          <View tyle={styles.collection}>
+            <FormButton type="edit" title="Name" value="Kiet Ve Tran" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt elit ac dolor tempus vulputate et commodo metus. Phasellus vehicula tortor non turpis sodales consequat. Sed sed posuere mauris. Aenean dictum lorem pellentesque feugiat faucibus. Nam rhoncus nec ligula quis condimentum. Maecenas scelerisque, nunc et dictum euismod, leo diam fringilla dolor, non elementum sem ligula eu sapien. Curabitur massa metus,"/>
+          </View>
         </ScrollView>
       </View>
     );
@@ -58,7 +62,6 @@ const styles = StyleSheet.create({
   },
   'collection': {
     'marginBottom': Theme.space.medium,
-    'backgroundColor': '#fff'
   },
   'spacing': {
     'marginBottom': Theme.space.medium
