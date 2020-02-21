@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
     'lineHeight': (Theme.inputLabel.fontSize + 12),
   },
   'textfield': {
-    ...Theme.inputText
+    ...Theme.inputText,
+    'backgroundColor': '#fff'
   },
   'texterror': {
     ...Theme.inputError,

@@ -5,7 +5,7 @@ import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
 
 export default function FormButton({
-  title       = '',
+  title       = 'kiet',
   children    = null,
   type        = '',
   value       = '',

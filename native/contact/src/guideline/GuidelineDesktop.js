@@ -16,6 +16,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'FormInput' },
         {'id': 'FormButton'},
         {'id': 'Schedule'  },
+        {'id': 'Wizard'    },
       ]
     };
     this._click = this._click.bind(this);
@@ -34,10 +35,6 @@ export default class GuidelineDesktop extends React.Component {
               />
             </View>
           ) )}
-
-          <View tyle={styles.collection}>
-            <FormButton type="edit" title="Name" value="Kiet Ve Tran" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt elit ac dolor tempus vulputate et commodo metus. Phasellus vehicula tortor non turpis sodales consequat. Sed sed posuere mauris. Aenean dictum lorem pellentesque feugiat faucibus. Nam rhoncus nec ligula quis condimentum. Maecenas scelerisque, nunc et dictum euismod, leo diam fringilla dolor, non elementum sem ligula eu sapien. Curabitur massa metus,"/>
-          </View>
         </ScrollView>
       </View>
     );
