@@ -1,22 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {Text, View} from 'react-native';
 
-export default class Profile extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Profile</Text>
-      </View>
-    );
-  }
-}
+import { createStackNavigator } from '@react-navigation/stack';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import ProfileDesktop from './ProfileDesktop';
+import ProfileField from './ProfileField';
+
+const Stack = createStackNavigator();
+
+export default function Profile(props={}) {
+  return (
+    <Stack.Navigator initialRouteName="destop" screenOptions={({route})=>{
+      route.action = (props.route || {}).action;
+      return {};
+    }}>
+      <Stack.Screen name="desktop" component={ProfileDesktop} />
+      <Stack.Screen name="field" component={ProfileField} />
+    </Stack.Navigator>
+  );
+};

@@ -10,7 +10,7 @@ export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
       styles.textfield,
       styleConfig.field,
       (icon.type ? (icon.position === 'start' ? styles.searchFieldStartSpace : styles.searchFieldEndSpace) : {}),
-      (error ? styles.texterror : {})
+      (error ? styles.textError : {})
     ]}/>
     { !! icon.type && <View style={icon.position === 'start' ? styles.iconStart : styles.iconEnd}>
         { icon.onPress ? <FormButton type={icon.type} onPress={()=>{icon.onPress()}} /> : 
@@ -24,8 +24,8 @@ export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
 };
 
 export const Selector = ({list = [], styleConfig, error, ...rest}) => {
-  return <View style={[styles.selectorContainer, styleConfig.container, (error ? styles.texterror : {})]}>
-    <Picker style={[styles.selector, styleConfig.selector, (error ? styles.texterror : {})]} {...rest}>
+  return <View style={[styles.selectorContainer, styleConfig.container, (error ? styles.textError : {})]}>
+    <Picker style={[styles.selector, styleConfig.selector, (error ? styles.textError : {})]} {...rest}>
       {list.map( (data,i) => (
         <Picker.Item key={'form-picker-'+i} label={data.name || data.label || data.id} value={data.id || data.value} />
       ) )}
@@ -71,6 +71,7 @@ export default function FormInput({
       {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
       {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
       {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
+      { !! error && <Text style={[styles.textError, styles.textErrorSpace]}>{error}</Text> }
     </View> : <React.Fragment>
       {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} />}
       {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
@@ -82,7 +83,6 @@ export default function FormInput({
 
 const styles = StyleSheet.create({
   'container': {
-    'flex': 1,
     'position': 'relative'
   },
   'inlineContainer': {
@@ -117,8 +117,12 @@ const styles = StyleSheet.create({
     ...Theme.inputText,
     'backgroundColor': '#fff'
   },
-  'texterror': {
+  'textError': {
     ...Theme.inputError,
+  },
+  'textErrorSpace': {
+    'marginTop': 5,
+    'padding': 5
   },
   'textarea': {
     'textAlignVertical': 'top',
