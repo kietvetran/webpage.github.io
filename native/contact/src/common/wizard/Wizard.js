@@ -1,34 +1,50 @@
 import React, {PureComponent} from 'react';
-import { StyleSheet, Text, View, Alert, Animated} from 'react-native';
+import { StyleSheet, Text, View, Alert, Animated, Dimensions } from 'react-native';
 
 import FormButton from '../form/FormButton';
-
-import {convertTextToDate, convertDateToText} from '../../util/Function';
 import { Theme }  from '../style/Theme.js';
 
+
+const { width } = Dimensions.get('window');
+
 class Step extends PureComponent {
+  state  = {
+    'animation': new Animated.Value((this.props.run === 'next' ? width: (this.props.run === 'previous' ? (width*-1) : 0))),
+    'animationConfig': {'duration': 250, 'delay': 0, 'toValue': 0}
+  };
 
   render () {
-    let {nextStep, prevStep, isLast, finish, children, onChange, values} = this.props;
+    let {animation} = this.state;
+    let {nextStep, prevStep, isLast, finish, children, onChange, values, run} = this.props;
+
     return (
-      <View style={styles.stepContainer}>
-        <View style={styles.wizardBody}>
-          { children({
-              'onChange': onChange,
-              'values': values
-            })
-          }
+      <Animated.View style={[styles.stepContainer, {'marginLeft': animation}]}>
+        <View style={styles.stepContent}>
+          <View style={styles.wizardBody}>
+            { children({
+                'onChange': onChange,
+                'values': values
+              })
+            }
+          </View>
+          <View style={styles.wizardFooter}>
+            { isLast ?
+                <FormButton type="primary" title="Finish" styleConfig={{'container': styles.stepButton}} onPress={finish}/>
+                :
+                <FormButton type="secondary" title="Next" styleConfig={{'container': styles.stepButton}} onPress={nextStep}/>
+            }
+            <FormButton type="plain" title="Previous" styleConfig={{'container': styles.stepButton}} onPress={prevStep}/>
+          </View>
         </View>
-        <View style={styles.wizardFooter}>
-          { isLast ?
-              <FormButton type="primary" title="Finish" styleConfig={{'container': styles.stepButton}} onPress={finish}/>
-              :
-              <FormButton type="secondary" title="Next" styleConfig={{'container': styles.stepButton}} onPress={nextStep}/>
-          }
-          <FormButton type="plain" title="Previous" styleConfig={{'container': styles.stepButton}} onPress={prevStep}/>
-        </View>
-      </View>
+      </Animated.View>
     );
+  }
+
+  componentDidMount() {
+    let {animationConfig, animation} = this.state, {run} = this.props;
+    if ( run !== 'next' && run !== 'previous' ) { return; }
+
+    Animated.timing( animation, animationConfig ).start();
   }
 };
 
@@ -47,7 +63,8 @@ export default class Wizard extends PureComponent {
     let length = (children || []).length;
     if ( ! length || index === (length - 1) ) { return; }
 
-    this.setState( prevState => ({'index': (prevState.index + 1) }));
+    this.setState({'index': (index + 1), 'run': 'next'});
+    //this.setState( prevState => ({'index': (prevState.index + 1) }));
   }
 
   _prevStep = () => {
@@ -55,7 +72,8 @@ export default class Wizard extends PureComponent {
     let length = (children || []).length;
     if ( ! length || index === 0 ) { return; }
 
-    this.setState( prevState => ({'index': (prevState.index - 1) }));
+    this.setState({'index': (index - 1), 'run': 'previous'});
+    //this.setState( prevState => ({'index': (prevState.index - 1) }));
   }
 
   _finish = () => {
@@ -73,10 +91,12 @@ export default class Wizard extends PureComponent {
   }
 
   render() {
-    const {index, values} = this.state, {children} = this.props;
+    const {index, values, run} = this.state, {children} = this.props;
 
     return (
       <View style={styles.container}>
+        <Text style={styles.stepCounter}>{'Step '+ (index+1)+' / '+ children.length}</Text>
+
         { React.Children.map( children, (element, i) => {
             return index === i ? React.cloneElement( element, {
               'step'    : index,
@@ -85,7 +105,8 @@ export default class Wizard extends PureComponent {
               'prevStep': this._prevStep,
               'finish'  : this._finish,
               'onChange': this._onChange,
-              'values'  : values
+              'values'  : values,
+              'run'     : run
             }) : null;
         }) }
       </View>
@@ -93,15 +114,32 @@ export default class Wizard extends PureComponent {
   }
 };
 
-
 const styles = StyleSheet.create({
   'container': {
     'flex': 1
   },
   'stepContainer': {
     'flex': 1,
+    'position': 'absolute',
+    'top': 0,
+    'left': 0,
+    'right': 0,
+    'bottom': 0
+  },
+  'stepCounter': {
+    'position': 'absolute',
+    'top': 10,
+    'left': 0,
+    'right': 0,
+    ...Theme.font.basic,
+    'textAlign': 'center',
+    'opacity': .5
+  },
+  'stepContent': {
+    'flex':1,
+    'width': width,
     'paddingLeft': 10,
-    'paddingRight': 10,
+    'paddingRight': 10    
   },
   'wizardBody': {
     'flex': 1,
