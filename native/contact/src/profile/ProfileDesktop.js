@@ -8,25 +8,6 @@ import FormButton from '../common/form/FormButton';
 import {ProfileDataList} from './ProfileDataList';
 import { Theme }  from '../common/style/Theme.js';
 
-/*
-const form = [
-  {
-    'type': 'field', 'title': 'Fullame', 'name': 'name', 'value': '',
-    'validation': [
-      {'rule': 'required', 'message': 'The name is required' }
-    ]
-  },
-  {'type': 'field', 'title': 'Email', 'name': 'email', 'value': '',
-    'validation': [
-    ]
-  },
-  {'type': 'field', 'title': 'Phone', 'name': 'phone', 'value': '', 'format': 'phone',
-    'validation': [
-    ]
-  },
-];
-*/
-
 export default class PorfileDesktop extends React.Component {
   constructor(props) {
     super(props);

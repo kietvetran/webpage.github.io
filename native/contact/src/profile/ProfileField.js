@@ -7,7 +7,7 @@ import FormButton from '../common/form/FormButton';
 import FormInput from '../common/form/FormInput';
 
 import {formatPhone, formatAmount} from '../util/ValueFormat';
-import {validatePhone, validateAmount} from '../util/ValueValidation';
+import {validatePhone, validateAmount, validateValueOfType} from '../util/ValueValidation';
 
 import { Theme }  from '../common/style/Theme.js';
 
@@ -135,6 +135,8 @@ export default class ProfileField extends React.Component {
         return value && ! validatePhone( value );
       } else if ( note.rule === 'amount' ) {
         return value && ! validateAmount( value );
+      } else if ( note.rule ) {
+        return value && ! validateValueOfType( value, note.rule );
       }
       return false;
     });

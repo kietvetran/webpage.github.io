@@ -115,3 +115,24 @@ export const validateOrganization = (value, country) => {
   return option[country] ? text.length === option[country] :
     text.length === option.no;
 };
+
+/******************************************************************************
+******************************************************************************/
+export const validateValueOfType = (value, type) => {
+  let text = (value || '').replace(/\s+/g, ''), out = true;
+
+  if (type === 'email') {
+    out = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test( text );
+  } else if (type === 'countrycode') {
+    out = /^\+([0-9]{2}(\s+)?|[0-9]{3})$/i.test( text );
+  } else if (type === 'mobile' || type === 'telephone' || type === 'phone') {
+    out = /^[1-9][0-9]{7,}$/i.test( text );
+  } else if (type === 'ratio') {
+    out = /^[0-9]{1,2}\:[0-9]{1,2}$/i.test( text );
+  } else if (type === 'urlStartWithHTTP') {
+    out = /^http(s)?:\/\//ig.test(text);
+  } else if (type === 'url') {
+    out = /^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/ig.test(text);
+  }  
+  return out;
+}

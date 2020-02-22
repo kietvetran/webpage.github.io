@@ -9,9 +9,17 @@ export const ProfileDataList = [
     ]
 	}, {
     'type' : 'field',
+    'title': 'Email',
+    'name' : 'email',
+    'value': '',
+    'validation': [
+      {'rule': 'email', 'message': 'The email is invalid' }
+    ]
+	}, {
+    'type' : 'field',
     'title': 'Phone',
     'name' : 'phone',
-    'value': '97734656',
+    'value': '',
     'format': 'phone',
     'validation': [
       {'rule': 'phone', 'message': 'The phone number is incorrect' }
