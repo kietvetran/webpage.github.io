@@ -9,7 +9,8 @@ export default function FormButton({
   children    = null,
   type        = '',
   value       = '',
-  description  = '',
+  description = '',
+  leftIcon    = '', 
   disabled    = false,
   onPress     = ()=>{},
   styleConfig = {}, 
@@ -25,15 +26,17 @@ export default function FormButton({
     'arrowRight': {'basic': require('../../../assets/icon/arrow/arrow-right.svg') },
     'arrowDown' : {'basic': require('../../../assets/icon/arrow/arrow-down.svg')},
     'arrowUp'   : {'basic': require('../../../assets/icon/arrow/arrow-up.svg')},
+    'checked'   : {'basic': require('../../../assets/icon/checked/checked.svg')},
+    'blank'     : {'basic': require('../../../assets/icon/blank/blank.svg')},
   }
 }) {
   return <TouchableOpacity onPress={()=>{onPress()}} style={[
     styles.container,
-    ((iconConfig[type] && (title || children)) || type === 'action') ? styles.containerAction : {},
+    (((iconConfig[type] || iconConfig[leftIcon]) && (title || children)) || type === 'action') ? styles.containerAction : {},
     styleConfig.container
   ]}>
-    { iconConfig[type] || type === 'action' ?
-      <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null)]}>
+    { iconConfig[type] || type === 'action' || iconConfig[leftIcon] ?
+      <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null), (iconConfig[leftIcon] ? styles.iconWidthLeft : null)]}>
         { !! (iconConfig[type] || {}).basic && <React.Fragment>
             { title || children ? <View style={[styles.icon, styles.toRight]}>
                 <Image style={styles.image} source={iconConfig[type].basic}/>
@@ -41,6 +44,11 @@ export default function FormButton({
             }
           </React.Fragment>
         }
+        { !! (iconConfig[leftIcon] || {}).basic &&  <View style={[styles.icon, styles.toLeft]}>
+            <Image style={styles.image} source={iconConfig[leftIcon].basic}/>
+          </View>
+        }
+
 
         { title && value ? <View style={styles.titleAndValueWrapper}>
             <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>
@@ -75,11 +83,16 @@ const styles = StyleSheet.create({
     'minHeight': Theme.buttonIcon.height,
     'height': 'auto'
   },
+  'iconWidthLeft': {
+    'paddingLeft': Theme.buttonIcon.width,
+    'borderWidth': 1,
+    'borderColor': Theme.color.border
+  },
   'iconWidthAuto': {
     'width': 'auto',
     'paddingTop': 2,
     'paddingBottom': 0,
-    'paddingRight': (Theme.buttonIcon.width + 5)
+    'paddingRight': Theme.buttonIcon.width
   },
   'iconWidthAutoNoIcon': {
     'width': 'auto',
@@ -113,6 +126,12 @@ const styles = StyleSheet.create({
     'flex': 1,
     'width': '100%',
     'height': '100%'
+  },
+  'toLeft': {
+    'position': 'absolute',
+    'left': 0,
+    'top': 0,
+    'padding': 12
   },
   'toRight': {
     'position': 'absolute',

@@ -165,5 +165,12 @@ export const Theme = {
     'borderWidth': 1,
     'borderColor': 'red',
     'borderStyle': 'solid',
+  },
+  'debugFixed': {    
+    'position': 'fixed',
+    'left': 0,
+    'top': 0,
+    'bottom': 0,
+    'right': 0
   }
 };

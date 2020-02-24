@@ -54,7 +54,7 @@ export default class App extends React.Component {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <NavigationContainer>
-            <Tab.Navigator initialRouteName="Guideline" screenOptions={this._renderScreenOptions}>
+            <Tab.Navigator initialRouteName="Profile" screenOptions={this._renderScreenOptions}>
               <Tab.Screen name="Contact" component={Contact}/>
               <Tab.Screen name="Organization" component={Organization}/>
               <Tab.Screen name="Profile" component={Profile}/>

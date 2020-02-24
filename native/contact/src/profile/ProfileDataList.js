@@ -33,5 +33,19 @@ export const ProfileDataList = [
     'validation': [
       {'rule': 'amount', 'message': 'The field is incorrect' }
     ]
-	}
+	}, {
+    'type' : 'selection',
+    'title': 'Friend',
+    'name' : 'friend',
+    'value': '',
+    'validation': [
+    ]
+  }, {
+    'type' : 'selection',
+    'title': 'Inviation',
+    'name' : 'invitation',
+    'value': '',
+    'validation': [
+    ]
+  }
 ];
