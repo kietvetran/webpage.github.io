@@ -13,7 +13,7 @@ export default class GuidelineWizard extends React.Component {
   render() {
     return (
       <View style={styles.container} >
-        <Wizard values={{'name': '', 'email': '', 'phone': ''}}>
+        <Wizard values={{'name': '', 'email': '', 'phone': ''}} step="clickable">
           <Wizard.Step name="name">
             { ({onChange, values}) => (
                 <View style={styles.wizardContent}>
