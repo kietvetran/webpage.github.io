@@ -3,6 +3,7 @@ import { Platform, StyleSheet, Text, View, Alert, Animated, Dimensions } from 'r
 import { ScrollView } from 'react-native-gesture-handler';
 
 // https://www.instamobile.io/react-native-tutorials/react-native-charts/
+// https://aboutreact.com/react-native-chart-kit/
 import {
   LineChart,
   BarChart,
@@ -115,8 +116,29 @@ export const ChartKitPieChart = ({click=()=>{}}) => {
       'color': (opacity=1) => ( 'rgba(0, 0, 0, '+opacity+')' )
     }}
   />
+};
+
+export const ChartKitProgress = ({click=()=>{}}) => {
+  return null;
+  return <ProgressChart data={[0.4, 0.6, 0.8]} width={width} height={220}
+    chartConfig={{
+      backgroundColor: '#1cc910',
+      backgroundGradientFrom: '#eff3ff',
+      backgroundGradientTo: '#efefef',
+      decimalPlaces: 2,
+      color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+      style: {
+        borderRadius: 16,
+      },
+    }}
+    style={{
+      marginVertical: 8,
+      borderRadius: 16,
+    }}
+  />
 
 };
+
 
 export default class GuidelineChartKit extends React.Component {
   constructor(props) {
@@ -142,6 +164,9 @@ export default class GuidelineChartKit extends React.Component {
           </View>
           <View style={styles.collection}>
             <ChartKitPieChart click={this._click}/>
+          </View>
+          <View style={styles.collection}>
+            <ChartKitProgress click={this._click}/>
           </View>
         </ScrollView>
       </View>
