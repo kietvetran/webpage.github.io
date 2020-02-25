@@ -18,7 +18,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'formButton'},
         {'id': 'schedule'  },
         {'id': 'wizard'    },
-        {'id': 'pieChart'  },
+        {'id': 'chart'  },
       ]
     };
     this._click = this._click.bind(this);

@@ -88,7 +88,7 @@ export const MyXAxis = ({click=()=>{}}) => {
   );
 };
 
-export default class GuidelinePieChart extends React.Component {
+export default class GuidelineChart extends React.Component {
   constructor(props) {
     super(props);
     this.state   = {

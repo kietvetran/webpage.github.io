@@ -10,7 +10,7 @@ import GuidelineFormInput from './GuidelineFormInput';
 import GuidelineFormButton from './GuidelineFormButton';
 import GuidelineSchedule from './GuidelineSchedule';
 import GuidelineWizard from './GuidelineWizard';
-import GuidelinePieChart from './GuidelinePieChart';
+import GuidelineChart from './GuidelineChart';
 
 
 const Stack = createStackNavigator();
@@ -28,7 +28,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="formButton" component={GuidelineFormButton} />
       <Stack.Screen name="schedule" component={GuidelineSchedule} />
       <Stack.Screen name="wizard" component={GuidelineWizard} />
-      <Stack.Screen name="pieChart" component={GuidelinePieChart} />
+      <Stack.Screen name="chart" component={GuidelineChart} />
     </Stack.Navigator>
   );
 };
