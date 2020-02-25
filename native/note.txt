@@ -39,6 +39,14 @@ install expo app in mobile
 
 Scane the QR-code and turn on tunnel connection
 
+
+===================================================
+rm -rf node_modules
+rm -rf $TMPDIR/react-* --reset-cache
+rm -rf node_modules/react-native/packager/packager.sh --reset-cache
+npm cache clean
+npm i
+
 ============= react navite component ===============================================================
 https://facebook.github.io/react-native/docs/textinput
 https://facebook.github.io/react-native/docs/native-components-android

@@ -1,3 +1,14 @@
+export const capitalize = (text) => {
+  //return typeof(text) === 'string' ? (text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()) : '';
+  if ( typeof(text) !== 'string' ) { return ''; }
+  
+  let reg = /^(\s+)?([a-zæøå])/, result = text.match( reg );
+  if ( result && result[2] ) {
+    text = text.replace( result[2], result[2].toUpperCase() );
+  }
+  return text;
+}
+
 /******************************************************************************
 ******************************************************************************/
 export const getShortname = (name) => {

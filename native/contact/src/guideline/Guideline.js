@@ -10,22 +10,25 @@ import GuidelineFormInput from './GuidelineFormInput';
 import GuidelineFormButton from './GuidelineFormButton';
 import GuidelineSchedule from './GuidelineSchedule';
 import GuidelineWizard from './GuidelineWizard';
+import GuidelinePieChart from './GuidelinePieChart';
+
 
 const Stack = createStackNavigator();
 
 export default function Guideline(props={}) {
   return (
-    <Stack.Navigator initialRouteName="Destop" screenOptions={({route})=>{
+    <Stack.Navigator initialRouteName="sestop" screenOptions={({route})=>{
       route.action = (props.route || {}).action;
       return {};
     }}>
-      <Stack.Screen name="Desktop" component={GuidelineDesktop} />
-      <Stack.Screen name="Panel" component={GuidelinePanel} />
-      <Stack.Screen name="Message" component={GuidelineMessage} />
-      <Stack.Screen name="FormInput" component={GuidelineFormInput} />
-      <Stack.Screen name="FormButton" component={GuidelineFormButton} />
-      <Stack.Screen name="Schedule" component={GuidelineSchedule} />
-      <Stack.Screen name="Wizard" component={GuidelineWizard} />
+      <Stack.Screen name="desktop" component={GuidelineDesktop} />
+      <Stack.Screen name="panel" component={GuidelinePanel} />
+      <Stack.Screen name="message" component={GuidelineMessage} />
+      <Stack.Screen name="formInput" component={GuidelineFormInput} />
+      <Stack.Screen name="formButton" component={GuidelineFormButton} />
+      <Stack.Screen name="schedule" component={GuidelineSchedule} />
+      <Stack.Screen name="wizard" component={GuidelineWizard} />
+      <Stack.Screen name="pieChart" component={GuidelinePieChart} />
     </Stack.Navigator>
   );
 };
