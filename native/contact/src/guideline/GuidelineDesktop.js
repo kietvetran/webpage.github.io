@@ -20,6 +20,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'wizard'    },
         {'id': 'chart'     },
         {'id': 'chartKit'  },
+        {'id': 'chartF2'  },
       ]
     };
     this._click = this._click.bind(this);
