@@ -6,30 +6,32 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Header from './Header';
 import EmployeeCard from './EmployeeCard';
 import Message from '../common/message/Message';
+
+import {createRegexp} from "../util/Function";
 import {isBirthday} from '../util/Function';
 import { PeopleList } from '../../assets/data/PeopleList';
 import { Theme }  from '../common/style/Theme.js';
 
 export default class Contact extends React.Component {
   static defaultProps = {
-    'headerConfig': {'scolled': 0, 'max': 40, 'timer': 0}
+    'headerConfig': {'scolled': 0, 'max': 40, 'timer': 0},
+    'timer': {'search': 0},
+    'expanding': {'gap': 200, 'action': false}
   };
 
   constructor(props) {
     super(props);
     this.state   = {
-      'keyword': '',
-      'peopleList': PeopleList,
-      'resultList': PeopleList.filter( (d,i) => i < 20 ),
-      'birthdayList': this._getBirthdayList(PeopleList)
+      ...this._initState( props )
     };
     this._click  = this._click.bind(this);
     this._change = this._change.bind(this);
     this._scroll = this._scroll.bind(this);
+    this._search = this._search.bind(this);
   }  
 
   render() {
-    const {peopleList, resultList, birthdayList } = this.state;
+    const {search, birthdayList} = this.state;
 
     return (
       <View style={styles.container}>
@@ -49,9 +51,9 @@ export default class Contact extends React.Component {
             </View>
           }
 
-          { (resultList || []).length === 0 ? <Message type="empty" text="Empty..."/> : <React.Fragment>
+          { (search.matched || []).length === 0 ? <Message type="empty" text="Empty..."/> : <React.Fragment>
               <View style={styles.verticleListContainer}>
-                { resultList.map( (data, i) => (
+                { search.matched.map( (data, i) => (
                     <EmployeeCard key={'employee-'+i} data={data} styleContainer={{'marginBottom': 10}}
                       onPress={this._click}
                     />
@@ -77,6 +79,14 @@ export default class Contact extends React.Component {
   }
 
   _change( e, key ) {
+
+    if ( key === 'search' ) {
+      //this.setState({'search': {...this.state.search, 'text': e}});
+      clearTimeout( this.props.timer.search || 0 );
+      this.props.timer.search = setTimeout( () => {
+        this._search({'text': e});
+      }, 300);
+    }
   }
 
   _scroll( e, key ) {
@@ -87,12 +97,41 @@ export default class Contact extends React.Component {
 
   /****************************************************************************
   ****************************************************************************/
+  _search( config={}, wantOutput ) {
+    let {search} = this.state || {};
+
+    let list  = config.list || search.list;
+    let length = list.length;
+    let text  = config.text    || '';
+    let i     = config.stopped || 0;
+    let max   = config.view    || search.view || 20;
+    let reg   = createRegexp(text.trim(),1,1,3);
+    let state = {'matched': []};
+
+    for ( i; i<length; i++ ){
+      if ( ! list[i].name.match(reg) ) { continue; } 
+      
+      state.matched.push( list[i] );
+      if ( state.matched.length === max ) {
+        state.stopped = i;
+        i = length;
+      }
+    }
+
+    state.text = text;
+    return wantOutput ? state : this.setState({
+      'search': {...search, ...state}
+    });
+  }
+
   _verifyHeaderToggling( e ) {
     if ( ! e || ! this.refs.header ) { return; }
 
-    let hideHeader = this.refs.header.getHide(), {headerConfig} = this.props;
+    let {headerConfig, expanding} = this.props;
+    let hideHeader = this.refs.header.getHide();
     let current  = e.nativeEvent.contentOffset.y || 0;
 
+    // verify hiding of header.
     if ( current > headerConfig.max ) {
       let hide = current >= headerConfig.scolled;
       if ( hide !== hideHeader ) {
@@ -101,7 +140,25 @@ export default class Contact extends React.Component {
     } else if ( hideHeader ) {
       this.refs.header.toggleHide(false);
     }
-    headerConfig.scolled = current;
+
+    headerConfig.scolled = current;  
+
+    // verify expading of the list.
+    let contentHeight = e.nativeEvent.contentSize.height    || 0;
+    let viewHeight = e.nativeEvent.layoutMeasurement.height || 0;
+    if ( contentHeight && viewHeight && current && ! expanding.action ) {
+      if ( (contentHeight - (viewHeight + current)) < expanding.gap ) {
+        expanding.action = true;
+        let {search} = this.state, note = this._search(search, true);
+
+        let matched = (search.matched || []).concat((note.matched || []));
+        this.setState({'search': {...search, ...note, 'matched': matched}});
+
+        setTimeout( () => {
+          expanding.action = false;
+        }, 100);
+      }      
+    }
   }
 
   /****************************************************************************
@@ -116,6 +173,26 @@ export default class Contact extends React.Component {
       return prev;
     }, []);
   }
+
+  _initState( props ) {
+    let state = {
+      'birthdayList': this._getBirthdayList( PeopleList ),
+      'search': {
+        'view': 30,
+        'list': PeopleList,
+        'pin' : {}, 
+        'matched' : null
+      }
+    };
+
+    state.search.list.forEach( (data) => {
+      state.search.pin[data.id] = data;
+    });
+
+    state.search = {...state.search, ...this._search(state.search, true)}
+    return state;
+  }
+
 }
 
 const styles = StyleSheet.create({

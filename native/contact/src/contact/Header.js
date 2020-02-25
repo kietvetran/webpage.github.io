@@ -14,13 +14,13 @@ export default class Header extends React.Component {
     const {keyword, click, change} = this.props;
     const {hide} = this.state;
 
-    return hide ? null : <View style={styles.container}>
+    return <View style={[styles.container, (hide ? styles.hide : {})]}>
       <View style={styles.wrapper}>
         <View style={styles.left}>
           <FormButton label="MyApp" type="brand" />
         </View>
         <View style={styles.middle}>
-          <FormInput styleConfig={{'field':styles.searchField}} onChange={(e)=>{change(e,'search')}}
+          <FormInput styleConfig={{'field':styles.searchField}} onChangeText={(e)=>{change(e,'search')}}
             icon={{'type':'search'}}
           />
         </View>
@@ -48,6 +48,15 @@ const styles = StyleSheet.create({
     'flexDirection': 'row',
     'paddingTop': Theme.space.headerGap,
     'paddingBottom': Theme.space.headerGap,
+    'position': 'relative',
+    'left': 0,
+    'top': 0,
+    'right': 0,
+    'backgroundColor': '#fff',
+    'zIndex': 10
+  },
+  'hide': {
+    'top': -100
   },
   'left': {
   },

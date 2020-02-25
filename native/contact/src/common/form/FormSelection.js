@@ -9,6 +9,11 @@ import {createRegexp} from "../../util/Function";
 import { Theme }  from '../style/Theme.js';
 
 export default class FormSelection extends React.Component {
+  static defaultProps = {
+    'timer': {'search': 0},
+    'expanding': {'gap': 200, 'action': false}
+  };
+
   constructor(props) {
     super(props);
     this.state  = {
@@ -16,6 +21,7 @@ export default class FormSelection extends React.Component {
     };
     this._click  = this._click.bind(this);
     this._change = this._change.bind(this);
+    this._scroll = this._scroll.bind(this);
   }
 
   render() {
@@ -30,7 +36,9 @@ export default class FormSelection extends React.Component {
           />
         </View>
         <View style={styles.containerBody}>
-          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}
+            onScroll={(e)=>{this._scroll(e, 'scroll-vertical-list')}}
+          >
             { !! selected.list.length && <View style={styles.selectedWrapper}>
                 { selected.list.map((data,i) => (
                     <FormButton key={'matched-item-'+i} title={data.name} leftIcon="checked"
@@ -81,12 +89,35 @@ export default class FormSelection extends React.Component {
 
   _change(e, key) {
     if ( key === 'search' ) {
-      this.setState({'search': {...this.state.search, 'text': e}});
-      clearTimeout( this.state.timer.search );
-      this.state.timer.search = setTimeout( () => {
+      //this.setState({'search': {...this.state.search, 'text': e}});
+      clearTimeout( this.props.timer.search || 0 );
+      this.props.timer.search = setTimeout( () => {
         this._search({'text': e});
       }, 300);
     } 
+  }
+
+  _scroll( e, key ) {
+    if ( key === 'scroll-vertical-list' ) {
+      let { expanding}  = this.props;
+      let current       = e.nativeEvent.contentOffset.y || 0;
+      let contentHeight = e.nativeEvent.contentSize.height    || 0;
+      let viewHeight    = e.nativeEvent.layoutMeasurement.height || 0;
+
+      if ( contentHeight && viewHeight && current && ! expanding.action ) {
+        if ( (contentHeight - (viewHeight + current)) < expanding.gap ) {
+          expanding.action = true;
+          let {search} = this.state, note = this._search(search, true);
+
+          let matched = (search.matched || []).concat((note.matched || []));
+          this.setState({'search': {...search, ...note, 'matched': matched}});
+
+          setTimeout( () => {
+            expanding.action = false;
+          }, 100);
+        }      
+      }
+    }
   }
 
   /****************************************************************************
@@ -135,14 +166,14 @@ export default class FormSelection extends React.Component {
       }
     }
 
-    return  wantOutput ? state : this.setState({
+    state.text = text;
+    return wantOutput ? state : this.setState({
       'search': {...search, ...state}
     })
   }
 
   _initState( props ) {
     let {list, selected, text} = props, state = {
-      'timer': {'search': 0},
       'search': {
         'view': 30,
         'list': [],

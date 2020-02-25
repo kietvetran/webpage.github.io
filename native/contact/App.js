@@ -54,11 +54,11 @@ export default class App extends React.Component {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <NavigationContainer>
-            <Tab.Navigator initialRouteName="Profile" screenOptions={this._renderScreenOptions}>
-              <Tab.Screen name="Contact" component={Contact}/>
-              <Tab.Screen name="Organization" component={Organization}/>
-              <Tab.Screen name="Profile" component={Profile}/>
-              <Tab.Screen name="Guideline" component={Guideline}/>
+            <Tab.Navigator initialRouteName="contact" screenOptions={this._renderScreenOptions}>
+              <Tab.Screen name="contact" component={Contact}/>
+              <Tab.Screen name="organization" component={Organization}/>
+              <Tab.Screen name="profile" component={Profile}/>
+              <Tab.Screen name="guideline" component={Guideline}/>
             </Tab.Navigator>
 
             { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}

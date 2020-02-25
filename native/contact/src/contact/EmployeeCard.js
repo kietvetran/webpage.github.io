@@ -44,7 +44,7 @@ export default function EmployeeCard({
         </TouchableOpacity> : <Person data={data} styleConfig={styleConfig} fieldList={fieldList}/>
       }
     </View>
-    { !! onPress && <React.Fragment>
+    { !! onPress && false && <React.Fragment>
       { actionList.map( (note, i) => (
           <View key={'employee-actiono-'+i} style={styles.actionContainer}>
             <FormButton label={note.id} type={note.type}
