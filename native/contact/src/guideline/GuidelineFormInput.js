@@ -80,7 +80,6 @@ export default class GuidelineFormInput extends React.Component {
               onChange={(e)=>{this._change(e,'change-agreed');}}
             />
           </View>
-
         </ScrollView>
       </View>
     );
@@ -152,6 +151,7 @@ export default class GuidelineFormInput extends React.Component {
 const styles = StyleSheet.create({
   'container': {
     'position': 'relative',
+    'flex': 1
   },
   'contentContainer': {
     'paddingTop': 10,

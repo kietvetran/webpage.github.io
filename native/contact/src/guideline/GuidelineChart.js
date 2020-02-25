@@ -134,6 +134,7 @@ export default class GuidelineChart extends React.Component {
 const styles = StyleSheet.create({
   'container': {
     'position': 'relative',
+    'flex': 1
   },
   'contentContainer': {
     'paddingTop': 10,
