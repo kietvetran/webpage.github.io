@@ -13,6 +13,7 @@ import GuidelineWizard from './GuidelineWizard';
 import GuidelineChart from './GuidelineChart';
 import GuidelineChartKit from './GuidelineChartKit';
 import GuidelineChartF2 from './GuidelineChartF2';
+import GuidelineFormCodeField from './GuidelineFormCodeField';
 
 
 const Stack = createStackNavigator();
@@ -28,6 +29,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="message" component={GuidelineMessage} />
       <Stack.Screen name="formInput" component={GuidelineFormInput} />
       <Stack.Screen name="formButton" component={GuidelineFormButton} />
+      <Stack.Screen name="formCodeField" component={GuidelineFormCodeField} />
       <Stack.Screen name="schedule" component={GuidelineSchedule} />
       <Stack.Screen name="wizard" component={GuidelineWizard} />
       <Stack.Screen name="chart" component={GuidelineChart} />

@@ -4,13 +4,14 @@ import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
 import Image from 'react-native-remote-svg';
 
-export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
+export const Field = ({icon, styleConfig, iconConfig, error, inputRef, ...rest})=> {
   return <View style={[styles.container, styleConfig.container]}>
-    <TextInput {...rest} style={[
+    <TextInput {...rest} ref={inputRef} style={[
       styles.textfield,
       styleConfig.field,
       (icon.type ? (icon.position === 'start' ? styles.searchFieldStartSpace : styles.searchFieldEndSpace) : {}),
-      (error ? styles.textError : {})
+      (error ? styles.textError : {}),
+      (rest.editable === false ? styles.textDisabled : {})
     ]}/>
     { !! icon.type && <View style={icon.position === 'start' ? styles.iconStart : styles.iconEnd}>
         { icon.onPress ? <FormButton type={icon.type} onPress={()=>{icon.onPress()}} /> : 
@@ -23,7 +24,7 @@ export const Field = ({icon, styleConfig, iconConfig, error, ...rest})=> {
   </View>
 };
 
-export const Selector = ({list = [], styleConfig, error, ...rest}) => {
+export const Selector = ({list = [], styleConfig, error, inputRef, ...rest}) => {
   return <View style={[styles.selectorContainer, styleConfig.container, (error ? styles.textError : {})]}>
     <Picker style={[styles.selector, styleConfig.selector, (error ? styles.textError : {})]} {...rest}>
       {list.map( (data,i) => (
@@ -33,7 +34,7 @@ export const Selector = ({list = [], styleConfig, error, ...rest}) => {
   </View>
 };
 
-export const Check = ({labelConfig, styleConfig, ...rest}) => {
+export const Check = ({labelConfig, styleConfig, inputRef, ...rest}) => {
   return <View style={[styles.container, styles.checkboxContainer, styleConfig.container, styles.inlineContainer]}>
     <CheckBox {...rest}/>
     { !! labelConfig.checkboxLabel && <React.Fragment>
@@ -119,6 +120,9 @@ const styles = StyleSheet.create({
   },
   'textError': {
     ...Theme.inputError,
+  },
+  'textDisabled': {
+    'backgroundColor': '#eee'
   },
   'textErrorSpace': {
     'marginTop': 5,

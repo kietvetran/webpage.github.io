@@ -16,6 +16,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'panel'     },
         {'id': 'formInput' },
         {'id': 'formButton'},
+        {'id': 'formCodeField'},
         {'id': 'schedule'  },
         {'id': 'wizard'    },
         {'id': 'chart'     },
