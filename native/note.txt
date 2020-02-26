@@ -26,6 +26,21 @@ https://github.com/seekshiva/react-native-remote-svg
 React Native Animation ideer: 
 https://medium.com/react-native-motion/transition-challenge-9bc9fdef56c7
 
+=================================================
+== Run React Native Project on Android Emulator ==
+https://www.youtube.com/watch?v=uhuoTcbquic
+
+install JDK
+install Android Studio
+install tool via Android Studio - sdk manager and avd manager
+
+install react-native
+install react-native-cli
+
+Set environment path (basic.png)
+%appData% => C:\Users\kiet.tran\AppData\
+
+
 
 =====================================================================================================
 install expo:  npm install -g expo-cli
