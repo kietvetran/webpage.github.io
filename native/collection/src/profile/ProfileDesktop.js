@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Picker, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import Image from 'react-native-remote-svg';
 import FormButton from '../common/form/FormButton';
 import FormSelection from '../common/form/FormSelection';
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-//import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native';
+//import { StyleSheet, TouchableHighlight, Text, View, Image } from 'react-native';
 import { Theme }  from '../style/Theme.js';
-import Image from 'react-native-remote-svg';
 
 export default function FormButton({
   title       = '',
@@ -15,19 +14,19 @@ export default function FormButton({
   onPress     = ()=>{},
   styleConfig = {}, 
   iconConfig  = {
-    'filter'    : {'basic': require('../../../assets/icon/filter/filter.svg')},
-    'phone'     : {'basic': require('../../../assets/icon/phone/phone.svg')},
-    'sms'       : {'basic': require('../../../assets/icon/sms/sms.svg')},
-    'email'     : {'basic': require('../../../assets/icon/at/at.svg')},
-    'search'    : {'basic': require('../../../assets/icon/search/search.svg')},
-    'edit'      : {'basic': require('../../../assets/icon/edit/edit.svg')},
-    'brand'     : {'basic': require('../../../assets/icon/hexagon/hexagon.svg')},
-    'arrowLeft' : {'basic': require('../../../assets/icon/arrow/arrow-left.svg')},
-    'arrowRight': {'basic': require('../../../assets/icon/arrow/arrow-right.svg') },
-    'arrowDown' : {'basic': require('../../../assets/icon/arrow/arrow-down.svg')},
-    'arrowUp'   : {'basic': require('../../../assets/icon/arrow/arrow-up.svg')},
-    'checked'   : {'basic': require('../../../assets/icon/checked/checked.svg')},
-    'blank'     : {'basic': require('../../../assets/icon/blank/blank.svg')},
+    'filter'    : {'basic': require('../../../assets/icon/filter/filter.png')},
+    'phone'     : {'basic': require('../../../assets/icon/phone/phone.png')},
+    'sms'       : {'basic': require('../../../assets/icon/sms/sms.png')},
+    'email'     : {'basic': require('../../../assets/icon/at/at.png')},
+    'search'    : {'basic': require('../../../assets/icon/search/search.png')},
+    'edit'      : {'basic': require('../../../assets/icon/edit/edit.png')},
+    'brand'     : {'basic': require('../../../assets/icon/hexagon/hexagon.png')},
+    'arrowLeft' : {'basic': require('../../../assets/icon/arrow/arrow-left.png')},
+    'arrowRight': {'basic': require('../../../assets/icon/arrow/arrow-right.png') },
+    'arrowDown' : {'basic': require('../../../assets/icon/arrow/arrow-down.png')},
+    'arrowUp'   : {'basic': require('../../../assets/icon/arrow/arrow-up.png')},
+    'checked'   : {'basic': require('../../../assets/icon/checked/checked.png')},
+    'blank'     : {'basic': require('../../../assets/icon/blank/blank.png')},
   }
 }) {
   return <TouchableOpacity onPress={()=>{onPress()}} style={[

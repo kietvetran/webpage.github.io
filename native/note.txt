@@ -26,6 +26,9 @@ https://github.com/seekshiva/react-native-remote-svg
 React Native Animation ideer: 
 https://medium.com/react-native-motion/transition-challenge-9bc9fdef56c7
 
+React SVG
+https://reactjsexample.com/tag/svg/
+
 =================================================
 == Run React Native Project on Android Emulator ==
 https://www.youtube.com/watch?v=uhuoTcbquic
@@ -54,6 +57,11 @@ install expo app in mobile
 
 Scane the QR-code and turn on tunnel connection
 
+===================================================
+Clear watchman watches: watchman watch-del-all
+Delete node_modules: rm -rf node_modules and run yarn install
+Reset Metro's cache: yarn start --reset-cache
+Remove the cache: rm -rf /tmp/metro-*
 
 ===================================================
 rm -rf node_modules

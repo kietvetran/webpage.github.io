@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View, Modal } from 'react-native';
+import { Platform, StyleSheet, Text, View, Modal, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //import Image from 'react-native-remote-svg';
 
+import Contact from './src/contact/Contact';
 import Organization from './src/organization/Organization';
-import Information from './src/information/Information';
+import Profile from './src/profile/Profile';
+import Guideline from './src/guideline/Guideline';
+
 import {Theme} from './src/common/style/Theme';
 
 const Tab = createBottomTabNavigator();
@@ -17,20 +20,20 @@ export default class App extends React.Component {
     this.state = {
       'tabIcon': {
         'contact': {
-          'basic': require('./assets/icon/contact/contact.svg'),
-          'focus': require('./assets/icon/contact/contact-blue.svg')
+          'basic': require('./assets/icon/contact/contact.png'),
+          'focus': require('./assets/icon/contact/contact-blue.png')
         },
         'profile': {
-          'basic': require('./assets/icon/profile/profile.svg'),
-          'focus': require('./assets/icon/profile/profile-blue.svg'),
+          'basic': require('./assets/icon/profile/profile.png'),
+          'focus': require('./assets/icon/profile/profile-blue.png'),
         },
         'organization': {
-          'basic': require('./assets/icon/organization/organization.svg'),
-          'focus': require('./assets/icon/organization/organization-blue.svg')
+          'basic': require('./assets/icon/organization/organization.png'),
+          'focus': require('./assets/icon/organization/organization-blue.png')
         },
         'guideline': {
-          'basic': require('./assets/icon/puzzle/puzzle.svg'),
-          'focus': require('./assets/icon/puzzle/puzzle-blue.svg')
+          'basic': require('./assets/icon/puzzle/puzzle.png'),
+          'focus': require('./assets/icon/puzzle/puzzle-blue.png')
         }
       }
     };
@@ -48,9 +51,11 @@ export default class App extends React.Component {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <NavigationContainer>
-            <Tab.Navigator initialRouteName="organization" screenOptions={this._renderScreenOptions}>
+            <Tab.Navigator initialRouteName="profile" screenOptions={this._renderScreenOptions}>
+              <Tab.Screen name="contact" component={Contact}/>
               <Tab.Screen name="organization" component={Organization}/>
-              <Tab.Screen name="information" component={Information}/>
+              <Tab.Screen name="profile" component={Profile}/>
+              <Tab.Screen name="guideline" component={Guideline}/>
             </Tab.Navigator>
 
             { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}
@@ -83,8 +88,7 @@ export default class App extends React.Component {
     let icons = this.state.tabIcon || {};
     let source = icons[name] ? (focused ? icons[name].focus : icons[name].basic) : null;
 
-    return null;
-    //return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
+    return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
     //return source ? <SVGImage style={{'width':size, 'height': size}} source={source} /> : null;
     //return source ? <Image style={{'width':size, 'height': size}} source={source} /> : null;
     //return <Icon name="rocket" size={30} color="#900" />;

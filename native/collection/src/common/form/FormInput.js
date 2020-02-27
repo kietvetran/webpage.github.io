@@ -1,8 +1,7 @@
 import React from 'react';
-import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker, CheckBox } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker, CheckBox, Image } from 'react-native';
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
-import Image from 'react-native-remote-svg';
 
 export const Field = ({icon, styleConfig, iconConfig, error, inputRef, ...rest})=> {
   return <View style={[styles.container, styleConfig.container]}>
@@ -56,10 +55,10 @@ export default function FormInput({
   styleConfig = {},
   iconConfig  = {
    'filter': {
-      'basic': require('../../../assets/icon/filter/filter.svg')
+      'basic': require('../../../assets/icon/filter/filter.png')
     },
    'search': {
-      'basic': require('../../../assets/icon/search/search.svg')
+      'basic': require('../../../assets/icon/search/search.png')
     }
   },
   ...rest
