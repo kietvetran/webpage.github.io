@@ -6,6 +6,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 //import Image from 'react-native-remote-svg';
 
 import Organization from './src/organization/Organization';
+import Information from './src/information/Information';
 import {Theme} from './src/common/style/Theme';
 
 const Tab = createBottomTabNavigator();
@@ -41,12 +42,29 @@ export default class App extends React.Component {
   }
 
   render() {
+    const {modalConfig={}} = this.state;
+
     return (
-      <View style={styles.container}>
-        <Text>Kiet Ok</Text>
-      </View>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <NavigationContainer>
+            <Tab.Navigator initialRouteName="organization" screenOptions={this._renderScreenOptions}>
+              <Tab.Screen name="organization" component={Organization}/>
+              <Tab.Screen name="information" component={Information}/>
+            </Tab.Navigator>
+
+            { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}
+              transparent={false} visible={true} 
+                //onRequestClose={() => {this._click(null,'close-modal')}}
+              ><View style={styles.modalContainer}>{modalConfig.children}</View></Modal>
+            }
+          </NavigationContainer>
+        </SafeAreaView>
+      </SafeAreaProvider>
     );
   }
+
+  //render() { return <View style={styles.container}><Text>Kiet test</Text></View> }
 
   /****************************************************************************
   ****************************************************************************/
