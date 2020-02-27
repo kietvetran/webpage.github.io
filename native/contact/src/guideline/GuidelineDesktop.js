@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Image from 'react-native-remote-svg';
 import FormButton from '../common/form/FormButton';
+
 import {capitalize} from '../util/Function';
 import { Theme }  from '../common/style/Theme.js';
 
@@ -12,16 +13,13 @@ export default class GuidelineDesktop extends React.Component {
     super(props);
     this.state  = {
       'pageList': [
-        {'id': 'message'   },
-        {'id': 'panel'     },
-        {'id': 'formInput' },
-        {'id': 'formButton'},
-        {'id': 'formCodeField'},
-        {'id': 'schedule'  },
-        {'id': 'wizard'    },
-        {'id': 'chart'     },
-        {'id': 'chartKit'  },
-        {'id': 'chartF2'  },
+        {'id': 'Message'   },
+        {'id': 'Panel'     },
+        {'id': 'FormInput' },
+        {'id': 'FormButton'},
+        {'id': 'FormCodeField'},
+        {'id': 'Schedule'  },
+        {'id': 'Wizard'    },
       ]
     };
     this._click = this._click.bind(this);
@@ -35,7 +33,7 @@ export default class GuidelineDesktop extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           {pageList.map( (page,i) => (
             <View key={'page-'+i} style={styles.collection}>
-              <FormButton type="arrowRight" title={capitalize(page.id)}
+              <FormButton type="arrowRight" title={page.id}
                 onPress={(e)=>{this._click(e,'switch-page', page)}}
               />
             </View>
