@@ -1,10 +1,15 @@
 {
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "web": "expo start --web",
     "start": "react-native start",
-    "test": "jest"
+    "start-expo": "expo start",
+    "android": "react-native run-android",
+    "android-expo": "expo start --android",
+    "ios": "react-native run-ios",
+    "ios-expo": "expo start --ios",
+    "web": "expo start --web",
+    "test": "jest",
+    "test-all": "jest --watchAll",
+    "eject": "expo eject"
   },
   "dependencies": {
     "@expo/vector-icons": "~10.0.0",

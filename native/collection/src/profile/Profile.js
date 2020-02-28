@@ -15,7 +15,7 @@ export default function Profile(props={}) {
       return {};
     }}>
       <Stack.Screen name="desktop" component={ProfileDesktop} />
-      <Stack.Screen name="field" component={ProfileField} />
+      <Stack.Screen name="field" component={ProfileField} options={{}} />
     </Stack.Navigator>
   );
 };
