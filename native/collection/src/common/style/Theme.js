@@ -7,8 +7,8 @@ export const colorStorage = {
   'brand'    : '#d2a241',
   'primary'  : '#76a300',
   'secondary': '#0075D2',
-  'appFont'  : '#2D2D2D',
-  'appBg'    : '#eee',
+  'appFont'  : 'rgba(0,0,0,.8)',
+  'appBg'    : '#F0F0F0',
   'headerBg' : '#FFFFFF',
   'footerBg' : '#FFFFFF',
   'fieldBg'  : 'rgba(0, 0, 0, .1)',  
@@ -28,31 +28,37 @@ export const fontStorage = {
   'basic': {
     'fontSize': 16,
     'lineHeight': 20,
+    'color': colorStorage.appFont
   },
   'small': {
     'fontSize': 14,
     'lineHeight': 18,
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'color': colorStorage.appFont
   },
   'h1': {
     'fontSize': 30,
     'lineHeight': 35,
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'color': colorStorage.appFont
   },
   'h2': {
     'fontSize': 25,
     'lineHeight': 30,
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'color': colorStorage.appFont
   },
   'h3': {
     'fontSize': 20,
     'lineHeight': 25,
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'color': colorStorage.appFont
   },
   'h4': {
     'fontSize': 17,
     'lineHeight': 25,
-    'fontWeight': 'bold'
+    'fontWeight': 'bold',
+    'color': colorStorage.appFont
   },
   'family': 'Cochin'
 };

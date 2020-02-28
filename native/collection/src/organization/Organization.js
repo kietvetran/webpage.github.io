@@ -7,7 +7,7 @@ export default class Organization extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Organization</Text>
-        <Text>Next</Text>
+        <Text style={styles.mono}>Organization</Text>
       </View>
     );
   }
@@ -20,4 +20,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  'mono': {
+    'fontFamily': 'space-mono',
+    'color': 'red'
+  }
 });

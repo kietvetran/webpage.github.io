@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View, Modal, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, Modal, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-//import Image from 'react-native-remote-svg';
+
+import Spinner from 'react-native-loading-spinner-overlay';
+
+import * as Font from 'expo-font';
 
 import Contact from './src/contact/Contact';
 import Organization from './src/organization/Organization';
@@ -12,12 +15,15 @@ import Guideline from './src/guideline/Guideline';
 
 import {Theme} from './src/common/style/Theme';
 
+const { width, height } = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      'fontLoaded': false,
+      'spinnerConfig': { 'visible': false, 'text': 'Loading...'},
       'tabIcon': {
         'contact': {
           'basic': require('./assets/icon/contact/contact.png'),
@@ -40,33 +46,46 @@ export default class App extends React.Component {
 
     this._renderScreenOptions = this._renderScreenOptions.bind(this);
     this._renderTabBarIcon = this._renderTabBarIcon.bind(this);
-    this._openModal = this._openModal.bind(this);
-    this._closeModal = this._closeModal.bind(this);
+    this._openModal    = this._openModal.bind(this);
+    this._closeModal   = this._closeModal.bind(this);
+    this._openSpinner  = this._openModal.bind(this);
+    this._closeSpinner = this._closeSpinner.bind(this);
+
+  }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+    });
+
+    this.setState({'fontLoaded': true });
   }
 
   render() {
-    const {modalConfig={}} = this.state;
+    const {modalConfig={}, spinnerConfig={}, fontLoaded, splashImage} = this.state;
 
-    return (
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.container}>
-          <NavigationContainer>
-            <Tab.Navigator initialRouteName="profile" screenOptions={this._renderScreenOptions}>
-              <Tab.Screen name="contact" component={Contact}/>
-              <Tab.Screen name="organization" component={Organization}/>
-              <Tab.Screen name="profile" component={Profile}/>
-              <Tab.Screen name="guideline" component={Guideline}/>
-            </Tab.Navigator>
+    return fontLoaded ? <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer>
+          <Tab.Navigator initialRouteName="profile" screenOptions={this._renderScreenOptions}>
+            <Tab.Screen name="contact" component={Contact}/>
+            <Tab.Screen name="organization" component={Organization}/>
+            <Tab.Screen name="profile" component={Profile}/>
+            <Tab.Screen name="guideline" component={Guideline}/>
+          </Tab.Navigator>
 
-            { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}
-              transparent={false} visible={true} 
-                //onRequestClose={() => {this._click(null,'close-modal')}}
-              ><View style={styles.modalContainer}>{modalConfig.children}</View></Modal>
-            }
-          </NavigationContainer>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    );
+          { !! modalConfig.children && <Modal animationType={modalConfig.animation || 'slide'}
+            transparent={false} visible={true} 
+              //onRequestClose={() => {this._click(null,'close-modal')}}
+            ><View style={styles.modalContainer}>{modalConfig.children}</View></Modal>
+          }
+
+          <Spinner visible={spinnerConfig.visible} textContent={spinnerConfig.text} textStyle={styles.spinnerTextStyle} />
+        </NavigationContainer>
+      </SafeAreaView>
+    </SafeAreaProvider> : <View style={styles.container}>
+      <Spinner visible={true} textContent="Start up...." textStyle={styles.spinnerTextStyle} />
+    </View>
   }
 
   //render() { return <View style={styles.container}><Text>Kiet test</Text></View> }
@@ -102,11 +121,29 @@ export default class App extends React.Component {
   _openModal( config={} ) {
     config.children ? this.setState({'modalConfig': config}) : this._closeModal();
   }
+
+  _closeSpinner() {
+    this.setState({'spinnerConfig': {'visible': false, 'text': 'Loading...'}});
+  }
+
+  _openSpinner( text ) {
+    this.setState({'spinnerConfig': {'visible': true, 'text': text === undefined ? 'Loading...' : (text || '')}});
+  }
 }
 
 const styles = StyleSheet.create({
   'container': {
     'flex': 1,
     'backgroundColor': Theme.color.appBg
+  },
+  'spinnerTextStyle': {
+  },
+  'splashImage': {
+    'position': 'absolute',
+    'left': 0,
+    'top': 0,
+    'width': width,
+    'height': height,
+    'zIndex': 10
   }
 });

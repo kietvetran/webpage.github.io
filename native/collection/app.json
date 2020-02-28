@@ -1,7 +1,13 @@
 {
   "name": "collection",
   "displayName": "collection",
+  "splash": {
+    "image": "./assets/splash.png"
+  },
   "expo": {
+    "splash": {
+      "image": "./assets/splash.png"
+    },
     "name": "collection",
     "slug": "collection",
     "privacy": "unlisted",

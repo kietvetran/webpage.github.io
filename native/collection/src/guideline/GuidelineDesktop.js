@@ -12,6 +12,8 @@ export default class GuidelineDesktop extends React.Component {
     super(props);
     this.state  = {
       'pageList': [
+        {'id': 'Typography'},
+        {'id': 'Color'     },
         {'id': 'Message'   },
         {'id': 'Panel'     },
         {'id': 'FormInput' },
@@ -62,7 +64,4 @@ const styles = StyleSheet.create({
   'collection': {
     'marginBottom': Theme.space.medium,
   },
-  'spacing': {
-    'marginBottom': Theme.space.medium
-  }
 });
