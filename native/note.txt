@@ -70,6 +70,11 @@ rm -rf node_modules/react-native/packager/packager.sh --reset-cache
 npm cache clean
 npm i
 
+=== Run react native app on real device (have to install Android Studio and set up path environment) ==
+- Turn on developer option and USB debugging =>  Settings => System => Developer options
+- Run command => adb reverse tcp:8081 tcp:8081
+- Run command => rect-native run-android
+
 ============= react navite component ===============================================================
 https://facebook.github.io/react-native/docs/textinput
 https://facebook.github.io/react-native/docs/native-components-android
@@ -95,20 +100,3 @@ https://facebook.github.io/react-native/docs/native-components-android
 
 Navigate to a route multiple times
 https://reactnavigation.org/docs/en/navigating.html
-
-
-
-====================================================================================
-
-import { Dimensions } from 'react-native';
-
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
-
-export default {
-  window: {
-    width,
-    height,
-  },
-  isSmallDevice: width < 375,
-};
