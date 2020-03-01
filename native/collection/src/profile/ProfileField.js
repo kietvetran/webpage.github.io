@@ -62,7 +62,12 @@ export default class ProfileField extends React.Component {
     let {dataList, back, data} = this.state;
 
     if ( key === 'save') {
-      if ( data.error ) {
+      let error = data.error || this._validate( data );
+
+      if ( error ) {
+        data.error = error;
+        this.setState({'data': data});
+
         this._alert({
           'text': 'Please correct the error'
         });

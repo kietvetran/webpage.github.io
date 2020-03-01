@@ -48,7 +48,6 @@ export default function FormButton({
           </View>
         }
 
-
         { title && value ? <View style={styles.titleAndValueWrapper}>
             <Text style={[styles.plain, styles.inLeft, styles.buttonText, styleConfig.button]}>{title}</Text>
             <Text style={[styles.plain, styles.inRight, styles.buttonValue, styleConfig.value]}>{value}</Text>            
@@ -60,7 +59,7 @@ export default function FormButton({
         { !! children && <View>{children}</View> }
       </View> : <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAutoNoIcon : null)]}>
         { title ?
-          <Text style={[styles[type] || styles.basic, styles.buttonText, styleConfig.button]}>{title.toUpperCase()}</Text> :
+          <Text style={[styles[type] || styles.basic, styles.buttonText, styles[type+'Text'], styleConfig.button]}>{title.toUpperCase()}</Text> :
           <View>{children}</View>
         }
       </View>
@@ -105,6 +104,9 @@ const styles = StyleSheet.create({
     'paddingTop': 10,
     'paddingBottom': 10,
   },
+  'primaryText': {
+    'color': '#fff'
+  },
   'secondary': {
     ...Theme.button,
     'fontWeight': '700',
@@ -112,6 +114,9 @@ const styles = StyleSheet.create({
     'backgroundColor': Theme.color.secondary,
     'paddingTop': 10,
     'paddingBottom': 10,
+  },
+  'secondaryText': {
+    'color': '#fff'
   },
   'plain': {
     ...Theme.button,
@@ -156,7 +161,7 @@ const styles = StyleSheet.create({
   },
   'buttonText': {
     'flex': 1,
-    ...Theme.buttonText
+    ...Theme.buttonText,
   },
   'buttonValue': {
     'flex': 1,
