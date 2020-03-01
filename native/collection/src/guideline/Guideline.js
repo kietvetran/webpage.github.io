@@ -16,6 +16,9 @@ import GuidelineWizard from './GuidelineWizard';
 import GuidelineFormCodeField from './GuidelineFormCodeField';
 import GuidelineTypography from './GuidelineTypography';
 import GuidelineColor from './GuidelineColor';
+import GuidelineDatePicker from './GuidelineDatePicker';
+
+
 
 const Stack = createStackNavigator();
 
@@ -35,6 +38,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="Wizard" component={GuidelineWizard} />
       <Stack.Screen name="Typography" component={GuidelineTypography} />
       <Stack.Screen name="Color" component={GuidelineColor} />
+      <Stack.Screen name="DatePicker" component={GuidelineDatePicker} />
     </Stack.Navigator>
   );
 };

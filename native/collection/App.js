@@ -67,7 +67,7 @@ export default class App extends React.Component {
     return fontLoaded ? <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <Tab.Navigator initialRouteName="profile" screenOptions={this._renderScreenOptions}>
+          <Tab.Navigator initialRouteName="guideline" screenOptions={this._renderScreenOptions}>
             <Tab.Screen name="contact" component={Contact}/>
             <Tab.Screen name="organization" component={Organization}/>
             <Tab.Screen name="profile" component={Profile}/>
