@@ -55,8 +55,6 @@ export default class App extends React.Component {
     this._openPopup    = this._openPopup.bind(this);
     this._closePopup   = this._closePopup.bind(this);
 
-    console.log('app current state => ' + AppState.currentState);
-
     this._handleAppStateChange = this._handleAppStateChange.bind(this);
   }
 
@@ -89,12 +87,12 @@ export default class App extends React.Component {
             ><View style={styles.modalContainer}>{modalConfig.children}</View></Modal>
           }
 
-          <Spinner visible={spinnerConfig.visible} textContent={spinnerConfig.text} textStyle={styles.spinnerTextStyle} />
+          <Spinner visible={spinnerConfig.visible} textContent={spinnerConfig.text} textStyle={{}} />
         </NavigationContainer>
         <Popup.Widget widgetRef={(ref)=>{this.popupWidgetRef = ref;}}/>
       </SafeAreaView>
     </SafeAreaProvider> : <View style={styles.container}>
-      <Spinner visible={true} textContent="Start up...." textStyle={styles.spinnerTextStyle} />
+      <Spinner visible={true} textContent="Start up...." textStyle={{}} />
     </View>
   }
 
@@ -169,8 +167,6 @@ const styles = StyleSheet.create({
   'container': {
     'flex': 1,
     'backgroundColor': Theme.color.appBg
-  },
-  'spinnerTextStyle': {
   },
   'splashImage': {
     'position': 'absolute',
