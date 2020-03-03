@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StyleSheet, Text, View, Modal, Image, Dimensions } from 'react-native';
+import { Platform, StyleSheet, Text, View, Modal, Image, Dimensions, AppState } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -54,6 +54,10 @@ export default class App extends React.Component {
     this._closeSpinner = this._closeSpinner.bind(this);
     this._openPopup    = this._openPopup.bind(this);
     this._closePopup   = this._closePopup.bind(this);
+
+    console.log('app current state => ' + AppState.currentState);
+
+    this._handleAppStateChange = this._handleAppStateChange.bind(this);
   }
 
   async componentDidMount() {
@@ -62,6 +66,8 @@ export default class App extends React.Component {
     });
 
     this.setState({'fontLoaded': true });
+
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   render() {
@@ -92,7 +98,20 @@ export default class App extends React.Component {
     </View>
   }
 
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
   //render() { return <View style={styles.container}><Text>Kiet test</Text></View> }
+
+  /****************************************************************************
+   appState value:
+   - background => The app is not on focus, the app is put on a side.
+   - inactive (only in iOS) =>
+   - active => when the app is open in the beginning
+  ****************************************************************************/
+  _handleAppStateChange(appState) {
+  }
 
   /****************************************************************************
   ****************************************************************************/
