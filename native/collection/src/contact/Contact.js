@@ -1,11 +1,13 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, Linking } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 //import DialogManager, { ScaleAnimation, DialogContent } from 'react-native-dialog-component';
 
 import Header from './Header';
 import EmployeeCard from './EmployeeCard';
+import PersonWidget from './PersonWidget';
 import Message from '../common/message/Message';
+import Popup from '../common/popup/Popup';
 
 import {createRegexp} from "../util/Function";
 import {isBirthday} from '../util/Function';
@@ -14,7 +16,7 @@ import { Theme }  from '../common/style/Theme.js';
 
 export default class Contact extends React.Component {
   static defaultProps = {
-    'headerConfig': {'scolled': 0, 'max': 40, 'timer': 0},
+    'headerConfig': {'scolled': 0, 'max': 20, 'timer': 0},
     'timer': {'search': 0},
     'expanding': {'gap': 200, 'action': false}
   };
@@ -22,7 +24,14 @@ export default class Contact extends React.Component {
   constructor(props) {
     super(props);
     this.state   = {
-      ...this._initState( props )
+      ...this._initState( props ),
+      'actionList': [
+        {'id': 'detail', 'title': 'detail', 'action': 'detail-employee'},
+        {'id': 'call',   'title': 'Call',   'action': 'call-employee' },
+        {'id': 'email',  'title': 'email',  'action': 'email-employee'},
+        {'id': 'sms',    'title': 'message','action': 'sms-employee'  },
+        {'id': 'delete', 'title': 'Delete', 'action': 'delete-employee'},
+      ]
     };
     this._click  = this._click.bind(this);
     this._change = this._change.bind(this);
@@ -75,6 +84,28 @@ export default class Contact extends React.Component {
       this.props.resetSearch();
     } else if ( key === 'change-state' ){
       this.setState({'text': 'Abc'});
+    } else if ( key === 'show-contact-detail' && data && e && e.nativeEvent ) {
+      let {actionList} = this.state;
+      let action = this.props.action || (this.props.route || {}).action || {};
+      if ( typeof(action.openPopup) === 'function' ) {
+        action.openPopup({
+          'size': [300, (actionList.length * 44)],
+          'position': {'x': e.nativeEvent.pageX, 'y': e.nativeEvent.pageY},
+          'children': <PersonWidget onPress={this._click} actionList={actionList} data={data}/>            
+        });
+      }
+    } else if ( key.match( /(detail|call|email|sms|delete)\-employee/i) && data ) {
+      let action = this.props.action || (this.props.route || {}).action || {};
+      if ( typeof(action.openPopup) === 'function' ) { action.closePopup(); }
+
+      if ( key.match(/^call/i) && data.phone ) {
+        Linking.openURL('tel:'+data.phone.replace(/\s+/g,''));
+      } else if ( key.match(/^sms/i) && data.phone ) {
+        Linking.openURL('sms:'+data.phone.replace(/\s+/g,''));
+        //Linking.openURL('sms:+4741474947');
+      } else if ( key.match(/^email/i) && data.email ) {
+        Linking.openURL('mailto:'+data.email);
+      }
     }
   }
 

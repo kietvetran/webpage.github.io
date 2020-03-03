@@ -13,6 +13,8 @@ import Organization from './src/organization/Organization';
 import Profile from './src/profile/Profile';
 import Guideline from './src/guideline/Guideline';
 
+import Popup from './src/common/popup/Popup';
+
 import {Theme} from './src/common/style/Theme';
 
 const { width, height } = Dimensions.get('window');
@@ -50,7 +52,8 @@ export default class App extends React.Component {
     this._closeModal   = this._closeModal.bind(this);
     this._openSpinner  = this._openModal.bind(this);
     this._closeSpinner = this._closeSpinner.bind(this);
-
+    this._openPopup    = this._openPopup.bind(this);
+    this._closePopup   = this._closePopup.bind(this);
   }
 
   async componentDidMount() {
@@ -67,7 +70,7 @@ export default class App extends React.Component {
     return fontLoaded ? <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <NavigationContainer>
-          <Tab.Navigator initialRouteName="profile" screenOptions={this._renderScreenOptions}>
+          <Tab.Navigator initialRouteName="contact" screenOptions={this._renderScreenOptions}>
             <Tab.Screen name="contact" component={Contact}/>
             <Tab.Screen name="organization" component={Organization}/>
             <Tab.Screen name="profile" component={Profile}/>
@@ -82,6 +85,7 @@ export default class App extends React.Component {
 
           <Spinner visible={spinnerConfig.visible} textContent={spinnerConfig.text} textStyle={styles.spinnerTextStyle} />
         </NavigationContainer>
+        <Popup.Widget widgetRef={(ref)=>{this.popupWidgetRef = ref;}}/>
       </SafeAreaView>
     </SafeAreaProvider> : <View style={styles.container}>
       <Spinner visible={true} textContent="Start up...." textStyle={styles.spinnerTextStyle} />
@@ -95,7 +99,9 @@ export default class App extends React.Component {
   _renderScreenOptions({ route }) {
     route.action = {
       'openModal' : this._openModal,
-      'closeModal': this._closeModal
+      'closeModal': this._closeModal,
+      'openPopup' : this._openPopup,
+      'closePopup': this._closePopup
     };
     return {
       'tabBarIcon': (props) => this._renderTabBarIcon({...props, route})
@@ -128,6 +134,15 @@ export default class App extends React.Component {
 
   _openSpinner( text ) {
     this.setState({'spinnerConfig': {'visible': true, 'text': text === undefined ? 'Loading...' : (text || '')}});
+  }
+
+  _closePopup() {
+    this.popupWidgetRef.hide();
+  }
+
+  _openPopup( config={} ) {
+    if ( ! this.popupWidgetRef ) { return; }
+    this.popupWidgetRef.show( config );
   }
 }
 

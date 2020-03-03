@@ -27,9 +27,10 @@ export default function FormButton({
     'arrowUp'   : {'basic': require('../../../assets/icon/arrow/arrow-up.png')},
     'checked'   : {'basic': require('../../../assets/icon/checked/checked.png')},
     'blank'     : {'basic': require('../../../assets/icon/blank/blank.png')},
+    'more'      : {'basic': require('../../../assets/icon/more/more-vertical.png')},
   }
 }) {
-  return <TouchableOpacity onPress={()=>{onPress()}} style={[
+  return <TouchableOpacity onPress={(e)=>{onPress(e)}} style={[
     styles.container,
     (((iconConfig[type] || iconConfig[leftIcon]) && (title || children)) || type === 'action') ? styles.containerAction : {},
     styleConfig.container
