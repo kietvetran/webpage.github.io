@@ -63,7 +63,10 @@ export const ChartKitBarChart = ({click=()=>{}}) => {
   return <BarChart data={data} width={width} height={220} yAxisLabel={'$'}
     style={{'marginVertical': 8, 'borderRadius': 2}}
     chartConfig={{
-      'color': (opacity=1) => ( 'rgba(0, 0, 0, '+opacity+')' )
+      backgroundColor: "#fefefe",
+      backgroundGradientFrom: "#fefefe",
+      backgroundGradientTo: "#fefefe",
+      'color': (opacity=1) => ( '#000' )
     }}
   />
 };
@@ -119,6 +122,21 @@ export const ChartKitPieChart = ({click=()=>{}}) => {
 };
 
 export const ChartKitProgress = ({click=()=>{}}) => {
+  const data = {
+    labels: ["Swim", "Bike", "Run"], // optional
+    data: [0.4, 0.6, 0.8]
+  };
+
+  return <ProgressChart data={data} width={width} height={220} hideLegend={false}
+    chartConfig={{
+      backgroundColor: "#fefefe",
+      backgroundGradientFrom: "#fefefe",
+      backgroundGradientTo: "#fefefe",
+      'color': (opacity=1) => ( '#000' )
+    }}
+  />
+
+  /*
   return null;
   return <ProgressChart data={[0.4, 0.6, 0.8]} width={width} height={220}
     chartConfig={{
@@ -136,6 +154,7 @@ export const ChartKitProgress = ({click=()=>{}}) => {
       borderRadius: 16,
     }}
   />
+  */
 
 };
 

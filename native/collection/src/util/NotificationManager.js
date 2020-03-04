@@ -4,6 +4,7 @@ import { Platform, PushNotificationIOS } from 'react-native';
 
 // https://www.youtube.com/watch?v=Sx-KapT-_DU
 // https://dev.to/jakubkoci/react-native-push-notifications-313i
+// https://www.youtube.com/watch?v=VMti_GgKgwY
 export default class NotificationManager {
   static a() {
     console.log('== a ');
