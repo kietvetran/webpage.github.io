@@ -6,12 +6,6 @@ import PushNotification from 'react-native-push-notification';
 // https://dev.to/jakubkoci/react-native-push-notifications-313i
 // https://www.youtube.com/watch?v=VMti_GgKgwY
 export default class NotificationManager {
-  static a() {
-    console.log('== a ');
-    console.log( PushNotification );    
-    console.log( PushNotificationIOS );
-  }
-
   static configure( config={}) {
     //console.log('== Confiure ===');
     PushNotification.configure({
@@ -24,7 +18,17 @@ export default class NotificationManager {
         console.log( notification );
 
         notification.finish();
-      }
+      },
+      /*
+      'senderID': 'YOUR GCM SENDER ID', // ANDROID ONLY
+      'permissions': { / IOS ONLY (optional): default: all
+        'alert': true,
+        'badge': true,
+        'sound': true
+      },
+      'popInitialNotification': true, // (optional) default: true
+      'requestPermissions': true,     // (optional) default: true
+      */
     });
   }
 
@@ -42,7 +46,7 @@ export default class NotificationManager {
       ...this._buildAndroidNotification(config), // Android
       ...this._buildIOSNotification(config),     // iOS
       'title'  : config.title || '',
-      'message': config.text  || '',
+      'message': config.text  || config.message || '',
       'playSound': config.playSound === false ? false : true,
       'soundName': config.soundName || 'default',
       'userInteraction': false,
@@ -53,11 +57,12 @@ export default class NotificationManager {
     //  PushNotification.localNotification( option );
     if ( option.date ) {
       console.log('date => ' + option.date);
-      PushNotification.localNotificationSchedule( option );
+      //PushNotification.localNotificationSchedule( option );      
       PushNotification.localNotificationSchedule({
         'title'  : option.title,
         'message': option.message,
-        'date'   : option.date
+        'date'   : option.date,
+        'id'     : option.id || 'auto-push-'+(option.date.getTime())
       });
     } else {
       PushNotification.localNotification( option );
@@ -70,7 +75,7 @@ export default class NotificationManager {
       'autoCancel': true,
       'largeIcon' : config.largeIcon || 'ic_laucher',
       'smallIcon' : config.smallIcon || 'ic_laucher',
-      'bigText'   : config.text || '',
+      'bigText'   : config.text  || config.message || '',
       'subText'   : config.title || '',
       'vibrate'   : config.vibrate === false ? false : true,
       'vibration' : config.vibration  || 300,

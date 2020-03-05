@@ -35,13 +35,15 @@ export default class GuidelinePushNotification extends React.Component {
         'text': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
       }); 
     } else if ( key === 'display-notification-delay') {
-      console.log('yes.yes...');
+      console.log('with id integer and configure...');
       let now = new Date();
-      //NotificationManager.configure();
+      NotificationManager.configure();
       NotificationManager.displayNotification({
-        'date' : new Date((now.getTime() - (1*60*60*1000) + (60*1000))),
+        //'date' : new Date((now.getTime() - (-2*60*60*1000) + (60*1000))),
+        'date' : new Date((now.getTime() + (10*1000))),
         'title': 'Notification delay',
-        'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+        'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'id'   : now.getTime()
       }); 
     }
   }
