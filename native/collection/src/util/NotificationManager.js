@@ -1,5 +1,5 @@
 import { Platform, PushNotificationIOS } from 'react-native';
-//import PushNotification from 'react-native-push-notification';
+import PushNotification from 'react-native-push-notification';
 //import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 // https://www.youtube.com/watch?v=Sx-KapT-_DU
@@ -12,7 +12,8 @@ export default class NotificationManager {
     console.log( PushNotificationIOS );
   }
 
-  static init() {
+  static configure( config={}) {
+    //console.log('== Confiure ===');
     PushNotification.configure({
       'onRegister': (token) => {
         console.log('=== On Register ===');
@@ -22,7 +23,7 @@ export default class NotificationManager {
         console.log('=== On Notification ===');
         console.log( notification );
 
-        notification.finish()
+        notification.finish();
       }
     });
   }
@@ -37,7 +38,7 @@ export default class NotificationManager {
   }
 
   static displayNotification( config={} ) {
-    PushNotification.localNotification({
+    let option = {
       ...this._buildAndroidNotification(config), // Android
       ...this._buildIOSNotification(config),     // iOS
       'title'  : config.title || '',
@@ -45,7 +46,22 @@ export default class NotificationManager {
       'playSound': config.playSound === false ? false : true,
       'soundName': config.soundName || 'default',
       'userInteraction': false,
-    });
+      'date': config.date || undefined
+    };
+
+    //option.date ? PushNotification.localNotificationSchedule( option ) :
+    //  PushNotification.localNotification( option );
+    if ( option.date ) {
+      console.log('date => ' + option.date);
+      PushNotification.localNotificationSchedule( option );
+      PushNotification.localNotificationSchedule({
+        'title'  : option.title,
+        'message': option.message,
+        'date'   : option.date
+      });
+    } else {
+      PushNotification.localNotification( option );
+    }
   };
 
   static _buildAndroidNotification( config={} ){
