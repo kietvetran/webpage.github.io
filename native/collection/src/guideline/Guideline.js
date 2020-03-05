@@ -11,7 +11,7 @@ import GuidelineFormButton from './GuidelineFormButton';
 import GuidelineSchedule from './GuidelineSchedule';
 import GuidelineWizard from './GuidelineWizard';
 //import GuidelineChart from './GuidelineChart';
-//import GuidelineChartKit from './GuidelineChartKit';
+import GuidelineChartKit from './GuidelineChartKit';
 //import GuidelineChartF2 from './GuidelineChartF2';
 import GuidelineFormCodeField from './GuidelineFormCodeField';
 import GuidelineTypography from './GuidelineTypography';
@@ -39,6 +39,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="Color" component={GuidelineColor} />
       <Stack.Screen name="DatePicker" component={GuidelineDatePicker} />
       <Stack.Screen name="PushNotification" component={GuidelinePushNotification} />
+      <Stack.Screen name="ChartKit" component={GuidelineChartKit} />
     </Stack.Navigator>
   );
 };
