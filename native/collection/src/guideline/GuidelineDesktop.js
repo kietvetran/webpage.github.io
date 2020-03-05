@@ -22,6 +22,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'DatePicker'},
         {'id': 'Schedule'  },
         {'id': 'Wizard'    },
+        {'id': 'PushNotification'},
       ]
     };
     this._click = this._click.bind(this);

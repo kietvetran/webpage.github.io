@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import FormButton from '../common/form/FormButton';
-//import NotificationManager from '../util/NotificationManager';
+import NotificationManager from '../util/NotificationManager';
 
 export default class GuidelinePushNotification extends React.Component {
   constructor(props) {
@@ -28,7 +28,6 @@ export default class GuidelinePushNotification extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _click(e, key) {
-    /*
     if ( key === 'display-notification') {
       //NotificationManager.configure();
       NotificationManager.displayNotification({
@@ -45,7 +44,6 @@ export default class GuidelinePushNotification extends React.Component {
         'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
       }); 
     }
-    */
   }
 }
 
