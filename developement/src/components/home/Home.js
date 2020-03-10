@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import {Speech} from '../common/speech/Speech';
 import {Recognition} from '../common/recognition/Recognition';
+import {Chart} from '../common/chart/Chart';
 
 import './Home.scss';
 
@@ -23,13 +24,13 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
+          <Chart data={[30,50,120,80]} highest={150} />
+        </li>
+        <li className="application-item">
           <Speech {...this.props} />
         </li>
         <li className="application-item">
           <Recognition {...this.props} />
-        </li>
-        <li className="application-item">
-          <div className="message-wrapper -info">Coming soon</div>
         </li>
       </ul>
     </div>

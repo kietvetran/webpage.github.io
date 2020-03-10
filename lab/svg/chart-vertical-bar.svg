@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 1040" version="1.1"> 
+	<g  transform="translate(30) rotate(180 520 520)">
+
+		<path id="yAxis" d="M 1020,1020 1020,20" style="stroke: #666; fill:none; stroke-width:2;"/>
+		<path id="xAxis" d="M 20,20 1020,20" style="stroke: #666; fill:none; stroke-width:2;"/>
+
+		<!-- (1000/4)+ 20 -->
+		<path id="xAxis-level1" d="M 20,270 1020,270" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+		<path id="xAxis-level2" d="M 20,520 1020,520" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+		<path id="xAxis-level3" d="M 20,770 1020,770" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+		<path id="xAxis-level4" d="M 20,1020 1020,1020" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+
+		<rect x="900" y="20" fill="#1cc99d" width="100" height="800">
+	    <animate attributeName="height" from="0" to="800" dur=".5s" fill="freeze" />
+		</rect>
+		<rect x="760" y="20" fill="#52b7f2" width="100" height="600">
+	    <animate attributeName="height" from="0" to="600" dur=".5s" fill="freeze" />
+		</rect>
+	</g>
+</svg>

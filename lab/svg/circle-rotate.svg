@@ -1,0 +1,10 @@
+<svg class="pin" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300" version="1.1"> 
+  <circle cx="80" cy="120" r="120" style="stroke: #999; stroke-width:1; fill:transparent">
+  	<animateTransform attributeName="transform" type="rotate"
+    	from="0 110 120" to="360 110 120" begin="0s" dur="20s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="220" cy="80" r="70" style="stroke: #999; stroke-width:1; fill:transparent">
+  	<animateTransform attributeName="transform" type="rotate"
+    	from="0 230 100" to="360 230 100" begin="0s" dur="20s" repeatCount="indefinite"/>
+  </circle>
+</svg>

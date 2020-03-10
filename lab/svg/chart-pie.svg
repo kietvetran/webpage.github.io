@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 1040" version="1.1"> 
+	<path id="yAxis" d="M 1020,1020 1020,20" style="stroke: #666; fill:none; stroke-width:2;"/>
+	<path id="xAxis" d="M 20,20 1020,20" style="stroke: #666; fill:none; stroke-width:2;"/>
+
+	<!-- (1000/4)+ 20 -->
+	<path id="xAxis-level1" d="M 20,270 1020,270" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+	<path id="xAxis-level2" d="M 20,520 1020,520" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+	<path id="xAxis-level3" d="M 20,770 1020,770" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+	<path id="xAxis-level4" d="M 20,1020 1020,1020" style="stroke: #666; fill:none; stroke-width:1; opacity:.8"/>
+
+  <circle cx="470" cy="470" r="300" style="stroke: #999; stroke-width:30; fill:transparent">
+	</circle>
+
+	<path id="pie-2" style="stroke:none; fill:#1cc99d; stroke-width:0;" d="
+		M 470,470
+		m -300,0
+		a 300,300 0 1,0 600,0
+		a 300,300 0 1,0 -600,0
+	"/>
+
+	<path id="pie-3" style="stroke:#52b7f2; fill:none; stroke-width:30;" d="
+		M 470,470
+		m -300,0
+		a 300,300 0 1,0 600,0
+	"/>
+
+</svg>
+
+<!--
+    <circle cx="" cy="" r="" />
+
+    <path d="
+        M cx, cy
+        m -r, 0
+        a r,r 0 1,0 (r * 2),0
+        a r,r 0 1,0 -(r * 2),0
+    "/>
+
+    ...or a bit shorter (merging the two moves) 
+
+    <path d="
+        M cx - r, cy
+        a r,r 0 1,0 (r * 2),0
+        a r,r 0 1,0 -(r * 2),0
+    "/>
+
+
+    Example
+    <circle cx="100" cy="100" r="75" />
+
+    <path d="
+        M 100, 100
+        m -75, 0
+        a 75,75 0 1,0 150,0
+        a 75,75 0 1,0 -150,0
+    "/>
+-->

@@ -1,0 +1,2 @@
+http://tutorials.jenkov.com/svg/stroke.html
+https://www.hongkiat.com/blog/svg-animations/
