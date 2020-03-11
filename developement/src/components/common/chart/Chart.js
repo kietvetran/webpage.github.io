@@ -3,12 +3,17 @@ import './Chart.scss';
 
 const ChartGraph = ({data}) => {
   let graph = null;
+
+  console.log( data );
+
   if ( data.type === 'bar' ) {
-    graph = <rect x={data.x} y={data.y} fill={data.color} width={data.width} height={0}>
+    graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0}>
       <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
     </rect>;
   } else if ( data.type === 'pie' ) {
-
+    graph = <path id={data.id} style={data.style} d={data.path}>
+      <animate attributeName="stroke-dashoffset" dur={data.duration} from={data.dash} to={data.dash*2} fill="freeze"/>
+    </path>
   }
 
   return graph;
@@ -66,21 +71,27 @@ export class Chart extends React.Component {
       'view'     : [1040,1040],
       'padding'  : 20,
       'barSpace' : 20,
+      'pieRadius': 300,
       'axis'     : {},
-      'data'     :  props.data   || [],
-      'type'     : props.type    || 'bar',
+      'data'     : props.data    || [],
+      'type'     : props.type    || 'pie',
       'max'      : props.max     || 0,
       'highest'  : props.highest || 0,
+      'sum'      : props.sum     || 0,
       'transform': '',
-      'colorList' : [
-        '#1cc99d', // green
-        '#52b7f2', // blue
-        '#f35072', // red
-        '#f0c55c', // yellow
-        '#8675f4', // purple
-        '#d8903b', // orange
-        '#e9a3bf', // pink
-      ],
+      'color'    : {
+        'default'   : '#999',
+        'background': '#fff',  
+        'list': [
+          '#1cc99d', // green
+          '#52b7f2', // blue
+          '#f35072', // red
+          '#f0c55c', // yellow
+          '#8675f4', // purple
+          '#d8903b', // orange
+          '#e9a3bf', // pink
+        ]
+      }
     };
 
     state.axis.x = {'max': (state.view[0] - (state.padding*2))};
@@ -119,6 +130,10 @@ export class Chart extends React.Component {
       info.list.push( cloned );    
     });
 
+    if ( typeof(state.sum) === 'number' && state.sum > info.sum) {
+      info.sum = state.sum;
+    }
+
     if ( state.type === 'pie' ) {
       this._initGraphPieInfo( state, info );
     } else if ( state.type === 'bar' ) {
@@ -128,13 +143,59 @@ export class Chart extends React.Component {
   }
 
   _initGraphPieInfo( state, info ) {
-    info.list.forEach( (data) => {
-      data.type    = 'pie';
-      data.percent = data.value / info.sum;
-      data.style = {
-
+    let polarToCartesian = (centerX, centerY, radius, angleInDegrees) =>{
+      let angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+      return {
+        'x': centerX + (radius * Math.cos(angleInRadians)),
+        'y': centerY + (radius * Math.sin(angleInRadians))
       };
+    };
+
+    let getPath = (x, y, radius, startAngle, endAngle) =>{
+      let start = polarToCartesian(x, y, radius, endAngle);
+      let end   = polarToCartesian(x, y, radius, startAngle);
+      let arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
+      return [
+        'M', start.x, start.y, 
+        'A', radius, radius, 0, arcSweep, 0, end.x, end.y
+      ].join(' ');
+    };
+
+    let getDash = (radius, stroke, percent) => {
+      let normalized = radius - (stroke * 2);
+      let delta = normalized * 2 * Math.PI;
+      return delta;
+    };
+
+    let sumDegree = 0;
+    info.list.forEach( (data) => {
+      data.duration = (state.duration / 1000)+'s';
+      data.stroke   = 80;
+      data.type     = 'pie';
+      data.percent  = data.value / info.sum;
+      data.degree   = 360 * data.percent;
+      data.radius   = state.pieRadius || 100;
+      data.cx       = (state.axis.x.max / 2) + state.padding;
+      data.cy       = (state.axis.y.max / 2) + state.padding;
+      data.path     = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+      data.dash     = getDash( data.radius, data.stroke, data.percent );
+      data.style    = {
+        'fill'       : 'none',
+        'stroke'     : data.color || state.color.list[info.color++],
+        'strokeWidth': data.stroke,
+        'strokeDasharray' : data.dash,
+      };
+      sumDegree += data.degree;
     });
+
+    /*
+    let cloned = JSON.parse(JSON.stringify(info.list[0]));
+    cloned.degree  = 360;
+    cloned.percent = 1;
+    cloned.path    = getPath(cloned.cx, cloned.cy, cloned.radius, 0, 359.9); 
+    cloned.style.stroke = state.color.default;
+    info.list.unshift( cloned );
+    */
   };
 
   _initGraphBarInfo( state, info ){
@@ -149,7 +210,7 @@ export class Chart extends React.Component {
       data.duration = (state.duration / 1000)+'s';
 
       if ( data.color ) { return; }
-      data.color = state.colorList[info.color++]; 
+      data.color = state.color.list[info.color++]; 
     });
   }
 

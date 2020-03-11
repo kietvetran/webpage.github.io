@@ -15,7 +15,6 @@ class Home extends Component {
     super(props);
     this.state = {
     };
-
     this._click  = this._click.bind(this);
   }
 
@@ -24,7 +23,7 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-          <Chart data={[30,50,120,80]} highest={150} />
+          <Chart data={[30,50,70,80]} highest={150}/>
         </li>
         <li className="application-item">
           <Speech {...this.props} />
