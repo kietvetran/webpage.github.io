@@ -4,10 +4,10 @@ import './Chart.scss';
 const ChartGraph = ({data}) => {
   let graph = null;
 
-  console.log( data );
+  //console.log( data );
 
   if ( data.type === 'bar' ) {
-    graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0}>
+    graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
       <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
     </rect>;
   } else if ( data.type === 'pie' ) {
@@ -32,28 +32,26 @@ export class Chart extends React.Component {
   }
 
   render() {    
-    const {id, viewBox, axis, graph, transform} = this.state;
+    const {id, viewBox, axis, graph} = this.state;
 
     // <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox={viewBox} version="1.1"> 
     return <svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} version="1.1" style={{'backgroundColor':'#fff'}}>
-      <g id="container" transform={transform}>
-        { (axis.x.list.length > 0 || axis.y.list.length > 0) && <g id="axis-wrapper">
-            {axis.x.list.map( (data, i) => (
-              <path key={'axis-x-'+i} id={data.id} d={data.path} style={data.style}/>
-            ) )}
-            {axis.y.list.map( (data, i) => (
-              <path key={'axis-y-'+i} id={data.id} d={data.path} style={data.style}/>
-            ) )}
-          </g>
-        }
+      { (axis.x.list.length > 0 || axis.y.list.length > 0) && <g id="axis-wrapper">
+          {axis.x.list.map( (data, i) => (
+            <path key={'axis-x-'+i} id={data.id} d={data.path} style={data.style}/>
+          ) )}
+          {axis.y.list.map( (data, i) => (
+            <path key={'axis-y-'+i} id={data.id} d={data.path} style={data.style}/>
+          ) )}
+        </g>
+      }
 
-        { graph.list.length > 0 && <g id="graph-wrapper">
-            { graph.list.map( (data,i) => (
-                <ChartGraph key={'graph-'+i} data={data}/>
-            )) }
-          </g>
-        }
-      </g>
+      { graph && graph.list.length > 0 && <g id="graph-wrapper">
+          { graph.list.map( (data,i) => (
+              <ChartGraph key={'graph-'+i} data={data}/>
+          )) }
+        </g>
+      }
     </svg>
   }
 
@@ -67,18 +65,18 @@ export class Chart extends React.Component {
   ****************************************************************************/
   _initState( props ) {
     let state = {
-      'duration' : 500, 
-      'view'     : [1040,1040],
-      'padding'  : 20,
-      'barSpace' : 20,
-      'pieRadius': 300,
+      'duration' : props.duration  || 500, 
+      'view'     : props.view      || [1040,640],
+      'padding'  : props.padding   || 20,
+      'barSpace' : props.barSpace  || 20,
+      'pieRadius': 360,
+      'pieStroke': props.pieStroke || 60,
       'axis'     : {},
-      'data'     : props.data    || [],
-      'type'     : props.type    || 'pie',
-      'max'      : props.max     || 0,
-      'highest'  : props.highest || 0,
-      'sum'      : props.sum     || 0,
-      'transform': '',
+      'data'     : props.data      || [],
+      'type'     : props.type      || 'bar',
+      'max'      : props.max       || 0,
+      'highest'  : props.highest   || 0,
+      'sum'      : props.sum       || 0,
       'color'    : {
         'default'   : '#999',
         'background': '#fff',  
@@ -94,20 +92,18 @@ export class Chart extends React.Component {
       }
     };
 
-    state.axis.x = {'max': (state.view[0] - (state.padding*2))};
-    state.axis.y = {'max': (state.view[1] - (state.padding*2))};
+    state.axis.x = {'max': (state.view[0] - (state.padding*2)), 'list': []};
+    state.axis.y = {'max': (state.view[1] - (state.padding*2)), 'list': []};
 
-    state.axis.x.list = this._initAxisList('x', state, 10, true);
-    state.axis.y.list = this._initAxisList('y', state, 10);
-
-    state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
-
-    state.graph = this._initGraph( state );
-    if ( state.type === 'bar' ) {
-      state.transform = 'translate(30) rotate(180 '+(state.view[0]/2)+' '+(state.view[1]/2)+')';
+    if ( props.axis === true || (props.axis !== false && state.type.match(/(bar)/i)) ) {
+      state.axis.x.list = this._initAxisList('x', state, 10);
+      state.axis.y.list = this._initAxisList('y', state, 10);
     }
 
-    //console.log('=== LIST ==='); console.log( state.graph ); console.log( state.axis );
+    state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
+    state.graph = this._initGraph( state );
+
+    //console.log('=== LIST ==='); console.log( state ); console.log( state.axis );
     return state;
   }
 
@@ -169,11 +165,11 @@ export class Chart extends React.Component {
 
     let sumDegree = 0;
     info.list.forEach( (data) => {
-      data.duration = (state.duration / 1000)+'s';
-      data.stroke   = 80;
       data.type     = 'pie';
+      data.duration = (state.duration / 1000)+'s';
       data.percent  = data.value / info.sum;
       data.degree   = 360 * data.percent;
+      data.stroke   = state.pieStroke || 50;
       data.radius   = state.pieRadius || 100;
       data.cx       = (state.axis.x.max / 2) + state.padding;
       data.cy       = (state.axis.y.max / 2) + state.padding;
@@ -201,13 +197,15 @@ export class Chart extends React.Component {
   _initGraphBarInfo( state, info ){
     info.width  = state.axis.x.max / info.list.length;
     info.list.forEach( (data, i) => {
-      data.type     = 'bar';
-      data.percent  = data.value / info.highest;
-      data.width    = info.width - (state.barSpace * 2);
-      data.height   = state.axis.y.max * data.percent;
-      data.x        = state.axis.x.max - (info.width * i) - state.barSpace - data.width + state.padding;
-      data.y        = state.padding || 0;
-      data.duration = (state.duration / 1000)+'s';
+      data.type      = 'bar';
+      data.percent   = data.value / info.highest;
+      data.width     = info.width - (state.barSpace * 2);
+      data.height    = state.axis.y.max * data.percent;
+      data.x         = (info.width * i) + state.barSpace + state.padding;
+      data.y         = state.axis.y.max - data.height + state.padding;
+      data.center    = [data.x + (data.width/2), data.y + (data.height/2)];
+      data.transform = 'rotate(180 '+data.center[0] +' '+data.center[1]+')';
+      data.duration  = (state.duration / 1000)+'s';
 
       if ( data.color ) { return; }
       data.color = state.color.list[info.color++]; 
@@ -219,17 +217,18 @@ export class Chart extends React.Component {
     if (! state || ! state.axis || ! state.axis[axis] ) { return list; }
     if (! count || isNaN(count)                       ) { return list; }
 
-    let padding = state.padding, max = state.axis[axis].max;
-    let path    = '', delta = 0, gap = parseInt((max / count));
+    let padding = state.padding, path = '', delta = 0;
+    let xMax    = state.axis.x.max, yMax = state.axis.y.max;
+    let gap     = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
     let length  = count + (includeLast ? 1 : 0);
 
     for ( let i=0; i<length; i++ ) {
       if ( axis === 'x' ) {
-        delta = (gap*i) + padding;
-        path  = 'M '+padding+','+delta+' '+ (max+padding)+','+delta;
+        delta = yMax + padding - (gap*i);
+        path  = 'M '+padding+','+delta+' '+ (xMax+padding)+','+delta;
       } else {
-        delta = (max + padding) - (gap*i);
-        path = 'M '+delta+','+padding+' '+ delta+','+(max+padding);
+        delta = padding + (gap*i);
+        path = 'M '+delta+','+padding+' '+ delta+','+(yMax+padding);
       }
 
       list.push({
