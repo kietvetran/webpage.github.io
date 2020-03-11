@@ -1,6 +1,8 @@
 import React from 'react';
 import './Chart.scss';
 
+// https://css-tricks.com/building-progress-ring-quickly/
+
 const ChartGraph = ({data}) => {
   let graph = null;
 
@@ -10,10 +12,17 @@ const ChartGraph = ({data}) => {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
       <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
     </rect>;
-  } else if ( data.type === 'pie' ) {
+  } else if ( data.type === 'pie' || data.type === 'progress' ) {
     graph = <path id={data.id} style={data.style} d={data.path}>
-      <animate attributeName="stroke-dashoffset" dur={data.duration} from={data.dash} to={data.dash*2} fill="freeze"/>
+      {data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} from={data.dash} to={data.dash*2} fill="freeze"/>}
     </path>
+  } else if ( data.type === 'text' && data.text ) {
+    graph = <g>
+      <text id={data.id} x={data.x} y={data.y} style={data.style}
+        dominantBaseline="middle" textAnchor="middle"
+      >{data.text}</text>
+      <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>
+    </g>
   }
 
   return graph;
@@ -28,14 +37,16 @@ export class Chart extends React.Component {
       'id': 'chart-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1),
       ...this._initState( props )
     };
+
     this._click = this._click.bind(this);
+    this.updateData = this.updateData.bind(this);    
   }
 
   render() {    
     const {id, viewBox, axis, graph} = this.state;
 
     // <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox={viewBox} version="1.1"> 
-    return <svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} version="1.1" style={{'backgroundColor':'#fff'}}>
+    return <svg id={id} xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} version="1.1" style={{'backgroundColor':'#fff'}}>
       { (axis.x.list.length > 0 || axis.y.list.length > 0) && <g id="axis-wrapper">
           {axis.x.list.map( (data, i) => (
             <path key={'axis-x-'+i} id={data.id} d={data.path} style={data.style}/>
@@ -48,11 +59,23 @@ export class Chart extends React.Component {
 
       { graph && graph.list.length > 0 && <g id="graph-wrapper">
           { graph.list.map( (data,i) => (
-              <ChartGraph key={'graph-'+i} data={data}/>
+              <ChartGraph key={'graph-'+(data.id || i)} data={data}/>
           )) }
         </g>
       }
     </svg>
+  }
+
+  componentDidMount() {
+    //setTimeout( () => { this.updateData( 20 ); }, 5000);
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  updateData( data ) {
+    let props = {...this.props, 'data': data};
+    let state = this._initState( props );
+    this.setState( state );
   }
 
   /****************************************************************************
@@ -66,7 +89,7 @@ export class Chart extends React.Component {
   _initState( props ) {
     let state = {
       'duration' : props.duration  || 500, 
-      'view'     : props.view      || [1040,640],
+      'view'     : props.view      || [1040,1040],
       'padding'  : props.padding   || 20,
       'barSpace' : props.barSpace  || 20,
       'pieRadius': 360,
@@ -109,11 +132,11 @@ export class Chart extends React.Component {
 
   _initGraph( state ) {
     let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0};
-    if ( ! state || ! (state.data instanceof Array) ) { return info; }
+    if ( ! state ) { return info; }
 
     if ( typeof(state.highest) === 'number' ) { info.highest = state.highest; }
 
-    state.data.forEach( (d,i) => {
+    (state.data instanceof Array ? state.data : [state.data]).forEach( (d,i) => {
       let data = typeof(d) === 'number' ? {'value': d} : (
         typeof(d.value) === 'number' ? d : null
       );
@@ -126,11 +149,13 @@ export class Chart extends React.Component {
       info.list.push( cloned );    
     });
 
-    if ( typeof(state.sum) === 'number' && state.sum > info.sum) {
+    if ( state.type === 'progress' ) {
+      info.sum = 100;
+    } else if ( typeof(state.sum) === 'number' && state.sum > info.sum) {
       info.sum = state.sum;
     }
 
-    if ( state.type === 'pie' ) {
+    if ( state.type === 'pie' || state.type === 'progress' ) {
       this._initGraphPieInfo( state, info );
     } else if ( state.type === 'bar' ) {
       this._initGraphBarInfo( state, info );
@@ -165,7 +190,7 @@ export class Chart extends React.Component {
 
     let sumDegree = 0;
     info.list.forEach( (data) => {
-      data.type     = 'pie';
+      data.type     = state.type || 'pie';
       data.duration = (state.duration / 1000)+'s';
       data.percent  = data.value / info.sum;
       data.degree   = 360 * data.percent;
@@ -175,24 +200,47 @@ export class Chart extends React.Component {
       data.cy       = (state.axis.y.max / 2) + state.padding;
       data.path     = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
       data.dash     = getDash( data.radius, data.stroke, data.percent );
+      data.color    = data.color || state.color.list[info.color++];
       data.style    = {
         'fill'       : 'none',
-        'stroke'     : data.color || state.color.list[info.color++],
+        'stroke'     : data.color,
         'strokeWidth': data.stroke,
         'strokeDasharray' : data.dash,
       };
       sumDegree += data.degree;
     });
 
-    /*
+    if ( state.type === 'progress' ) {
+      this._initGraphPieInfoProgress(state, info, getPath);
+    }
+  };
+
+  _initGraphPieInfoProgress( state, info, getPath ) {
     let cloned = JSON.parse(JSON.stringify(info.list[0]));
+    cloned.id      = 'progess-' + new Date().getTime();
     cloned.degree  = 360;
     cloned.percent = 1;
-    cloned.path    = getPath(cloned.cx, cloned.cy, cloned.radius, 0, 359.9); 
+    cloned.path    = getPath(cloned.cx, cloned.cy, cloned.radius, 0, 359.999); 
+    cloned.dash    = 0;
     cloned.style.stroke = state.color.default;
+    cloned.style.strokeDasharray = cloned.dash;
+    cloned.animate = false;
     info.list.unshift( cloned );
-    */
-  };
+
+    info.list.push({
+      'id'  : 'progess-text-' + new Date().getTime(),
+      'type': 'text',
+      'text': info.list[0].value + '%',
+      'duration': info.list[0].duration,
+      'x': info.list[0].cx,
+      'y': info.list[0].cy,
+      'style': {
+        'fill'       : info.list[0].color,
+        'fontFamily' : 'Arial, Helvetica, sans-serif',
+        'fontSize'   : '1000%'
+      }
+    });    
+  }
 
   _initGraphBarInfo( state, info ){
     info.width  = state.axis.x.max / info.list.length;
