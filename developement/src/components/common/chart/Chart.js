@@ -12,12 +12,15 @@ const ChartGraph = ({data}) => {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
       <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
     </rect>;
-  } else if ( data.type === 'pie' || data.type === 'progress' ) {
+  } else if ( data.type === 'line-cirle' ) {
+    graph = <circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}>    
+      <animate attributeName="opacity" from="0" to="1" dur={data.duration} fill="freeze" />
+    </circle>;
+  } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'path' ) {
     graph = <path id={data.id} style={data.style} d={data.path}>
       { data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} fill="freeze"
           from={data.animateFrom !== undefined ?  data.animateFrom : data.dash}
           to={data.animateTo !== undefined ? data.animateTo : (data.dash*2)}
-          restart="always"
         />
       }
     </path>
@@ -136,7 +139,7 @@ export class Chart extends React.Component {
     state.axis.x = {'max': (state.view[0] - (state.padding*2)), 'list': []};
     state.axis.y = {'max': (state.view[1] - (state.padding*2)), 'list': []};
 
-    if ( props.axis === true || (props.axis !== false && state.type.match(/(bar)/i)) ) {
+    if ( props.axis === true || (props.axis !== false && state.type.match(/^(bar|line)/i)) ) {
       state.axis.x.list = this._initAxisList('x', state, 10);
       state.axis.y.list = this._initAxisList('y', state, 10);
     }
@@ -177,7 +180,10 @@ export class Chart extends React.Component {
       this._initGraphPieInfo( state, info );
     } else if ( state.type === 'bar' ) {
       this._initGraphBarInfo( state, info );
+    } else if ( state.type === 'line' ) {
+      this._initGraphLineInfo( state, info );
     }
+
     return info;
   }
 
@@ -277,6 +283,54 @@ export class Chart extends React.Component {
     });
   }
 
+  _initGraphLineInfo( state, info ){
+    info.width = state.axis.x.max / info.list.length;
+    info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':(state.duration / 1000)};
+    info.list.forEach( (data, i) => {
+      data.type      = 'line-cirle';
+      data.percent   = data.value / info.highest;
+      data.width     = info.width - (state.barSpace * 2);
+      data.height    = state.axis.y.max * data.percent;
+      data.cx        = (info.width * i) + state.barSpace + state.padding + (data.width/2);
+      data.cy        = state.axis.y.max - data.height + state.padding;
+      data.radius    = 12;
+      data.duration  = info.linePath.duration+'s';
+      data.color     = data.color || state.color.background; 
+      data.style     = {
+        'stroke': state.color.default,
+        'strokeWidth': 4
+      };
+
+      info.linePath.pointList.push([data.cx, data.cy].join(','));
+      if ( info.linePath.prePoint ) {
+        let x = data.cx - info.linePath.prePoint.cx;
+        let y = data.cy - info.linePath.prePoint.cy;
+        if ( x < 0 ) { x *= -1; }
+        if ( y < 0 ) { y *= -1; }
+        info.linePath.dash += Math.sqrt(((x*x) + (y*y)));
+      }
+
+      info.linePath.prePoint = data;
+    });
+
+    let dash = parseInt(info.linePath.dash);
+    info.list.unshift({
+      'id'         : 'line-path-' + new Date().getTime(),
+      'type'       : 'path',
+      'path'       : 'M '+ info.linePath.pointList.join(' L '),
+      'duration'   : info.linePath.duration+'s',
+      'dash'       : dash,
+      'animateFrom': dash,
+      'animateTo'  : 0,
+      'style'      : {
+        'fill': 'none',
+        'stroke': state.color.default,
+        'strokeWidth': 4,
+        'strokeDasharray': dash,
+      }
+    });
+  }
+
   _initGraphBarInfo( state, info ){
     info.width  = state.axis.x.max / info.list.length;
     info.list.forEach( (data, i) => {
@@ -289,9 +343,7 @@ export class Chart extends React.Component {
       data.center    = [data.x + (data.width/2), data.y + (data.height/2)];
       data.transform = 'rotate(180 '+data.center[0] +' '+data.center[1]+')';
       data.duration  = (state.duration / 1000)+'s';
-
-      if ( data.color ) { return; }
-      data.color = state.color.list[info.color++]; 
+      data.color     = data.color || state.color.list[info.color++]; 
     });
   }
 

@@ -23,7 +23,7 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-          <Chart data={[20,50,90,40]} highest={120} type="bar"/>
+          <Chart data={[20,50,90,40]} highest={120} type="line"/>
         </li>
         <li className="application-item">
           <Speech {...this.props} />
