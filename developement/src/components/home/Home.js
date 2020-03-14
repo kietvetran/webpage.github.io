@@ -23,7 +23,7 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-          <Chart data={[20,50,90,40]} highest={120} type="line"/>
+          <Chart data={[[20,50,90,40],[10,80,20,90]]} highest={120} type="line"/>
         </li>
         <li className="application-item">
           <Speech {...this.props} />
@@ -36,6 +36,7 @@ class Home extends Component {
   }
 
   /****************************************************************************
+          <Chart data={[[20,50,90,40],[10,80,20,90]]} highest={120} type="line"/>
   ****************************************************************************/
   _click( e, key, data) {
   }

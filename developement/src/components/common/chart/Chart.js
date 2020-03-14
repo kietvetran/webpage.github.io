@@ -6,7 +6,7 @@ import './Chart.scss';
 const ChartGraph = ({data}) => {
   let graph = null;
 
-  console.log( data );
+  //console.log( data );
 
   if ( data.type === 'bar' ) {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
@@ -42,7 +42,7 @@ export class Chart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'id': 'chart-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1),
+      'id': this._generateId(),
       ...this._initState( props )
     };
 
@@ -106,6 +106,10 @@ export class Chart extends React.Component {
 
   /****************************************************************************
   ****************************************************************************/
+  _generateId( prefix ) {
+    return (prefix || 'chart-') + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1);
+  }
+
   _initState( props ) {
     let state = {
       'duration' : props.duration  || 600, 
@@ -114,6 +118,8 @@ export class Chart extends React.Component {
       'barSpace' : props.barSpace  || 20,
       'pieRadius': 360,
       'pieStroke': props.pieStroke || 60,
+      'lineRadius': 12,
+      'lineSpace': 20,
       'axis'     : {},
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
@@ -159,14 +165,32 @@ export class Chart extends React.Component {
 
     (state.data instanceof Array ? state.data : [state.data]).forEach( (d,i) => {
       let data = typeof(d) === 'number' ? {'value': d} : (
-        typeof(d.value) === 'number' ? d : null
+        typeof(d.value) === 'number' || d instanceof Array ? d : null
       );
       if ( ! data  ) { return; }
 
-      let cloned = {...data, 'id': 'graph-' + new Date().getTime() + '-' + i};
-      info.sum += cloned.value;
-      info.highest =  info.highest < cloned.value ? cloned.value : info.highest;
-      info.pin[cloned.id] = cloned;
+      let value = 0, cloned = null;
+      if ( data instanceof Array ) {
+        cloned = data.reduce( (p,n) => {
+          let t = typeof(n) === 'number' ? {'value': n} : (
+            typeof(n.value) === 'number' ? n : null
+          );
+          if ( ! t ) { return; }
+
+          let tmp = {...t, 'id': this._generateId('graph-'+i)};
+          value += tmp.value || 0;
+          info.pin[tmp.id] = tmp;
+          p.push( tmp ); 
+          return p;
+        }, []);
+      } else {
+        cloned = {...data, 'id': this._generateId('graph-'+i)};
+        value = cloned.value || 0;
+        info.pin[cloned.id] = cloned;
+      }
+
+      info.sum    += value;
+      info.highest = info.highest < value ? value : info.highest;
       info.list.push( cloned );    
     });
 
@@ -180,8 +204,20 @@ export class Chart extends React.Component {
       this._initGraphPieInfo( state, info );
     } else if ( state.type === 'bar' ) {
       this._initGraphBarInfo( state, info );
-    } else if ( state.type === 'line' ) {
-      this._initGraphLineInfo( state, info );
+    } else if ( state.type === 'line' ) {      
+      if ( info.list[0] instanceof Array ) {
+        let collection = info.list, storage = [];
+        for ( let i=0; i<collection.length; i++ ) {
+          let color =  state.color.list[info.color++];
+          collection[i].forEach( (d) => d.color = color );
+          let tmp = {...info, 'list': collection[i] };
+          this._initGraphLineInfo( state, tmp );
+          storage = storage.concat( tmp.list );
+        }
+        info.list = storage;
+      } else {
+        this._initGraphLineInfo( state, info );
+      }
     }
 
     return info;
@@ -257,7 +293,7 @@ export class Chart extends React.Component {
     }
 
     let cloned  = JSON.parse(JSON.stringify(current));
-    cloned.id      = 'progess-' + new Date().getTime();
+    cloned.id      = this._generateId('progress');
     cloned.value   = 100;
     cloned.degree  = 360;
     cloned.percent = 1;
@@ -269,7 +305,7 @@ export class Chart extends React.Component {
     info.list.unshift( cloned );
 
     info.list.push({
-      'id'  : 'progess-text-' + new Date().getTime(),
+      'id'  : this._generateId('progress-text'),
       'type': 'text',
       'text': current.value + '%',
       'duration': current.duration,
@@ -284,16 +320,17 @@ export class Chart extends React.Component {
   }
 
   _initGraphLineInfo( state, info ){
-    info.width = state.axis.x.max / info.list.length;
+    info.width = (state.axis.x.max - (state.padding * 2)) / (info.list.length - 1);
     info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':(state.duration / 1000)};
     info.list.forEach( (data, i) => {
       data.type      = 'line-cirle';
       data.percent   = data.value / info.highest;
-      data.width     = info.width - (state.barSpace * 2);
+      data.width     = info.width - (state.lineSpace * 2);
       data.height    = state.axis.y.max * data.percent;
-      data.cx        = (info.width * i) + state.barSpace + state.padding + (data.width/2);
+      //data.cx        = (info.width * i) + state.barSpace + state.padding + (data.width/2);
+      data.cx        = (info.width * i) + state.lineSpace + state.padding;
       data.cy        = state.axis.y.max - data.height + state.padding;
-      data.radius    = 12;
+      data.radius    = state.lineRadius;
       data.duration  = info.linePath.duration+'s';
       data.color     = data.color || state.color.background; 
       data.style     = {
@@ -313,9 +350,11 @@ export class Chart extends React.Component {
       info.linePath.prePoint = data;
     });
 
+    if ( info.list.length < 2 ) { return; }
+
     let dash = parseInt(info.linePath.dash);
     info.list.unshift({
-      'id'         : 'line-path-' + new Date().getTime(),
+      'id'         : this._generateId('line-path'),
       'type'       : 'path',
       'path'       : 'M '+ info.linePath.pointList.join(' L '),
       'duration'   : info.linePath.duration+'s',
