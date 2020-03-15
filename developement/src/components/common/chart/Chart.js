@@ -6,7 +6,7 @@ import './Chart.scss';
 const ChartGraph = ({data}) => {
   let graph = null;
 
-  //console.log( data );
+  console.log( data );
 
   if ( data.type === 'bar' ) {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
@@ -153,7 +153,7 @@ export class Chart extends React.Component {
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
     state.graph = this._initGraph( state );
 
-    //console.log('=== LIST ==='); console.log( state ); console.log( state.axis );
+    console.log('=== LIST ==='); console.log( state ); console.log( state.axis );
     return state;
   }
 
@@ -179,6 +179,8 @@ export class Chart extends React.Component {
 
           let tmp = {...t, 'id': this._generateId('graph-'+i)};
           value += tmp.value || 0;
+
+          info.highest = info.highest < tmp.value ? tmp.value : info.highest;
           info.pin[tmp.id] = tmp;
           p.push( tmp ); 
           return p;
@@ -187,10 +189,10 @@ export class Chart extends React.Component {
         cloned = {...data, 'id': this._generateId('graph-'+i)};
         value = cloned.value || 0;
         info.pin[cloned.id] = cloned;
+        info.highest = info.highest < value ? value : info.highest;
       }
 
       info.sum    += value;
-      info.highest = info.highest < value ? value : info.highest;
       info.list.push( cloned );    
     });
 
