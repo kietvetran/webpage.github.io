@@ -12,6 +12,10 @@ const ChartGraph = ({data, animate}) => {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
       <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
     </rect>;
+  } else if ( data.type === 'line-polygon' ) {
+    graph = <polygon points={data.points} style={data.style} >
+      <animate attributeName="opacity" from="0" to={data.animateTo} dur={data.duration} fill="freeze" />
+    </polygon>
   } else if ( data.type === 'line-cirle' ) {
     graph = <circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}>    
       <animate attributeName="opacity" from="0" to="1" dur={data.duration} fill="freeze" />
@@ -122,6 +126,7 @@ export class Chart extends React.Component {
       'lineSpace': 20,
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
+      'fill'     : props.fill === true,
       'max'      : props.max       || 0,
       'highest'  : props.highest   || 0,
       'sum'      : props.sum       || 0,
@@ -370,14 +375,17 @@ export class Chart extends React.Component {
       info.linePath.prePoint = data;
     });
 
-    if ( info.list.length < 2 ) { return; }
+    if ( info.list.length > 1 ) { this._initGraphLinePath( state, info ); }
+  }
 
+  _initGraphLinePath( state, info ) {
     let color = info.list[0].color || state.color.default;
     let dash  = parseInt(info.linePath.dash);
+    let pointList = info.linePath.pointList;
     info.list.unshift({
       'id'         : this._generateId('line-path'),
       'type'       : 'path',
-      'path'       : 'M '+ info.linePath.pointList.join(' L '),
+      'path'       : 'M '+ pointList.join(' L '),
       'duration'   : info.linePath.duration+'s',
       'dash'       : dash,
       'animateFrom': dash,
@@ -388,6 +396,30 @@ export class Chart extends React.Component {
         'strokeWidth': 4,
         'strokeDasharray': dash,
       }
+    });
+
+    if ( ! state.fill ) { return; }
+    let first  = info.list[1];
+    let last   = info.list[(info.list.length - 1)];
+    let bottom = state.axis.y.max + state.padding;
+
+    pointList  = pointList.concat([
+      [last.cx,  bottom].join(','),
+      [first.cx, bottom].join(',')
+    ]);
+
+    info.list.unshift({
+      'id'         : this._generateId('line-polygon'),
+      'type'       : 'line-polygon',
+      'points'     : pointList.join(' '),
+      'duration'   : info.linePath.duration+'s',
+      'animateTo'  : .6,
+      'style'      : {
+        'fill'       : color,
+        'opacity'    : .4,
+        'stroke'     : 'transparent',
+        'strokeWidth': 0,
+       }
     });
   }
 
