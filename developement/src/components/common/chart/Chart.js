@@ -27,7 +27,7 @@ const ChartGraph = ({data, animate}) => {
   } else if ( data.type === 'text' && data.text ) {
     graph = <g>
       <text id={data.id} x={data.x} y={data.y} style={data.style}
-        dominantBaseline="middle" textAnchor="middle"
+        dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
       >{data.text}</text>
        { animate !== false && data.animate !== false && <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>}
     </g>
@@ -147,16 +147,17 @@ export class Chart extends React.Component {
       'list': [],
       'grid': 1 + (xAxis.grid || 0),
       'color': xAxis.color || 'rgba(0,0,0,.7)',
+      'lineSize' : [4,10],
       'text' : xAxis.text,
-      'lineSize' : [4,10]
     };
     state.axis.y  = {
       'max'  : (state.view[1] - (state.padding*2)),
       'list' : [],
       'grid' : 1 + (yAxis.grid || 0),
       'color': yAxis.color || 'rgba(0,0,0,.7)',
-      'text' : xAxis.text,
-      'lineSize' : [10,4]
+      'lineSize' : [10,4],
+      'separation' : yAxis.separation || 0,
+      'unit' : yAxis.unit || '',
     };
 
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
@@ -488,6 +489,40 @@ export class Chart extends React.Component {
   }
 
   _initYaxisText( state, list ) {
-    console.log('=== Y ===');    
+    let highest = state.graph.highest || 0, separation = state.axis.y.separation;
+    if ( ! highest || ! separation ) { return; }   
+
+    let lineSize = state.axis.y.lineSize, unit = state.axis.y.unit || '';
+    let bottom   = state.axis.y.max + state.padding;
+    let value    = highest / separation, height = state.axis.y.max / separation;
+
+    for ( let i=0; i<separation; i++ ) {
+      let y = bottom - (height *(i+1));
+      let x = state.padding;
+
+      list.push({
+        'id'  : this._generateId('x-text-'+i),
+        'type': 'text',
+        'x'   : x - 5,
+        'y'   : y,
+        'textAnchor': 'end',
+        'text': (value * (i+1)) + unit,
+        'style': {
+          'fontFamily' : 'Arial, Helvetica, sans-serif',
+          'fontSize'   : '130%'          
+        }
+      });
+
+      list.push({
+        'id'  : this._generateId('y-p-'+i),
+        'type': 'path',
+        'path': 'M ' + x+','+y + ' L '+ (x+lineSize[0])+','+y,
+        'style': {
+          'stroke'      : state.axis.y.color || '#444',
+          'strokeWidth' : '2',
+          'fill'        : 'none',
+        }
+      });      
+    }
   }
 }
