@@ -3,10 +3,10 @@ import './Chart.scss';
 
 // https://css-tricks.com/building-progress-ring-quickly/
 
-const ChartGraph = ({data}) => {
+const ChartGraph = ({data, animate}) => {
   let graph = null;
 
-  console.log( data );
+  //console.log( data );
 
   if ( data.type === 'bar' ) {
     graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
@@ -18,7 +18,7 @@ const ChartGraph = ({data}) => {
     </circle>;
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'path' ) {
     graph = <path id={data.id} style={data.style} d={data.path}>
-      { data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} fill="freeze"
+      { animate !== false && data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} fill="freeze"
           from={data.animateFrom !== undefined ?  data.animateFrom : data.dash}
           to={data.animateTo !== undefined ? data.animateTo : (data.dash*2)}
         />
@@ -29,7 +29,7 @@ const ChartGraph = ({data}) => {
       <text id={data.id} x={data.x} y={data.y} style={data.style}
         dominantBaseline="middle" textAnchor="middle"
       >{data.text}</text>
-      <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>
+       { animate !== false && data.animate !== false && <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>}
     </g>
   }
 
@@ -57,10 +57,10 @@ export class Chart extends React.Component {
     return graph ? <svg id={id} xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} version="1.1" style={{'backgroundColor':'#fff'}}>
       { (axis.x.list.length > 0 || axis.y.list.length > 0) && <g id="axis-wrapper">
           {axis.x.list.map( (data, i) => (
-            <path key={'axis-x-'+i} id={data.id} d={data.path} style={data.style}/>
+            <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/>
           ) )}
           {axis.y.list.map( (data, i) => (
-            <path key={'axis-y-'+i} id={data.id} d={data.path} style={data.style}/>
+            <ChartGraph key={'y-'+(data.id || i)} data={data} animate={false}/>
           ) )}
         </g>
       }
@@ -110,50 +110,64 @@ export class Chart extends React.Component {
     return (prefix || 'chart-') + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1);
   }
 
-  _initState( props ) {
-    let state = {
+  _initState( props={} ) {
+    let {xAxis={}, yAxis={}} = props, state = {
       'duration' : props.duration  || 600, 
       'view'     : props.view      || [1040,1040],
-      'padding'  : props.padding   || 20,
+      'padding'  : props.padding   || 100,
       'barSpace' : props.barSpace  || 20,
       'pieRadius': 360,
       'pieStroke': props.pieStroke || 60,
       'lineRadius': 12,
       'lineSpace': 20,
-      'axis'     : {},
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
       'max'      : props.max       || 0,
       'highest'  : props.highest   || 0,
       'sum'      : props.sum       || 0,
-      'color'    : {
-        'default'   : '#999',
-        'background': '#fff',  
-        'list': [
-          '#1cc99d', // green
-          '#52b7f2', // blue
-          '#f35072', // red
-          '#f0c55c', // yellow
-          '#8675f4', // purple
-          '#d8903b', // orange
-          '#e9a3bf', // pink
+      'axis'     : {},
+      'color'    : props.color     || {
+        'default'   : props.colorDefault    || 'rgba(0,0,0,.5)',
+        'background': props.colorBackground || 'rgba(255,255,255,1)',  
+        'list': props.colorList || [
+          'rgba(28, 201, 157, 1)', //'#1cc99d', // green
+          'rgba(82, 183, 242, 1)', //'#52b7f2', // blue
+          'rgba(243, 80, 114, 1)', //'#f35072', // red
+          'rgba(240, 197, 92, 1)', //'#f0c55c', // yellow
+          'rgba(134, 117, 244, 1)', //'#8675f4', // purple
+          'rgba(216, 144, 59, 1)', //'#d8903b', // orange
+          'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
         ]
       },
       'previous' : {...(this.state || {})} 
     };
 
-    state.axis.x = {'max': (state.view[0] - (state.padding*2)), 'list': []};
-    state.axis.y = {'max': (state.view[1] - (state.padding*2)), 'list': []};
-
-    if ( props.axis === true || (props.axis !== false && state.type.match(/^(bar|line)/i)) ) {
-      state.axis.x.list = this._initAxisList('x', state, 10);
-      state.axis.y.list = this._initAxisList('y', state, 10);
-    }
+    state.axis.x  = {
+      'max': (state.view[0] - (state.padding*2)),
+      'list': [],
+      'grid': 1 + (xAxis.grid || 0),
+      'color': xAxis.color || 'rgba(0,0,0,.7)',
+      'text' : xAxis.text,
+      'lineSize' : [4,10]
+    };
+    state.axis.y  = {
+      'max'  : (state.view[1] - (state.padding*2)),
+      'list' : [],
+      'grid' : 1 + (yAxis.grid || 0),
+      'color': yAxis.color || 'rgba(0,0,0,.7)',
+      'text' : xAxis.text,
+      'lineSize' : [10,4]
+    };
 
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
-    state.graph = this._initGraph( state );
+    state.graph   = this._initGraph( state );
 
-    console.log('=== LIST ==='); console.log( state ); console.log( state.axis );
+    if ( props.axis === true || (props.axis !== false && state.type.match(/^(bar|line)/i)) ) {
+      state.axis.x.list = this._initAxisList('x', state);
+      state.axis.y.list = this._initAxisList('y', state);
+    }
+
+    //console.log('=== LIST ==='); console.log( state ); console.log( state.axis );
     return state;
   }
 
@@ -218,6 +232,8 @@ export class Chart extends React.Component {
         }
         info.list = storage;
       } else {
+        let color = state.color.list[info.color++];
+        info.list.forEach( (d) => d.color = color );
         this._initGraphLineInfo( state, info );
       }
     }
@@ -322,7 +338,7 @@ export class Chart extends React.Component {
   }
 
   _initGraphLineInfo( state, info ){
-    info.width = (state.axis.x.max - (state.padding * 2)) / (info.list.length - 1);
+    info.width = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
     info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':(state.duration / 1000)};
     info.list.forEach( (data, i) => {
       data.type      = 'line-cirle';
@@ -332,12 +348,13 @@ export class Chart extends React.Component {
       //data.cx        = (info.width * i) + state.barSpace + state.padding + (data.width/2);
       data.cx        = (info.width * i) + state.lineSpace + state.padding;
       data.cy        = state.axis.y.max - data.height + state.padding;
+      data.center    = [data.cx, data.cy];
       data.radius    = state.lineRadius;
       data.duration  = info.linePath.duration+'s';
-      data.color     = data.color || state.color.background; 
+      data.color     = data.color || state.color.background;
       data.style     = {
         'stroke': state.color.default,
-        'strokeWidth': 4
+        'strokeWidth': 2
       };
 
       info.linePath.pointList.push([data.cx, data.cy].join(','));
@@ -354,7 +371,8 @@ export class Chart extends React.Component {
 
     if ( info.list.length < 2 ) { return; }
 
-    let dash = parseInt(info.linePath.dash);
+    let color = info.list[0].color || state.color.default;
+    let dash  = parseInt(info.linePath.dash);
     info.list.unshift({
       'id'         : this._generateId('line-path'),
       'type'       : 'path',
@@ -365,7 +383,7 @@ export class Chart extends React.Component {
       'animateTo'  : 0,
       'style'      : {
         'fill': 'none',
-        'stroke': state.color.default,
+        'stroke': color,
         'strokeWidth': 4,
         'strokeDasharray': dash,
       }
@@ -388,17 +406,17 @@ export class Chart extends React.Component {
     });
   }
 
-  _initAxisList(axis, state, count, includeLast) {
+  /****************************************************************************
+  ****************************************************************************/
+  _initAxisList(axis, state) {
     let list = [];
     if (! state || ! state.axis || ! state.axis[axis] ) { return list; }
-    if (! count || isNaN(count)                       ) { return list; }
 
-    let padding = state.padding, path = '', delta = 0;
+    let padding = state.padding, path = '', delta = 0, count = state.axis[axis].grid || 1;
     let xMax    = state.axis.x.max, yMax = state.axis.y.max;
     let gap     = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
-    let length  = count + (includeLast ? 1 : 0);
 
-    for ( let i=0; i<length; i++ ) {
+    for ( let i=0; i<count; i++ ) {
       if ( axis === 'x' ) {
         delta = yMax + padding - (gap*i);
         path  = 'M '+padding+','+delta+' '+ (xMax+padding)+','+delta;
@@ -409,15 +427,67 @@ export class Chart extends React.Component {
 
       list.push({
         'id'   : 'axis-'+axis+'-'+i,
+        'type' : 'path',
         'path' : path,
         'style': {
-          'stroke'      : '#444',
-          'strokeWidth': '2',
+          'stroke'      : state.axis[axis].color || '#444',
+          'strokeWidth' : '2',
           'fill'        : 'none',
           'opacity'     : i ? '.2' : '1'
         }
       });
     }
+
+    if ( state.type.match(/^(bar|line)/i) ) { 
+      axis === 'x' ? this._initXaxisText( state, list ) :
+        this._initYaxisText( state, list );
+    }
     return list;
+  }
+
+  _initXaxisText( state, list ) {
+    let bottom = state.axis.y.max + state.padding;
+    let text   = state.axis.x.text instanceof Array ? state.axis.x.text : (
+      state.axis.x.text ? [state.axis.x.text] : []
+    );
+    if ( ! text.length || ! ((state.graph || {}).list || []).length ) { return; }
+
+    let source     = (state.data instanceof Array ? state.data : [state.data]);
+    let collection = source[0] instanceof Array ? source[0] : source;
+    let index      = state.type === 'line' ? 1 : 0;
+    let lineSize   = state.axis.x.lineSize;
+
+    collection.forEach( (d,i) => {
+      let data = state.graph.list[index++];
+      if ( ! data || ! data.center || ! text[i] ) { return; }
+      let x = data.center[0];
+
+      list.push({
+        'id'  : this._generateId('x-text-'+i),
+        'type': 'text',
+        'x'   : x,
+        'y'   : bottom + 20,
+        'text': text[i],
+        'style': {
+          'fontFamily' : 'Arial, Helvetica, sans-serif',
+          'fontSize'   : '130%'          
+        }
+      });
+
+      list.push({
+        'id'  : this._generateId('x-p-'+i),
+        'type': 'path',
+        'path': 'M ' + (x-(lineSize[0]/2))+','+(bottom-lineSize[1]) + ' L '+ (x-(lineSize[0]/2))+','+bottom,
+        'style': {
+          'stroke'      : state.axis.x.color || '#444',
+          'strokeWidth' : '2',
+          'fill'        : 'none',
+        }
+      });
+    });
+  }
+
+  _initYaxisText( state, list ) {
+    console.log('=== Y ===');    
   }
 }
