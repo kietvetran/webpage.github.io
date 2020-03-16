@@ -359,8 +359,35 @@ export default class Chart extends React.Component {
 
     if ( state.type === 'progress' ) {
       this._initGraphPieInfoProgress(state, info, getPath);
+    } else {
+      this._initGraphPieInfoText(state, info);
     }
   };
+
+  _initGraphPieInfoText( state, info ) {
+    let length = info.list.length, index = 0;
+    let height = info.list[0].radius - info.list[0].stroke;
+    let gap    = 20, space = (height*2) / length;
+
+    for ( let i=0; i<length; i++ ) {
+      let data = info.list[i];
+      if ( ! data || ! data.cx || ! data.cy ) { continue; }
+
+      info.list.push({
+        'id'  : this._generateId('pie-text-'+i),
+        'type': 'text',
+        'x'   : data.cx,
+        'y'   : data.cy - (height - ((space)*index)) + gap,
+        'text': data.text,
+        'style': {
+          'fill'       : data.color || data.style.stroke || '#444',
+          'fontFamily' : 'Arial, Helvetica, sans-serif',
+          'fontSize'   : '130%' 
+        }
+      });
+      index++;
+    }
+  }
 
   _initGraphPieInfoProgress( state, info, getPath ) {
     let current = info.list[0];
