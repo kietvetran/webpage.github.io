@@ -224,23 +224,25 @@ export class Chart extends React.Component {
 
     if ( state.type === 'pie' || state.type === 'progress' ) {
       this._initGraphPieInfo( state, info );
-    } else if ( state.type === 'bar' ) {
-      this._initGraphBarInfo( state, info );
-    } else if ( state.type === 'line' ) {      
+    } else if ( state.type === 'line' || state.type === 'bar' ) {      
       if ( info.list[0] instanceof Array ) {
-        let collection = info.list, storage = [];
-        for ( let i=0; i<collection.length; i++ ) {
+        let collection = info.list, storage = [], length = collection.length;
+
+        for ( let i=0; i<length; i++ ) {
           let color =  state.color.list[info.color++];
           collection[i].forEach( (d) => d.color = color );
           let tmp = {...info, 'list': collection[i] };
-          this._initGraphLineInfo( state, tmp );
+
+          state.type === 'line' ? this._initGraphLineInfo( state, tmp ) : 
+            this._initGraphBarInfo( state, tmp, {'count': length, 'index': i} );
           storage = storage.concat( tmp.list );
         }
         info.list = storage;
       } else {
         let color = state.color.list[info.color++];
         info.list.forEach( (d) => d.color = color );
-        this._initGraphLineInfo( state, info );
+        state.type === 'line' ? this._initGraphLineInfo( state, info ) : 
+          this._initGraphBarInfo( state, info );
       }
     }
 
@@ -423,7 +425,7 @@ export class Chart extends React.Component {
     });
   }
 
-  _initGraphBarInfo( state, info ){
+  _initGraphBarInfo( state, info, multiple ){
     info.width  = state.axis.x.max / info.list.length;
     info.list.forEach( (data, i) => {
       data.type      = 'bar';
@@ -436,6 +438,12 @@ export class Chart extends React.Component {
       data.transform = 'rotate(180 '+data.center[0] +' '+data.center[1]+')';
       data.duration  = (state.duration / 1000)+'s';
       data.color     = data.color || state.color.list[info.color++]; 
+
+      if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
+        data.width  = data.width / multiple.count;
+        data.x      = data.x + ( (multiple.count - multiple.index) * data.width) - data.width;
+        //data.inner  = [data.x + (data.width/2), data.y + (data.height/2)];
+      }
     });
   }
 
