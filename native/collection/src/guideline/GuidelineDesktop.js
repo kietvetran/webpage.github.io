@@ -12,6 +12,7 @@ export default class GuidelineDesktop extends React.Component {
     super(props);
     this.state  = {
       'pageList': [
+        {'id': 'MyChart'},
         {'id': 'Typography'},
         {'id': 'Color'     },
         {'id': 'Message'   },

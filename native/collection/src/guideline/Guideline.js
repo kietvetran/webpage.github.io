@@ -18,6 +18,7 @@ import GuidelineTypography from './GuidelineTypography';
 import GuidelineColor from './GuidelineColor';
 import GuidelineDatePicker from './GuidelineDatePicker';
 import GuidelinePushNotification from './GuidelinePushNotification';
+import GuidelineMyChart from './GuidelineMyChart';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="DatePicker" component={GuidelineDatePicker} />
       <Stack.Screen name="PushNotification" component={GuidelinePushNotification} />
       <Stack.Screen name="ChartKit" component={GuidelineChartKit} />
+      <Stack.Screen name="MyChart" component={GuidelineMyChart} />
     </Stack.Navigator>
   );
 };
