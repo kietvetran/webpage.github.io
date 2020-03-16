@@ -99,7 +99,7 @@ export default class Chart extends React.Component {
     const {id, viewBox, view, axis, graph, animation} = this.state;
 
     return graph ? <Animated.View style={{'opacity': animation}}>
-      <Svg viewBox={viewBox} width={view[0]} height={view[1]}>
+      <Svg viewBox={viewBox} width={view[0]} height={view[1]} fill="#333">
         { (axis.x.list.length > 0 || axis.y.list.length > 0) && <G id="axis-wrapper">
             {axis.x.list.map( (data, i) => (
               data ? <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/> : null
@@ -188,7 +188,7 @@ export default class Chart extends React.Component {
     let {xAxis={}, yAxis={}} = props, state = {
       'duration' : props.duration  || 600, 
       'view'     : props.view      || [props.width || (width - 20), props.height || 300],
-      'padding'  : props.padding   || 15,
+      'padding'  : props.padding   || 40,
       'barSpace' : props.barSpace  || 5,
       'lineRadius': 7,
       'lineSpace': 20,
@@ -568,12 +568,10 @@ export default class Chart extends React.Component {
 
     let source     = (state.data instanceof Array ? state.data : [state.data]);
     let collection = source[0] instanceof Array ? source[0] : source;
-    let index      = state.type === 'line' ? 1 : 0;
-    let lineSize   = state.axis.x.lineSize;
+    let lineSize   = state.axis.x.lineSize, index = 0;
 
-    collection.forEach( (d,i) => {
-      let data = state.graph.list[index++];
-      if ( ! data || ! data.center || ! text[i] ) { return; }
+    state.graph.list.forEach( (data,i) => {
+      if ( ! data.center || ! text[index] ) { return; }
       let x = data.center[0];
 
       list.push({
@@ -581,10 +579,10 @@ export default class Chart extends React.Component {
         'type': 'text',
         'x'   : x,
         'y'   : bottom + 20,
-        'text': text[i],
+        'text': text[index++],
         'style': {
           'fontFamily' : 'Arial, Helvetica, sans-serif',
-          'fontSize'   : '130%'          
+          'fontSize'   : '100%'          
         }
       });
 
@@ -617,12 +615,12 @@ export default class Chart extends React.Component {
         'id'  : this._generateId('x-text-'+i),
         'type': 'text',
         'x'   : x - 5,
-        'y'   : y,
+        'y'   : y + 5,
         'textAnchor': 'end',
         'text': (value * (i+1)) + unit,
         'style': {
           'fontFamily' : 'Arial, Helvetica, sans-serif',
-          'fontSize'   : '130%'          
+          'fontSize'   : '100%'          
         }
       });
 
