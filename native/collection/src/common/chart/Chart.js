@@ -1,17 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Animated, Dimensions } from 'react-native';
 import Svg, {
-  Circle,
-  Ellipse,
-  G,
-  Text,
-  TSpan,
-  TextPath,
-  Path,
-  Polygon,
-  Polyline,
-  Line,
-  Rect,
+  Circle,Ellipse, G, Text, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect,
 } from 'react-native-svg';
 
 /*
@@ -87,7 +77,7 @@ export default class Chart extends React.Component {
     this.state = {
       'id': this._generateId(),
       'animation': new Animated.Value(0),
-      'animationConfig': {'duration': 600, 'delay': 300},
+      'animationConfig': {'duration': 800, 'delay': 300},
       ...this._initState( props )
     };
 
@@ -99,7 +89,7 @@ export default class Chart extends React.Component {
     const {id, viewBox, view, axis, graph, animation} = this.state;
 
     return graph ? <Animated.View style={{'opacity': animation}}>
-      <Svg viewBox={viewBox} width={view[0]} height={view[1]} fill="#333">
+      <Svg viewBox={viewBox} width={view[0]} height={view[1]}>
         { (axis.x.list.length > 0 || axis.y.list.length > 0) && <G id="axis-wrapper">
             {axis.x.list.map( (data, i) => (
               data ? <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/> : null
@@ -117,42 +107,20 @@ export default class Chart extends React.Component {
         }
       </Svg>
     </Animated.View> : null;
-
-    /*
-    // <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox={viewBox} version="1.1"> 
-    return graph ? <svg id={id} xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} version="1.1" style={{'backgroundColor':'#fff'}}>
-      { (axis.x.list.length > 0 || axis.y.list.length > 0) && <g id="axis-wrapper">
-          {axis.x.list.map( (data, i) => (
-            <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/>
-          ) )}
-          {axis.y.list.map( (data, i) => (
-            <ChartGraph key={'y-'+(data.id || i)} data={data} animate={false}/>
-          ) )}
-        </g>
-      }
-
-      { graph.list && graph.list.length > 0 && <g id="graph-wrapper">
-          { graph.list.map( (data,i) => (
-              <ChartGraph key={'graph-'+(data.id || i)} data={data}/>
-          )) }
-        </g>
-      }
-    </svg> : null;
-    */
   }
 
   componentDidMount() { 
-    let {animation, animationConfig} = this.state;
-    Animated.timing( animation, {
-      ...animationConfig,
-      'toValue': 1
-    }).start(); 
+    this._revealAnimation();
+    //setTimeout( () => { this.updateData(80); }, 5000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     let {graph, nextGraph} = this.state;
     if ( graph === null && nextGraph ) {
+      this._revealAnimation({ 'duration': 0,'delay': 0, 'toValue' : 0});
       this.setState({'graph': nextGraph, 'nextGraph': null});
+    } else if ( graph && nextGraph === null ) {
+      this._revealAnimation({'delay': 0});
     }
   }
 
@@ -166,7 +134,7 @@ export default class Chart extends React.Component {
       // SVG hack for animation from  50% to 25%
       state.nextGraph = state.graph;
       state.graph     = null;
-    }
+    } 
 
     this.setState( state );
   }
@@ -175,6 +143,17 @@ export default class Chart extends React.Component {
   ****************************************************************************/
   _click( e, key, data ) {
     if ( e ) { e.preventDefault(); }
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  _revealAnimation( config={} ) {
+    let {animation, animationConfig} = this.state;
+    Animated.timing( animation, {
+      'toValue': 1,
+      ...animationConfig,
+      ...config
+    }).start();
   }
 
   /****************************************************************************
@@ -372,7 +351,7 @@ export default class Chart extends React.Component {
         'stroke'     : data.color,
         'strokeWidth': data.stroke,
         'strokeDasharray': data.dash,
-        'strokeLinecap' : 'square'
+        'strokeLinecap' : 'butt'
       };
 
       sumDegree += data.degree;
@@ -581,6 +560,7 @@ export default class Chart extends React.Component {
         'y'   : bottom + 20,
         'text': text[index++],
         'style': {
+          'fill'       : state.axis.x.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '100%'          
         }
@@ -619,6 +599,7 @@ export default class Chart extends React.Component {
         'textAnchor': 'end',
         'text': (value * (i+1)) + unit,
         'style': {
+          'fill'       : state.axis.y.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '100%'          
         }
