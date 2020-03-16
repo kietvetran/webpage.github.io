@@ -86,6 +86,8 @@ export default class Chart extends React.Component {
     super(props);
     this.state = {
       'id': this._generateId(),
+      'animation': new Animated.Value(0),
+      'animationConfig': {'duration': 600, 'delay': 300},
       ...this._initState( props )
     };
 
@@ -94,25 +96,27 @@ export default class Chart extends React.Component {
   }
 
   render() {
-    const {id, viewBox, view, axis, graph} = this.state;
+    const {id, viewBox, view, axis, graph, animation} = this.state;
 
-    return graph ? <Svg viewBox={viewBox} width={view[0]} height={view[1]}>
-      { (axis.x.list.length > 0 || axis.y.list.length > 0) && <G id="axis-wrapper">
-          {axis.x.list.map( (data, i) => (
-            data ? <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/> : null
-          ) )}
-          {axis.y.list.map( (data, i) => (
-            data ? <ChartGraph key={'y-'+(data.id || i)} data={data} animate={false}/> : null
-          ) )}
-        </G>
-      }
-      { graph.list && graph.list.length > 0 && <G id="graph-wrapper">
-          { graph.list.map( (data,i) => (
-              data ? <ChartGraph key={'graph-'+(data.id || i)} data={data}/> : null
-          )) }
-        </G>
-      }
-    </Svg> : null;
+    return graph ? <Animated.View style={{'opacity': animation}}>
+      <Svg viewBox={viewBox} width={view[0]} height={view[1]}>
+        { (axis.x.list.length > 0 || axis.y.list.length > 0) && <G id="axis-wrapper">
+            {axis.x.list.map( (data, i) => (
+              data ? <ChartGraph key={'x-'+(data.id || i)} data={data} animate={false}/> : null
+            ) )}
+            {axis.y.list.map( (data, i) => (
+              data ? <ChartGraph key={'y-'+(data.id || i)} data={data} animate={false}/> : null
+            ) )}
+          </G>
+        }
+        { graph.list && graph.list.length > 0 && <G id="graph-wrapper">
+            { graph.list.map( (data,i) => (
+                data ? <ChartGraph key={'graph-'+(data.id || i)} data={data}/> : null
+            )) }
+          </G>
+        }
+      </Svg>
+    </Animated.View> : null;
 
     /*
     // <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox={viewBox} version="1.1"> 
@@ -137,7 +141,13 @@ export default class Chart extends React.Component {
     */
   }
 
-  //componentDidMount() { setTimeout( () => { this.updateData( 80 ); }, 5000); }
+  componentDidMount() { 
+    let {animation, animationConfig} = this.state;
+    Animated.timing( animation, {
+      ...animationConfig,
+      'toValue': 1
+    }).start(); 
+  }
 
   componentDidUpdate(prevProps, prevState) {
     let {graph, nextGraph} = this.state;

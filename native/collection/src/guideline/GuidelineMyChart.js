@@ -10,7 +10,7 @@ export default class GuidelineMyChart extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.collection}>
-            <Chart data={40} highest={120} type="progress" fill={true}
+            <Chart data={[[20,50,90,40], [40,10,70,80]]} highest={120} type="line" fill={true}
               xAxis={{'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']}}
               yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
             />
