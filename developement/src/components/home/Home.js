@@ -23,7 +23,7 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-          <Chart data={[20,50,90,40]} highest={120} type="bar" fill={false}
+           <Chart data={[20,50,90,40]} highest={120} type="bar" fill={true}
             xAxis={{'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']}}
             yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
           />
@@ -39,6 +39,18 @@ class Home extends Component {
   }
 
   /****************************************************************************
+           <Chart data={[20,50,90,40]} highest={120} type="bar" fill={true}
+            xAxis={{'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']}}
+            yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
+          />
+       <Chart data={40} highest={120} type="progress" fill={true}
+            xAxis={{'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']}}
+            yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
+          />
+             <Chart data={[{'value':20,'text':'ab'},{'value':50,'text':'abac'},{'value':90,'text':'tran'},{'value':40,'text':'kiret'}]} highest={120} type="pie" fill={true}
+            xAxis={{'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']}}
+            yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
+          />
           <Chart data={[[20,50,90,40],[10,80,20,90]]} highest={120} type="line"/>
   ****************************************************************************/
   _click( e, key, data) {

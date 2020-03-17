@@ -33,7 +33,9 @@ const ChartGraph = ({data, animate}) => {
       <text id={data.id} x={data.x} y={data.y} style={data.style}
         dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
       >{data.text}</text>
-       { animate !== false && data.animate !== false && <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>}
+      { animate !== false && data.animate !== false &&
+          <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>
+      }
     </g>
   }
 
@@ -307,8 +309,36 @@ export class Chart extends React.Component {
 
     if ( state.type === 'progress' ) {
       this._initGraphPieInfoProgress(state, info, getPath);
+    } else {
+      this._initGraphPieInfoText(state, info);
     }
   };
+
+  _initGraphPieInfoText( state, info ) {
+    let length = info.list.length, index = 0;
+    let height = info.list[0].radius - info.list[0].stroke;
+    let gap    = 50, space = (height*2) / length;
+
+    for ( let i=0; i<length; i++ ) {
+      let data = info.list[i];
+      if ( ! data || ! data.cx || ! data.cy ) { continue; }
+
+      info.list.push({
+        'id'  : this._generateId('pie-text-'+i),
+        'type': 'text',
+        'x'   : data.cx,
+        'y'   : data.cy - (height - ((space)*index)) + gap,
+        'text': data.text,
+        'animate': false,
+        'style': {
+          'fill'       : data.color || data.style.stroke || '#444',
+          'fontFamily' : 'Arial, Helvetica, sans-serif',
+          'fontSize'   : '350%' 
+        }
+      });
+      index++;
+    }
+  }
 
   _initGraphPieInfoProgress( state, info, getPath ) {
     let current = info.list[0];
@@ -495,12 +525,10 @@ export class Chart extends React.Component {
 
     let source     = (state.data instanceof Array ? state.data : [state.data]);
     let collection = source[0] instanceof Array ? source[0] : source;
-    let index      = state.type === 'line' ? 1 : 0;
-    let lineSize   = state.axis.x.lineSize;
+    let lineSize   = state.axis.x.lineSize, index = 0;
 
-    collection.forEach( (d,i) => {
-      let data = state.graph.list[index++];
-      if ( ! data || ! data.center || ! text[i] ) { return; }
+    state.graph.list.forEach( (data,i) => {
+      if ( ! data.center || ! text[index] ) { return; }
       let x = data.center[0];
 
       list.push({
@@ -508,8 +536,9 @@ export class Chart extends React.Component {
         'type': 'text',
         'x'   : x,
         'y'   : bottom + 20,
-        'text': text[i],
+        'text': text[index++],
         'style': {
+          'fill'       : state.axis.x.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '130%'          
         }
@@ -548,6 +577,7 @@ export class Chart extends React.Component {
         'textAnchor': 'end',
         'text': (value * (i+1)) + unit,
         'style': {
+          'fill'       : state.axis.y.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '130%'          
         }
