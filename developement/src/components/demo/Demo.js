@@ -9,6 +9,7 @@ import { Pagination } from '../common/util/pagination/Pagination';
 import { Breadcrumb } from '../common/util/breadcrumb/Breadcrumb';
 import { Calendar } from '../common/calendar/Calendar';
 import { Suggestion } from '../common/suggestion/Suggestion';
+import { Chart } from '../common/chart/Chart';
 
 import './Demo.scss';
 
@@ -28,7 +29,34 @@ class Demo extends Component {
           {'id': 'dialog-warning', 'name': 'Warning', 'config': {'type': 'message', 'source': {'skin': 'warning', 'text': 'test'}} },
           {'id': 'dialog-danger',  'name': 'Danger', 'config': {'type': 'message', 'source': {'skin': 'danger', 'text': 'test'}} },
           {'id': 'dialog-success', 'name': 'Auccess', 'config': {'type': 'message', 'source': {'skin': 'success', 'text': 'test'}} },
-        ], 
+        ], [
+          {'id': 'chart-progress', 'name': 'Chart progress', 'config': {'type': 'chart', 'source': {'data': 40, 'type': 'progress'}}},
+          {'id': 'chart-pie',      'name': 'Chart pie', 'config': {'type': 'chart', 'source': {
+            'data': [
+              {'value': 20, 'text': 'Alfa' },
+              {'value': 50, 'text': 'Beta' },
+              {'value': 90, 'text': 'Gamma'},
+              {'value': 40, 'text': 'Delta'}
+            ],
+            'type': 'pie'
+          }}},
+          {'id': 'chart-bar', 'name': 'Chart bar', 'config': {'type': 'chart', 'source': {
+            'data': [[20,50,90,40], [40,10,70,80], [10,90,20,30]],
+            'highest': 120,
+            'type': 'bar',
+            'fill': true,
+            'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
+            'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
+          }}},
+          {'id': 'chart-line', 'name': 'Chart line', 'config': {'type': 'chart', 'source': {
+            'data': [[20,50,90,40], [40,10,70,80]],
+            'highest': 120,
+            'type': 'line',
+            'fill': true,
+            'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
+            'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
+          }}},
+        ]
       ]
     };
     this._click  = this._click.bind(this);
@@ -46,9 +74,9 @@ class Demo extends Component {
         <ul className="menu-list">
           { menuList.map( (menu,j) => {
               return <li className="menu-item" key={'lab-menu-item-'+j}>
-                { (menu instanceof Array ? menu : [menu]).map( (data,i) => {
-                    return <a key={'lab-menu-item-'+j+'-'+i} href="#" className="link" role="button" onClick={(e)=>{this._click(e,'menu-item', data)}}>{data.name}</a>
-                })}
+                { (menu instanceof Array ? menu : [menu]).map( (data,i) => (
+                    <a key={'lab-menu-item-'+j+'-'+i} href="#" className="link" role="button" onClick={(e)=>{this._click(e,'menu-item', data)}}>{data.name}</a>
+                ))}
               </li>
           })}
         </ul>
@@ -115,6 +143,8 @@ class Demo extends Component {
           ]} 
         />
       </div>
+    } else if ( config.type === 'chart' ) {
+      component = <Chart {...config.source}/>
     }
 
     this.props.actions.openDialog({'component': component});

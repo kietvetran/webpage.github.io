@@ -20,9 +20,11 @@ const ChartGraph = ({data, animate}) => {
     graph = <circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}>    
       <animate attributeName="opacity" from="0" to="1" dur={data.duration} fill="freeze" />
     </circle>;
-  } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'path' ) {
+  } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'path' || data.type === 'bar-path' ) {
     graph = <path id={data.id} style={data.style} d={data.path}>
-      { animate !== false && data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} fill="freeze"
+      { animate !== false && data.animate !== false && <animate fill="freeze"
+          attributeName={data.animateAttributeName || 'stroke-dashoffset'}
+          dur={data.duration} 
           from={data.animateFrom !== undefined ?  data.animateFrom : data.dash}
           to={data.animateTo !== undefined ? data.animateTo : (data.dash*2)}
         />
@@ -458,6 +460,50 @@ export class Chart extends React.Component {
   _initGraphBarInfo( state, info, multiple ){
     info.width  = state.axis.x.max / info.list.length;
     info.list.forEach( (data, i) => {
+      data.type      = 'bar-path';
+      data.percent   = data.value / info.highest;
+      data.width     = info.width - (state.barSpace * 2);
+      data.height    = state.axis.y.max * data.percent;
+      data.x         = (info.width * i) + state.barSpace + state.padding;
+      data.y         = state.axis.y.max + state.padding;
+      data.center    = [data.x + (data.width/2), data.y - (data.height/2)];
+
+      if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
+        data.width  = data.width / multiple.count;
+        data.x      = data.x + (multiple.index * data.width);
+      }
+
+      data.duration  = (state.duration / 1000)+'s';
+      data.color     = data.color || state.color.list[info.color++];
+      data.style     = {
+        'fill': data.color,
+        'stroke': state.color.default,
+        'strokeWidth': 1
+      };      
+
+      data.animateAttributeName = 'd';
+      data.animateFrom = [
+        'M',
+        [data.x, data.y].join(','),
+        [data.x, data.y].join(','),
+        [data.x+data.width, data.y].join(','),
+        [data.x+data.width, data.y].join(',')
+      ].join(' ');
+
+      data.animateTo = [
+        'M',
+        [data.x, data.y].join(','),
+        [data.x, data.y-data.height].join(','),
+        [data.x+data.width, data.y-data.height].join(','),
+        [data.x+data.width, data.y].join(',')
+      ].join(' ');
+    });
+  }
+
+  /*
+  _initGraphBarInfo( state, info, multiple ){
+    info.width  = state.axis.x.max / info.list.length;
+    info.list.forEach( (data, i) => {
       data.type      = 'bar';
       data.percent   = data.value / info.highest;
       data.width     = info.width - (state.barSpace * 2);
@@ -476,6 +522,7 @@ export class Chart extends React.Component {
       }
     });
   }
+  */
 
   /****************************************************************************
   ****************************************************************************/
