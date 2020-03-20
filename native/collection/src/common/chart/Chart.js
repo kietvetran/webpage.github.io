@@ -16,21 +16,24 @@ const ChartGraph = ({data, animate}) => {
   if ( data.type === 'bar' ) {
     graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}/>
   } else if ( data.type === 'line-polygon' ) {
-    graph = data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
+    graph = data.animation && data.animation.value && data.animation.attributeName === 'fill-opacity' ?
       <AnimatedPolyline points={data.points} style={data.style} fillOpacity={data.animation.value}/> :
       <Polygon points={data.points} style={data.style}/>
   } else if ( data.type === 'line-cirle' ) {
     graph = <Circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}/>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
-    graph = data.animation && data.animation.value && data.animation.config ?
-      <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : (
-        data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
-        <AnimatedPath id={data.id} style={data.style} d={data.path} fillOpacity={data.animation.value}/>:
-        <Path id={data.id} style={data.style} d={data.path}/>
+    graph = data.animation && data.animation.value && data.animation.config && data.animation.attributeName === 'stroke-dashoffset' ? 
+      <AnimatedPath id={data.id} style={data.style} d={data.path} strokeDashoffset={data.animation.value.interpolate(data.animation.config)}/> : (
+        data.animation && data.animation.value && data.animation.config ? 
+          <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : (
+            data.animation && data.animation.value && data.animation.attributeName === 'fill-opacity' ?
+            <AnimatedPath id={data.id} style={data.style} d={data.path} fillOpacity={data.animation.value}/>:
+            <Path id={data.id} style={data.style} d={data.path}/>
+          )
       );
   } else if ( data.type === 'text' && data.text ) {
     graph = <G>
-      { data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
+      { data.animation && data.animation.value && data.animation.attributeName === 'fill-opacity' ?
           <AnimatedText id={data.id} x={data.x} y={data.y} style={data.style}
             dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'} fillOpacity={data.animation.value}
           >{data.text}</AnimatedText>
@@ -321,8 +324,8 @@ export default class Chart extends React.Component {
       return delta;
     };
 
-    let sumDegree = 0;
-    info.list.forEach( (data) => {
+    let sumDegree = 0, sumPercent = 0;
+    info.list.forEach( (data, index) => {
       data.type     = state.type || 'pie';
       data.duration = state.duration;
       data.percent  = data.value / info.sum;
@@ -335,16 +338,30 @@ export default class Chart extends React.Component {
 
       if ( data.type === 'pie' ) {
         data.path = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+        if ( state.animation ) {
+          data.animateFrom = data.dash;
+          data.animateTo   = data.dash * data.percent;
+        }
       } else {
         data.path = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
-        //data.path = getPath(data.cx, data.cy, data.radius, 0, 359.999);
-        //data.animateFrom = data.dash;
-        //data.animateTo   = data.dash * (1 + data.percent);
         if ( state.animation ) {
-          data.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
+          data.path = getPath(data.cx, data.cy, data.radius, 0, 359.999);
+          data.animateFrom = data.dash;
+          data.animateTo   = data.dash * (1 + data.percent);
         }
       }
 
+      if ( data.animateFrom !== undefined && data.animateTo !== undefined ) {
+        data.animation = {
+          'value': new Animated.Value(0),
+          'config': {
+            inputRange: [0, 1],
+            outputRange: [data.animateFrom, data.animateTo],
+          },
+          'attributeName': 'stroke-dashoffset'
+        };     
+      }
+      
       data.color    = data.color || state.color.list[info.color++];
       data.style    = {
         'fill'       : 'none',
@@ -354,7 +371,8 @@ export default class Chart extends React.Component {
         'strokeLinecap' : 'butt'
       };
 
-      sumDegree += data.degree;
+      sumPercent += data.percent;
+      sumDegree  += data.degree;
     });
 
     if ( state.type === 'progress' ) {
@@ -424,7 +442,7 @@ export default class Chart extends React.Component {
     };
 
     if ( state.animation ) {
-      text.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
+      text.animation = {'value': new Animated.Value(0), 'attributeName': 'fill-opacity'};
     }
 
     info.list.push(text );
@@ -522,7 +540,7 @@ export default class Chart extends React.Component {
       };
 
       if ( state.animation ) {
-        fill.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
+        fill.animation = {'value': new Animated.Value(0), 'attributeName': 'fill-opacity'};
       }
 
       info.list.unshift( fill );
@@ -719,6 +737,19 @@ export default class Chart extends React.Component {
   }
 
   /****************************************************************************
+  <AnimatedRect
+    x="5"
+    y="5"
+    width="90"
+    height="90"
+    stroke="blue"
+    fill={fill}
+    strokeDasharray="1 1"
+    strokeWidth={oneToFivePx}
+    strokeDashoffset={offset}
+    strokeOpacity={strokeOpacity}
+    fillOpacity={fillOpacity}
+  />
   ****************************************************************************/
   _getInitialState() {
     const anim = new Animated.Value(0);
