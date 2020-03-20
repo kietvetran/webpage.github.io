@@ -20,8 +20,8 @@ export default class Pension extends React.Component {
         ]
       },
       'source': {
-        //'data': [[20,50,90,40], [40,10,70,80], [10,90,20,30]],
-        'data': [10,90,20,30],
+        'data': [[20,50,90,40], [40,10,70,80], [10,90,20,70]],
+        //'data': [60],
         'highest': 120,
         'type': 'line',
         //'fill': true,

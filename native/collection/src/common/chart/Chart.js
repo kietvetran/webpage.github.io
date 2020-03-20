@@ -1,62 +1,25 @@
-import React from 'react';
-import { StyleSheet, View, Animated, Dimensions } from 'react-native';
+import React, {useMemo} from 'react';
+import { StyleSheet, View, Animated, Dimensions, Easing } from 'react-native';
 import Svg, {
   Circle,Ellipse, G, Text, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect,
 } from 'react-native-svg';
 
-/*
-const ChartGraph = ({data, animate}) => {
-  let graph = null;
-
-  if ( data.type === 'bar' ) {
-    graph = <rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={0} transform={data.transform}>
-      <animate attributeName="height" from="0" to={data.height} dur={data.duration} fill="freeze" />
-    </rect>;
-  } else if ( data.type === 'line-polygon' ) {
-    graph = <polygon points={data.points} style={data.style} >
-      <animate attributeName="opacity" from="0" to={data.animateTo} dur={data.duration} fill="freeze" />
-    </polygon>
-  } else if ( data.type === 'line-cirle' ) {
-    graph = <circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}>    
-      <animate attributeName="opacity" from="0" to="1" dur={data.duration} fill="freeze" />
-    </circle>;
-  } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'path' ) {
-    graph = <path id={data.id} style={data.style} d={data.path}>
-      { animate !== false && data.animate !== false && <animate attributeName="stroke-dashoffset" dur={data.duration} fill="freeze"
-          from={data.animateFrom !== undefined ?  data.animateFrom : data.dash}
-          to={data.animateTo !== undefined ? data.animateTo : (data.dash*2)}
-        />
-      }
-    </path>
-  } else if ( data.type === 'text' && data.text ) {
-    graph = <g>
-      <text id={data.id} x={data.x} y={data.y} style={data.style}
-        dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
-      >{data.text}</text>
-       { animate !== false && data.animate !== false && <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur={data.duration} fill="freeze"/>}
-    </g>
-  }
-
-  return graph;
-};
-*/
+const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 const ChartGraph = ({data, animate}) => {
   let graph = null;
   if ( ! data ) { return graph; }
 
   if ( data.type === 'bar' ) {
-    graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}>
-    </Rect>;
+    graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}/>
   } else if ( data.type === 'line-polygon' ) {
-    graph = <Polygon points={data.points} style={data.style} >
-    </Polygon>
+    graph = <Polygon points={data.points} style={data.style}/>
   } else if ( data.type === 'line-cirle' ) {
-    graph = <Circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}>
-    </Circle>;
+    graph = <Circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}/>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
-    graph = <Path id={data.id} style={data.style} d={data.path}>
-    </Path>
+    graph = data.animation ?
+      <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : 
+      <Path id={data.id} style={data.style} d={data.path}/>
   } else if ( data.type === 'text' && data.text ) {
     graph = <G>
       <Text id={data.id} x={data.x} y={data.y} style={data.style}
@@ -68,7 +31,6 @@ const ChartGraph = ({data, animate}) => {
   return graph;
 };
 
-
 /******************************************************************************
 ******************************************************************************/
 export default class Chart extends React.Component {
@@ -76,8 +38,11 @@ export default class Chart extends React.Component {
     super(props);
     this.state = {
       'id': this._generateId(),
-      'animation': new Animated.Value(0),
-      'animationConfig': {'duration': 800, 'delay': 300},
+      'viewWrapper': {
+        'animation': new Animated.Value(0),
+        'animationConfig': {'duration': 0, 'delay': 0},
+      },
+      ...this._getInitialState(props),
       ...this._initState( props )
     };
 
@@ -86,9 +51,9 @@ export default class Chart extends React.Component {
   }
 
   render() {
-    const {id, viewBox, view, axis, graph, animation} = this.state;
+    const {id, viewBox, view, axis, graph, viewWrapper} = this.state;
 
-    return graph ? <Animated.View style={{'opacity': animation}}>
+    return graph ? <Animated.View style={{'opacity': viewWrapper.animation}}>
       <Svg viewBox={viewBox} width={view[0]} height={view[1]}>
         { (axis.x.list.length > 0 || axis.y.list.length > 0) && <G id="axis-wrapper">
             {axis.x.list.map( (data, i) => (
@@ -148,12 +113,24 @@ export default class Chart extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _revealAnimation( config={} ) {
-    let {animation, animationConfig} = this.state;
-    Animated.timing( animation, {
+    let {viewWrapper, graph} = this.state;
+    Animated.timing( viewWrapper.animation, {
       'toValue': 1,
-      ...animationConfig,
+      ...viewWrapper.animationConfig,
       ...config
     }).start();
+
+
+    // https://reactnative.dev/docs/0.60/easing
+    graph.list.forEach((data)=> {
+      if ( ! data.animation || ! data.animation.value ) { return; }
+      Animated.timing(data.animation.value, {
+        'toValue': 1,
+        'duration': data.duration || 600,
+        'easing'  : Easing.ease, // ease, linear, quad, bounce, elastic(2)
+        'useNativeDriver': true, // also tried true
+      }).start();
+    });
   }
 
   /****************************************************************************
@@ -231,7 +208,7 @@ export default class Chart extends React.Component {
   }
 
   _initGraph( state ) {
-    let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0};
+    let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0, 'animation': []};
     if ( ! state ) { return info; }
 
     if ( typeof(state.highest) === 'number' ) { info.highest = state.highest; }
@@ -523,16 +500,15 @@ export default class Chart extends React.Component {
         data.x      = data.x + (multiple.index * data.width);
       }
 
-      data.duration  = (state.duration / 1000)+'s';
+      //data.duration  = (state.duration / 1000)+'s';
+      data.duration  = state.duration;
       data.color     = data.color || state.color.list[info.color++];
       data.style     = {
         'fill': data.color,
         'stroke': state.color.default,
         'strokeWidth': 1
-      };      
+      };
 
-      /*
-      data.animateAttributeName = 'd';
       data.animateFrom = [
         'M',
         [data.x, data.y].join(','),
@@ -540,9 +516,8 @@ export default class Chart extends React.Component {
         [data.x+data.width, data.y].join(','),
         [data.x+data.width, data.y].join(',')
       ].join(' ');
-      */
 
-      data.path = [
+      data.animateTo = [
         'M',
         [data.x, data.y].join(','),
         [data.x, data.y-data.height].join(','),
@@ -550,32 +525,26 @@ export default class Chart extends React.Component {
         [data.x+data.width, data.y].join(',')
       ].join(' ');
 
+      data.path = data.animateTo;
+      data.animation = {
+        'value': new Animated.Value(0),
+        'config': {
+          'inputRange' : [0, 1],
+          'outputRange': [data.animateFrom, data.animateTo]
+            .map(this._exponentialToFixedNotation)
+        }
+      }; 
     });
   }
 
-  /*
-  _initGraphBarInfo( state, info, multiple ){
-    info.width  = state.axis.x.max / info.list.length;
-    info.list.forEach( (data, i) => {
-      data.type      = 'bar';
-      data.percent   = data.value / info.highest;
-      data.width     = info.width - (state.barSpace * 2);
-      data.height    = state.axis.y.max * data.percent;
-      data.x         = (info.width * i) + state.barSpace + state.padding;
-      data.y         = state.axis.y.max - data.height + state.padding;
-      data.center    = [data.x + (data.width/2), data.y + (data.height/2)];
-      data.transform = 'rotate(180 '+data.center[0] +' '+data.center[1]+')';
-      data.duration  = (state.duration / 1000)+'s';
-      data.color     = data.color || state.color.list[info.color++]; 
-
-      if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
-        data.width  = data.width / multiple.count;
-        data.x      = data.x + ( (multiple.count - multiple.index) * data.width) - data.width;
-        //data.inner  = [data.x + (data.width/2), data.y + (data.height/2)];
-      }
+  _exponentialToFixedNotation( number ) {
+    let reg = /(\d)(?:\.(\d+))?e([+-])(\d+)/;
+    return number.replace( reg, (m, integer, decimal = '', sign, power) => {
+      const fixed = integer + decimal;
+      return sign === '+' ? (fixed + '0'.repeat(power - decimal.length)) :
+        ('0.' + '0'.repeat(power - 1) + fixed);
     });
   }
-  */
 
   /****************************************************************************
   ****************************************************************************/
@@ -697,5 +666,37 @@ export default class Chart extends React.Component {
         }
       });      
     }
+  }
+
+  /****************************************************************************
+  ****************************************************************************/
+  _getInitialState() {
+    const anim = new Animated.Value(0);
+    const fillOpacity = anim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    });
+    const offset = fillOpacity.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 10],
+    });
+    const strokeOpacity = offset.interpolate({
+      inputRange: [0, 10],
+      outputRange: [0, 1],
+      extrapolateRight: 'clamp',
+    });
+    const path = anim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['M20,20L20,80L80,80L80,20Z', 'M40,40L33,60L60,60L65,40Z'],
+    });
+    const fill = strokeOpacity.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.99)'],
+    });
+    const oneToFivePx = offset.interpolate({
+      inputRange: [0, 10],
+      outputRange: ['1px', '5px'],
+    });
+    return { anim, fillOpacity, offset, strokeOpacity, path, fill, oneToFivePx };
   }
 }
