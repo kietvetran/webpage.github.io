@@ -5,6 +5,7 @@ import Svg, {
 } from 'react-native-svg';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
+const AnimatedPolyline = Animated.createAnimatedComponent(Polyline);
 
 const ChartGraph = ({data, animate}) => {
   let graph = null;
@@ -13,11 +14,13 @@ const ChartGraph = ({data, animate}) => {
   if ( data.type === 'bar' ) {
     graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}/>
   } else if ( data.type === 'line-polygon' ) {
-    graph = <Polygon points={data.points} style={data.style}/>
+    graph = data.animation && data.animation.value && data.animation.config ?
+      <AnimatedPolyline points={data.points} style={data.style} fillOpacity={data.animation.value}/> :
+      <Polygon points={data.points} style={data.style}/>
   } else if ( data.type === 'line-cirle' ) {
     graph = <Circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}/>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
-    graph = data.animation ?
+    graph = data.animation && data.animation.value && data.animation.config ?
       <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : 
       <Path id={data.id} style={data.style} d={data.path}/>
   } else if ( data.type === 'text' && data.text ) {
@@ -120,12 +123,12 @@ export default class Chart extends React.Component {
       ...config
     }).start();
 
-
     // https://reactnative.dev/docs/0.60/easing
     graph.list.forEach((data)=> {
-      if ( ! data.animation || ! data.animation.value ) { return; }
+      if ( ! data.animation || ! data.animation.value || ! data.animation.config ) { return; }
       Animated.timing(data.animation.value, {
-        'toValue': 1,
+        'toValue' : 1,
+        'delay'   : data.delay    || 0,
         'duration': data.duration || 600,
         'easing'  : Easing.ease, // ease, linear, quad, bounce, elastic(2)
         'useNativeDriver': true, // also tried true
@@ -168,7 +171,8 @@ export default class Chart extends React.Component {
           'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
         ]
       },
-      'previous' : {...(this.state || {})} 
+      'previous' : {...(this.state || {})},
+      'animation': props.animation !== false
     };
 
     state.pieRadius = parseInt((state.view[0] / 3.5));
@@ -406,7 +410,7 @@ export default class Chart extends React.Component {
 
   _initGraphLineInfo( state, info ){
     info.width = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
-    info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':(state.duration / 1000)};
+    info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':state.duration};
     info.list.forEach( (data, i) => {
       data.type      = 'line-cirle';
       data.percent   = data.value / info.highest;
@@ -417,7 +421,7 @@ export default class Chart extends React.Component {
       data.cy        = state.axis.y.max - data.height + state.padding;
       data.center    = [data.cx, data.cy];
       data.radius    = state.lineRadius;
-      data.duration  = info.linePath.duration+'s';
+      data.duration  = info.linePath.duration;
       data.color     = data.color || state.color.background;
       data.style     = {
         'stroke': state.color.default,
@@ -442,46 +446,73 @@ export default class Chart extends React.Component {
   _initGraphLinePath( state, info ) {
     let color = info.list[0].color || state.color.default;
     let dash  = parseInt(info.linePath.dash);
-    let pointList = info.linePath.pointList;
-    info.list.unshift({
-      'id'         : this._generateId('line-path'),
+    let pointList = info.linePath.pointList, length = pointList.length;
+    let duration  = info.linePath.duration / length, list = [], basic = {
       'type'       : 'path',
-      'path'       : 'M '+ pointList.join(' L '),
-      'duration'   : info.linePath.duration+'s',
-      'dash'       : dash,
-      'animateFrom': dash,
-      'animateTo'  : 0,
+      //'path'       : 'M '+ pointList.join(' L '),
       'style'      : {
         'fill': 'none',
         'stroke': color,
         'strokeWidth': 4,
         'strokeDasharray': dash,
       }
-    });
+    };
 
-    if ( ! state.fill ) { return; }
-    let first  = info.list[1];
-    let last   = info.list[(info.list.length - 1)];
-    let bottom = state.axis.y.max + state.padding;
+    if ( state.animation === false ){
+      list = [{ ...basic, 'path': 'M '+ pointList.join(' L ')}];
+    } else {
+      for ( let i=1; i<length; i++ ) {
+        let j = i - 1, data = JSON.parse(JSON.stringify(basic));
+        data.duration = duration;
+        data.delay = duration * j;
+        data.animateFrom = 'M '+pointList[j] + ' L '+ pointList[j];
+        data.animateTo   = 'M '+pointList[j] + ' L '+ pointList[i];
+        data.animation   = { 'value': new Animated.Value(0), 'config': {
+          'inputRange' : [0, 1],
+          'outputRange': [data.animateFrom, data.animateTo]
+        }};
+        list.push( data );
+      }
+    }
 
-    pointList  = pointList.concat([
-      [last.cx,  bottom].join(','),
-      [first.cx, bottom].join(',')
-    ]);
+    if ( state.fill ) {
+      let first  = info.list[0];
+      let last   = info.list[(info.list.length - 1)];
+      let bottom = state.axis.y.max + state.padding;
 
-    info.list.unshift({
-      'id'         : this._generateId('line-polygon'),
-      'type'       : 'line-polygon',
-      'points'     : pointList.join(' '),
-      'duration'   : info.linePath.duration+'s',
-      'animateTo'  : .6,
-      'style'      : {
-        'fill'       : color,
-        'opacity'    : .4,
-        'stroke'     : 'transparent',
-        'strokeWidth': 0,
-       }
-    });
+      pointList  = pointList.concat([
+        [last.cx,  bottom].join(','),
+        [first.cx, bottom].join(',')
+      ]);
+
+      let fill = {
+        'id'         : this._generateId('line-polygon'),
+        'type'       : 'line-polygon',
+        'points'     : pointList.join(' '),
+        //'delay'      : info.linePath.duration,
+        'duration'   : info.linePath.duration,
+        'style'      : {
+          'fill'       : color,
+          'opacity'    : .4,
+          'stroke'     : 'transparent',
+          'strokeWidth': 0,
+         }
+      };
+
+      if ( state.animation ) {
+        fill.animation = {
+          'value': new Animated.Value(0),
+          'config'     : {
+            'inputRange': [0, 1],
+            'outputRange': [0, 1]
+          }
+        };
+      }
+
+      info.list.unshift( fill );
+    }
+
+    info.list = list.concat( info.list );    
   }
 
   _initGraphBarInfo( state, info, multiple ){
@@ -526,14 +557,17 @@ export default class Chart extends React.Component {
       ].join(' ');
 
       data.path = data.animateTo;
-      data.animation = {
-        'value': new Animated.Value(0),
-        'config': {
-          'inputRange' : [0, 1],
-          'outputRange': [data.animateFrom, data.animateTo]
-            .map(this._exponentialToFixedNotation)
-        }
-      }; 
+
+      if ( state.animation ) {
+        data.animation = {
+          'value': new Animated.Value(0),
+          'config': {
+            'inputRange' : [0, 1],
+            'outputRange': [data.animateFrom, data.animateTo]
+              .map(this._exponentialToFixedNotation)
+          }
+        }; 
+      }
     });
   }
 

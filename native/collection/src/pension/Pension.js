@@ -20,11 +20,12 @@ export default class Pension extends React.Component {
         ]
       },
       'source': {
-        'data': [[20,50,90,40], [40,10,70,80], [10,90,20,70]],
-        //'data': [60],
+        //'animation': false,
+        'data': [[80,50,90,40], [40,10,70,80], [10,90,20,70]],
+        //'data': [60,20,40,80],
         'highest': 120,
         'type': 'line',
-        //'fill': true,
+        'fill': true,
         'xAxis': {'grid': 0, 'text': ['1.jan','2.jan','3.jan','4.jan'], 'textColor': '#333'},
         'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': 'Kr', 'color': '#ccc', 'textColor': '#333' },
       }
