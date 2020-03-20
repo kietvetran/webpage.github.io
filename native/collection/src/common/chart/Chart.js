@@ -1,11 +1,13 @@
 import React, {useMemo} from 'react';
 import { StyleSheet, View, Animated, Dimensions, Easing } from 'react-native';
 import Svg, {
-  Circle,Ellipse, G, Text, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect,
+  Circle, Ellipse, G, Text, TSpan, TextPath, Path, Polygon, Polyline, Line, Rect,
 } from 'react-native-svg';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedPolyline = Animated.createAnimatedComponent(Polyline);
+const AnimatedG = Animated.createAnimatedComponent(G);
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const ChartGraph = ({data, animate}) => {
   let graph = null;
@@ -14,20 +16,29 @@ const ChartGraph = ({data, animate}) => {
   if ( data.type === 'bar' ) {
     graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}/>
   } else if ( data.type === 'line-polygon' ) {
-    graph = data.animation && data.animation.value && data.animation.config ?
+    graph = data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
       <AnimatedPolyline points={data.points} style={data.style} fillOpacity={data.animation.value}/> :
       <Polygon points={data.points} style={data.style}/>
   } else if ( data.type === 'line-cirle' ) {
     graph = <Circle id={data.id} cx={data.cx} cy={data.cy} r={data.radius} fill={data.color} style={data.style}/>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
     graph = data.animation && data.animation.value && data.animation.config ?
-      <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : 
-      <Path id={data.id} style={data.style} d={data.path}/>
+      <AnimatedPath id={data.id} style={data.style} d={data.animation.value.interpolate(data.animation.config)}/> : (
+        data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
+        <AnimatedPath id={data.id} style={data.style} d={data.path} fillOpacity={data.animation.value}/>:
+        <Path id={data.id} style={data.style} d={data.path}/>
+      );
   } else if ( data.type === 'text' && data.text ) {
     graph = <G>
-      <Text id={data.id} x={data.x} y={data.y} style={data.style}
-        dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
-      >{data.text}</Text>
+      { data.animation && data.animation.value && data.animation.type === 'fill-opacity' ?
+          <AnimatedText id={data.id} x={data.x} y={data.y} style={data.style}
+            dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'} fillOpacity={data.animation.value}
+          >{data.text}</AnimatedText>
+          :
+          <Text id={data.id} x={data.x} y={data.y} style={data.style}
+            dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
+          >{data.text}</Text>
+      }
     </G>
   }
 
@@ -125,7 +136,9 @@ export default class Chart extends React.Component {
 
     // https://reactnative.dev/docs/0.60/easing
     graph.list.forEach((data)=> {
-      if ( ! data.animation || ! data.animation.value || ! data.animation.config ) { return; }
+      if ( ! data.animation || ! data.animation.value ) { return; }
+      //console.log( data.animation.type );
+
       Animated.timing(data.animation.value, {
         'toValue' : 1,
         'delay'   : data.delay    || 0,
@@ -311,7 +324,7 @@ export default class Chart extends React.Component {
     let sumDegree = 0;
     info.list.forEach( (data) => {
       data.type     = state.type || 'pie';
-      data.duration = (state.duration / 1000)+'s';
+      data.duration = state.duration;
       data.percent  = data.value / info.sum;
       data.degree   = 360 * data.percent;
       data.stroke   = state.pieStroke || 50;
@@ -327,6 +340,9 @@ export default class Chart extends React.Component {
         //data.path = getPath(data.cx, data.cy, data.radius, 0, 359.999);
         //data.animateFrom = data.dash;
         //data.animateTo   = data.dash * (1 + data.percent);
+        if ( state.animation ) {
+          data.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
+        }
       }
 
       data.color    = data.color || state.color.list[info.color++];
@@ -393,7 +409,7 @@ export default class Chart extends React.Component {
     cloned.animate = false;
     info.list.unshift( cloned );
 
-    info.list.push({
+    let text = {
       'id'  : this._generateId('progress-text'),
       'type': 'text',
       'text': current.value + '%',
@@ -405,7 +421,13 @@ export default class Chart extends React.Component {
         'fontFamily' : 'Arial, Helvetica, sans-serif',
         'fontSize'   : '500%'
       }
-    });
+    };
+
+    if ( state.animation ) {
+      text.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
+    }
+
+    info.list.push(text );
   }
 
   _initGraphLineInfo( state, info ){
@@ -500,13 +522,7 @@ export default class Chart extends React.Component {
       };
 
       if ( state.animation ) {
-        fill.animation = {
-          'value': new Animated.Value(0),
-          'config'     : {
-            'inputRange': [0, 1],
-            'outputRange': [0, 1]
-          }
-        };
+        fill.animation = {'value': new Animated.Value(0), 'type': 'fill-opacity'};
       }
 
       info.list.unshift( fill );
