@@ -202,6 +202,7 @@ export default class Chart extends React.Component {
       'list': [],
       'grid': 1 + (xAxis.grid || 0),
       'color': xAxis.color || 'rgba(0,0,0,.7)',
+      'textColor': xAxis.textColor || 'rgba(0,0,0,.7)',
       'lineSize' : [2,6],
       'text' : xAxis.text,
     };
@@ -210,9 +211,11 @@ export default class Chart extends React.Component {
       'list' : [],
       'grid' : 1 + (yAxis.grid || 0),
       'color': yAxis.color || 'rgba(0,0,0,.7)',
-      'lineSize' : [6,2],
-      'separation' : yAxis.separation || 0,
-      'unit' : yAxis.unit || '',
+      'textColor': yAxis.textColor || 'rgba(0,0,0,.7)',
+      'lineSize'      : [6,2],
+      'separation'    : yAxis.separation || 0,
+      'separationLine': yAxis.separationLine === true,
+      'unit'          : yAxis.unit || '',
     };
 
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
@@ -598,7 +601,7 @@ export default class Chart extends React.Component {
         'type' : 'path',
         'path' : path,
         'style': {
-          'stroke'      : state.axis[axis].color || '#444',
+          'stroke'      : '#444', //state.axis[axis].color || '#444',
           'strokeWidth' : '2',
           'fill'        : 'none',
           'opacity'     : i ? '.2' : '1'
@@ -635,7 +638,7 @@ export default class Chart extends React.Component {
         'y'   : bottom + 20,
         'text': text[index++],
         'style': {
-          'fill'       : state.axis.x.color || '#444',
+          'fill'       : state.axis.x.textColor || state.axis.x.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '100%'          
         }
@@ -674,16 +677,19 @@ export default class Chart extends React.Component {
         'textAnchor': 'end',
         'text': (value * (i+1)) + unit,
         'style': {
-          'fill'       : state.axis.y.color || '#444',
+          'fill'       : state.axis.y.textColor || state.axis.y.color || '#444',
           'fontFamily' : 'Arial, Helvetica, sans-serif',
           'fontSize'   : '100%'          
         }
       });
 
+      let endLine = state.axis.y.separationLine ?
+        (state.view[0] - state.padding) : (x+lineSize[0]);
+
       list.push({
         'id'  : this._generateId('y-p-'+i),
         'type': 'path',
-        'path': 'M ' + x+','+y + ' L '+ (x+lineSize[0])+','+y,
+        'path': 'M ' + x+','+y + ' L '+ endLine+','+y,
         'style': {
           'stroke'      : state.axis.y.color || '#444',
           'strokeWidth' : '2',
