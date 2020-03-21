@@ -1,3 +1,9 @@
+/*
+https://advancedweb.hu/plotting-charts-with-svg/
+https://github.com/react-native-community/react-native-svg/issues/951
+https://lottiefiles.com/6391-email-sent
+*/
+
 import React, {useMemo} from 'react';
 import { StyleSheet, View, Animated, Dimensions, Easing } from 'react-native';
 import Svg, {
@@ -219,7 +225,7 @@ export default class Chart extends React.Component {
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
     state.graph   = this._initGraph( state );
 
-    if ( props.axis === true || (props.axis !== false && state.type.match(/^(bar|line)/i)) ) {
+    if ( props.axis === true || (props.axis !== false && state.type.match(/^(bar|line|spline)/i)) ) {
       state.axis.x.list = this._initAxisList('x', state);
       state.axis.y.list = this._initAxisList('y', state);
     }
@@ -279,7 +285,7 @@ export default class Chart extends React.Component {
 
     if ( state.type === 'pie' || state.type === 'progress' ) {
       this._initGraphPieInfo( state, info );
-    } else if ( state.type === 'line' || state.type === 'bar' ) {      
+    } else if ( state.type === 'line' || state.type === 'spline' || state.type === 'bar' ) {      
       if ( info.list[0] instanceof Array ) {
         let collection = info.list, storage = [], length = collection.length;
 
@@ -288,7 +294,7 @@ export default class Chart extends React.Component {
           collection[i].forEach( (d) => d.color = color );
           let tmp = {...info, 'list': collection[i] };
 
-          state.type === 'line' ? this._initGraphLineInfo( state, tmp ) : 
+          state.type === 'line' || state.type === 'spline' ? this._initGraphLineInfo( state, tmp ) : 
             this._initGraphBarInfo( state, tmp, {
               'count': state.concatnation ? info.list.length : length,
               'index': i
@@ -299,7 +305,8 @@ export default class Chart extends React.Component {
       } else {
         let color = state.color.list[info.color++];
         info.list.forEach( (d) => d.color = color );
-        state.type === 'line' ? this._initGraphLineInfo( state, info ) : 
+        state.type === 'line' || state.type === 'spline' ?
+          this._initGraphLineInfo( state, info ) : 
           this._initGraphBarInfo( state, info );
       }
     }
@@ -458,7 +465,7 @@ export default class Chart extends React.Component {
 
   _initGraphLineInfo( state, info ){
     info.width = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
-    info.linePath = {'pointList': [], 'prePoint': null, 'dash': 0, 'duration':state.duration};
+    info.linePath = {'pointList': [], 'pointDataList': [],  'prePoint': null, 'dash': 0, 'duration':state.duration};
     info.list.forEach( (data, i) => {
       data.type      = 'line-cirle';
       data.percent   = data.value / info.highest;
@@ -476,6 +483,7 @@ export default class Chart extends React.Component {
         'strokeWidth': 2
       };
 
+      info.linePath.pointDataList.push([data.cx, data.cy]);
       info.linePath.pointList.push([data.cx, data.cy].join(','));
       if ( info.linePath.prePoint ) {
         let x = data.cx - info.linePath.prePoint.cx;
@@ -488,12 +496,15 @@ export default class Chart extends React.Component {
       info.linePath.prePoint = data;
     });
 
-    if ( info.list.length > 1 ) { this._initGraphLinePath( state, info ); }
+    if ( info.list.length > 1 ) {
+      //state.type === 'spline' ? this._initGraphSpLinePath( state, info ) :
+      this._initGraphLinePath( state, info );
+    }
   }
 
   _initGraphLinePath( state, info ) {
     let color = info.list[0].color || state.color.default;
-    let dash  = parseInt(info.linePath.dash);
+    let dash  = parseInt(info.linePath.dash) * (state.type === 'spline' ? 1.5 : 1);
     let pointList = info.linePath.pointList, data = {
       'type'       : 'path',
       'path'       : 'M '+ pointList.join(' L '),
@@ -504,6 +515,16 @@ export default class Chart extends React.Component {
         'strokeDasharray': dash,
       }
     };
+
+    if ( state.type === 'spline' ) {
+      let catmull = this._catmullRom2bezier( info.linePath.pointDataList );
+      data.path = 'M' + info.linePath.pointList[0];
+      for ( let i=0; i < catmull.length; i++) {      
+        data.path += ' C' + catmull[i][0][0] + ',' + catmull[i][0][1] + ' ' +
+          catmull[i][1][0] + ',' + catmull[i][1][1] + ' ' +
+          catmull[i][2][0] + ',' + catmull[i][2][1];
+      }
+    }
 
     if ( state.animation ){
       data.duration    = info.linePath.duration;
@@ -521,7 +542,7 @@ export default class Chart extends React.Component {
 
     let list = [data];
 
-    if ( state.fill ) {
+    if ( state.fill && state.type !== 'spline' ) {
       let first  = info.list[0];
       let last   = info.list[(info.list.length - 1)];
       let bottom = state.axis.y.max + state.padding;
@@ -637,6 +658,41 @@ export default class Chart extends React.Component {
     });
   }
 
+  _catmullRom2bezier( pointList, cubicSize ) {
+    let result = [], cubic = cubicSize || 6;
+    for (let i = 0; i < pointList.length - 1; i++) {
+      let p = [[
+        pointList[Math.max(i - 1, 0)][0],
+        pointList[Math.max(i - 1, 0)][1]
+      ]];
+
+      p.push([pointList[i][0], pointList[i][1]]);
+      p.push([pointList[i + 1][0],pointList[i + 1][1]]);
+      p.push([
+        pointList[Math.min(i + 2, pointList.length - 1)][0],
+        pointList[Math.min(i + 2, pointList.length - 1)][1]
+      ]);
+
+      // Catmull-Rom to Cubic Bezier conversion matrix
+      //    0         1         0        0
+      //  -1/cubic    1      1/cubic     0
+      //    0      1/cubic      1     -1/cubic
+      //    0         0         1        0
+
+      let bp = [[
+        ((-p[0][0] + cubic * p[1][0] + p[2][0]) / cubic),
+        ((-p[0][1] + cubic * p[1][1] + p[2][1]) / cubic)
+      ]];
+      bp.push([
+        ((p[1][0] + cubic * p[2][0] - p[3][0]) / cubic),
+        ((p[1][1] + cubic * p[2][1] - p[3][1]) / cubic)
+      ]);
+      bp.push([p[2][0], p[2][1]]);
+      result.push(bp);
+    }
+    return result;
+  }
+
   /****************************************************************************
   ****************************************************************************/
   _initAxisList(axis, state) {
@@ -669,7 +725,7 @@ export default class Chart extends React.Component {
       });
     }
 
-    if ( state.type.match(/^(bar|line)/i) ) { 
+    if ( state.type.match(/^(bar|line|spline)/i) ) { 
       axis === 'x' ? this._initXaxisText( state, list ) :
         this._initYaxisText( state, list );
     }

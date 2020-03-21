@@ -21,9 +21,10 @@ export default class Pension extends React.Component {
       },
       'source': {
         //'animation': false,
-        'highest': 300,
+        'highest': 100,
         'data': [[80,50,90,40], [40,10,70,80], [10,90,20,70]],
-        'type': 'bar',
+        'data': [[80,50,90,40]],
+        'type': 'line',
         //'concatnation': true, 
         //'data': [80,90,90,40], 'type': 'pie',
         //'data': 30, 'type': 'progress',
