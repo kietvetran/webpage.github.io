@@ -494,10 +494,9 @@ export default class Chart extends React.Component {
   _initGraphLinePath( state, info ) {
     let color = info.list[0].color || state.color.default;
     let dash  = parseInt(info.linePath.dash);
-    let pointList = info.linePath.pointList, length = pointList.length;
-    let duration  = info.linePath.duration / length, list = [], basic = {
+    let pointList = info.linePath.pointList, data = {
       'type'       : 'path',
-      //'path'       : 'M '+ pointList.join(' L '),
+      'path'       : 'M '+ pointList.join(' L '),
       'style'      : {
         'fill': 'none',
         'stroke': color,
@@ -506,22 +505,21 @@ export default class Chart extends React.Component {
       }
     };
 
-    if ( state.animation === false ){
-      list = [{ ...basic, 'path': 'M '+ pointList.join(' L ')}];
-    } else {
-      for ( let i=1; i<length; i++ ) {
-        let j = i - 1, data = JSON.parse(JSON.stringify(basic));
-        data.duration = duration;
-        data.delay = duration * j;
-        data.animateFrom = 'M '+pointList[j] + ' L '+ pointList[j];
-        data.animateTo   = 'M '+pointList[j] + ' L '+ pointList[i];
-        data.animation   = { 'value': new Animated.Value(0), 'config': {
-          'inputRange' : [0, 1],
-          'outputRange': [data.animateFrom, data.animateTo]
-        }};
-        list.push( data );
-      }
+    if ( state.animation ){
+      data.duration    = info.linePath.duration;
+      data.animateFrom = dash;
+      data.animateTo   = 0;
+      data.animation   = {
+        'value': new Animated.Value(0),
+        'config': {
+          inputRange: [0, 1],
+          outputRange: [data.animateFrom, data.animateTo],
+        },
+        'attributeName': 'stroke-dashoffset'
+      };
     }
+
+    let list = [data];
 
     if ( state.fill ) {
       let first  = info.list[0];
