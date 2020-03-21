@@ -1,7 +1,13 @@
+/*
+https://advancedweb.hu/plotting-charts-with-svg/
+https://github.com/react-native-community/react-native-svg/issues/951
+https://css-tricks.com/building-progress-ring-quickly/
+*/
+
+
 import React from 'react';
 import './Chart.scss';
 
-// https://css-tricks.com/building-progress-ring-quickly/
 
 const ChartGraph = ({data, animate}) => {
   let graph = null;
