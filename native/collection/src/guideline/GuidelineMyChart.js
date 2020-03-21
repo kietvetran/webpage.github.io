@@ -22,9 +22,15 @@ export default class GuidelineMyChart extends React.Component {
           'type': 'pie'
         }, {
           'data': [[20,50,90,40], [40,10,70,80], [10,90,20,30]],
+          'highest': 220,
+          'type': 'bar',
+          'concatnation': true,
+          'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
+          'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
+        }, {
+          'data': [[20,50,90,40], [40,10,70,80], [10,90,20,30]],
           'highest': 120,
           'type': 'bar',
-          'fill': true,
           'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
           'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
         }, {

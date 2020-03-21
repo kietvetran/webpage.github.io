@@ -146,7 +146,7 @@ export default class Chart extends React.Component {
         'toValue' : 1,
         'delay'   : data.delay    || 0,
         'duration': data.duration || 600,
-        'easing'  : Easing.ease, // ease, linear, quad, bounce, elastic(2)
+        'easing'  : data.animation.mode === 'linear' ? Easing.linear : Easing.ease, // ease, linear, quad, bounce, elastic(2)
         'useNativeDriver': true, // also tried true
       }).start();
     });
@@ -188,7 +188,8 @@ export default class Chart extends React.Component {
         ]
       },
       'previous' : {...(this.state || {})},
-      'animation': props.animation !== false
+      'animation': props.animation !== false,
+      'concatnation': props.concatnation === true,
     };
 
     state.pieRadius = parseInt((state.view[0] / 3.5));
@@ -255,6 +256,10 @@ export default class Chart extends React.Component {
           p.push( tmp ); 
           return p;
         }, []);
+
+        if ( state.type === 'bar' && state.concatnation && info.highest < value ) {          
+          info.highest = value;
+        }
       } else {
         cloned = {...data, 'id': this._generateId('graph-'+i)};
         value = cloned.value || 0;
@@ -284,7 +289,10 @@ export default class Chart extends React.Component {
           let tmp = {...info, 'list': collection[i] };
 
           state.type === 'line' ? this._initGraphLineInfo( state, tmp ) : 
-            this._initGraphBarInfo( state, tmp, {'count': length, 'index': i} );
+            this._initGraphBarInfo( state, tmp, {
+              'count': state.concatnation ? info.list.length : length,
+              'index': i
+            });
           storage = storage.concat( tmp.list );
         }
         info.list = storage;
@@ -549,8 +557,11 @@ export default class Chart extends React.Component {
     info.list = list.concat( info.list );    
   }
 
-  _initGraphBarInfo( state, info, multiple ){
-    info.width  = state.axis.x.max / info.list.length;
+  _initGraphBarInfo( state, info, multiple ) {
+    let prePercent = 0, colorIndex = 0, length = info.list.length;
+    info.width     = state.concatnation && multiple && multiple.count ? 
+      (state.axis.x.max / multiple.count) : (state.axis.x.max / length);
+
     info.list.forEach( (data, i) => {
       data.type      = 'bar-path';
       data.percent   = data.value / info.highest;
@@ -559,15 +570,28 @@ export default class Chart extends React.Component {
       data.x         = (info.width * i) + state.barSpace + state.padding;
       data.y         = state.axis.y.max + state.padding;
       data.center    = [data.x + (data.width/2), data.y - (data.height/2)];
+      data.duration  = state.duration;
+      data.color     = data.color || state.color.list[info.color++];
 
       if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
-        data.width  = data.width / multiple.count;
-        data.x      = data.x + (multiple.index * data.width);
+        if ( state.concatnation ) {
+          data.color = state.color.list[colorIndex++];
+          data.x = (info.width * multiple.index) + state.barSpace + state.padding;
+          data.y -= state.axis.y.max * prePercent;
+          data.height = (state.axis.y.max * (data.percent + prePercent)) - (state.axis.y.max * prePercent);
+          data.center  [data.x + (data.width/2), data.y - (data.height/2)];
+
+          data.duration = data.duration / length; 
+          data.delay  = data.duration * i;
+
+          prePercent += data.percent;
+        } else {
+          data.width  = data.width / multiple.count;
+          data.x      = data.x + (multiple.index * data.width);
+        }
       }
 
       //data.duration  = (state.duration / 1000)+'s';
-      data.duration  = state.duration;
-      data.color     = data.color || state.color.list[info.color++];
       data.style     = {
         'fill': data.color,
         'stroke': state.color.default,
@@ -594,6 +618,7 @@ export default class Chart extends React.Component {
 
       if ( state.animation ) {
         data.animation = {
+          'mode': state.concatnation ? 'linear' : '',
           'value': new Animated.Value(0),
           'config': {
             'inputRange' : [0, 1],
