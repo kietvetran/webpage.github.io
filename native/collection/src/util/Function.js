@@ -1,3 +1,12 @@
+/******************************************************************************
+******************************************************************************/
+export const generateId = ( prefix ) => {
+  return (prefix || 'boo-') + new Date().getTime() + '-' +
+    Math.floor(Math.random() * 10000 + 1);
+};
+
+/******************************************************************************
+******************************************************************************/
 export const capitalize = (text) => {
   //return typeof(text) === 'string' ? (text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()) : '';
   if ( typeof(text) !== 'string' ) { return ''; }
