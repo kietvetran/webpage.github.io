@@ -93,8 +93,7 @@ export default class Pension extends React.Component {
 
   _change( e, key, data ) {
     if ( key === 'year-change' || key === 'monthlySaving-change' || key === 'currentSaved-change' ) {
-      let value = parseInt(e);
-      if ( isNaN(value) ) { return; }
+      let value = parseInt(e) || '';
       data.value = value;
       this.setState({'chart': this._getCalculatedSavingMoney() });
     }
@@ -111,10 +110,11 @@ export default class Pension extends React.Component {
 
     let now = new Date(), year = now.getFullYear(), value = 0;
     let j = 0, length = parseInt((config.year.value+'')) || 0;
-    let pin = parseInt(( (length-2) / 4));
+    let pin = length < 5 ? 0 : (length <= 10 ? 2 :  (length / 4));
+    pin = parseInt( pin );
 
-    for ( j=0; j<length; j++ ) {
-      j === 0 || (j+1) === length || (pin && (j%pin) === 0) ?
+    for ( j=0; j<=length; j++ ) {
+      j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0) ?
         chart.xAxis.text.push((year+j)) : chart.xAxis.text.push( ' ' );
     }
 
@@ -124,7 +124,7 @@ export default class Pension extends React.Component {
       let source = config[key], data = [], basic = 0;
       if ( ! source ) { return; }
 
-      for( j=0; j<length; j++ ) {
+      for( j=0; j<=length; j++ ) {
         value = config.currentSaved.value + 
           ((config.monthlySaving.value * 12) * (1+source.interest));
 
@@ -133,7 +133,7 @@ export default class Pension extends React.Component {
         data.push({
           'value': value,
           'color': source.color,
-          'point': j === 0 || (j+1) === length || (pin && (j%pin) === 0)
+          'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0)
         });
       }
       chart.data.push( data );
