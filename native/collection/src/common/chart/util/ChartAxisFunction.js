@@ -51,6 +51,7 @@ const _initXaxisText = ( state, list ) => {
   state.graph.list.forEach( (data,i) => {
     if ( ! data.center || ! text[index] ) { return; }
     let x = data.center[0];
+    if ( isNaN(x) ) { return; }
 
     list.push({
       'id'  : generateId('x-text-'+i),
@@ -89,6 +90,7 @@ const _initYaxisText = ( state, list ) => {
   for ( let i=0; i<separation; i++ ) {
     let y = bottom - (height *(i+1));
     let x = state.padding.left;
+    if ( isNaN(x) || isNaN(y) ) { return; }
 
     list.push({
       'id'  : generateId('x-text-'+i),

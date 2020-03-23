@@ -28,6 +28,8 @@ export default function FormButton({
     'checked'   : {'basic': require('../../../assets/icon/checked/checked.png')},
     'blank'     : {'basic': require('../../../assets/icon/blank/blank.png')},
     'more'      : {'basic': require('../../../assets/icon/more/more-vertical.png')},
+    'plus'      : {'basic': require('../../../assets/icon/plus/plus.png')},
+    'minus'     : {'basic': require('../../../assets/icon/minus/minus.png')},
   }
 }) {
   return <TouchableOpacity onPress={(e)=>{onPress(e)}} style={[

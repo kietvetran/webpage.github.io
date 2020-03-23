@@ -61,16 +61,29 @@ export default function FormInput({
       'basic': require('../../../assets/icon/search/search.png')
     }
   },
+  onPress,
   ...rest
 }) {
   return (
-    labelConfig.text ? <View style={[styles.container, styleConfig.container]}>
-      <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text>
+    labelConfig.text || type === 'fieldNumbeAdjustment' ? <View style={[styles.container, styleConfig.container]}>
+      { !! labelConfig.text && <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text> }
       { !! labelConfig.description && <Text style={[styles.textLabel, styles.textDesciption]}>{labelConfig.description}</Text>}
       {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />}
       {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
       {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
       {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
+      {type === 'fieldNumbeAdjustment' && <View style={styles.fieldNumbeAdjustmentWrapper}>
+          <View style={styles.fieldNumbeAdjustmentLeft}>
+            <FormButton type="minus" styleConfig={{'icon': {'padding': 14}, ...styleConfig, 'container': null}} onPress={()=>{ if ( typeof(onPress) === 'function' ) { onPress(-1); } }} />
+          </View>
+          <View style={styles.fieldNumbeAdjustmentCenter}>
+            <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />
+          </View>
+          <View style={styles.fieldNumbeAdjustmentRight}>
+            <FormButton type="plus" styleConfig={{'icon': {'padding': 14}, ...styleConfig, 'container': null}} onPress={()=>{ if ( typeof(onPress) === 'function' ) { onPress(1); } }} />
+          </View>
+        </View>
+      }
       { !! error && <Text style={[styles.textError, styles.textErrorSpace]}>{error}</Text> }
     </View> : <React.Fragment>
       {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} />}
@@ -154,5 +167,20 @@ const styles = StyleSheet.create({
   },
   'searchFieldEndSpace': {
     'paddingRight': (Theme.buttonIcon.width + 5)
-  }
+  },
+
+
+  'fieldNumbeAdjustmentWrapper': {
+    'flex': 1,
+    'flexDirection': 'row',
+    'alignItems': 'stretch',
+    'justifyContent': 'center',
+  },
+  'fieldNumbeAdjustmentWrapperLeft': {
+  },
+  'fieldNumbeAdjustmentWrapperCenter': {
+    'flex': 1
+  },
+  'fieldNumbeAdjustmentWrapperRight': {
+  },
 });

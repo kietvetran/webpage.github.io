@@ -25,6 +25,9 @@ const ChartGraph = ({data, animate}) => {
   let graph = null;
   if ( ! data ) { return graph; }
 
+  let invalid = ['x','y','cx','cy'].find( (key) => typeof(data[key]) !== 'undefined' && isNaN(data[key]) );
+  if ( invalid ) { return graph; }
+
   if ( data.type === 'bar' ) {
     graph = <Rect id={data.id} x={data.x} y={data.y} fill={data.color} width={data.width} height={data.height} transform={data.transform}/>
   } else if ( data.type === 'line-polygon' ) {
@@ -115,13 +118,25 @@ export default class Chart extends React.Component {
       this.setState({'graph': nextGraph, 'nextGraph': null});
     } else if ( graph && nextGraph === null ) {
       this._revealAnimation({'delay': 0});
+    } else {
+      let pData  = JSON.stringify(prevProps.data || []);
+      let cData  = JSON.stringify(this.props.data || []);
+      let pXaxis = JSON.stringify(prevProps.xAxis || {});
+      let cXaxis = JSON.stringify(this.props.xAxis || {});
+      let pYaxis = JSON.stringify(prevProps.yAxis || {});
+      let cYaxis = JSON.stringify(this.props.yAxis || {});
+
+      if ( pData !== cData || pXaxis !== cXaxis || pYaxis !== cYaxis ) {
+        // temporaly fixed by ignonring animation when data updating.
+        this.updateData( null, { ...this.props, 'animation': false }); 
+      }
     }
   }
 
   /****************************************************************************
   ****************************************************************************/
-  updateData( data ) {
-    let props = {...this.props, 'data': data};
+  updateData( data, config ) {
+    let props = {...this.props, 'data': data, ...(config || {})};
     let state = this._initState( props );
 
     if ( state.type === 'progress' ) {

@@ -20,6 +20,11 @@ export const initGraphLineInfo = ( state, info ) => {
       'strokeWidth': 2
     };
 
+    if ( data.point === false ) {
+      data.type = 'none';
+    }
+
+
     info.linePath.pointDataList.push([data.cx, data.cy]);
     info.linePath.pointList.push([data.cx, data.cy].join(','));
     if ( info.linePath.prePoint ) {
@@ -62,7 +67,7 @@ const _initGraphLinePath = ( state, info ) => {
     }
   }
 
-  if ( state.animation ){
+  if ( state.animation ) {
     data.duration    = info.linePath.duration;
     data.animateFrom = dash;
     data.animateTo   = 0;
