@@ -34,8 +34,8 @@ export const initGraphPieInfo = ( state, info ) => {
     data.degree   = 360 * data.percent;
     data.stroke   = state.pieStroke || 50;
     data.radius   = state.pieRadius || 100;
-    data.cx       = (state.axis.x.max / 2) + state.padding;
-    data.cy       = (state.axis.y.max / 2) + state.padding;
+    data.cx       = (state.axis.x.max / 2) + state.padding.left;
+    data.cy       = (state.axis.y.max / 2) + state.padding.bottom;
     data.dash     = data.radius * 2 * Math.PI;     
 
     if ( data.type === 'pie' ) {

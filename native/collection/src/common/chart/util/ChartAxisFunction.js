@@ -4,17 +4,17 @@ export const initAxisList = (axis, state) =>{
   let list = [];
   if (! state || ! state.axis || ! state.axis[axis] ) { return list; }
 
-  let padding = state.padding, path = '', delta = 0, count = state.axis[axis].grid || 1;
-  let xMax    = state.axis.x.max, yMax = state.axis.y.max;
-  let gap     = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
+  let path = '', delta = 0, count = state.axis[axis].grid || 1;
+  let xMax = state.axis.x.max, yMax = state.axis.y.max;
+  let gap  = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
 
   for ( let i=0; i<count; i++ ) {
     if ( axis === 'x' ) {
-      delta = yMax + padding - (gap*i);
-      path  = 'M '+padding+','+delta+' '+ (xMax+padding)+','+delta;
+      delta = yMax + state.padding.bottom - (gap*i);
+      path  = 'M '+state.padding.left+','+delta+' '+ (xMax+state.padding.left)+','+delta;
     } else {
-      delta = padding + (gap*i);
-      path = 'M '+delta+','+padding+' '+ delta+','+(yMax+padding);
+      delta = state.padding.left + (gap*i);
+      path = 'M '+delta+','+state.padding.bottom+' '+ delta+','+(yMax + state.padding.bottom);
     }
 
     list.push({
@@ -38,7 +38,7 @@ export const initAxisList = (axis, state) =>{
 };
 
 const _initXaxisText = ( state, list ) => {
-  let bottom = state.axis.y.max + state.padding;
+  let bottom = state.axis.y.max + state.padding.bottom;
   let text   = state.axis.x.text instanceof Array ? state.axis.x.text : (
     state.axis.x.text ? [state.axis.x.text] : []
   );
@@ -83,12 +83,12 @@ const _initYaxisText = ( state, list ) => {
   if ( ! highest || ! separation ) { return; }   
 
   let lineSize = state.axis.y.lineSize, unit = state.axis.y.unit || '';
-  let bottom   = state.axis.y.max + state.padding;
+  let bottom   = state.axis.y.max + state.padding.bottom;
   let value    = highest / separation, height = state.axis.y.max / separation;
 
   for ( let i=0; i<separation; i++ ) {
     let y = bottom - (height *(i+1));
-    let x = state.padding;
+    let x = state.padding.left;
 
     list.push({
       'id'  : generateId('x-text-'+i),
@@ -105,7 +105,7 @@ const _initYaxisText = ( state, list ) => {
     });
 
     let endLine = state.axis.y.separationLine ?
-      (state.view[0] - state.padding) : (x+lineSize[0]);
+      (state.view[0] - state.padding.left) : (x+lineSize[0]);
 
     list.push({
       'id'  : generateId('y-p-'+i),

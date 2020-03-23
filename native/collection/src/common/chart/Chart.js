@@ -202,9 +202,23 @@ export default class Chart extends React.Component {
 
     state.pieRadius = parseInt((state.view[0] / 3.5));
     state.pieStroke = parseInt((state.pieRadius / 3.5));
+    if ( typeof(state.padding) === 'number' ) {
+      state.padding = {
+        'top'   : state.padding,
+        'left'  : state.padding,
+        'right' : state.padding,
+        'bottom': state.padding
+      };
+    }
+
+    if ( typeof(state.padding) !== 'object' ) { state.padding = {}; }
+
+    ['top', 'left', 'right', 'bottom'].forEach( (key) => {
+      state.padding[key] = state.padding[key] || 0;
+    });
 
     state.axis.x  = {
-      'max': (state.view[0] - (state.padding*2)),
+      'max': state.view[0] - state.padding.left - state.padding.right,
       'list': [],
       'grid': 1 + (xAxis.grid || 0),
       'color': xAxis.color || 'rgba(0,0,0,.7)',
@@ -213,7 +227,7 @@ export default class Chart extends React.Component {
       'text' : xAxis.text,
     };
     state.axis.y  = {
-      'max'  : (state.view[1] - (state.padding*2)),
+      'max'  : state.view[1] - state.padding.top - state.padding.bottom,
       'list' : [],
       'grid' : 1 + (yAxis.grid || 0),
       'color': yAxis.color || 'rgba(0,0,0,.7)',

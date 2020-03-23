@@ -11,8 +11,8 @@ export const initGraphBarInfo = ( state, info, multiple ) => {
     data.percent   = data.value / info.highest;
     data.width     = info.width - (state.barSpace * 2);
     data.height    = state.axis.y.max * data.percent;
-    data.x         = (info.width * i) + state.barSpace + state.padding;
-    data.y         = state.axis.y.max + state.padding;
+    data.x         = (info.width * i) + state.barSpace + state.padding.left;
+    data.y         = state.axis.y.max + state.padding.bottom;
     data.center    = [data.x + (data.width/2), data.y - (data.height/2)];
     data.duration  = state.duration;
     data.color     = data.color || state.color.list[info.color++];
@@ -20,7 +20,7 @@ export const initGraphBarInfo = ( state, info, multiple ) => {
     if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
       if ( state.concatnation ) {
         data.color = state.color.list[colorIndex++];
-        data.x = (info.width * multiple.index) + state.barSpace + state.padding;
+        data.x = (info.width * multiple.index) + state.barSpace + state.padding.left;
         data.y -= state.axis.y.max * prePercent;
         data.height = (state.axis.y.max * (data.percent + prePercent)) - (state.axis.y.max * prePercent);
         data.center  [data.x + (data.width/2), data.y - (data.height/2)];

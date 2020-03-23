@@ -23,11 +23,14 @@ export default class Pension extends React.Component {
         //'animation': false,
         'highest': 100,
         'data': [[80,50,90,40], [40,10,70,80], [10,90,20,70]],
-        'type': 'bar',
-        'concatnation': true, 
-        //'data': [80,90,90,40], 'type': 'pie',
-        //'data': 30, 'type': 'progress',
+        'type': 'spline',
+        //'concatnation': true, 
+        'padding': {'top': 40, 'left': 60, 'right': 10, 'bottom': 40},
         'fill': true,
+
+        //'data': 30, 'type': 'progress', 'padding': 40,
+        //'data': [80,90,90,40], 'type': 'pie', 'padding': 40,
+        
         'xAxis': {'grid': 0, 'text': ['1.jan','2.jan','3.jan','4.jan'], 'textColor': '#333'},
         'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': 'Kr', 'color': '#ccc', 'textColor': '#333' },
       }

@@ -9,9 +9,8 @@ export const initGraphLineInfo = ( state, info ) => {
     data.percent   = data.value / info.highest;
     data.width     = info.width - (state.lineSpace * 2);
     data.height    = state.axis.y.max * data.percent;
-    //data.cx        = (info.width * i) + state.barSpace + state.padding + (data.width/2);
-    data.cx        = (info.width * i) + state.lineSpace + state.padding;
-    data.cy        = state.axis.y.max - data.height + state.padding;
+    data.cx        = (info.width * i) + state.lineSpace + state.padding.left;
+    data.cy        = state.axis.y.max - data.height + state.padding.bottom;
     data.center    = [data.cx, data.cy];
     data.radius    = state.lineRadius;
     data.duration  = info.linePath.duration;
@@ -82,7 +81,7 @@ const _initGraphLinePath = ( state, info ) => {
   if ( state.fill && state.type !== 'spline' ) {
     let first  = info.list[0];
     let last   = info.list[(info.list.length - 1)];
-    let bottom = state.axis.y.max + state.padding;
+    let bottom = state.axis.y.max + state.padding.bottom;
 
     pointList  = pointList.concat([
       [last.cx,  bottom].join(','),
