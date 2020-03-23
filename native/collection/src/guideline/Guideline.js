@@ -20,6 +20,7 @@ import GuidelineDatePicker from './GuidelineDatePicker';
 import GuidelinePushNotification from './GuidelinePushNotification';
 import GuidelineMyChart from './GuidelineMyChart';
 import GuidelineSwipe from './GuidelineSwipe';
+import GuidelineSlider from './GuidelineSlider';
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="ChartKit" component={GuidelineChartKit} />
       <Stack.Screen name="MyChart" component={GuidelineMyChart} />
       <Stack.Screen name="Swipe" component={GuidelineSwipe} />
+      <Stack.Screen name="Slider" component={GuidelineSlider} />
     </Stack.Navigator>
   );
 };
