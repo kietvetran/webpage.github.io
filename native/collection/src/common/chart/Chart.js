@@ -118,6 +118,7 @@ export default class Chart extends React.Component {
       this.setState({'graph': nextGraph, 'nextGraph': null});
     } else if ( graph && nextGraph === null ) {
       this._revealAnimation({'delay': 0});
+
     } else {
       let pData  = JSON.stringify(prevProps.data || []);
       let cData  = JSON.stringify(this.props.data || []);
@@ -127,8 +128,7 @@ export default class Chart extends React.Component {
       let cYaxis = JSON.stringify(this.props.yAxis || {});
 
       if ( pData !== cData || pXaxis !== cXaxis || pYaxis !== cYaxis ) {
-        // temporaly fixed by ignonring animation when data updating.
-        this.updateData( null, { ...this.props, 'animation': false }); 
+        this.updateData( null, { ...this.props }); 
       }
     }
   }
@@ -139,11 +139,8 @@ export default class Chart extends React.Component {
     let props = {...this.props, 'data': data, ...(config || {})};
     let state = this._initState( props );
 
-    if ( state.type === 'progress' ) {
-      // SVG hack for animation from  50% to 25%
-      state.nextGraph = state.graph;
-      state.graph     = null;
-    } 
+    state.nextGraph = state.graph;
+    state.graph     = null;
 
     this.setState( state );
   }
@@ -165,7 +162,7 @@ export default class Chart extends React.Component {
     }).start();
 
     // https://reactnative.dev/docs/0.60/easing
-    graph.list.forEach((data)=> {
+    ((graph || {}).list || []).forEach((data)=> {
       if ( ! data.animation || ! data.animation.value ) { return; }
       //console.log( data.animation.type );
 
@@ -210,6 +207,7 @@ export default class Chart extends React.Component {
           'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
         ]
       },
+      'symbol'   : props.sumbol || false,
       'previous' : {...(this.state || {})},
       'animation': props.animation !== false,
       'concatnation': props.concatnation === true,
@@ -266,7 +264,7 @@ export default class Chart extends React.Component {
   }
 
   _initGraph( state ) {
-    let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0, 'animation': []};
+    let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0, 'sumbol': 0, 'animation': []};
     if ( ! state ) { return info; }
 
     if ( typeof(state.highest) === 'number' ) { info.highest = state.highest; }

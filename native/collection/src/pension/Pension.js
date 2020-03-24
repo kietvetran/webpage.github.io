@@ -19,25 +19,38 @@ export default class Pension extends React.Component {
         'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
       ],
       'config': {
-        'year'         : {'title': 'Year',          'unit': 'år', 'default': 10,    'value': 10,    'adjustment': 1},
-        'monthlySaving': {'title': 'Montly saving', 'unit': 'kr', 'defualt': 5000,  'value': 5000,  'adjustment': 1000},
-        'currentSaved' : {'title': 'Current saved', 'unit': 'kr', 'default': 20000, 'value': 20000, 'adjustment': 2000},
+        'year': {
+          'title': 'Year',
+          'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          'unit' : 'år',
+          'value': 10,
+          'adjustment': 1
+        },
+        'monthlySaving': {
+          'title': 'Montly saving',
+          'text' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id nibh tempor, maximus felis id, volutpat dui',
+          'unit' : 'kr', 
+          'value': 5000,
+          'adjustment': 1000
+        },
+        'currentSaved': {
+          'title': 'Current saved',
+          'text' : 'Vestibulum eu interdum metus.',
+          'unit' : 'kr',
+          'value': 20000,
+          'adjustment': 2000
+        },
         // --------
-        'normal'       : {'title': 'Normal',      'interest': .03, 'potential': .1, 'color': 'rgba(28, 201, 157, 1)',},
-        'riskTypeX'    : {'title': 'Risk type X', 'interest': .1,  'potential': .3, 'color': 'rgba(82, 183, 242, 1)',},        
-        'riskTypeY'    : {'title': 'Risk type Y', 'interest': .13,  'potential': .45, 'color': 'rgba(243, 80, 114, 1)',},        
-        'riskTypeZ'    : {'title': 'Risk type Z', 'interest': .17,  'potential': .8, 'color': 'rgba(134, 117, 244, 1)',},        
+        'normal'       : {'title': 'Normal',      'interest': .03, 'potential': .1,   'color': 'rgba(28, 201, 157, 1)', 'symbol': 'circle'},
+        'riskTypeX'    : {'title': 'Risk type X', 'interest': .1,  'potential': .3,   'color': 'rgba(82, 183, 242, 1)', 'symbol': 'triangle'}, 
+        'riskTypeY'    : {'title': 'Risk type Y', 'interest': .13,  'potential': .45, 'color': 'rgba(243, 80, 114, 1)', 'symbol': 'square' },      
+        'riskTypeZ'    : {'title': 'Risk type Z', 'interest': .17,  'potential': .8,  'color': 'rgba(134, 117, 244, 1)','symbol': 'triangle-down'},        
       },
       'chart': {
         //'animation': false,
         'highest': 100,
-        'data': [[80,50], [0,0]],
-        'type': 'spline',
-        'concatnation': true, 
-        'padding': {'top': 40, 'left': 50, 'right': 10, 'bottom': 40},
-        'fill': true,
-        //'data': 30, 'type': 'progress', 'padding': 40,
-        //'data': [80,90,90,40], 'type': 'pie', 'padding': 40,
+        'type': 'line',
+        'padding': {'top': 40, 'left': 60, 'right': 10, 'bottom': 40},
         'xAxis': {'grid': 0, 'text': ['Standar',''], 'textColor': '#333'},
         'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': 'Kr', 'color': '#ccc', 'textColor': '#333' },
       }
@@ -63,6 +76,7 @@ export default class Pension extends React.Component {
                 <View key={'pin-'+key} style={styles.card}>
                   <View style={styles.cardLeft}>
                     <Text style={styles.cardTitle}>{config[key].title}</Text>
+                    { !! config[key].text && <Text ellipsizeMode='tail' numberOfLines={2} style={styles.cardText}>{config[key].text}</Text> }
                   </View>
                   <View style={styles.cardRight}>
                     <FormInput type="fieldNumbeAdjustment" value={config[key].value+''}
@@ -119,8 +133,8 @@ export default class Pension extends React.Component {
     }
 
     chart.data = [];
-    ['normal'].forEach( (key) => {
-    //['normal', 'riskTypeX','riskTypeY','riskTypeZ'].forEach( (key) => {
+    //['normal'].forEach( (key) => {
+    ['normal', 'riskTypeX','riskTypeY','riskTypeZ'].forEach( (key) => {
       let source = config[key], data = [], basic = 0;
       if ( ! source ) { return; }
 
@@ -133,7 +147,8 @@ export default class Pension extends React.Component {
         data.push({
           'value': value,
           'color': source.color,
-          'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0)
+          'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0),
+          'symbol': source.symbol || true
         });
       }
       chart.data.push( data );
@@ -168,11 +183,11 @@ const styles = StyleSheet.create({
   'body': {
     'flex': 1,
     'backgroundColor': '#fff',
-    'borderTopLeftRadius': 50,
-    'borderTopRightRadius': 50,
+    'borderTopLeftRadius': 20,
+    'borderTopRightRadius': 20,
   },
   'bodyContainer': {
-    'paddingTop': 30,
+    'paddingTop': 10,
     'paddingBottom': 10
   },
   'card': {
@@ -189,6 +204,9 @@ const styles = StyleSheet.create({
   },
   'cardTitle': {
     ...Theme.font.h4
+  },
+  'cardText': {
+    ...Theme.font.basic
   },
   'field': {
     'width': 100,

@@ -1,25 +1,8 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
+import {getCirclePath} from './ChartFunction';
 
 export const initGraphPieInfo = ( state, info ) => {
-  let polarToCartesian = (centerX, centerY, radius, angleInDegrees) =>{
-    let angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
-    return {
-      'x': centerX + (radius * Math.cos(angleInRadians)),
-      'y': centerY + (radius * Math.sin(angleInRadians))
-    };
-  };
-
-  let getPath = (x, y, radius, startAngle, endAngle) =>{
-    let start = polarToCartesian(x, y, radius, endAngle);
-    let end   = polarToCartesian(x, y, radius, startAngle);
-    let arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
-    return [
-      'M', start.x, start.y, 
-      'A', radius, radius, 0, arcSweep, 0, end.x, end.y
-    ].join(' ');
-  };
-
   let getDash = (radius, stroke, percent) => {
     let normalized = radius - (stroke * 2);
     let delta = normalized * 2 * Math.PI;
@@ -39,15 +22,15 @@ export const initGraphPieInfo = ( state, info ) => {
     data.dash     = data.radius * 2 * Math.PI;     
 
     if ( data.type === 'pie' ) {
-      data.path = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+      data.path = getCirclePath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
       if ( state.animation ) {
         data.animateFrom = data.dash;
         data.animateTo   = data.dash * data.percent;
       }
     } else {
-      data.path = getPath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+      data.path = getCirclePath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
       if ( state.animation ) {
-        data.path = getPath(data.cx, data.cy, data.radius, 0, 359.999);
+        data.path = getCirclePath(data.cx, data.cy, data.radius, 0, 359.999);
         data.animateFrom = data.dash;
         data.animateTo   = data.dash * (1 + data.percent);
       }
@@ -78,7 +61,7 @@ export const initGraphPieInfo = ( state, info ) => {
   });
 
   if ( state.type === 'progress' ) {
-    _initGraphPieInfoProgress(state, info, getPath);
+    _initGraphPieInfoProgress(state, info );
   } else {
     _initGraphPieInfoText(state, info);
   }
@@ -109,7 +92,7 @@ const _initGraphPieInfoText = ( state, info ) => {
   }
 };
 
-const _initGraphPieInfoProgress = ( state, info, getPath ) => {
+const _initGraphPieInfoProgress = ( state, info ) => {
   let current = info.list[0];
 
   if ( (((state.previous || {}).graph || {}).list || [])[1] ) {
@@ -122,7 +105,7 @@ const _initGraphPieInfoProgress = ( state, info, getPath ) => {
   cloned.value   = 100;
   cloned.degree  = 360;
   cloned.percent = 1;
-  cloned.path    = getPath(cloned.cx, cloned.cy, cloned.radius, 0, 359.999); 
+  cloned.path    = getCirclePath(cloned.cx, cloned.cy, cloned.radius, 0, 359.999); 
   cloned.dash    = 0;
   cloned.style.stroke = state.color.default;
   cloned.style.strokeDasharray = cloned.dash;

@@ -141,6 +141,7 @@ export const Theme = {
   },
   'inputText': {
     'minHeight': iconSize.height,
+    'padding': 0,
     'paddingLeft': 10,
     'paddingRight': 10,
     'borderWidth': 1,

@@ -1,11 +1,12 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
+import {createSymbolPath} from './ChartFunction';
 
 export const initGraphLineInfo = ( state, info ) => {
   info.width = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
   info.linePath = {'pointList': [], 'pointDataList': [],  'prePoint': null, 'dash': 0, 'duration':state.duration};
   info.list.forEach( (data, i) => {
-    data.type      = 'line-cirle';
+    data.type      = 'path';
     data.percent   = data.value / info.highest;
     data.width     = info.width - (state.lineSpace * 2);
     data.height    = state.axis.y.max * data.percent;
@@ -15,7 +16,9 @@ export const initGraphLineInfo = ( state, info ) => {
     data.radius    = state.lineRadius;
     data.duration  = info.linePath.duration;
     data.color     = data.color || state.color.background;
+    data.path      = createSymbolPath( data );
     data.style     = {
+      'fill'  : data.color,
       'stroke': state.color.default,
       'strokeWidth': 2
     };
@@ -23,7 +26,6 @@ export const initGraphLineInfo = ( state, info ) => {
     if ( data.point === false ) {
       data.type = 'none';
     }
-
 
     info.linePath.pointDataList.push([data.cx, data.cy]);
     info.linePath.pointList.push([data.cx, data.cy].join(','));
@@ -41,7 +43,7 @@ export const initGraphLineInfo = ( state, info ) => {
   if ( info.list.length > 1 ) {
     _initGraphLinePath( state, info );
   }
-}
+};
 
 const _initGraphLinePath = ( state, info ) => {
   let color = info.list[0].color || state.color.default;
@@ -115,7 +117,7 @@ const _initGraphLinePath = ( state, info ) => {
   }
 
   info.list = list.concat( info.list );    
-}
+};
 
 const _catmullRom2bezier = ( pointList, cubicSize ) => {
   let result = [], cubic = cubicSize || 6;
@@ -150,4 +152,4 @@ const _catmullRom2bezier = ( pointList, cubicSize ) => {
     result.push(bp);
   }
   return result;
-}
+};
