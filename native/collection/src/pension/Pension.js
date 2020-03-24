@@ -50,7 +50,7 @@ export default class Pension extends React.Component {
         //'animation': false,
         'highest': 100,
         'type': 'line',
-        'padding': {'top': 40, 'left': 60, 'right': 10, 'bottom': 40},
+        'padding': {'top': 20, 'left': 60, 'right': 10, 'bottom': 40},
         'xAxis': {'grid': 0, 'text': ['Standar',''], 'textColor': '#333', 'title': 'Year'},
         'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': '', 'color': '#ccc', 'textColor': '#333', 'title': 'Kr' },
       }
@@ -132,13 +132,15 @@ export default class Pension extends React.Component {
         chart.xAxis.text.push((year+j)) : chart.xAxis.text.push( ' ' );
     }
 
-    chart.data = [];
+    let allValueLowerThousand = true;
+    chart.data   = [];
+    chart.legend = [];
     //['normal'].forEach( (key) => {
     ['normal', 'riskTypeX','riskTypeY','riskTypeZ'].forEach( (key) => {
       let source = config[key], data = [], basic = 0;
       if ( ! source ) { return; }
 
-      for( j=0; j<=length; j++ ) {
+      for ( j=0; j<=length; j++ ) {
         value = config.currentSaved.value + 
           ((config.monthlySaving.value * 12) * (1+source.interest));
 
@@ -150,9 +152,30 @@ export default class Pension extends React.Component {
           'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0),
           'symbol': source.symbol || true
         });
+
+        if ( allValueLowerThousand && value < 1000 ) {
+          allValueLowerThousand = false;
+        }
       }
       chart.data.push( data );
+      chart.legend.push({
+        'title' : source.title,
+        'color' : source.color,
+        'symbol': source.symbol || true
+      });
     });
+
+    if ( allValueLowerThousand) {
+      chart.data.forEach( (d) => {
+        (d instanceof Array ? d : [d]).forEach( (n) => {
+          n.value = parseInt(n.value / 1000);
+          //n.value = parseFloat(parseFloat((n.value / 1000)).toFixed(2));
+        });
+      });
+      chart.yAxis.unit = 'k';
+    } else {
+      chart.yAxis.unit = '';
+    }
 
     return chart;
   }
@@ -176,7 +199,7 @@ const styles = StyleSheet.create({
   },
   'header': {
     'flex': 1,
-    'height': 300,
+    'height': 320,
     'alignItems': 'stretch',
     'justifyContent': 'center',
   },

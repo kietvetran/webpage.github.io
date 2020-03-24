@@ -15,6 +15,7 @@ import {initGraphBarInfo} from './util/ChartBarFunction';
 import {initGraphLineInfo} from './util/ChartLineFunction';
 import {initGraphPieInfo} from './util/ChartPieFunction';
 import {initAxisList} from './util/ChartAxisFunction';
+import {initLegendInfo} from './util/ChartLegendFunction';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedPolyline = Animated.createAnimatedComponent(Polyline);
@@ -50,11 +51,11 @@ const ChartGraph = ({data, animate}) => {
     graph = <G>
       { data.animation && data.animation.value && data.animation.attributeName === 'fill-opacity' ?
           <AnimatedText id={data.id} x={data.x} y={data.y} style={data.style}
-            dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'} fillOpacity={data.animation.value}
+            dominantBaseline={data.dominantBaseline || 'middle'} textAnchor={data.textAnchor || 'middle'} fillOpacity={data.animation.value}
           >{data.text}</AnimatedText>
           :
           <Text id={data.id} x={data.x} y={data.y} style={data.style}
-            dominantBaseline="middle" textAnchor={data.textAnchor || 'middle'}
+            dominantBaseline={data.dominantBaseline || 'middle'} textAnchor={data.textAnchor || 'middle'}
           >{data.text}</Text>
       }
     </G>
@@ -187,6 +188,7 @@ export default class Chart extends React.Component {
       'barSpace' : props.barSpace  || 5,
       'lineRadius': 7,
       'lineSpace': 20,
+      'legendSpace': 16,
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
       'fill'     : props.fill === true,
@@ -210,6 +212,7 @@ export default class Chart extends React.Component {
       'symbol'   : props.sumbol || false,
       'previous' : {...(this.state || {})},
       'animation': props.animation !== false,
+      'legend'   : props.legend instanceof Array ? props.legend : null,
       'concatnation': props.concatnation === true,
     };
 
@@ -227,8 +230,15 @@ export default class Chart extends React.Component {
     if ( typeof(state.padding) !== 'object' ) { state.padding = {}; }
 
     ['top', 'left', 'right', 'bottom'].forEach( (key) => {
-      state.padding[key] = state.padding[key] || 0;
+      state.padding[key] = state.padding[key+'Original'] || state.padding[key] || 0;
     });
+
+    if ( state.legend && state.legend.length && state.type.match(/^(bar|line|spline)/i) ) {
+      for ( let key in state.padding ) {
+        state.padding[key+'Original'] = state.padding[key];
+      }
+      state.padding.top = parseInt(((state.padding.top * 1.5) + (state.legend.length * state.legendSpace)));
+    }
 
     state.axis.x  = {
       'max': state.view[0] - state.padding.left - state.padding.right,
@@ -342,6 +352,9 @@ export default class Chart extends React.Component {
       }
     }
 
+    if ( (state.legend || []).length ) {
+      this._initLegendInfo( state, info );
+    }
     return info;
   }
 
@@ -355,6 +368,10 @@ export default class Chart extends React.Component {
 
   _initGraphBarInfo( state, info, multiple ) {
     initGraphBarInfo( state, info, multiple );
+  }
+
+  _initLegendInfo( state, info ) {
+    initLegendInfo( state, info );
   }
 
   _initAxisList(axis, state) {
