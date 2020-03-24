@@ -10,11 +10,11 @@ export const initAxisList = (axis, state) =>{
 
   for ( let i=0; i<count; i++ ) {
     if ( axis === 'x' ) {
-      delta = yMax + state.padding.bottom - (gap*i);
+      delta = yMax + state.padding.top - (gap*i);
       path  = 'M '+state.padding.left+','+delta+' '+ (xMax+state.padding.left)+','+delta;
     } else {
       delta = state.padding.left + (gap*i);
-      path = 'M '+delta+','+state.padding.bottom+' '+ delta+','+(yMax + state.padding.bottom);
+      path = 'M '+delta+','+state.padding.top+' '+ delta+','+(yMax + state.padding.top);
     }
 
     list.push({
@@ -38,7 +38,7 @@ export const initAxisList = (axis, state) =>{
 };
 
 const _initXaxisText = ( state, list ) => {
-  let bottom = state.axis.y.max + state.padding.bottom;
+  let bottom = state.axis.y.max + state.padding.top;
   let text   = state.axis.x.text instanceof Array ? state.axis.x.text : (
     state.axis.x.text ? [state.axis.x.text] : []
   );
@@ -117,7 +117,7 @@ const _initYaxisText = ( state, list ) => {
   if ( ! highest || ! separation ) { return; }   
 
   let lineSize = state.axis.y.lineSize, unit = state.axis.y.unit || '';
-  let bottom   = state.axis.y.max + state.padding.bottom;
+  let bottom   = state.axis.y.max + state.padding.top;
   let value    = highest / separation, height = state.axis.y.max / separation;
 
   for ( let i=0; i<separation; i++ ) {

@@ -12,7 +12,7 @@ export const initGraphBarInfo = ( state, info, multiple ) => {
     data.width     = info.width - (state.barSpace * 2);
     data.height    = state.axis.y.max * data.percent;
     data.x         = (info.width * i) + state.barSpace + state.padding.left;
-    data.y         = state.axis.y.max + state.padding.bottom;
+    data.y         = state.axis.y.max + state.padding.top;
     data.center    = [data.x + (data.width/2), data.y - (data.height/2)];
     data.duration  = state.duration;
     data.color     = data.color || state.color.list[info.color++];
