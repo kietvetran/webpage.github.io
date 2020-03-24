@@ -42,6 +42,23 @@ const _initXaxisText = ( state, list ) => {
   let text   = state.axis.x.text instanceof Array ? state.axis.x.text : (
     state.axis.x.text ? [state.axis.x.text] : []
   );
+
+  if ( state.axis.x.title ) {
+    list.push({
+      'id'  : generateId('x-title'),
+      'type': 'text',
+      'x'   : state.axis.x.max + state.padding.left,
+      'y'   : bottom - 5,
+      'text': state.axis.x.title,
+      'textAnchor': 'end',
+      'style': {
+        'fill'       : state.axis.x.textColor || state.axis.x.color || '#444',
+        'fontFamily' : 'Arial, Helvetica, sans-serif',
+        'fontSize'   : '100%'          
+      }
+    });    
+  }
+
   if ( ! text.length || ! ((state.graph || {}).list || []).length ) { return; }
 
   let source     = (state.data instanceof Array ? state.data : [state.data]);
@@ -81,6 +98,22 @@ const _initXaxisText = ( state, list ) => {
 
 const _initYaxisText = ( state, list ) => {
   let highest = state.graph.highest || 0, separation = state.axis.y.separation;
+  if ( state.axis.y.title ) {
+    list.push({
+      'id'  : generateId('y-title'),
+      'type': 'text',
+      'x'   : state.padding.left,
+      'y'   : state.padding.top - 5,
+      'text': state.axis.y.title,
+      'textAnchor': 'start',
+      'style': {
+        'fill'       : state.axis.y.textColor || state.axis.y.color || '#444',
+        'fontFamily' : 'Arial, Helvetica, sans-serif',
+        'fontSize'   : '100%'          
+      }
+    });    
+  }
+
   if ( ! highest || ! separation ) { return; }   
 
   let lineSize = state.axis.y.lineSize, unit = state.axis.y.unit || '';

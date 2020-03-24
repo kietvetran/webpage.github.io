@@ -236,8 +236,9 @@ export default class Chart extends React.Component {
       'grid': 1 + (xAxis.grid || 0),
       'color': xAxis.color || 'rgba(0,0,0,.7)',
       'textColor': xAxis.textColor || 'rgba(0,0,0,.7)',
-      'lineSize' : [2,6],
+      'lineSize' : [2,4],
       'text' : xAxis.text,
+      'title' : xAxis.title,
     };
     state.axis.y  = {
       'max'  : state.view[1] - state.padding.top - state.padding.bottom,
@@ -245,10 +246,11 @@ export default class Chart extends React.Component {
       'grid' : 1 + (yAxis.grid || 0),
       'color': yAxis.color || 'rgba(0,0,0,.7)',
       'textColor': yAxis.textColor || 'rgba(0,0,0,.7)',
-      'lineSize'      : [6,2],
+      'lineSize'      : [4,2],
       'separation'    : yAxis.separation || 0,
       'separationLine': yAxis.separationLine === true,
       'unit'          : yAxis.unit || '',
+      'title'         : yAxis.title,
     };
 
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');

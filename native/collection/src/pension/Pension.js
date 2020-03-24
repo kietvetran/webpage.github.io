@@ -51,8 +51,8 @@ export default class Pension extends React.Component {
         'highest': 100,
         'type': 'line',
         'padding': {'top': 40, 'left': 60, 'right': 10, 'bottom': 40},
-        'xAxis': {'grid': 0, 'text': ['Standar',''], 'textColor': '#333'},
-        'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': 'Kr', 'color': '#ccc', 'textColor': '#333' },
+        'xAxis': {'grid': 0, 'text': ['Standar',''], 'textColor': '#333', 'title': 'Year'},
+        'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': '', 'color': '#ccc', 'textColor': '#333', 'title': 'Kr' },
       }
     };
 
