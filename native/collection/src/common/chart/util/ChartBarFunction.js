@@ -15,7 +15,7 @@ export const initGraphBarInfo = ( state, info, multiple ) => {
     data.y         = state.axis.y.max + state.padding.top;
     data.center    = [data.x + (data.width/2), data.y - (data.height/2)];
     data.duration  = state.duration;
-    data.color     = data.color || state.color.list[info.color++];
+    data.color     = data.color || state.color.list[info.color.i++];
 
     if ( multiple && multiple.count > 1 && typeof(multiple.index) === 'number' ) {
       if ( state.concatnation ) {

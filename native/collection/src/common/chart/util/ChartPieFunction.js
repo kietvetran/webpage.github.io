@@ -1,6 +1,6 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
-import {getCirclePath, getChartText} from './ChartFunction';
+import {createSymbolPath, getCirclePath, getPolarToCartesian, getChartText} from './ChartFunction';
 
 export const initGraphPieInfo = ( state, info ) => {
   let getDash = (radius, stroke, percent) => {
@@ -22,6 +22,14 @@ export const initGraphPieInfo = ( state, info ) => {
     data.dash     = data.radius * 2 * Math.PI;     
 
     if ( data.type === 'pie' ) {
+      let point = getPolarToCartesian({
+        'x': data.cx,
+        'y': data.cy,
+        //'radius': data.stroke + ((data.radius - data.stroke)/2),
+        'radius': data.radius,
+        'angle': ((data.degree/2) + sumDegree)
+      });
+      data.center = [point.x, point.y];
       data.path = getCirclePath({
         'x': data.cx,
         'y': data.cy,
@@ -61,7 +69,7 @@ export const initGraphPieInfo = ( state, info ) => {
       };     
     }
     
-    data.color    = data.color || state.color.list[info.color++];
+    data.color    = data.color || state.color.list[info.color.i++];
     data.style    = {
       'fill'       : 'none',
       'stroke'     : data.color,
@@ -87,14 +95,44 @@ const _initGraphPieInfoText = ( state, info ) => {
   let gap    = 20, space = (height*2) / length;
 
   for ( let i=0; i<length; i++ ) {
-    let data = info.list[i];
+    let data = info.list[i], color = '', radius = 6, anchor = 'middle';
     if ( ! data || ! data.cx || ! data.cy ) { continue; }
 
+    let x = data.cx, y = data.cy - (height - ((space)*index)) + gap, delta = 0;
+
+    if ( data.symbol && data.center && data.center[0] && data.center[1] ) {
+      x -= (data.radius - data.stroke)/2;
+      color  = '#444';
+      anchor = 'start';
+      info.list.push({
+        'type': 'path',
+        'path': createSymbolPath({...data, 'radius': radius}),
+        'style': {
+          'fill'  : 'none',
+          'stroke': color,
+          'strokeWidth': 1 
+        }
+      });
+
+      info.list.push({
+        'type': 'path',
+        'path': createSymbolPath({...data,'center': [x,(y-radius)], 'radius': radius}),
+        'style': {
+          'fill'  : 'none',
+          'stroke': color,
+          'strokeWidth': 1          
+        }
+      });
+
+      x += radius + 5;
+    } 
+
     info.list.push(getChartText({
-      'x'    : data.cx,
-      'y'    : data.cy - (height - ((space)*index)) + gap,
+      'x'    : x - delta,
+      'y'    : y,
       'text' : data.text,
-      'color': data.color || data.style.stroke
+      'textAnchor': anchor,
+      'color': color || data.color || data.style.stroke
     }));
     index++;
   }

@@ -1,19 +1,19 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
 
+export const getPolarToCartesian = ({x=0, y=0, radius=0, angle=0}) => {
+  let angleInRadians = (angle-90) * Math.PI / 180.0;
+  return {
+    'x': x + (radius * Math.cos(angleInRadians)),
+    'y': y + (radius * Math.sin(angleInRadians))
+  };
+};
+
 export const getCirclePath = ({x=0, y=0, radius=0, startAngle=0, endAngle=0}) => {  
   if ( endAngle >= 360 ) { endAngle = 359.999; }
 
-  let polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-    let angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
-    return {
-      'x': centerX + (radius * Math.cos(angleInRadians)),
-      'y': centerY + (radius * Math.sin(angleInRadians))
-    };
-  };
-
-  let start = polarToCartesian(x, y, radius, endAngle);
-  let end   = polarToCartesian(x, y, radius, startAngle);
+  let start = getPolarToCartesian({'x':x, 'y':y, 'radius': radius, 'angle':endAngle});
+  let end   = getPolarToCartesian({'x':x, 'y':y, 'radius': radius, 'angle':startAngle});
   let arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
   return [
     'M', start.x, start.y, 

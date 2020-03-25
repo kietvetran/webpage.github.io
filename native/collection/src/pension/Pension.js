@@ -9,15 +9,6 @@ export default class Pension extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'colorList': [
-        'rgba(28, 201, 157, 1)', //'#1cc99d', // green
-        'rgba(82, 183, 242, 1)', //'#52b7f2', // blue
-        'rgba(243, 80, 114, 1)', //'#f35072', // red
-        'rgba(240, 197, 92, 1)', //'#f0c55c', // yellow
-        'rgba(134, 117, 244, 1)', //'#8675f4', // purple
-        'rgba(216, 144, 59, 1)', //'#d8903b', // orange
-        'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
-      ],
       'config': {
         'year': {
           'title': 'Year',
@@ -146,13 +137,15 @@ export default class Pension extends React.Component {
 
         value += value * (source.potential * j);
 
+        // Round up to closest thousand
+        value = Math.ceil(value / 1000) * 1000;
+
         data.push({
           'value': value,
           'color': source.color,
-          //'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0),
           'point': j === length,
           'text' : j === length ? value : '',
-          'symbol': source.symbol || true
+          //'symbol': source.symbol || true
         });
 
         if ( allValueLowerThousand && value < 1000 ) {
@@ -167,7 +160,7 @@ export default class Pension extends React.Component {
       chart.legend.push({
         'title' : source.title,
         'color' : source.color,
-        'symbol': source.symbol || true
+        //'symbol': source.symbol || true
       });
     });
 

@@ -114,13 +114,19 @@ export default class Chart extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     let {graph, nextGraph} = this.state;
+
     if ( graph === null && nextGraph ) {
       this._revealAnimation({ 'duration': 0,'delay': 0, 'toValue' : 0});
       this.setState({'graph': nextGraph, 'nextGraph': null});
     } else if ( graph && nextGraph === null ) {
       this._revealAnimation({'delay': 0});
-
+      this.setState({'nextGraph': undefined});
     } else {
+      let pData  = JSON.stringify(prevProps.data || []);
+      let cData  = JSON.stringify(this.props.data || []);
+      if ( pData !== cData ) { this.updateData( null, { ...this.props }); }
+
+      /*
       let pData  = JSON.stringify(prevProps.data || []);
       let cData  = JSON.stringify(this.props.data || []);
       let pXaxis = JSON.stringify(prevProps.xAxis || {});
@@ -131,6 +137,7 @@ export default class Chart extends React.Component {
       if ( pData !== cData || pXaxis !== cXaxis || pYaxis !== cYaxis ) {
         this.updateData( null, { ...this.props }); 
       }
+      */
     }
   }
 
@@ -209,15 +216,16 @@ export default class Chart extends React.Component {
           'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
         ]
       },
-      'symbol'   : props.sumbol || false,
+      'symbolList': ['circle','square','triangle','triangle-down','square-single-cross', 'square-cross','triangle-left','triangle-right',''],
+      'symbol'   : props.symbol === false ? false : true,
       'previous' : {...(this.state || {})},
       'animation': props.animation !== false,
       'legend'   : props.legend instanceof Array ? props.legend : null,
       'concatnation': props.concatnation === true,
     };
 
-    state.pieRadius = parseInt((state.view[0] / 3.5));
-    state.pieStroke = parseInt((state.pieRadius / 3.5));
+    state.pieRadius = parseInt((state.view[0] / 3.4));
+    state.pieStroke = parseInt((state.pieRadius / 3.4));
     if ( typeof(state.padding) === 'number' ) {
       state.padding = {
         'top'   : state.padding,
@@ -276,7 +284,17 @@ export default class Chart extends React.Component {
   }
 
   _initGraph( state ) {
-    let info = {'list': [], 'pin': {}, 'sum': 0, 'highest': 0, 'color': 0, 'sumbol': 0, 'animation': []};
+    let info = {
+      'list'   : [],
+      'pin'    : {},
+      'sum'    : 0,
+      'highest': 0,
+      'multiple': false,
+      'color'  : {'i':0, 'used': []},
+      'symbol' : {'i':0, 'used': []},
+      'animation': []
+    };
+
     if ( ! state ) { return info; }
 
     if ( typeof(state.highest) === 'number' ) { info.highest = state.highest; }
@@ -289,6 +307,14 @@ export default class Chart extends React.Component {
 
       let value = 0, cloned = null;
       if ( data instanceof Array ) {
+        info.multiple = true;
+
+        if ( info.symbol.next ) {
+          info.symbol.used.push(state.symbolList[info.symbol.i]);
+          info.symbol.i++;
+        }
+        info.symbol.next = false;
+
         cloned = data.reduce( (p,n) => {
           let t = typeof(n) === 'number' ? {'value': n} : (
             typeof(n.value) === 'number' ? n : null
@@ -296,6 +322,11 @@ export default class Chart extends React.Component {
           if ( ! t ) { return; }
 
           let tmp = {...t, 'id': generateId('graph-'+i)};
+          if ( tmp.symbol !== false && state.symbol ) {
+            tmp.symbol = state.symbolList[info.symbol.i];
+            info.symbol.next = true;
+          }
+
           value += tmp.value || 0;
 
           info.highest = info.highest < tmp.value ? tmp.value : info.highest;
@@ -309,6 +340,10 @@ export default class Chart extends React.Component {
         }
       } else {
         cloned = {...data, 'id': generateId('graph-'+i)};
+        if ( state.type === 'pie' && state.symbol ) {
+          cloned.symbol = state.symbolList[info.symbol.i++];
+        }
+
         value = cloned.value || 0;
         info.pin[cloned.id] = cloned;
         info.highest = info.highest < value ? value : info.highest;
@@ -317,6 +352,11 @@ export default class Chart extends React.Component {
       info.sum    += value;
       info.list.push( cloned );    
     });
+
+    if ( info.symbol.next ) {
+      info.symbol.used.push(state.symbolList[info.symbol.i]);
+      info.symbol.i++;
+    }
 
     if ( state.type === 'progress' ) {
       info.sum = 100;
@@ -331,8 +371,11 @@ export default class Chart extends React.Component {
         let collection = info.list, storage = [], length = collection.length;
 
         for ( let i=0; i<length; i++ ) {
-          let color =  state.color.list[info.color++];
-          collection[i].forEach( (d) => d.color = color );
+          let color =  state.color.list[info.color.i++];
+          collection[i].forEach( (d) =>{
+            if ( d.color ) { return; }
+            d.color = color;
+          });
           let tmp = {...info, 'list': collection[i] };
 
           state.type === 'line' || state.type === 'spline' ? this._initGraphLineInfo( state, tmp ) : 
@@ -344,7 +387,7 @@ export default class Chart extends React.Component {
         }
         info.list = storage;
       } else {
-        let color = state.color.list[info.color++];
+        let color = state.color.list[info.color.i++];
         info.list.forEach( (d) => d.color = color );
         state.type === 'line' || state.type === 'spline' ?
           this._initGraphLineInfo( state, info ) : 
