@@ -10,11 +10,9 @@ export default class GuidelineMyChart extends React.Component {
     this.state = {
       'list': [
         {
-        /*
           'data': 40,
           'type': 'progress',
         }, {
-        */
           'data': [
             {'value': 20, 'text': 'Alfa' },
             {'value': 50, 'text': 'Beta' },
@@ -22,7 +20,6 @@ export default class GuidelineMyChart extends React.Component {
             {'value': 40, 'text': 'Delta'}
           ],
           'type': 'pie'
-        /*
         }, {
           'data': [[20,50,90,40], [40,10,70,80], [10,90,20,30]],
           'highest': 220,
@@ -43,7 +40,6 @@ export default class GuidelineMyChart extends React.Component {
           'fill': true,
           'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
           'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
-        */
         }
       ]
     }
