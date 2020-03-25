@@ -23,8 +23,8 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-           <Chart data={[[90,20],[40, 60],[50, 10]]} highest={120} type="bar" fill={true}
-            xAxis={{'grid': 10, 'text': ['1.jan','2.jan']}}
+           <Chart data={20} type="progress" fill={true} concatnation={true}
+            xAxis={{'grid': 10, 'text': ['1.jan','2.jan', '3.jan']}}
             yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
           />
         </li>

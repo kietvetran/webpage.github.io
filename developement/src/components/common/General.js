@@ -2,8 +2,9 @@ let moment = require('moment');
 
 /******************************************************************************
 ******************************************************************************/
-export const generateId = () => {
-  return 'app-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000 + 1);
+export const generateId = ( prefix ) => {
+  return (prefix || 'app') + '-' + new Date().getTime() + '-' +
+    Math.floor(Math.random() * 10000 + 1) + '-'+ Math.floor(Math.random() * 10000 + 1);
 }
 
 export const capitalize = (text) => {
