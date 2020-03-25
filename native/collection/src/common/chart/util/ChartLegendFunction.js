@@ -1,6 +1,6 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
-import {createSymbolPath} from './ChartFunction';
+import {createSymbolPath, getChartText} from './ChartFunction';
 
 export const initLegendInfo = ( state, info ) => {
   let space = state.legendSpace || 20, radius = state.lineRadius || 8;
@@ -25,19 +25,14 @@ export const initLegendInfo = ( state, info ) => {
     }
     
     if ( data.title || data.text ) {
-      info.list.push({
-        'id'  : generateId('legend-text'),
-        'type': 'text',
+      info.list.push(getChartText({
         'x'   : x + radius + 10,
         'y'   : y + radius,
         'text': data.title || data.text,
         'textAnchor': 'start',
-        'style': {
-          'fill'       : data.color || '#444',
-          'fontFamily' : 'Arial, Helvetica, sans-serif',
-          'fontSize'   : '110%'          
-        }
-      });
+        'color': data.color,
+        'size': '110%'
+      }));
     }
   });
 };

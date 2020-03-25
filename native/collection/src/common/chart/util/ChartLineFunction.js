@@ -1,12 +1,19 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
-import {createSymbolPath} from './ChartFunction';
+import {createSymbolPath, getChartText} from './ChartFunction';
 
 export const initGraphLineInfo = ( state, info ) => {
-  info.width = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
-  info.linePath = {'pointList': [], 'pointDataList': [],  'prePoint': null, 'dash': 0, 'duration':state.duration};
+  info.width    = (state.axis.x.max - (state.lineSpace * 2)) / (info.list.length - 1);
+  info.linePath = {
+    'pointList'    : [],
+    'pointDataList': [],
+    'prePoint'     : null,
+    'dash'         : 0,
+    'duration'     : state.duration,
+    'pointText'    : []
+  };
   info.list.forEach( (data, i) => {
-    data.type      = 'path';
+    data.type      = data.point === true ? 'path' : 'line-point-none';
     data.percent   = data.value / info.highest;
     data.width     = info.width - (state.lineSpace * 2);
     data.height    = state.axis.y.max * data.percent;
@@ -23,10 +30,6 @@ export const initGraphLineInfo = ( state, info ) => {
       'strokeWidth': 2
     };
 
-    if ( data.point === false ) {
-      data.type = 'none';
-    }
-
     info.linePath.pointDataList.push([data.cx, data.cy]);
     info.linePath.pointList.push([data.cx, data.cy].join(','));
     if ( info.linePath.prePoint ) {
@@ -36,12 +39,17 @@ export const initGraphLineInfo = ( state, info ) => {
       if ( y < 0 ) { y *= -1; }
       info.linePath.dash += Math.sqrt(((x*x) + (y*y)));
     }
-
     info.linePath.prePoint = data;
+
+    if ( data.text ) {info.linePath.pointText.push( data ); }
   });
 
   if ( info.list.length > 1 ) {
     _initGraphLinePath( state, info );
+  }
+
+  if ( info.linePath.pointText.length ) {
+    _initGraphLinePointText( state, info );
   }
 };
 
@@ -117,6 +125,18 @@ const _initGraphLinePath = ( state, info ) => {
   }
 
   info.list = list.concat( info.list );    
+};
+
+const _initGraphLinePointText = ( state, info ) => {
+  info.linePath.pointText.forEach( (data) => {
+    info.list.push(getChartText({
+      'x': data.center[0],
+      'y': data.center[1] - 10,
+      'text': data.text,
+      'baseline': 'baseline',
+      'size': '90%'
+    }));
+  });
 };
 
 const _catmullRom2bezier = ( pointList, cubicSize ) => {

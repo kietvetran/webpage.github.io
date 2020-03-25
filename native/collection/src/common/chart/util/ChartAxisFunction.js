@@ -1,4 +1,5 @@
 import {generateId} from  '../../../util/Function';
+import {getChartText} from './ChartFunction';
 
 export const initAxisList = (axis, state) =>{
   let list = [];
@@ -44,19 +45,14 @@ const _initXaxisText = ( state, list ) => {
   );
 
   if ( state.axis.x.title ) {
-    list.push({
-      'id'  : generateId('x-title'),
-      'type': 'text',
+    list.push(getChartText({
       'x'   : state.axis.x.max + state.padding.left,
       'y'   : bottom - 5,
       'text': state.axis.x.title,
       'textAnchor': 'end',
-      'style': {
-        'fill'       : state.axis.x.textColor || state.axis.x.color || '#444',
-        'fontFamily' : 'Arial, Helvetica, sans-serif',
-        'fontSize'   : '100%'          
-      }
-    });    
+      'color': state.axis.x.textColor || state.axis.x.color,
+      'size': '100%'
+    }));
   }
 
   if ( ! text.length || ! ((state.graph || {}).list || []).length ) { return; }
@@ -70,18 +66,13 @@ const _initXaxisText = ( state, list ) => {
     let x = data.center[0];
     if ( isNaN(x) ) { return; }
 
-    list.push({
-      'id'  : generateId('x-text-'+i),
-      'type': 'text',
+    list.push(getChartText({
       'x'   : x,
       'y'   : bottom + 20,
       'text': text[index++],
-      'style': {
-        'fill'       : state.axis.x.textColor || state.axis.x.color || '#444',
-        'fontFamily' : 'Arial, Helvetica, sans-serif',
-        'fontSize'   : '100%'          
-      }
-    });
+      'color': state.axis.x.textColor || state.axis.x.color,
+      'size': '100%'
+    }));
 
     list.push({
       'id'  : generateId('x-p-'+i),
@@ -99,19 +90,14 @@ const _initXaxisText = ( state, list ) => {
 const _initYaxisText = ( state, list ) => {
   let highest = state.graph.highest || 0, separation = state.axis.y.separation;
   if ( state.axis.y.title ) {
-    list.push({
-      'id'  : generateId('y-title'),
-      'type': 'text',
+    list.push(getChartText({
       'x'   : state.padding.left,
       'y'   : state.padding.top - 5,
       'text': state.axis.y.title,
       'textAnchor': 'start',
-      'style': {
-        'fill'       : state.axis.y.textColor || state.axis.y.color || '#444',
-        'fontFamily' : 'Arial, Helvetica, sans-serif',
-        'fontSize'   : '100%'          
-      }
-    });    
+      'color': state.axis.y.textColor || state.axis.y.color,
+      'size': '100%'
+    }));    
   }
 
   if ( ! highest || ! separation ) { return; }   
@@ -125,19 +111,14 @@ const _initYaxisText = ( state, list ) => {
     let x = state.padding.left;
     if ( isNaN(x) || isNaN(y) ) { return; }
 
-    list.push({
-      'id'  : generateId('x-text-'+i),
-      'type': 'text',
+    list.push(getChartText({
       'x'   : x - 5,
       'y'   : y + 5,
       'textAnchor': 'end',
       'text': (value * (i+1)) + unit,
-      'style': {
-        'fill'       : state.axis.y.textColor || state.axis.y.color || '#444',
-        'fontFamily' : 'Arial, Helvetica, sans-serif',
-        'fontSize'   : '100%'          
-      }
-    });
+      'color': state.axis.y.textColor || state.axis.y.color,
+      'size': '100%'
+    }));
 
     let endLine = state.axis.y.separationLine ?
       (state.view[0] - state.padding.left) : (x+lineSize[0]);

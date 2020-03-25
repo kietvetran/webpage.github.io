@@ -50,7 +50,7 @@ export default class Pension extends React.Component {
         //'animation': false,
         'highest': 100,
         'type': 'line',
-        'padding': {'top': 20, 'left': 60, 'right': 10, 'bottom': 40},
+        'padding': {'top': 20, 'left': 50, 'right': 10, 'bottom': 40},
         'xAxis': {'grid': 0, 'text': ['Standar',''], 'textColor': '#333', 'title': 'Year'},
         'yAxis': {'grid': 0, 'separation': 4, 'separationLine': true, 'unit': '', 'color': '#ccc', 'textColor': '#333', 'title': 'Kr' },
       }
@@ -132,7 +132,7 @@ export default class Pension extends React.Component {
         chart.xAxis.text.push((year+j)) : chart.xAxis.text.push( ' ' );
     }
 
-    let allValueLowerThousand = true;
+    let allValueLowerThousand = true, highestValue = 0;
     chart.data   = [];
     chart.legend = [];
     //['normal'].forEach( (key) => {
@@ -149,12 +149,18 @@ export default class Pension extends React.Component {
         data.push({
           'value': value,
           'color': source.color,
-          'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0),
+          //'point': j === 0 || j === length || pin === 0 || (pin && (j%pin) === 0),
+          'point': j === length,
+          'text' : j === length ? value : '',
           'symbol': source.symbol || true
         });
 
         if ( allValueLowerThousand && value < 1000 ) {
           allValueLowerThousand = false;
+        }
+
+        if ( value > highestValue ) {
+          highestValue =  value;
         }
       }
       chart.data.push( data );
@@ -165,13 +171,17 @@ export default class Pension extends React.Component {
       });
     });
 
-    if ( allValueLowerThousand) {
+    chart.highest = Math.ceil(highestValue / 1000) * 1000;
+    if ( (chart.highest % 2) !== 0 ) { chart.highest += 1000; }
+
+    if ( allValueLowerThousand ) {
       chart.data.forEach( (d) => {
         (d instanceof Array ? d : [d]).forEach( (n) => {
           n.value = parseInt(n.value / 1000);
           //n.value = parseFloat(parseFloat((n.value / 1000)).toFixed(2));
         });
       });
+      chart.highest = chart.highest / 1000;
       chart.yAxis.unit = 'k';
     } else {
       chart.yAxis.unit = '';

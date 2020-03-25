@@ -1,6 +1,6 @@
 import {Animated} from 'react-native';
 import {generateId} from  '../../../util/Function';
-import {getCirclePath} from './ChartFunction';
+import {getCirclePath, getChartText} from './ChartFunction';
 
 export const initGraphPieInfo = ( state, info ) => {
   let getDash = (radius, stroke, percent) => {
@@ -22,15 +22,29 @@ export const initGraphPieInfo = ( state, info ) => {
     data.dash     = data.radius * 2 * Math.PI;     
 
     if ( data.type === 'pie' ) {
-      data.path = getCirclePath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+      data.path = getCirclePath({
+        'x': data.cx,
+        'y': data.cy,
+        'radius': data.radius,
+        'startAngle': sumDegree,
+        'endAngle': (data.degree + sumDegree)
+      });
       if ( state.animation ) {
         data.animateFrom = data.dash;
         data.animateTo   = data.dash * data.percent;
       }
     } else {
-      data.path = getCirclePath(data.cx, data.cy, data.radius, sumDegree, (data.degree + sumDegree));
+      data.path = getCirclePath({
+        'x': data.cx,
+        'y': data.cy,
+        'radius': data.radius,
+        'startAngle': sumDegree,
+        'endAngle': (data.degree + sumDegree)
+      });
       if ( state.animation ) {
-        data.path = getCirclePath(data.cx, data.cy, data.radius, 0, 359.999);
+        data.path = getCirclePath({
+          'x': data.cx, 'y': data.cy, 'radius':data.radius, 'startAngle': 0, 'endAngle': 360
+        });
         data.animateFrom = data.dash;
         data.animateTo   = data.dash * (1 + data.percent);
       }
@@ -76,18 +90,12 @@ const _initGraphPieInfoText = ( state, info ) => {
     let data = info.list[i];
     if ( ! data || ! data.cx || ! data.cy ) { continue; }
 
-    info.list.push({
-      'id'  : generateId('pie-text-'+i),
-      'type': 'text',
-      'x'   : data.cx,
-      'y'   : data.cy - (height - ((space)*index)) + gap,
-      'text': data.text,
-      'style': {
-        'fill'       : data.color || data.style.stroke || '#444',
-        'fontFamily' : 'Arial, Helvetica, sans-serif',
-        'fontSize'   : '130%' 
-      }
-    });
+    info.list.push(getChartText({
+      'x'    : data.cx,
+      'y'    : data.cy - (height - ((space)*index)) + gap,
+      'text' : data.text,
+      'color': data.color || data.style.stroke
+    }));
     index++;
   }
 };
@@ -105,27 +113,26 @@ const _initGraphPieInfoProgress = ( state, info ) => {
   cloned.value   = 100;
   cloned.degree  = 360;
   cloned.percent = 1;
-  cloned.path    = getCirclePath(cloned.cx, cloned.cy, cloned.radius, 0, 359.999); 
+  cloned.path    = getCirclePath({
+    'x': cloned.cx, 'y': cloned.cy, 'radius':cloned.radius, 'startAngle': 0, 'endAngle': 360
+  }); 
+  
   cloned.dash    = 0;
   cloned.style.stroke = state.color.default;
   cloned.style.strokeDasharray = cloned.dash;
   cloned.animate = false;
   info.list.unshift( cloned );
 
-  let text = {
-    'id'  : generateId('progress-text'),
-    'type': 'text',
-    'text': current.value + '%',
-    'duration': current.duration,
+  //,
+  let text = getChartText({
     'x': current.cx,
     'y': current.cy + 20,
-    'style': {
-      'fill'       : current.color,
-      'fontFamily' : 'Arial, Helvetica, sans-serif',
-      'fontSize'   : '500%'
-    }
-  };
-
+    'text': current.value + '%',
+    'color': current.color,
+    'size' : '500%',
+    'extension': {'duration': current.duration}
+  });
+  
   if ( state.animation ) {
     text.animation = {'value': new Animated.Value(0), 'attributeName': 'fill-opacity'};
   }
