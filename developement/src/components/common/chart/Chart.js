@@ -10,6 +10,7 @@ import {initAxisList} from './util/ChartAxisFunction';
 import {initGraphLineInfo} from './util/ChartLineFunction';
 import {initGraphPieInfo} from './util/ChartPieFunction';
 import {initLegendInfo} from './util/ChartLegendFunction';
+import {initGraphEngineInfo} from './util/ChartEngineFunction';
 
 import './Chart.scss';
 
@@ -25,6 +26,12 @@ const ChartGraph = ({data, animate}) => {
     graph = <polygon points={data.points} style={data.style} >
       <animate attributeName="opacity" from="0" to={data.animateTo} dur={data.duration} fill="freeze" />
     </polygon>
+  } else if ( data.type === 'engine' && (data.pathList || []).length ) {
+    graph = <g transform={data.transform}>
+      { data.pathList.map( (d,i) => (
+          d ? <ChartGraph key={'path-'+(d.id || i)} data={d}/> : null
+      )) }
+    </g>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
     graph = <path id={data.id} style={data.style} d={data.animateAttributeName !== 'd' ? data.path : ''}>
       { animate !== false && (data.animateFrom || data.animateTo) && <animate fill="freeze"
@@ -159,6 +166,8 @@ export class Chart extends React.Component {
       'lineRadius': 7,
       'lineSpace': 20,
       'legendSpace': 16,
+      'engineSize': 20,
+      'engineRemove': 6,
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
       'fill'     : props.fill === true,
@@ -190,6 +199,7 @@ export class Chart extends React.Component {
 
     state.pieRadius = parseInt((state.view[0] / 3.4));
     state.pieStroke = parseInt((state.pieRadius / 3.4));
+    state.enginStroke = parseInt((state.pieRadius / 4));
     if ( typeof(state.padding) === 'number' ) {
       state.padding = {
         'top'   : state.padding,
@@ -291,11 +301,16 @@ export class Chart extends React.Component {
             info.symbol.next = true;
           }
 
+          if ( state.type === 'engine' ) {
+            tmp.size = tmp.size || state.engineSize || 20;
+            tmp.remove = tmp.remove || state.engineRemove || 6;         
+          }
+
           value += tmp.value || 0;
 
           info.highest = info.highest < tmp.value ? tmp.value : info.highest;
           info.pin[tmp.id] = tmp;
-          p.push( tmp ); 
+          p.push( tmp );
           return p;
         }, []);
 
@@ -304,7 +319,10 @@ export class Chart extends React.Component {
         }
       } else {
         cloned = {...data, 'id': generateId('graph-'+i)};
-        if ( state.type === 'pie' && state.symbol ) {
+        if ( state.type === 'engine' ) {
+          cloned.size = cloned.size || state.engineSize || 20;
+          cloned.remove = cloned.remove || state.engineRemove || 6;         
+        } else if ( state.type === 'pie' && state.symbol ) {
           cloned.symbol = state.symbolList[info.symbol.i++];
         }
 
@@ -357,6 +375,8 @@ export class Chart extends React.Component {
           this._initGraphLineInfo( state, info ) : 
           this._initGraphBarInfo( state, info );
       }
+    } else if ( state.type === 'engine' ) {
+      this._initGraphEngineInfo( state, info );
     }
 
     if ( (state.legend || []).length ) {
@@ -375,6 +395,10 @@ export class Chart extends React.Component {
 
   _initGraphBarInfo( state, info, multiple ) {
     initGraphBarInfo( state, info, multiple );
+  }
+
+  _initGraphEngineInfo( state, info ) {
+    initGraphEngineInfo(state, info);
   }
 
   /*

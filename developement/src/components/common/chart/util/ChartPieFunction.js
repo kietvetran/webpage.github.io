@@ -2,12 +2,6 @@ import {generateId} from '../../General';
 import {createSymbolPath, getCirclePath, getPolarToCartesian, getChartText} from './ChartFunction';
 
 export const initGraphPieInfo = ( state, info ) => {
-  let getDash = (radius, stroke, percent) => {
-    let normalized = radius - (stroke * 2);
-    let delta = normalized * 2 * Math.PI;
-    return delta;
-  };
-
   let sumDegree = 0, sumPercent = 0, shadowList = [];
   info.list.forEach( (data, index) => {
     data.type     = state.type || 'pie';

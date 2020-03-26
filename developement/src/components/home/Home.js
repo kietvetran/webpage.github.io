@@ -23,7 +23,7 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-           <Chart data={20} type="progress" fill={true} concatnation={true}
+           <Chart data={40} type="engine" fill={true} concatnation={true}
             xAxis={{'grid': 10, 'text': ['1.jan','2.jan', '3.jan']}}
             yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
           />
