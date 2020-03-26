@@ -9,7 +9,7 @@ export const initGraphPieInfo = ( state, info ) => {
     return delta;
   };
 
-  let sumDegree = 0, sumPercent = 0;
+  let sumDegree = 0, sumPercent = 0, shadowList = [];
   info.list.forEach( (data, index) => {
     data.type     = state.type || 'pie';
     data.duration = state.duration;
@@ -17,44 +17,30 @@ export const initGraphPieInfo = ( state, info ) => {
     data.degree   = 360 * data.percent;
     data.stroke   = state.pieStroke || 50;
     data.radius   = state.pieRadius || 100;
-    data.cx       = (state.axis.x.max / 2) + state.padding.left;
-    data.cy       = (state.axis.y.max / 2) + state.padding.bottom;
-    data.dash     = data.radius * 2 * Math.PI;     
+    data.x        = (state.axis.x.max / 2) + state.padding.left;
+    data.y        = (state.axis.y.max / 2) + state.padding.bottom;
+    data.dash     = data.radius * 2 * Math.PI;
+    data.startAngle = sumDegree;
+    data.endAngle = data.degree + sumDegree;
 
-    if ( data.type === 'pie' ) {
-      let point = getPolarToCartesian({
-        'x': data.cx,
-        'y': data.cy,
-        //'radius': data.stroke + ((data.radius - data.stroke)/2),
-        'radius': data.radius,
-        'angle': ((data.degree/2) + sumDegree)
-      });
-      data.center = [point.x, point.y];
-      data.path = getCirclePath({
-        'x': data.cx,
-        'y': data.cy,
-        'radius': data.radius,
-        'startAngle': sumDegree,
-        'endAngle': (data.degree + sumDegree)
-      });
-      if ( state.animation ) {
+    let point = getPolarToCartesian({
+      ...data, 'angle': ((data.degree/2) + sumDegree)
+    });
+
+    data.center = [point.x, point.y];
+    data.path = state.shadow ? getCirclePath({
+      ...data,
+      'startAngle': (data.startAngle + .5),
+      'endAngle': (data.endAngle - .5)
+    }): getCirclePath( data );
+
+    if ( state.animation ) {
+      if ( data.type === 'pie' ) {
         data.animateFrom = data.dash;
         data.animateTo   = data.dash * data.percent;
-      }
-    } else {
-      data.path = getCirclePath({
-        'x': data.cx,
-        'y': data.cy,
-        'radius': data.radius,
-        'startAngle': sumDegree,
-        'endAngle': (data.degree + sumDegree)
-      });
-      if ( state.animation ) {
-        data.path = getCirclePath({
-          'x': data.cx, 'y': data.cy, 'radius':data.radius, 'startAngle': 0, 'endAngle': 360
-        });
-        data.animateFrom = data.dash;
-        data.animateTo   = data.dash * (1 + data.percent);
+      } else {
+        data.animateFrom = data.dash * -1;
+        data.animateTo   = 0;
       }
     }
 
@@ -78,16 +64,35 @@ export const initGraphPieInfo = ( state, info ) => {
       'strokeLinecap' : 'butt'
     };
 
+    if ( state.shadow ) {
+      shadowList.push(JSON.parse(JSON.stringify(data)));
+    }
+
     sumPercent += data.percent;
     sumDegree  += data.degree;
   });
 
   if ( state.type === 'progress' ) {
+    _initGraphPieShadow( state, info, shadowList );
     _initGraphPieInfoProgress(state, info );
   } else {
     _initGraphPieInfoText(state, info);
+    _initGraphPieShadow( state, info, shadowList );
   }
 };
+
+const _initGraphPieShadow = ( state, info, list ) => {
+  list.forEach( (data) => {
+    data.id  += '-shadow';
+    data.path = getCirclePath( data );
+    data.style.stroke = '#fff';
+    //data.style.strokeWidth += 2;
+    data.isShadow = true; 
+  });
+
+  info.list = list.concat( info.list );
+};
+
 
 const _initGraphPieInfoText = ( state, info ) => {
   let length = info.list.length, index = 0;
@@ -96,9 +101,9 @@ const _initGraphPieInfoText = ( state, info ) => {
 
   for ( let i=0; i<length; i++ ) {
     let data = info.list[i], color = '', radius = 6, anchor = 'middle';
-    if ( ! data || ! data.cx || ! data.cy ) { continue; }
+    if ( ! data || ! data.x || ! data.y ) { continue; }
 
-    let x = data.cx, y = data.cy - (height - ((space)*index)) + gap, delta = 0;
+    let x = data.x, y = data.y - (height - ((space)*index)) + gap, delta = 0;
 
     if ( data.symbol && data.center && data.center[0] && data.center[1] ) {
       x -= (data.radius - data.stroke)/2;
@@ -152,7 +157,7 @@ const _initGraphPieInfoProgress = ( state, info ) => {
   cloned.degree  = 360;
   cloned.percent = 1;
   cloned.path    = getCirclePath({
-    'x': cloned.cx, 'y': cloned.cy, 'radius':cloned.radius, 'startAngle': 0, 'endAngle': 360
+    ...cloned, 'startAngle': 0, 'endAngle': 360
   }); 
   
   cloned.dash    = 0;
@@ -163,8 +168,8 @@ const _initGraphPieInfoProgress = ( state, info ) => {
 
   //,
   let text = getChartText({
-    'x': current.cx,
-    'y': current.cy + 20,
+    'x': current.x,
+    'y': current.y + 20,
     'text': current.value + '%',
     'color': current.color,
     'size' : '500%',

@@ -222,6 +222,7 @@ export default class Chart extends React.Component {
       'animation': props.animation !== false,
       'legend'   : props.legend instanceof Array ? props.legend : null,
       'concatnation': props.concatnation === true,
+      'shadow': props.shadow !== false,
     };
 
     state.pieRadius = parseInt((state.view[0] / 3.4));
