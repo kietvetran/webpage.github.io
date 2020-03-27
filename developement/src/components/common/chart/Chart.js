@@ -26,12 +26,6 @@ const ChartGraph = ({data, animate}) => {
     graph = <polygon points={data.points} style={data.style} >
       <animate attributeName="opacity" from="0" to={data.animateTo} dur={data.duration} fill="freeze" />
     </polygon>
-  } else if ( data.type === 'engine' && (data.pathList || []).length ) {
-    graph = <g transform={data.transform}>
-      { data.pathList.map( (d,i) => (
-          d ? <ChartGraph key={'path-'+(d.id || i)} data={d}/> : null
-      )) }
-    </g>
   } else if ( data.type === 'pie' || data.type === 'progress' || data.type === 'bar-path' || data.type === 'path' ) {
     graph = <path id={data.id} style={data.style} d={data.animateAttributeName !== 'd' ? data.path : ''}>
       { animate !== false && (data.animateFrom || data.animateTo) && <animate fill="freeze"
@@ -100,7 +94,11 @@ export class Chart extends React.Component {
 
       { graph.list && graph.list.length > 0 && <g id="graph-wrapper">
           { graph.list.map( (data,i) => (
-              data ? <ChartGraph key={'graph-'+(data.id || i)} data={data}/> : null
+              data ? (
+                data.transform ? <g transform={data.transform} key={'graph-'+(data.id || i)}>
+                  <ChartGraph data={data}/> 
+                </g> : <ChartGraph key={'graph-'+(data.id || i)} data={data}/>
+              ) : null
           )) }
         </g>
       }
