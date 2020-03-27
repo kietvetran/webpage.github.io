@@ -3,14 +3,17 @@ import {createSymbolPath, getCirclePath, getPolarToCartesian, getChartText} from
 
 
 export const initGraphEngineInfo = ( state, info ) => {
-  let bgList = [], frontList = [];
+  let bgList = [], frontList = [], sumStroke = 0;
   info.list.forEach( (data, index) => {
     if ( isNaN(data.size) ) { return; }
     //data.type     = state.type || 'engine';
     data.type     = 'path';
     data.duration = state.duration;
-    data.stroke   = state.engineStroke || 50;
-    data.radius   = state.pieRadius || 100;
+    data.stroke   = data.stroke || state.engineStroke || 50;
+    data.radius   = state.engineRadius || state.pieRadius || 100;
+
+    data.radius -=  (sumStroke + (20*index)) + (data.stroke/2);
+
     data.x        = (state.axis.x.max / 2) + state.padding.left;
     data.y        = (state.axis.y.max / 2) + state.padding.bottom;
     data.dash     = data.radius * 2 * Math.PI;
@@ -58,7 +61,6 @@ export const initGraphEngineInfo = ( state, info ) => {
       frontList.push( ft );
     }
 
-
     if ( data.reverse ) {
       data.endAngle = data.note.fill * 360;
       data.startAngle = (data.note.fill - (data.note.fill * data.percent)) * 360;
@@ -84,6 +86,8 @@ export const initGraphEngineInfo = ( state, info ) => {
         'attributeName': 'stroke-dashoffset'
       };
     }
+
+    sumStroke += data.stroke;
   });
 
   info.list = (bgList.concat( info.list )).concat( frontList );

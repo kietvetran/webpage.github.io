@@ -23,7 +23,12 @@ class Home extends Component {
       <h1>Home</h1>
       <ul className="application-list">
         <li className="application-item">
-           <Chart data={[{'value': 10, 'reverse': true}]} type="engine" fill={true} concatnation={true}
+           <Chart data={[
+              {'value': 10, 'reverse': true, 'stroke': 30 },
+              //{'value': 80, 'step': false},
+              //{'value': 80, 'reverse': true, 'strole': 40},
+              {'value': 65, 'step': false, 'track': false}
+            ]} type="engine" fill={true} concatnation={true}
             xAxis={{'grid': 10, 'text': ['1.jan','2.jan', '3.jan']}}
             yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
           />

@@ -195,9 +195,11 @@ export class Chart extends React.Component {
       'shadow': props.shadow !== false
     };
 
-    state.pieRadius = parseInt((state.view[0] / 3.4));
-    state.pieStroke = parseInt((state.pieRadius / 3.4));
-    state.enginStroke = parseInt((state.pieRadius / 4));
+    state.pieRadius    = parseInt((state.view[0] / 3.4));
+    state.pieStroke    = parseInt((state.pieRadius / 3.4));
+    state.enginStroke  = parseInt((state.pieRadius / 4));
+    state.engineRadius = parseInt((state.view[0] / 2.3));
+
     if ( typeof(state.padding) === 'number' ) {
       state.padding = {
         'top'   : state.padding,
