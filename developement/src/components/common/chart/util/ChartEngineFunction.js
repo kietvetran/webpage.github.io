@@ -18,11 +18,11 @@ export const initGraphEngineInfo = ( state, info ) => {
     data.center   = [data.x, data.y];
     data.deltaSize = data.size - data.remove;
     data.note      = {
-      'degree': 360 / data.size,
+      'degree'  : 360 / data.size,
       'dashSize': data.dash / data.size,
-      'dashGap': state.enginenGap || 5,
-      'gap'   : data.remove / data.size,
-      'fill'  : data.deltaSize / data.size
+      'dashGap' : state.enginenGap || 5,
+      'gap'     : data.remove / data.size,
+      'fill'    : data.deltaSize / data.size
     };
 
     data.rotation   = 180 + (data.note.degree * (data.remove/2));
@@ -39,14 +39,16 @@ export const initGraphEngineInfo = ( state, info ) => {
       'strokeLinecap'  : 'butt'
     };
 
-    if ( data.step !== false  ) {
+    if ( data.step !== false || data.track !== false  ) {
       let bg = JSON.parse(JSON.stringify(data));
       bg.id += '-bg';
       bg.path  = getCirclePath(bg);
       bg.color = '#dedede';
       bg.style.stroke = bg.color;
       bgList.push( bg );
+    }
 
+    if ( data.step !== false  ) {
       let ft = JSON.parse(JSON.stringify(data));
       ft.id += '-ft';
       ft.path  = getCirclePath(ft);
@@ -56,10 +58,23 @@ export const initGraphEngineInfo = ( state, info ) => {
       frontList.push( ft );
     }
 
+
+    if ( data.reverse ) {
+      data.endAngle = data.note.fill * 360;
+      data.startAngle = (data.note.fill - (data.note.fill * data.percent)) * 360;
+      data.path = getCirclePath( data );
+    }
+
     if ( state.animation ) {
-      data.style.strokeDasharray = data.dash;      
-      data.animateFrom = data.dash * -1;
-      data.animateTo   = 0;
+      data.style.strokeDasharray = data.dash;
+      if ( data.reverse  ) {
+        data.animateFrom = data.dash;
+        data.animateTo   = data.dash - ((data.dash * data.percent)*data.note.fill);
+      } else {
+        data.animateFrom = data.dash * -1;
+        data.animateTo   = 0;
+      }
+
       data.animation = {
         //'value': new Animated.Value(0),
         'config': {
