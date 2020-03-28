@@ -38,8 +38,16 @@ export default class GuidelineMyChart extends React.Component {
           'highest': 120,
           'type': 'line',
           'fill': true,
-          'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
-          'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
+          'xAxis': {'grid': 0, 'text': ['1.jan','2.jan','3.jan','4.jan']},
+          'yAxis': {'grid': 0, 'separation': 4, 'unit': 'Kr' },
+        }, {
+          'data': [[20,50,90,40], [40,10,70,80]],
+          'highest': 100,
+          'type': 'spline',
+          'height': 220,
+          'padding': {'top': 40, 'left': 10, 'right': 50, 'bottom': 40},
+          'xAxis': {'grid': 4, 'text': ['1.jan','2.jan','3.jan','4.jan']},
+          'yAxis': {'grid': 0, 'separation': 4, 'unit': 'Kr', 'toRight': true },
         }, {
           'data': [
             {'value': 40, 'reverse': true, 'stroke': 20 },

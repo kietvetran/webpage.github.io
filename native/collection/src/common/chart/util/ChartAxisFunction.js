@@ -7,15 +7,23 @@ export const initAxisList = (axis, state) =>{
 
   let path = '', delta = 0, count = state.axis[axis].grid || 1;
   let xMax = state.axis.x.max, yMax = state.axis.y.max;
-  let gap  = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
+  //let gap  = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
+  let separation = count - 1, gap =  separation ? (
+    axis === 'x' ? parseInt((yMax / separation )) : parseInt((xMax / separation))
+  ) : 0;
 
   for ( let i=0; i<count; i++ ) {
     if ( axis === 'x' ) {
       delta = yMax + state.padding.top - (gap*i);
       path  = 'M '+state.padding.left+','+delta+' '+ (xMax+state.padding.left)+','+delta;
     } else {
-      delta = state.padding.left + (gap*i);
-      path = 'M '+delta+','+state.padding.top+' '+ delta+','+(yMax + state.padding.top);
+      if ( state.axis.y.toRight ) {
+        delta = xMax - (gap*i) + state.padding.left;
+        path = 'M '+delta+','+state.padding.top+' '+ delta+','+(yMax + state.padding.top);        
+      } else {
+        delta = state.padding.left + (gap*i);
+        path = 'M '+delta+','+state.padding.top+' '+ delta+','+(yMax + state.padding.top);
+      }
     }
 
     list.push({
@@ -105,19 +113,23 @@ const _initYaxisText = ( state, list ) => {
 
   for ( let i=0; i<separation; i++ ) {
     let y = bottom - (height *(i+1));
-    let x = state.padding.left;
+    let x = state.axis.y.toRight ?
+      (state.axis.x.max + state.padding.left) : state.padding.left;
+
     if ( isNaN(x) || isNaN(y) ) { return; }
 
     list.push(getChartText({
-      'x'   : x - 5,
+      'x'   : x - (state.axis.y.toRight ? -10 : 5),
       'y'   : y + 5,
-      'textAnchor': 'end',
+      'textAnchor': state.axis.y.toRight ? 'start' : 'end',
       'text': (value * (i+1)) + unit,
       'color': state.axis.y.textColor || state.axis.y.color
     }));
 
-    let endLine = state.axis.y.separationLine ?
-      (state.view[0] - state.padding.left) : (x+lineSize[0]);
+    let endLine = state.axis.y.separationLine ? (
+      state.axis.y.toRight ? state.padding.left :
+        (state.view[0] - state.padding.left)
+    ) : (x+lineSize[0]);
 
     list.push({
       'id'  : generateId('y-p-'+i),

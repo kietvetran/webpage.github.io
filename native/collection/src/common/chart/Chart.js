@@ -296,6 +296,7 @@ export default class Chart extends React.Component {
       'separationLine': yAxis.separationLine === true,
       'unit'          : yAxis.unit || '',
       'title'         : yAxis.title,
+      'toRight'       : yAxis.toRight === true,
     };
 
     state.centerPoint = [
