@@ -79,7 +79,8 @@ const _initXaxisText = ( state, list ) => {
       'x'   : x,
       'y'   : bottom + 20,
       'text': text[index++],
-      'color': state.axis.x.textColor || state.axis.x.color
+      'color': state.axis.x.textColor || state.axis.x.color,
+      ...(state.axis.x.textStyle || {})
     }));
 
     let endLine = state.axis.x.separationLine ?
@@ -129,7 +130,8 @@ const _initYaxisText = ( state, list ) => {
       'y'   : y + 5,
       'textAnchor': state.axis.y.toRight ? 'start' : 'end',
       'text': (value * (i+1)) + unit,
-      'color': state.axis.y.textColor || state.axis.y.color
+      'color': state.axis.y.textColor || state.axis.y.color,
+      ...(state.axis.y.textStyle || {})
     }));
 
     let endLine = state.axis.y.separationLine ? (
