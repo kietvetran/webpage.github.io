@@ -1,0 +1,11 @@
+<svg class="textSVG" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+
+<text class="myText" x="50%" y="0">
+	<tspan dy="0" x="50%" text-anchor="middle" style="opacity: 1; font-size: 1em">This is a fairly crude way</tspan>
+	<tspan dy=".8em" x="50%" text-anchor="middle" dominant-baseline="baseline" style="opacity: 1; font-size: 4em; margin-top: -2em">50%</tspan>
+	<tspan dy="1.4em" x="50%" text-anchor="middle" style="opacity: 1;">text but it can work well if you</tspan>
+	<tspan dy="1.4em" x="50%" text-anchor="middle" style="opacity: 1;">have control over the source.</tspan>
+	<tspan dy="1.4em" x="50%" text-anchor="middle" style="opacity: 1;"> </tspan>
+	<tspan dy="1.4em" x="50%" text-anchor="middle" style="opacity: 1;">Unfortunately it's not dynamic :(</tspan>
+</text>
+</svg>

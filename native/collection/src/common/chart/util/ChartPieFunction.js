@@ -17,8 +17,8 @@ export const initGraphPieInfo = ( state, info ) => {
     data.degree   = 360 * data.percent;
     data.stroke   = state.pieStroke || 50;
     data.radius   = state.pieRadius || 100;
-    data.x        = (state.axis.x.max / 2) + state.padding.left;
-    data.y        = (state.axis.y.max / 2) + state.padding.bottom;
+    data.x        = state.centerPoint[0];
+    data.y        = state.centerPoint[1];
     data.dash     = data.radius * 2 * Math.PI;
     data.startAngle = sumDegree;
     data.endAngle = data.degree + sumDegree;
@@ -144,7 +144,7 @@ const _initGraphPieInfoText = ( state, info ) => {
 };
 
 const _initGraphPieInfoProgress = ( state, info ) => {
-  let current = info.list[0];
+  let current = info.list[0], fontSize = 5;
 
   if ( (((state.previous || {}).graph || {}).list || [])[1] ) {
     let previous = state.previous.graph.list[1];
@@ -169,10 +169,10 @@ const _initGraphPieInfoProgress = ( state, info ) => {
   //,
   let text = getChartText({
     'x': current.x,
-    'y': current.y + 20,
+    'y': current.y + ((fontSize*16) /4),
     'text': current.value + '%',
     'color': current.color,
-    'size' : '500%',
+    'size' : (fontSize+'em'),
     'extension': {'duration': current.duration}
   });
   

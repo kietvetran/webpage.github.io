@@ -133,8 +133,7 @@ const _initGraphLinePointText = ( state, info ) => {
       'x': data.center[0],
       'y': data.center[1] - 10,
       'text': data.text,
-      'baseline': 'baseline',
-      'size': '90%'
+      'baseline': 'baseline'
     }));
   });
 };

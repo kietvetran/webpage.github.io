@@ -50,8 +50,7 @@ const _initXaxisText = ( state, list ) => {
       'y'   : bottom - 5,
       'text': state.axis.x.title,
       'textAnchor': 'end',
-      'color': state.axis.x.textColor || state.axis.x.color,
-      'size': '100%'
+      'color': state.axis.x.textColor || state.axis.x.color
     }));
   }
 
@@ -70,8 +69,7 @@ const _initXaxisText = ( state, list ) => {
       'x'   : x,
       'y'   : bottom + 20,
       'text': text[index++],
-      'color': state.axis.x.textColor || state.axis.x.color,
-      'size': '100%'
+      'color': state.axis.x.textColor || state.axis.x.color
     }));
 
     list.push({
@@ -95,8 +93,7 @@ const _initYaxisText = ( state, list ) => {
       'y'   : state.padding.top - 5,
       'text': state.axis.y.title,
       'textAnchor': 'start',
-      'color': state.axis.y.textColor || state.axis.y.color,
-      'size': '100%'
+      'color': state.axis.y.textColor || state.axis.y.color
     }));    
   }
 
@@ -116,8 +113,7 @@ const _initYaxisText = ( state, list ) => {
       'y'   : y + 5,
       'textAnchor': 'end',
       'text': (value * (i+1)) + unit,
-      'color': state.axis.y.textColor || state.axis.y.color,
-      'size': '100%'
+      'color': state.axis.y.textColor || state.axis.y.color
     }));
 
     let endLine = state.axis.y.separationLine ?

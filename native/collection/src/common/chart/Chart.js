@@ -1,4 +1,5 @@
 /*
+<TSpan key={'tspan-'+(data.id || i)} dy={data.dy || '0'} style={data.style}>{data.text}</TSpan>  
 https://advancedweb.hu/plotting-charts-with-svg/
 https://github.com/react-native-community/react-native-svg/issues/951
 https://lottiefiles.com/6391-email-sent
@@ -16,11 +17,23 @@ import {initGraphLineInfo} from './util/ChartLineFunction';
 import {initGraphPieInfo} from './util/ChartPieFunction';
 import {initAxisList} from './util/ChartAxisFunction';
 import {initLegendInfo} from './util/ChartLegendFunction';
+import {initGraphEngineInfo} from './util/ChartEngineFunction';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedPolyline = Animated.createAnimatedComponent(Polyline);
 const AnimatedG = Animated.createAnimatedComponent(G);
 const AnimatedText = Animated.createAnimatedComponent(Text);
+
+const ChartTSpan = ({tspan}) => {
+  return <React.Fragment> 
+    { (tspan instanceof Array ? tspan : [tspan]).map( (data, i) => {
+        return ! data || ! data.text ? null :
+          <TSpan key={'tspan-'+(data.id || i)} dy={data.dy || '1.4em'} style={data.style} x={data.x || '0'}
+            dominantBaseline={data.dominantBaseline || 'middle'} textAnchor={data.textAnchor || 'middle'}
+          >{data.text}</TSpan>
+    }) }
+  </React.Fragment>
+};
 
 const ChartGraph = ({data, animate}) => {
   let graph = null;
@@ -47,16 +60,19 @@ const ChartGraph = ({data, animate}) => {
             <Path id={data.id} style={data.style} d={data.path}/>
           )
       );
-  } else if ( data.type === 'text' && data.text ) {
+  } else if ( data.type === 'text') {
     graph = <G>
       { data.animation && data.animation.value && data.animation.attributeName === 'fill-opacity' ?
           <AnimatedText id={data.id} x={data.x} y={data.y} style={data.style}
-            dominantBaseline={data.dominantBaseline || 'middle'} textAnchor={data.textAnchor || 'middle'} fillOpacity={data.animation.value}
-          >{data.text}</AnimatedText>
+            dominantBaseline={data.dominantBaseline || 'middle'}
+            textAnchor={data.textAnchor || 'middle'}
+            fillOpacity={data.animation.value}
+          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : data.text}</AnimatedText>
           :
           <Text id={data.id} x={data.x} y={data.y} style={data.style}
-            dominantBaseline={data.dominantBaseline || 'middle'} textAnchor={data.textAnchor || 'middle'}
-          >{data.text}</Text>
+            dominantBaseline={data.dominantBaseline || 'middle'}
+            textAnchor={data.textAnchor || 'middle'}
+          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : data.text}</Text>
       }
     </G>
   }
@@ -99,7 +115,11 @@ export default class Chart extends React.Component {
         }
         { graph.list && graph.list.length > 0 && <G id="graph-wrapper">
             { graph.list.map( (data,i) => (
-                data ? <ChartGraph key={'graph-'+(data.id || i)} data={data}/> : null
+                data ? (
+                  data.transform ? <G transform={data.transform} key={'graph-'+(data.id || i)}>
+                    <ChartGraph data={data}/>
+                  </G> : <ChartGraph key={'graph-'+(data.id || i)} data={data}/>
+                ) : null
             )) }
           </G>
         }
@@ -196,6 +216,8 @@ export default class Chart extends React.Component {
       'lineRadius': 7,
       'lineSpace': 20,
       'legendSpace': 16,
+      'engineSize': 20,
+      'engineRemovePart': 6,
       'data'     : props.data      || [],
       'type'     : props.type      || 'bar',
       'fill'     : props.fill === true,
@@ -222,11 +244,14 @@ export default class Chart extends React.Component {
       'animation': props.animation !== false,
       'legend'   : props.legend instanceof Array ? props.legend : null,
       'concatnation': props.concatnation === true,
-      'shadow': props.shadow !== false,
+      'shadow': props.shadow !== false
     };
 
-    state.pieRadius = parseInt((state.view[0] / 3.4));
-    state.pieStroke = parseInt((state.pieRadius / 3.4));
+    state.pieRadius    = parseInt((state.view[0] / 3.4));
+    state.pieStroke    = parseInt((state.pieRadius / 3.4));
+    state.enginStroke  = parseInt((state.pieRadius / 4));
+    state.engineRadius = parseInt((state.view[0] / 2.3));
+
     if ( typeof(state.padding) === 'number' ) {
       state.padding = {
         'top'   : state.padding,
@@ -244,6 +269,7 @@ export default class Chart extends React.Component {
 
     if ( state.legend && state.legend.length && state.type.match(/^(bar|line|spline)/i) ) {
       for ( let key in state.padding ) {
+        if ( key.match(/Original/i) ) { continue; }
         state.padding[key+'Original'] = state.padding[key];
       }
       state.padding.top = parseInt(((state.padding.top * 1.5) + (state.legend.length * state.legendSpace)));
@@ -271,6 +297,11 @@ export default class Chart extends React.Component {
       'unit'          : yAxis.unit || '',
       'title'         : yAxis.title,
     };
+
+    state.centerPoint = [
+      (state.axis.x.max + state.padding.left + state.padding.right)/2,
+      (state.axis.y.max + state.padding.top + state.padding.bottom)/2
+    ];
 
     state.viewBox = [0,0,state.view[0],state.view[1]].join(' ');
     state.graph   = this._initGraph( state );
@@ -328,6 +359,11 @@ export default class Chart extends React.Component {
             info.symbol.next = true;
           }
 
+          if ( state.type === 'engine' ) {
+            tmp.size = tmp.size || state.engineSize || 20;
+            tmp.removePart = tmp.removePart || state.engineRemovePart || 6;         
+          }
+
           value += tmp.value || 0;
 
           info.highest = info.highest < tmp.value ? tmp.value : info.highest;
@@ -341,7 +377,11 @@ export default class Chart extends React.Component {
         }
       } else {
         cloned = {...data, 'id': generateId('graph-'+i)};
-        if ( state.type === 'pie' && state.symbol ) {
+
+        if ( state.type === 'engine' ) {
+          cloned.size = cloned.size || state.engineSize || 20;
+          cloned.removePart = cloned.removePart || state.engineRemovePart || 6;         
+        } else if ( state.type === 'pie' && state.symbol ) {
           cloned.symbol = state.symbolList[info.symbol.i++];
         }
 
@@ -394,6 +434,8 @@ export default class Chart extends React.Component {
           this._initGraphLineInfo( state, info ) : 
           this._initGraphBarInfo( state, info );
       }
+    } else if ( state.type === 'engine' ) {
+      this._initGraphEngineInfo( state, info );
     }
 
     if ( (state.legend || []).length ) {
@@ -416,6 +458,10 @@ export default class Chart extends React.Component {
 
   _initLegendInfo( state, info ) {
     initLegendInfo( state, info );
+  }
+
+  _initGraphEngineInfo( state, info ) {
+    initGraphEngineInfo(state, info);
   }
 
   _initAxisList(axis, state) {

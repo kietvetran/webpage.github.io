@@ -164,7 +164,7 @@ const _initGraphPieInfoProgress = ( state, info ) => {
     'y': current.y + 20,
     'text': current.value + '%',
     'color': current.color,
-    'size' : '500%',
+    'size' : '10em',
     'extension': {'duration': current.duration}
   });
   

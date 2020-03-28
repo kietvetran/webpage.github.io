@@ -40,6 +40,20 @@ export default class GuidelineMyChart extends React.Component {
           'fill': true,
           'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
           'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
+        }, {
+          'data': [
+            {'value': 40, 'reverse': true, 'stroke': 20 },
+            //{'value': 80, 'step': false},
+            //{'value': 80, 'reverse': true, 'strole': 40},
+            {'value': 70, 'step': false, 'track': false}
+          ],
+          'type': 'engine',
+          'legend': [
+            {'text': 'top'},
+            {'text': 'middle', 'size': '4em', 'dy': '1em', 'color': '#e60000'},
+            {'text': 'bottom', 'dy': '1.6em'},
+            {'text': 'En'},
+          ]
         }
       ]
     }

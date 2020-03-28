@@ -1,4 +1,5 @@
-import {generateId} from '../../General';
+import {Animated} from 'react-native';
+import {generateId} from  '../../../util/Function';
 import {createSymbolPath, getCirclePath, getPolarToCartesian, getChartText} from './ChartFunction';
 
 export const initGraphEngineInfo = ( state, info ) => {
@@ -8,11 +9,11 @@ export const initGraphEngineInfo = ( state, info ) => {
     //data.type     = state.type || 'engine';
     data.type     = 'path';
     data.duration = state.duration;
-    data.stroke   = data.stroke || state.engineStroke || 50;
+    data.stroke   = data.stroke || state.engineStroke || 30;
     data.radius   = state.engineRadius || state.pieRadius || 100;
 
-    data.radius -=  (sumStroke + (20*index)) + (data.stroke/2);
-
+    data.radius -=  (sumStroke + (10*index)) + (data.stroke/2);
+  
     data.x        = state.centerPoint[0];
     data.y        = state.centerPoint[1] + 25;
     data.dash     = data.radius * 2 * Math.PI;
@@ -77,7 +78,7 @@ export const initGraphEngineInfo = ( state, info ) => {
       }
 
       data.animation = {
-        //'value': new Animated.Value(0),
+        'value': new Animated.Value(0),
         'config': {
           inputRange: [0, 1],
           outputRange: [data.animateFrom, data.animateTo],
@@ -91,4 +92,5 @@ export const initGraphEngineInfo = ( state, info ) => {
 
   info.list = (bgList.concat( info.list )).concat( frontList );
 };
+
 

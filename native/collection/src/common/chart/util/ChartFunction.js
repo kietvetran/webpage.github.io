@@ -21,11 +21,11 @@ export const getCirclePath = ({x=0, y=0, radius=0, startAngle=0, endAngle=0}) =>
   ].join(' ');
 };
 
-export const getChartText = ({id='',x=0,y=0,size='',text='',color='',textAnchor='',baseline='',extension={}}) => {
+export const getChartText = ({id='', type='text', x=0, y=0,size='',text='',color='',textAnchor='',baseline='', ...rest }) => {
   let prefix = 'chart-'+Math.floor(Math.random() * 100 + 1);
-  return x && y && text ? {
+  return {
     'id'  : id || generateId(prefix),
-    'type': 'text',
+    'type': type,
     'x'   : x,
     'y'   : y,
     'text': text,
@@ -34,10 +34,10 @@ export const getChartText = ({id='',x=0,y=0,size='',text='',color='',textAnchor=
     'style': {
       'fill'       : color || '#444',
       'fontFamily' : 'Arial, Helvetica, sans-serif',
-      'fontSize'   : size || '130%'
+      'fontSize'   : size || '1em'
     },
-    ...extension
-  } : null;
+    ...rest
+  };
 };
 
 export const createSymbolPath = ({center=[], radius=0, symbol=''}) => {

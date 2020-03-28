@@ -31,6 +31,12 @@ class Home extends Component {
             ]} type="engine" fill={true} concatnation={true}
             xAxis={{'grid': 10, 'text': ['1.jan','2.jan', '3.jan']}}
             yAxis={{'grid': 10, 'separation': 4, 'unit': 'Kr' }}
+            legend={[
+              {'text': 'top'},
+              {'text': 'middle', 'size': '4em', 'dy': '1em', 'color': '#e60000'},
+              {'text': 'bottom', 'dy': '3em'},
+              {'text': 'En'},
+            ]}
           />
         </li>
         <li className="application-item">
