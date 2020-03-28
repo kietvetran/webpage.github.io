@@ -7,10 +7,11 @@ export const initAxisList = (axis, state) =>{
 
   let path = '', delta = 0, count = state.axis[axis].grid || 1;
   let xMax = state.axis.x.max, yMax = state.axis.y.max;
-  //let gap  = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
-  let separation = count - 1, gap =  separation ? (
-    axis === 'x' ? parseInt((yMax / separation )) : parseInt((xMax / separation))
-  ) : 0;
+  let gap  = axis === 'x' ? parseInt((yMax / count)) : parseInt((xMax / count));
+  //let separation = count - 1, gap =  separation ? (
+  //  axis === 'x' ? parseInt((yMax / separation )) : parseInt((xMax / separation))
+  //) : 0;
+
 
   for ( let i=0; i<count; i++ ) {
     if ( axis === 'x' ) {
@@ -34,7 +35,8 @@ export const initAxisList = (axis, state) =>{
         'stroke'      : '#444', //state.axis[axis].color || '#444',
         'strokeWidth' : '2',
         'fill'        : 'none',
-        'opacity'     : i ? '.2' : '1'
+        'opacity'     : i ? '.2' : '1',
+        ...((i ? state.axis[axis].gridStyle : state.axis[axis].style) || {})
       }
     });
   };
@@ -80,14 +82,18 @@ const _initXaxisText = ( state, list ) => {
       'color': state.axis.x.textColor || state.axis.x.color
     }));
 
+    let endLine = state.axis.x.separationLine ?
+      state.padding.top : (bottom-lineSize[1]);
+
     list.push({
       'id'  : generateId('x-p-'+i),
       'type': 'path',
-      'path': 'M ' + (x-(lineSize[0]/2))+','+(bottom-lineSize[1]) + ' L '+ (x-(lineSize[0]/2))+','+bottom,
+      'path': 'M ' + (x-(lineSize[0]/2))+','+bottom + ' L '+ (x-(lineSize[0]/2))+','+endLine,
       'style': {
         'stroke'      : state.axis.x.color || '#444',
         'strokeWidth' : '2',
         'fill'        : 'none',
+        ...(state.axis.x.separationLineStyle || {})
       }
     });
   });
@@ -139,6 +145,7 @@ const _initYaxisText = ( state, list ) => {
         'stroke'      : state.axis.y.color || '#444',
         'strokeWidth' : '2',
         'fill'        : 'none',
+        ...(state.axis.y.separationLineStyle || {})
       }
     });      
   }

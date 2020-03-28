@@ -276,26 +276,22 @@ export default class Chart extends React.Component {
     }
 
     state.axis.x  = {
+      ...xAxis,
       'max': state.view[0] - state.padding.left - state.padding.right,
       'list': [],
-      'grid': 1 + (xAxis.grid || 0),
       'color': xAxis.color || 'rgba(0,0,0,.7)',
       'textColor': xAxis.textColor || 'rgba(0,0,0,.7)',
-      'lineSize' : [2,4],
-      'text' : xAxis.text,
-      'title' : xAxis.title,
+      'lineSize' : [2,4]
     };
     state.axis.y  = {
+      ...yAxis,
       'max'  : state.view[1] - state.padding.top - state.padding.bottom,
       'list' : [],
-      'grid' : 1 + (yAxis.grid || 0),
       'color': yAxis.color || 'rgba(0,0,0,.7)',
       'textColor': yAxis.textColor || 'rgba(0,0,0,.7)',
       'lineSize'      : [4,2],
       'separation'    : yAxis.separation || 0,
       'separationLine': yAxis.separationLine === true,
-      'unit'          : yAxis.unit || '',
-      'title'         : yAxis.title,
       'toRight'       : yAxis.toRight === true,
     };
 
