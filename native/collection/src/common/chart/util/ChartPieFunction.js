@@ -95,13 +95,15 @@ const _initGraphPieShadow = ( state, info, list ) => {
 
 
 const _initGraphPieInfoText = ( state, info ) => {
+  //if ( (state.legend || []).length ) { return; }
+
   let length = info.list.length, index = 0;
   let height = info.list[0].radius - info.list[0].stroke;
   let gap    = 20, space = (height*2) / length;
 
   for ( let i=0; i<length; i++ ) {
     let data = info.list[i], color = '', radius = 6, anchor = 'middle';
-    if ( ! data || ! data.x || ! data.y ) { continue; }
+    if ( ! data || ! data.x || ! data.y || ! data.text || data.symbol === false ) { continue; }
 
     let x = data.x, y = data.y - (height - ((space)*index)) + gap, delta = 0;
 

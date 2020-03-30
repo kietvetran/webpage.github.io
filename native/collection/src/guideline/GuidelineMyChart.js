@@ -75,10 +75,10 @@ export default class GuidelineMyChart extends React.Component {
           ],
           'type': 'engine',
           'legend': [
-            {'text': 'top'},
-            {'text': 'middle', 'size': '4em', 'dy': '1em', 'color': '#e60000'},
-            {'text': 'bottom', 'dy': '1.6em'},
-            {'text': 'En'},
+            {'text': 'Du vil få ca'},
+            {'text': '85%', 'size': '4em', 'dy': '1em', 'color': '#e60000'},
+            {'text': 'av dagens lønn', 'dy': '1.6em'},
+            {'text': 'i pensjon'},
           ]
         }
       ]

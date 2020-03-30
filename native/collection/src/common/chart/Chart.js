@@ -227,8 +227,8 @@ export default class Chart extends React.Component {
       'axis'     : {},
       'color'    : props.color     || {
         'default'   : props.colorDefault    || 'rgba(0,0,0,.5)',
-        'background': props.colorBackground || 'rgba(255,255,255,1)',  
-        'list': props.colorList || [
+        'background': props.colorBackground || 'rgba(255,255,255,1)',
+        'list': (props.colorList || []).concat([
           'rgba(28, 201, 157, 1)', //'#1cc99d', // green
           'rgba(82, 183, 242, 1)', //'#52b7f2', // blue
           'rgba(243, 80, 114, 1)', //'#f35072', // red
@@ -236,7 +236,7 @@ export default class Chart extends React.Component {
           'rgba(134, 117, 244, 1)', //'#8675f4', // purple
           'rgba(216, 144, 59, 1)', //'#d8903b', // orange
           'rgba(233, 163, 191, 1)', //'#e9a3bf', // pink
-        ]
+        ]).filter( (d) => !! d )
       },
       'symbolList': ['circle','square','triangle','triangle-down','square-single-cross', 'square-cross','triangle-left','triangle-right',''],
       'symbol'   : props.symbol === false ? false : true,

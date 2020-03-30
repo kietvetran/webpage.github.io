@@ -28,6 +28,7 @@ export default class GuidelineDesktop extends React.Component {
         {'id': 'MyChart'},
         {'id': 'ChartKit'},
         {'id': 'EikaPageQuestion'},
+        {'id': 'EikaPagePension'},
       ]
     };
     this._click = this._click.bind(this);

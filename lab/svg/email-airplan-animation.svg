@@ -1,0 +1,60 @@
+<svg id="chart-1583999829835-624" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" version="1.1">
+  <g id="mail-rotation">
+    <path d="M 50,125 L 450,125 L 450,375 L 50,375 L 50,125 L 250,225 L 450,125"
+      fill="none" stroke="#333" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+    >
+      <animateTransform attributeName="transform" attributeType="XML"
+        type="rotate" from="0 250 250" to="360 250 250" dur="50s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <!--
+  <g id="airplane-flying">
+    <path x="100" d="M 100,250 L 50,125 L 400,250 L 50,375 L 100,250 L 450,250"
+      fill="none" stroke="#333" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+    >
+      <animate attributeName="x" from="50" to="450" dur="5s" fill="freeze" />
+    </path>
+  </g>
+
+-->
+</svg>
+
+<!--
+  <g id="airplane-flying">
+    <path x="100" d="M 100,250 L 50,125 L 400,250 L 50,375 L 100,250 L 450,250"
+      fill="none" stroke="#333" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"
+    >
+      <animate attributeName="x" from="50" to="450" dur="5s" fill="freeze" />
+    </path>
+  </g>
+
+    <path d="M 50,125 L 400,250 L 450,250 L 400,250 L 50,375 L 100,250 L 50,125"
+      fill="none" stroke="#333" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+    >
+    <path d="M 50,100 L 450,100 L 450,400 L 50,400"
+      fill="none" stroke="#333" stroke-width="10" stroke-linecap="round"
+    />
+
+  <g id="graph-wrapper">
+    <path id="progess-1583999834858" d="M 519.9937168146931 160.00000005483116 A 360 360 0 1 0 520 160" style="fill: none; stroke: rgb(153, 153, 153); stroke-width: 60; stroke-dasharray: 2262;">
+      <animate attributeName="stroke-dashoffset" begin="0" dur="0.5s" fill="freeze" from="2262" to="3393"/>
+      <animate attributeName="stroke-dashoffset" begin="2s" dur="0.5s" fill="freeze" from="3393" to="2828"/>
+    </path>
+  </g>
+
+
+      <animate attributeName="stroke-dashoffset" dur="0.5s" fill="freeze" from="1507.9644737231006" to="3015.928947446201"></animate>
+
+<svg id="chart-1583999829835-624" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 1040" version="1.1">
+  <g id="graph-wrapper">
+    <path id="progess-1583999834858" d="M 519.9937168146931 160.00000005483116 A 360 360 0 1 0 520 160" style="fill: none; stroke: rgb(153, 153, 153); stroke-width: 60; stroke-dasharray: 0;"></path>
+    <path id="graph-1583999834857-0" d="M 862.3803458662553 631.2461179749811 A 360 360 0 0 0 520 160" style="fill: none; stroke: rgb(28, 201, 157); stroke-width: 60; stroke-dasharray: 1507.96;">
+      <animate attributeName="stroke-dashoffset" dur="0.5s" fill="freeze" from="1507.9644737231006" to="3015.928947446201"></animate>
+    </path>
+    <g>
+      <text id="progess-text-1583999834858" x="520" y="520" dominant-baseline="middle" text-anchor="middle" style="fill: rgb(28, 201, 157); font-family: Arial, Helvetica, sans-serif; font-size: 1000%;">30%</text>
+      <animate attributeName="fill-opacity" attributeType="CSS" from="0" to="1" dur="0.5s" fill="freeze"></animate>
+    </g>
+  </g>
+</svg>
+-->

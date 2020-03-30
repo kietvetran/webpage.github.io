@@ -22,8 +22,7 @@ import GuidelineMyChart from './GuidelineMyChart';
 import GuidelineSwipe from './GuidelineSwipe';
 import GuidelineSlider from './GuidelineSlider';
 import GuidelineEikaPageQuestion from './GuidelineEikaPageQuestion';
-
-
+import GuidelineEikaPagePension from './GuidelineEikaPagePension';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +49,7 @@ export default function Guideline(props={}) {
       <Stack.Screen name="Swipe" component={GuidelineSwipe} />
       <Stack.Screen name="Slider" component={GuidelineSlider} />
       <Stack.Screen name="EikaPageQuestion" component={GuidelineEikaPageQuestion} />
+      <Stack.Screen name="EikaPagePension" component={GuidelineEikaPagePension} />
     </Stack.Navigator>
   );
 };

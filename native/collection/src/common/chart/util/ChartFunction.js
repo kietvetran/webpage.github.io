@@ -21,7 +21,7 @@ export const getCirclePath = ({x=0, y=0, radius=0, startAngle=0, endAngle=0}) =>
   ].join(' ');
 };
 
-export const getChartText = ({id='', type='text', x=0, y=0,size='',text='',color='',textAnchor='',baseline='', ...rest }) => {
+export const getChartText = ({id='', type='text', x=0, y=0,size='',text='',color='',textAnchor='',baseline='', style={}, ...rest }) => {
   let prefix = 'chart-'+Math.floor(Math.random() * 100 + 1);
   return {
     'id'  : id || generateId(prefix),
@@ -34,7 +34,8 @@ export const getChartText = ({id='', type='text', x=0, y=0,size='',text='',color
     'style': {
       'fill'       : color || '#444',
       'fontFamily' : 'Arial, Helvetica, sans-serif',
-      'fontSize'   : size || '1em'
+      'fontSize'   : size || '1em',
+      ...style
     },
     ...rest
   };
