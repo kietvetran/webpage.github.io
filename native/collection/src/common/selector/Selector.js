@@ -12,36 +12,46 @@ export default class Selector extends React.Component {
     };
 
     this._click      = this._click.bind(this);
-    this._scroll     = this._scroll.bind(this);
     this._scrollBgin = this._scrollBegin.bind(this);
     this._scrollEnd  = this._scrollEnd.bind(this);
     this._setLayout  = this._setLayout.bind(this);
   }
 
   render() {
-    const { styleConfig={} } = this.props;
-    const {space, horizontal, list, itemSize, selected, scrollBegin} = this.state;
+    const { styleConfig={}, label } = this.props;
+    const { done, space, horizontal, list, itemSize, selected, scrollBegin, access } = this.state;
 
     return (
       <View onLayout={this._setLayout} style={[
         styles.container,
         styleConfig.container,
-        (horizontal ? styles.horizontal : styles.vertical)
+        (horizontal ? styles.horizontal : styles.vertical),
+        label ? styles.containerWithLabel : null,
+        done ? styles.visible : styles.invisible
       ]}>
+
+        { !! label && <Text style={styles.labelText}>{label}</Text> }
         <ScrollView ref="scroller" style={styles.container} horizontal={horizontal} contentContainerStyle={styles.contentContainer}
           onScrollBeginDrag={(e)=>{this._scrollBegin(e)}}
-          //onScrollEndDrag={(e)=>{this._scrollEnd(e)}}
-          onScroll={(e)=>{this._scroll(e)}}
+          onMomentumScrollEnd={(e)=>{this._scrollEnd(e)}}
         >
           { (list || []).map( (data,i) => (
-            <Text key={'item-'+i} ellipsizeMode='tail' numberOfLines={1} style={[
+            <Text key={'item-'+i} ellipsizeMode='tail' numberOfLines={1} {...access} accessibilityTraits={data.value == selected ? 'selected' : ''} style={[
               styles.itemText,
-              data.value === selected ? styles.itemSelected : (scrollBegin ? styles.itemReveal : styles.itemShy),
               {'width' : (data.width || 'auto')},
-              {'height': (data.height || 'auto')}
+              {'height': (data.height || 'auto')},
+              data.value === selected ? styles.itemSelected :
+                (scrollBegin ? styles.visible : styles.shy)
             ]}>{data.text || ''}</Text>
           )) }
         </ScrollView>
+        { horizontal && ! isNaN(itemSize) &&
+            <View style={[
+              styles.horizontalPin,
+              {'width':itemSize, 'marginLeft': ((itemSize/2)*-1)}
+            ]}
+          />
+        }
       </View>
     );        
   }
@@ -62,10 +72,7 @@ export default class Selector extends React.Component {
   }
 
   _scrollEnd( e ) {
-  }
-
-  _scroll( e ) {
-    let config = {...e.nativeEvent};
+    let config = {...e.nativeEvent, 'animated': true};
     let {scrollBegin, space, itemSize, list} = this.state;
 
     if ( scrollBegin ) {
@@ -75,11 +82,7 @@ export default class Selector extends React.Component {
         config.direction = config.contentOffset.y > scrollBegin.y ? 'down' : 'up';
       }
     }
-
-    clearTimeout( this.state.timer || 0 );
-    this.state.timer = setTimeout( () => {
-      this._scrollToItem( config );
-    }, 20);
+    this._scrollToItem( config );
   }
 
   _setLayout( e ) {
@@ -102,7 +105,7 @@ export default class Selector extends React.Component {
 
     this.setState( state );
     setTimeout( () => {
-      this._scrollToItem({'selected': state.selected, 'animated': false}, state); 
+      this._scrollToItem({'selected': state.selected, 'startup': true}, state); 
     }, 200);
   }
 
@@ -115,7 +118,7 @@ export default class Selector extends React.Component {
 
     if ( scrollBegin ) { scrollBegin.onScroll = true; }
 
-    let scrolled = 0, delta = 0, length = list.length, index = -1;
+    let scrolled = 0, delta = 0, length = list.length, index = -1, position = 0;
     if ( config.contentOffset ) {
       scrolled = config.contentOffset.x || 0;
       if ( config.direction ) {
@@ -124,27 +127,29 @@ export default class Selector extends React.Component {
 
       delta = scrolled / itemSize;
       index = Math.round(delta);
-
     } else if ( config.selected !== undefined) {
       index = this._getSelectedIndex({'selected': config.selected, 'list': list});
     } 
 
     if ( index !== -1 ) {
       if ( horizontal ) {
+        position = itemSize * index;
         this.refs.scroller.scrollTo({
-          'x': (itemSize*index),
-          'animated': config.animated === false ? false : true
+          'x': position,
+          'animated': config.animated === false || config.startup ? false : true
         });
       } else {
 
       }
     }
-    
 
     let item = (index+2) >= length ? list[(length-2)] : list[(index+1)];
-    setTimeout( () => {
-      this.setState({'scrollBegin': null});
-    }, 100);
+    setTimeout(() => {
+      this.setState({
+        'scrollBegin': null,
+        'done': this.state.done || config.startup
+      });
+    }, (config.startup ? 500 : 100));
     this._setSelected( item );
   }
 
@@ -168,11 +173,15 @@ export default class Selector extends React.Component {
   /****************************************************************************
   ****************************************************************************/
   _initState( props ) {
-    let {selected, list, vertical} = props, state = {
+    let {selected, list, vertical, access, label, hint} = props, state = {
       'horizontal': vertical !== true,
       'space'     : 0,
       'list'      : [],
       'selected'  : props.selected,
+      'access'    : {
+        'accessibilityLabel': label || '',
+        'accessibilityHint' : hint  || '',
+      },
       'dimension' : {
         'width' : Dimensions.get('window').width,
         'height': Dimensions.get('window').height
@@ -214,14 +223,34 @@ export default class Selector extends React.Component {
 const styles = StyleSheet.create({
   'container': {
     'flex': 1,
-    'position': 'relative'
+    'position': 'relative',
   },
   'contentContainer': {
     'position': 'relative'
   },
+  'containerWithLabel': {
+    'paddingTop': 20,
+  },
   'horizontal': {
   },
   'vertical': {
+  },
+  'horizontalPin': {
+    'position': 'absolute',
+    'left': '50%',
+    'bottom': 0,
+    'width': 0,
+    'height': 3,
+    'backgroundColor': '#00383D',
+  },
+  'labelText': {
+    'position': 'absolute',
+    'left': 0,
+    'right': 0,
+    'top': 0,
+    ...Theme.font.basic,
+    'textAlign': 'center',
+    'color': '#00383D',
   },
   'itemText': {
     ...Theme.font.basic,
@@ -233,14 +262,17 @@ const styles = StyleSheet.create({
   },
   'itemSelected': {
     'fontSize': 20,
-    'textDecorationLine': 'underline',
-    'textDecorationStyle': 'solid',
+    //'textDecorationLine': 'underline',
+    //'textDecorationStyle': 'solid',
     'fontWeight': 'bold'
   },
-  'itemReveal': {
+  'visible': {
     'opacity': 1    
   },
-  'itemShy': {
+  'shy': {
     'opacity': .3,
   },
+  'invisible': {
+    'opacity': 0,
+  }
 });

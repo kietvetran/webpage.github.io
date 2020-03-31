@@ -11,6 +11,7 @@ export default class GuidelineEikaPagePension extends React.Component {
     this.state = {
       'title': 'Se hva du får i pensjon',
       'annualSalary': {
+        'label': 'Din årslønn i dag',
         'size': 110,
         'selected': 300000,
         'list': [
@@ -30,6 +31,7 @@ export default class GuidelineEikaPagePension extends React.Component {
         ],
       },
       'pensionYear': {
+        'label': 'Pensjonsalder',
         'size': 60,
         'selected': 67,
         'list': [
@@ -108,7 +110,7 @@ export default class GuidelineEikaPagePension extends React.Component {
   ****************************************************************************/
   _change( e, key, data ) {
     if ( key === 'annual-salary-change' ) {
-      console.log('=> ' + e);
+      //console.log('=> ' + e);
     }
   }
 }
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     'position': 'relative'
   },
   'selectorContainer': {
-    'paddingTop': 10,
-    'paddingBottom': 10,
+    'marginTop': 15,
+    'marginBottom': 15,
   },
   'collection': {
     'padding': 15,
