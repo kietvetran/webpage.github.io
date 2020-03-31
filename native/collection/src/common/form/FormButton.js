@@ -12,7 +12,8 @@ export default function FormButton({
   leftIcon    = '', 
   disabled    = false,
   onPress     = ()=>{},
-  styleConfig = {}, 
+  styleConfig = {},
+  accessibility = {},
   iconConfig  = {
     'filter'    : {'basic': require('../../../assets/icon/filter/filter.png')},
     'phone'     : {'basic': require('../../../assets/icon/phone/phone.png')},
@@ -32,11 +33,22 @@ export default function FormButton({
     'minus'     : {'basic': require('../../../assets/icon/minus/minus.png')},
   }
 }) {
-  return <TouchableOpacity onPress={(e)=>{onPress(e)}} style={[
+
+  let access = {
+    'accessible'        : accessibility.status === false ? false : true,
+    'accessibilityRole' : accessibility.role  || 'button',
+    'accessibilityLabel': accessibility.label || '',
+    'accessibilityHint' : accessibility.hint  || '',
+    //'accessibilityState': accessibility.state || ''
+  };
+
+  let style = [
     styles.container,
     (((iconConfig[type] || iconConfig[leftIcon]) && (title || children)) || type === 'action') ? styles.containerAction : {},
     styleConfig.container
-  ]}>
+  ];
+
+  return <TouchableOpacity onPress={(e)=>{onPress(e)}} style={style} {...access}>
     { iconConfig[type] || type === 'action' || iconConfig[leftIcon] ?
       <View style={[styles.icon, styleConfig.icon || {}, (title || children ? styles.iconWidthAuto : null), (iconConfig[leftIcon] ? styles.iconWidthLeft : null)]}>
         { !! (iconConfig[type] || {}).basic && <React.Fragment>

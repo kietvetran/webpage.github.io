@@ -28,12 +28,13 @@ export default class Panel extends React.Component {
                   type={hide[i] ? 'arrowDown' : 'arrowUp'}
                   onPress={(e)=>{this._click(e,'toggle-panel', i)}}
                   styleConfig={{'button': (single ? {} : (hide[i] ? styles.multipleOnOpen : styles.multipleOnHide)),}}
+                  accessibility={{'hint': (hide[i] ? 'Close info' :  'Open info')}}
                 />              
               </View>
           ) )}
         </View>
         { hide.map( (mode, i) => {
-            return mode ? <Animated.View key={'panel-content-'+i} style={[styles.content, {'opacity': animation[i]}]}>
+            return mode ? <Animated.View accessibilityLiveRegion="polite" key={'panel-content-'+i} style={[styles.content, {'opacity': animation[i]}]}>
               {single ? children : children[i]}
             </Animated.View> : null
         })}

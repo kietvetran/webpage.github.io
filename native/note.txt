@@ -58,10 +58,13 @@ install expo app in mobile
 Scane the QR-code and turn on tunnel connection
 
 ===================================================
+-- Gradle error for android --
+Remove folder collection/andoird/app/build
+
 Clear watchman watches: watchman watch-del-all
+Remove the cache: rm -rf /tmp/metro-*
 Delete node_modules: rm -rf node_modules and run yarn install
 Reset Metro's cache: yarn start --reset-cache
-Remove the cache: rm -rf /tmp/metro-*
 
 ===================================================
 rm -rf node_modules

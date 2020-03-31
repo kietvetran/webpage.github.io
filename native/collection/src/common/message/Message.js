@@ -6,10 +6,20 @@ export default function Message({
   type  = '',
   title = '',
   text  = '',
-  styleConfig = {}
+  styleConfig   = {},
+  accessibility = {}
 }) {
   if ( ! text && ! title ) { return null; }
-  return <View style={[styles.container, styles[type+'Container'] || {}, styleConfig.container || {}]}>
+
+  let access = {
+    'accessible'        : accessibility.status === false ? false : true,
+    'accessibilityRole' : accessibility.role  || 'text',
+    'accessibilityLabel': accessibility.label || '',
+    'accessibilityHint' : accessibility.hint  || '',
+    //'accessibilityState': accessibility.state || ''
+  };
+
+  return <View {...access} style={[styles.container, styles[type+'Container'] || {}, styleConfig.container || {}]}>
     { !! title && <Text style={[styles.title, styles[type+'Title'] || {},, styleConfig.title || {}]}>{title}</Text> }
     <Text style={[styles.text, styles[type+'Text'] || {}, styleConfig.text || {}]}>{text}</Text>
   </View>

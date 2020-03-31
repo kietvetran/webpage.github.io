@@ -3,9 +3,9 @@ import { Platform, StyleSheet, TouchableOpacity, Text, View, TextInput, Picker, 
 import FormButton from './FormButton';
 import { Theme }  from '../style/Theme.js';
 
-export const Field = ({icon, styleConfig, iconConfig, error, inputRef, ...rest})=> {
+export const Field = ({icon, styleConfig, iconConfig, error, inputRef, access, ...rest})=> {
   return <View style={[styles.container, styleConfig.container]}>
-    <TextInput {...rest} ref={inputRef} style={[
+    <TextInput {...rest} {...access} ref={inputRef} style={[
       styles.textfield,
       styleConfig.field,
       (icon.type ? (icon.position === 'start' ? styles.searchFieldStartSpace : styles.searchFieldEndSpace) : {}),
@@ -23,9 +23,9 @@ export const Field = ({icon, styleConfig, iconConfig, error, inputRef, ...rest})
   </View>
 };
 
-export const Selector = ({list = [], styleConfig, error, inputRef, ...rest}) => {
+export const Selector = ({list = [], styleConfig, error, inputRef, access, ...rest}) => {
   return <View style={[styles.selectorContainer, styleConfig.container, (error ? styles.textError : {})]}>
-    <Picker style={[styles.selector, styleConfig.selector, (error ? styles.textError : {})]} {...rest}>
+    <Picker {...access} style={[styles.selector, styleConfig.selector, (error ? styles.textError : {})]} {...rest}>
       {list.map( (data,i) => (
         <Picker.Item key={'form-picker-'+i} label={data.name || data.label || data.id} value={data.id || data.value} />
       ) )}
@@ -33,9 +33,9 @@ export const Selector = ({list = [], styleConfig, error, inputRef, ...rest}) => 
   </View>
 };
 
-export const Check = ({labelConfig, styleConfig, inputRef, ...rest}) => {
+export const Check = ({labelConfig, styleConfig, inputRef, access, ...rest}) => {
   return <View style={[styles.container, styles.checkboxContainer, styleConfig.container, styles.inlineContainer]}>
-    <CheckBox {...rest}/>
+    <CheckBox  {...access} {...rest}/>
     { !! labelConfig.checkboxLabel && <React.Fragment>
         { typeof(labelConfig.onPress) === 'function' ? <TouchableOpacity onPress={()=>{labelConfig.onPress()}}>
             <Text style={[styles.textLabel, styles.checkboxLabel]}>{labelConfig.checkboxLabel}</Text>
@@ -53,6 +53,7 @@ export default function FormInput({
   lineNumber  = 4,
   labelConfig = {'text': ''},
   styleConfig = {},
+  accessibility ={},
   iconConfig  = {
    'filter': {
       'basic': require('../../../assets/icon/filter/filter.png')
@@ -64,32 +65,40 @@ export default function FormInput({
   onPress,
   ...rest
 }) {
+  let access = {
+    'accessible'        : accessibility.status === false ? false : true,
+    //'accessibilityRole' : accessibility.role  || 'button',
+    'accessibilityLabel': accessibility.label || labelConfig.label || '',
+    'accessibilityHint' : accessibility.hint  || labelConfig.description  || '',
+    //'accessibilityState': accessibility.state || ''
+  };
+
   return (
     labelConfig.text || type === 'fieldNumbeAdjustment' ? <View style={[styles.container, styleConfig.container]}>
       { !! labelConfig.text && <Text style={[styles.textLabel, labelConfig.style]}>{labelConfig.text}</Text> }
       { !! labelConfig.description && <Text style={[styles.textLabel, styles.textDesciption]}>{labelConfig.description}</Text>}
-      {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />}
-      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
-      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
-      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
+      {type === 'field' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} access={access}/>}
+      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} access={access}/>}
+      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest} access={access}/>}
+      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest} access={access}/>}
       {type === 'fieldNumbeAdjustment' && <View style={styles.fieldNumbeAdjustmentWrapper}>
           <View style={styles.fieldNumbeAdjustmentLeft}>
             <FormButton type="minus" styleConfig={{'icon': {'padding': 14}, ...styleConfig, 'container': null}} onPress={()=>{ if ( typeof(onPress) === 'function' ) { onPress(-1); } }} />
           </View>
           <View style={styles.fieldNumbeAdjustmentCenter}>
-            <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} />
+            <Field icon={icon} styleConfig={{...styleConfig, 'container': null}} iconConfig={iconConfig} error={error} {...rest} access={access} />
           </View>
           <View style={styles.fieldNumbeAdjustmentRight}>
             <FormButton type="plus" styleConfig={{'icon': {'padding': 14}, ...styleConfig, 'container': null}} onPress={()=>{ if ( typeof(onPress) === 'function' ) { onPress(1); } }} />
           </View>
         </View>
       }
-      { !! error && <Text style={[styles.textError, styles.textErrorSpace]}>{error}</Text> }
+      { !! error && <Text accessibilityLiveRegion="polite" style={[styles.textError, styles.textErrorSpace]}>{error}</Text> }
     </View> : <React.Fragment>
-      {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} />}
-      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} />}
-      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest}/>}
-      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest}/>}
+      {type === 'field' && <Field icon={icon} styleConfig={styleConfig} iconConfig={iconConfig} error={error} {...rest} access={access}/>}
+      {type === 'textarea' && <Field icon={icon} styleConfig={{...styleConfig, 'container': null, 'field': {...styleConfig.field, ...styles.textarea}}} iconConfig={iconConfig} error={error} multiline={true} numberOfLines={lineNumber} {...rest} access={access}/>}
+      {type === 'selector' && <Selector styleConfig={{...styleConfig, 'container': null}} {...rest} access={access}/>}
+      {type === 'checkbox' && <Check styleConfig={{...styleConfig, 'container': null}} labelConfig={labelConfig} {...rest} access={access}/>}
     </React.Fragment>
   );
 };
