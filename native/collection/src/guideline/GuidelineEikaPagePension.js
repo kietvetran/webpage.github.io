@@ -10,7 +10,7 @@ export default class GuidelineEikaPagePension extends React.Component {
     super(props);
     this.state = {
       'title': 'Se hva du får i pensjon',
-      'annualSalary': {
+      '_annualSalary': {
         'label': 'Din årslønn i dag',
         'size': 110,
         'selected': 300000,
@@ -30,7 +30,7 @@ export default class GuidelineEikaPagePension extends React.Component {
           {'value': 650000, 'text': '650 000 kr'},
         ],
       },
-      'pensionYear': {
+      '_pensionYear': {
         'label': 'Pensjonsalder',
         'size': 60,
         'selected': 67,
@@ -61,11 +61,12 @@ export default class GuidelineEikaPagePension extends React.Component {
       },
       'graph': {
         'colorList': ['#61C3E6', '#84BD00', '#EFEBE9'],
-        //'symbol': false,
+        'symbol': false,
+        'textPath': true,
         'data': [
-          {'value': 50},
-          {'value': 25},
-          {'value': 25}
+          {'value': 50, 'text': 'Pensjon du får'},
+          {'value': 25, 'text': 'Egen sparing'},
+          {'value': 25, 'text': ''}
         ],
         'type': 'pie',
         'legend': [

@@ -67,12 +67,12 @@ const ChartGraph = ({data, animate}) => {
             dominantBaseline={data.dominantBaseline || 'middle'}
             textAnchor={data.textAnchor || 'middle'}
             fillOpacity={data.animation.value}
-          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : data.text}</AnimatedText>
+          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : (data.textPath ? <TextPath href={data.textPath}>{data.text}</TextPath>: data.text)}</AnimatedText>
           :
           <Text id={data.id} x={data.x} y={data.y} style={data.style}
             dominantBaseline={data.dominantBaseline || 'middle'}
             textAnchor={data.textAnchor || 'middle'}
-          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : data.text}</Text>
+          >{data.tspan ? <ChartTSpan tspan={data.tspan}/> : (data.textPath ? <TextPath href={data.textPath}>{data.text}</TextPath>: data.text)}</Text>
       }
     </G>
   }
@@ -240,6 +240,7 @@ export default class Chart extends React.Component {
       },
       'symbolList': ['circle','square','triangle','triangle-down','square-single-cross', 'square-cross','triangle-left','triangle-right',''],
       'symbol'   : props.symbol === false ? false : true,
+      'textPath' : props.textPath || true,
       'previous' : {...(this.state || {})},
       'animation': props.animation !== false,
       'legend'   : props.legend instanceof Array ? props.legend : null,

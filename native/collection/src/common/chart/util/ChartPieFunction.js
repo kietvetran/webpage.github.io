@@ -106,7 +106,6 @@ const _initGraphPieInfoText = ( state, info ) => {
     if ( ! data || ! data.x || ! data.y || ! data.text || data.symbol === false ) { continue; }
 
     let x = data.x, y = data.y - (height - ((space)*index)) + gap, delta = 0;
-
     if ( data.symbol && data.center && data.center[0] && data.center[1] ) {
       x -= (data.radius - data.stroke)/2;
       color  = '#444';
@@ -134,13 +133,22 @@ const _initGraphPieInfoText = ( state, info ) => {
       x += radius + 5;
     } 
 
-    info.list.push(getChartText({
-      'x'    : x - delta,
-      'y'    : y,
-      'text' : data.text,
-      'textAnchor': anchor,
-      'color': color || data.color || data.style.stroke
-    }));
+    if ( state.textPath ) {
+      info.list.push(getChartText({
+        'x'    : ((data.dash * data.percent) / 2),
+        'text' : data.text,
+        'color': '#000',
+        'textPath': '#'+data.id
+      }));
+    } else {
+      info.list.push(getChartText({
+        'x'    : x - delta,
+        'y'    : y,
+        'text' : data.text,
+        'textAnchor': anchor,
+        'color': color || data.color || data.style.stroke
+      }));
+    }
     index++;
   }
 };
