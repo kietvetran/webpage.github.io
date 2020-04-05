@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import {generateId} from '../General';
 import './Wizard.scss';
 
-export const Step = ({nextStep, prevStep, isLast, isPrevious, finish, children}) => {
+export const Step = ({stepId, nextStep, prevStep, isLast, isPrevious, finish, children}) => {
     let style = classNames( 'wizard-content', {
         '-next': ! isPrevious,
         '-previous': isPrevious 
     });
 
-    return <section className={style}>
+    return <section className={style} role="tabpanel" aria-labelledby={stepId}>
         <div className="step-body">
             {children}
         </div>
@@ -30,7 +30,7 @@ export const Header = ({index, steps, click}) => {
     return (steps || []).length ? <ul className="wizard-header" role="tablist">
         { steps.map( (data,i) => {
             let active = i === index;
-            return <li key={'header-'+i} role="tab"
+            return <li id={data.id} key={'header-'+i} role="tab"
                 className={classNames('header-item', {'-active': active, '-disabled': data.disabled})}
                 aria-disabled={data.disabled} aria-selected={active}
             >
@@ -62,7 +62,7 @@ export default class Wizard extends React.Component {
 
             { React.Children.map( children, (element, i) => {
                 return index === i ? React.cloneElement( element, {
-                    'steps'     : steps,
+                    'stepId'    : steps[i].id,
                     'isPrevious': display === 'previous',
                     'isLast'    : (index === (children.length - 1)),
                     'nextStep'  : this._nextStep,
@@ -134,7 +134,7 @@ export default class Wizard extends React.Component {
             'index' : isNaN(index) ? 0 : index,
             'type'  : type  || 'step-by-step',
             'steps' : [],
-            'headerSide': headerSide === 'left' ? 'header-left' : 'header-left',
+            'headerSide': headerSide === 'left' ? 'header-left' : 'header-top',
         };
 
         for ( let i=0; i<(children || []).length; i++ ) {

@@ -153,6 +153,21 @@ $leftSpace: 15rem;
 				display: block;
 			}
 
+			.wizard-content {
+				&.-next {
+					@include opacity(0);
+					@include animation( top-appending, .2s, ease, 0s );
+					@include animation-forwards();
+				}
+
+				&.-previous {
+					@include opacity(0);
+					@include animation( bottom-appending, .2s, ease, 0s );
+					@include animation-forwards();			
+				}
+			}
+
+
 			.header-item {
 				max-width: $leftSpace;
 				&:before {
