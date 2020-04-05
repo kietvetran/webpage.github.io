@@ -1,42 +1,54 @@
 @charset "UTF-8";
 @-webkit-keyframes left-appending{
-  0%   { left: 50px;  opacity: 0;}
+  0%   { left: 3rem;  opacity: 0;}
   100% { left: 0;  opacity: 1;}
 }
 
 @keyframes left-appending{
-  0%   { left: 50px;  opacity: 0;}
+  0%   { left: 3rem;  opacity: 0;}
   100% { left: 0;  opacity: 1;}
 }
 
+/*****************************************************************************/
 @-webkit-keyframes right-appending{
-  0%   { left: -50px;  opacity: 0;}
+  0%   { left: -3rem;  opacity: 0;}
   100% { left: 0;  opacity: 1;}
 }
 
 @keyframes right-appending{
-  0%   { left: -50px;  opacity: 0;}
+  0%   { left: -3rem;  opacity: 0;}
   100% { left: 0;  opacity: 1;}
 }
 
 /*****************************************************************************/
-@-webkit-keyframes static-top-appending{
-  0%   { opacity: .3; padding-top: 10px; margin-bottom: -10px;}
+@-webkit-keyframes top-appending{
+  0%   { opacity: 0; padding-top: 1rem; margin-bottom: -1rem;}
   100% { opacity: 1; padding-top: 0; margin-bottom: 0;}
 }
 
-@keyframes static-top-appending{
-  0%   { opacity: .3; padding-top: 10px; margin-bottom: -10px;}
+@keyframes top-appending{
+  0%   { opacity: 0; padding-top: 1rem; margin-bottom: -1rem;}
   100% { opacity: 1; padding-top: 0; margin-bottom: 0;}
 }
 
 /*****************************************************************************/
+@-webkit-keyframes bottom-appending{
+  0%   { opacity: 0; padding-bottom: 1rem; margin-top: -1rem;}
+  100% { opacity: 1; padding-bottom: 0; margin-top: 0;}
+}
+
+@keyframes bottom-appending{
+  0%   { opacity: 0; padding-bottom: 1rem; margin-top: -1rem;}
+  100% { opacity: 1; padding-bottom: 0; margin-top: 0;}
+}
+
+/*****************************************************************************/
 @-webkit-keyframes message-disappear{
-  0%   { opacity: 1; max-height: 200px;}
+  0%   { opacity: 1; max-height: 12.5rem;}
   100% { opacity: 0; max-height: 0;}
 }
 
 @-webkit-keyframes message-disappear{
-  0%   { opacity: 1; max-height: 200px;}
+  0%   { opacity: 1; max-height: 12.5rem;}
   100% { opacity: 0; max-height: 0;}
 }

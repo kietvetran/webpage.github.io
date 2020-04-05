@@ -1,0 +1,180 @@
+@import '../style/theme';
+@import '../style/mixin';
+
+$activeBgColor: #84BD00;
+$disabledBgColor: #CCC;
+$stepBgColor: #fff;
+$numberSize: 2.5rem;
+
+$leftSpace: 15rem;
+
+.wizard-wrapper {
+	position: relative;
+	background: #fff none no-repeat 0 0;
+
+	.wizard-header {
+		list-style: none;
+		padding: 0 .3rem;
+		margin: 0;
+		display: block;
+		border-width: .06rem 0;
+		border-style: solid;
+		border-color: $color-border;
+		display: flex;
+	}	
+
+	.wizard-content {
+		position: relative;
+		&.-next {
+			@include opacity(0);
+			@include animation( left-appending, .2s, ease, 0s );
+			@include animation-forwards();
+		}
+
+		&.-previous {
+			@include opacity(0);
+			@include animation( right-appending, .2s, ease, 0s );
+			@include animation-forwards();			
+		}
+	}
+
+	.header-item {
+		position: relative;
+		margin: 0;
+		padding: 0;
+		display: list-item;	
+		max-width: 20rem;
+		min-width: 4rem;
+
+		&:hover, &:focus {
+			z-index: 2;
+			&:not( .-disabled ) {
+			    @include focusShadow();
+			}
+		}
+
+		&.-active {
+			font-weight: 700;	
+			.number * {
+				background-color:  $activeBgColor;
+				color: #fff;
+			}
+		}
+
+		&.-disabled {			
+			@include opacity(.6);
+			.header-btn {
+				cursor: default;
+				&:active {
+					top: 0;
+				}
+			}
+			.number * {
+				background-color:  $disabledBgColor;
+			}
+		}
+	}
+
+	.header-btn {
+		display: flex;
+		margin: .2rem .3rem;
+		padding: .2rem 0;
+		background-color: $stepBgColor;
+		display: table-cell;
+		position: relative;
+		top: 0;
+
+		&:active {
+			top: .13rem;
+		}
+
+		.number, .title {
+			padding: 1rem;
+			position: relative;
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		.number {
+			text-align: center;
+			font-weight: 700;
+			*  {
+				display: inline-block;
+				width: $numberSize;
+				height: $numberSize;
+				line-height: $numberSize;
+				border-radius: 100%;
+				@include boxShadow( .2, .2);
+			}
+		}
+
+		.title {
+			text-align: left;
+			padding-left: 0;
+		}
+	}
+
+	.step-body {		
+		position: relative;
+	}
+
+	.step-footer {		
+		display: table;
+
+		.right-side, .left-side{
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		.left-side {
+			padding-right: .6em;			
+		}
+
+		.right-side {
+			padding-left: .6em;			
+			text-align: right;
+		}
+	}
+
+	@media screen and (min-width: $breakpoint-md) { 
+		&.-header-left {
+			padding-left: $leftSpace;
+			float: left;
+			width: 100%;
+			.wizard-header {
+				border: 0 none;
+				padding-left: 0;
+				padding-right: 0;
+				float: left;
+				margin-left: $leftSpace * -1;
+			}
+
+			.wizard-header, .header-item, .header-btn {
+				display: block;
+			}
+
+			.header-item {
+				max-width: $leftSpace;
+				&:before {
+					display: none;
+				}
+			}
+
+			.header-btn {
+				padding: 0;
+				margin: 0;
+				.number {
+					padding-left: 0;
+				}
+			}
+		}		
+	}
+
+	@media screen and (max-width: $breakpoint-md-p) { 
+		.header-btn {
+			.title {
+				@include ariaVisible();
+			}
+		}	
+	}
+}

@@ -36,6 +36,13 @@
 		}
 	}
 
+
+	.collcetion {
+		display: block;
+		clear: both;
+		margin: 1rem 0;
+	}
+
   @media screen and (max-width: $breakpoint-md) { 
 		.application-list {
 			> li {

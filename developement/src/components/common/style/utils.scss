@@ -71,20 +71,28 @@
 
 .left-appending {
   position: relative;
+  @include opacity(0);
   @include animation( left-appending, .2s, ease, 0s );
   @include animation-forwards();
 }
 
 .right-appending {
   position: relative;
+  @include opacity(0);
   @include animation( right-appending, .2s, ease, 0s );
   @include animation-forwards();
 }
 
-.static-top-appending {
-  padding-top: .6rem;
-  margin-bottom: -.6rem;
-  @include opacity(.3);
-  @include animation( static-top-appending, .4s, linear, .1s );
+.top-appending {
+  position: relative;
+  @include opacity(0);
+  @include animation( top-appending, .4s, linear, .1s );
+  @include animation-forwards();
+}
+
+.bottom-appending {
+  position: relative;
+  @include opacity(0);
+  @include animation( bottom-appending, .4s, linear, .1s );
   @include animation-forwards();
 }

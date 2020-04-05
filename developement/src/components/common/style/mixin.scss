@@ -193,10 +193,9 @@
 /******************************************************************************
  === shwdoe ===
 ******************************************************************************/
-@mixin boxShadow(){
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.12);
+@mixin boxShadow( $opacityAlfa:.1, $opacityBeta:.12 ){
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, $opacityAlfa), 0 1px 2px 0 rgba(0, 0, 0, $opacityBeta);
 }
-
 
 @mixin boxLevelShadow(){
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1), 0 5px 6px 0 rgba(0, 0, 0, 0.1);
