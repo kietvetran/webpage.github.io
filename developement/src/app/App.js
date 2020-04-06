@@ -17,6 +17,7 @@ import * as DialogActions from './../actions/dialogActions';
 import Signin from '../components/signIn/SignIn';
 import Home from '../components/home/home';
 import Demo from '../components/demo/Demo';
+import Profile from '../components/profile/Profile';
 import {DialogBox} from '../components/common/dialogBox/DialogBox';
 import './App.scss';
 
@@ -41,6 +42,7 @@ class App extends Component {
       'rootPath': window.location.origin, 
       'menus': [
         {'id': 'home', 'path': '/home', 'name': 'Home'},
+        {'id': 'profile', 'path': '/profile', 'name': 'Profile'},
         {'id': 'demo', 'path': '/demo', 'name': 'Demo' }
       ]
     };
@@ -85,6 +87,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/home' render={(e) => { return <Home {...e} {...common} /> }} />
               <Route exact path='/Demo' render={(e) => { return <Demo {...e} {...common} /> }} />
+              <Route exact path='/Profile' render={(e) => { return <Profile {...e} {...common} /> }} />
               <Route exact path='/signin' render={(e) => { return <Signin {...e} {...common} /> }} />              
               <Redirect from='/*' to='/home'/>
             </Switch>

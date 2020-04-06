@@ -1,0 +1,25 @@
+@import '../../style/mixin';
+@import '../../style/theme';
+
+.early-depature-exclusion-wrapper {
+	position: relative;
+  .suggestion-wrapper {
+    min-width: 250px;
+
+    .suggestion-holder > li:first-child {
+      .tag-btn {
+        white-space: nowrap;
+        background-color: $color-secondary;
+        color: #fff;
+      }
+      a {
+      	display: none;
+      }
+    }
+
+    .tag-cnt {
+    	white-space: nowrap;
+    	@include ellipsis();
+    }
+  }
+}

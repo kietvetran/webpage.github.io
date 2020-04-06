@@ -1,10 +1,6 @@
 import { trim, createRegexp, isValid, sortList, capitalize } from './General';
 import { Signin } from '../../static/form/signin';
 
-const formStorage = {};
-
-let moment = require('moment');
-
 /******************************************************************************
 ******************************************************************************/
 export const getFormTemplate = (key) => {
