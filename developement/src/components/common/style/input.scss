@@ -170,6 +170,8 @@ input:-webkit-autofill:active {
 }
 
 
+/******************************************************************************
+******************************************************************************/
 .input-label-popup-wrapper {
   clear: both;
   float: left;
@@ -189,18 +191,6 @@ input:-webkit-autofill:active {
   }
 }
 
-
-/******************************************************************************
-  input-contet
-******************************************************************************/
-ul.input-radioboxes-list {
-  padding: 0;
-  margin: 0;
-  white-space: nowrap;
-  > li {
-    display: inline-block;
-  }
-}
 
 /******************************************************************************
   file-uploader
@@ -658,167 +648,141 @@ input[type="file"].file-uploader {
 }
 
 .input-checkbox {
-  &.-green {
-    &:checked {
-      + label {
+    + label {
+        display: inline-block;
+        border: 0 none;
+        cursor: pointer;
+
         &:before {
-          border-color: $color-green;
+            background-size: 135% auto;
         }
-      }
-    }
-  }
-
-  &.-single-border {
-    + label {
-      &:before {
-        border-width: 1px;
-      }
-    }
-  }
-
-  + label {
-    display: inline-block;
-    border: 0 none;
-    cursor: pointer;
-
-    &:before, &:after {
-    }
-
-    &:before {
-      background-size: 135% auto;
-    }
-  }
-
-  &:checked {
-    + label {
-      &:before {
-        border-color: $color-checkbox;
-        background-color: $color-checkbox;
-        background-image: url('../static/icon/checked/checked-white.svg');
-      }
-    }
-  }
-
-  &:focus {
-    + label {
-      &:before {
-        box-shadow: 0 0 .3rem $color-focus;
-        border-color: $color-focus;
-      }
-    }
-  }
-
-  &.-toggler {
-    &.-small {
-      + label {
-        height: 2.15rem;
-        border-radius: 2.125rem;
-        &:before {
-          width: 2.125rem;
-          height: 2.125rem;
-        }
-      }
-      &:checked {
-        + label:before {
-          margin-left: -2.125rem;          
-        }
-      }
-    }
-
-    + label {
-      position: relative;
-      background: #ccc none repeat 0 0; 
-      padding: 0;
-      margin: 0;
-      width: 6.25rem;
-      height: 3.15rem;
-      border-radius: 3.125rem;
-      &:before {
-        background: $color-white none repeat 0 0;
-        height: 3.125rem;
-        width: 3.125rem;
-        border-radius: 100%;
-        border: 1px solid #999;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 0 0 0 -1px;
-        @include transition( all, .2s, ease-in-out); 
-      }
-
-      > span, > div {
-        position: absolute;
-        bottom: 100%;
-        right: 0;
-      }
     }
 
     &:checked {
-      + label {
-        background-color: $color-active;
-        &:before {
-          left: 100%;
-          margin-left: -3.125rem;
-          border: 1px solid #999;
-          background-image: none;
+        + label {
+            &:before {
+                border-color: $color-checkbox;
+                background-color: $color-checkbox;
+                background-image: url('../static/icon/checked/checked-white.svg');
+            }
         }
-      }
     }
-  }
+
+    &:focus {
+        + label {
+            &:before {
+                box-shadow: 0 0 .3rem $color-focus;
+                border-color: $color-focus;
+            }
+        }
+    }
+
+    &.-toggler {
+        &.-small {
+            + label {
+                height: 2.15rem;
+                border-radius: 2.125rem;
+                &:before {
+                    width: 2.125rem;
+                    height: 2.125rem;
+                }
+            }
+            &:checked {
+                + label:before {
+                margin-left: -2.125rem;          
+            }
+          }
+        }
+
+        + label {
+            position: relative;
+            background: #ccc none repeat 0 0; 
+            padding: 0;
+            margin: 0;
+            width: 6.25rem;
+            height: 3.15rem;
+            border-radius: 3.125rem;
+            &:before {
+                background: $color-white none repeat 0 0;
+                height: 3.125rem;
+                width: 3.125rem;
+                border-radius: 100%;
+                border: 1px solid #999;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 0 0 0 -1px;
+                @include transition( all, .2s, ease-in-out); 
+            }
+
+            > span {
+                position: absolute;
+                bottom: 100%;
+                right: 0;
+            }
+        }
+
+        &:checked {
+            + label {
+                background-color: $color-active;
+                &:before {
+                    left: 100%;
+                    margin-left: -3.125rem;
+                    border: 1px solid #999;
+                    background-image: none;
+                }
+            }
+        }
+    }
 }
 
 /******************************************************************************
-  select - option 
+  select-box 
 ******************************************************************************/
 .select-box {
-  /*
-  -webkit-appearance: none;
-  -moz-appearance: none; 
-  appearance: none;
-  */
-  width: 100%;
-  padding: 9px .5rem;    
-  border: 1px solid $color-border;
-  border-radius: $border-round;
-  position: relative;
-  min-width: 170px;
+    width: 100%;
+    padding: 9px .5rem;    
+    border: 1px solid $color-border;
+    border-radius: $border-round;
+    position: relative;
+    min-width: 170px;
 
-  &:hover {
-    border-color: $color-focus;
-  }
-
-  &:focus, &:active {
-    border-color: $color-focus;
-    box-shadow: 0 0 0 1px $color-focus;
-    outline: none;
-  }
-
-  &::-ms-expand {
-    display: none;
-  }
-
-  &:disabled {
-    background-color: $color-disabled;
-    @include opacity(.6);
-
-    &:hover, &:focus, &:active {
-      border-color: $color-border;
-      box-shadow: none;
+    &:hover {
+        border-color: $color-focus;
     }
-  }  
 
-  &.-invalid {
-    border-color: $color-error;
-    box-shadow: inset 0 0 .125rem $color-error;
-
-    &:hover, &:focus, &:active {
-      border-color: $color-focus;
-      box-shadow: inset 0 0 .125rem $color-focus;
+    &:focus, &:active {
+        border-color: $color-focus;
+        box-shadow: 0 0 0 1px $color-focus;
+        outline: none;
     }
-  }
 
-  &.-small {
-    padding-top: .3rem;
-    padding-bottom: .3rem;
-  }
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:disabled {
+        background-color: $color-disabled;
+        @include opacity(.6);
+
+        &:hover, &:focus, &:active {
+            border-color: $color-border;
+            box-shadow: none;
+        }
+    }  
+
+    &.-invalid {
+        border-color: $color-error;
+        box-shadow: inset 0 0 .125rem $color-error;
+
+        &:hover, &:focus, &:active {
+            border-color: $color-focus;
+            box-shadow: inset 0 0 .125rem $color-focus;
+        }
+    }
+
+    &.-small {
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+    }
 }

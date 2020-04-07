@@ -14,7 +14,9 @@ export class FormContent extends React.Component {
 
     render() {
         let { content, type, formData } = this.props;
-        let elements = (content instanceof Array ? content : [content]).map((cnt, i) => {
+        let list = content instanceof Array ? content : [content];
+
+        let elements = list.map((cnt, i) => {
             if ( ! cnt ) { return null; }
 
             let pin = 'form-element-' + i;
@@ -53,7 +55,7 @@ export class FormContent extends React.Component {
     }
 
     _initElement(data, pin, formData) {
-        if ( ! data || ! data.id ) { return null; }
+        if ( ! data || ! data.id || ! data.type ) { return null; }
 
         let out = null, key = pin || generateId(), custom = {
             ...data, 'fieldName': data.name || ''
@@ -101,9 +103,9 @@ export class FormContent extends React.Component {
             out = <Field key={key} id={data.id} name={data.name}
                 component={RadioBoxes} props={properties}
             />
-        } else if (data.type === "time-interval") {
+        } else if (data.type === 'time-interval') {
             out = <TimeInterval key={key} {...data} properties={properties} />;
-        } else if (data.type === "stop-and-line") {
+        } else if (data.type === 'stop-and-line') {
             if ((formData || {}).suggestion) {
                 data.suggestion = formData.suggestion;
             }

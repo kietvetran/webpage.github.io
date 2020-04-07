@@ -154,8 +154,6 @@ export const ProfileScheema = {
       'wrapperStyle': '-comment',
       'maxLength'   : 300,
       'remainCharacterText': 'Gjenstår antall tegn'
-    */
-
       'id'          : 'countryCode',
       'name'        : 'countryCode',
       'type'        : 'selection',
@@ -167,6 +165,37 @@ export const ProfileScheema = {
         {'id': '+46', 'name': '+46 Danmark'},
         {'id': '+45', 'name': '+45 Sverige'},
         {'id': '+44', 'name': '+44 Finland'},
+      ]
+    }, {
+      'id'          : 'statement',
+      'name'        : 'statement',
+      'type'        : 'checkbox',
+      'label'       : 'Jeg erklærer at informasjonen jeg har oppgitt er riktig.',
+      'legend'      : 'Samtykke',
+      'defaultValue': '',
+      'wrapperStyle': '-statement',
+      'required'    : true,
+      'validation'  : [
+        {
+          'rule'   : 'required',
+          'message': 'Du må bekrefte at informasjonen du har oppgitt er riktig',
+        }
+      ]
+    }, {
+    */
+      'id'          : 'expired-date',
+      'name'        : 'expiredDate',
+      'type'        : 'radio',
+      'labels'      : ['Internt','Standard','Krise','Katastrofe'],
+      'values'      : ['level1','level2','level3','level4'],
+      'legend'      : 'Avsluttsdato',
+      'wrapperStyle': '-expired-date',
+      'required'    : true,
+      'validation'  : [
+        {
+          'rule'   : 'required',
+          'message': 'Avsluttsdato er påkrevd'
+        }
       ]
     }
   ]
