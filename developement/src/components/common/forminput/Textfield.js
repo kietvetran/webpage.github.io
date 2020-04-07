@@ -1,22 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
+import InputWrapper from './InputWrapper';
 
-const Textfield = ({input, meta, defaultValue, ...custom}) => {   // eslint-disable-line no-unused-vars
+const Textfield = ({defaultValue, ...custom}) => {   // eslint-disable-line no-unused-vars
+    let {source={}, input={}, meta={}} = custom;
+
+    let type      = 'textfield';
+    let fieldId   = custom.id || type+'-'+(new Date()).getTime() + '-' + Math.floor((Math.random()*1000) + 1);
     let isInvalid = !!((meta.touched || custom.forceTouched) &&
         (meta.error || meta.warning));
-
-    let fieldId = custom.id || 'textfield-'+(new Date()).getTime() + '-' + Math.floor((Math.random()*1000) + 1);
-    let source  = custom.source || {};
-    let wrapperStyle = classNames('input-content', '-textfield', (source.wrapperStyle || ''), {
-        '-required': custom.required || false,
-        '-invalid' : isInvalid,
-    });
-
-    let inputStyle = classNames('textfield', '-normal', (source.inputStyle || ''), {
-        '-invalid': isInvalid,        
-    });
-
-    let labelStyle = classNames('input-label', {'-required' : custom.required || false});
 
     let rest = [
         'placeholder','autoComplete','spellCheck','autoCapitalize','autoCorrect','required',
@@ -47,19 +39,13 @@ const Textfield = ({input, meta, defaultValue, ...custom}) => {   // eslint-disa
         source.type === 'textfield' ? 'text' : source.type
     );
 
-    return <div role="region" className={wrapperStyle}>
-        {!! custom.label && <label htmlFor={fieldId} className={labelStyle}>
-                <span>{ custom.label }</span>
-                {!!source.labelNote && <span className="input-label-note"> {source.labelNote}</span>}
-            </label>
-        }
+    let inputStyle = classNames(type, '-normal', (source.inputStyle || ''), {
+        '-invalid': isInvalid,        
+    });
 
-        {!! source.description &&
-            <div id={fieldId + '-description'} className="input-label-description" dangerouslySetInnerHTML={{'__html': source.description}}></div>
-        }
+    return <InputWrapper {...custom} fieldId={fieldId} type={type} isInvalid={isInvalid}>
         <input {...input} aria-invalid={isInvalid} {...rest} className={inputStyle} id={fieldId} type={fieldType}/>
-        {isInvalid && <div id={fieldId + '-error'} className="input-error-message" aria-live="polite">{meta.error || meta.warning}</div>}
-	  </div>
+    </InputWrapper>
 };
 
 export default Textfield;

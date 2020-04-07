@@ -5,6 +5,7 @@ export const ProfileScheema = {
   'formName': 'profileScheema',
   'content': [
     {
+      /*
       'id'          : 'customerNumber',
       'name'        : 'customerNumber',
       'type'        : 'telfield',
@@ -145,7 +146,28 @@ export const ProfileScheema = {
           'message': 'E-postadresse adresse er ugyldig'
         }
       ]
-      */
+    }, {
+      'id'          : 'comment',
+      'name'        : 'comment',
+      'type'        : 'textarea',
+      'label'       : 'Kommentar',
+      'wrapperStyle': '-comment',
+      'maxLength'   : 300,
+      'remainCharacterText': 'Gjenstår antall tegn'
+    */
+
+      'id'          : 'countryCode',
+      'name'        : 'countryCode',
+      'type'        : 'selection',
+      'label'       : 'Landkode',
+      'defaultValue': '',
+      'wrapperStyle': '-country-code',
+      'selection'   : [
+        {'id': '+47', 'name': '+47 Norge'},
+        {'id': '+46', 'name': '+46 Danmark'},
+        {'id': '+45', 'name': '+45 Sverige'},
+        {'id': '+44', 'name': '+44 Finland'},
+      ]
     }
   ]
 }
