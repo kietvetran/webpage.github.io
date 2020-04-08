@@ -1,0 +1,113 @@
+@import './theme';
+@import './mixin';
+
+/******************************************************************************
+  autocomplete
+******************************************************************************/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+/******************************************************************************
+  input-contet
+******************************************************************************/
+.input-wrapper {
+    text-align: left;
+    padding: 0 0 1rem 0;
+    position: relative;
+    margin: 0;
+    clear: both;
+
+    &.-required {
+        > label, > .input-holder label, > fieldset > legend {
+            &:after {
+                content: '*';
+                color: $color-required;
+                margin: 0 0 0 .18rem;
+            }
+        }
+    }
+
+    > .input-content {
+        padding-bottom: 0;
+    }
+
+    label, .input-label {
+        font-weight: 600;
+        padding-bottom: .3rem;
+        display: block;
+    }
+
+    .input-label-note {
+        @include opacity(.8);
+    }
+
+    .input-error-message {
+        margin: .3rem 0 0 0;
+        padding: .35rem .7rem;
+        background: $color-danger-bg none repeat 0 0;
+    }
+
+
+    .input-label-description {
+        padding-bottom: .9rem;
+        a {
+            @include asLink();
+            display: inline-block;
+        }
+    }
+
+    fieldset {
+        .input-radio, .input-checkbox {
+            + label {
+                font-weight: normal;
+            }
+        }
+
+        > .input-content {
+            padding-bottom: 0;
+        }
+    }
+
+    &.-cell-50 {
+        width: 49%;
+        float: left;
+        margin-right: 1%;
+        clear: none;
+        + .input-content.-cell-50 {
+            float: left;
+            clear: none;
+            width: 49%;
+            margin-right: 0;
+            margin-left: 1%;
+        }
+    }
+
+    @media screen and (max-width: $layout-breakpoint-xxs) {
+        padding-bottom: 1rem;
+    }
+}
+
+/******************************************************************************
+******************************************************************************/
+.input-label-popup-wrapper {
+    clear: both;
+    float: left;
+    width: 100%;
+    > div {
+        float: left;
+        padding-right: 2.3rem;
+
+        > label {
+            float: left;
+        }
+
+        .popup-info-wrapper, .popup-wrapper {
+            float: right;
+            margin-right: -2.3rem;
+        }
+    }
+}

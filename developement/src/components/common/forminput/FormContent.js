@@ -2,7 +2,7 @@ import React from "react";
 import { Field, change } from "redux-form";
 import Textfield from "./Textfield";
 import Textarea from "./Textarea";
-import Selection from "./Selection";
+import SelectBox from "./SelectBox";
 import Checkbox from "./Checkbox";
 import RadioBoxes from "./RadioBoxes";
 import { TimeInterval } from "./timeInterval/TimeInterval";
@@ -91,9 +91,9 @@ export class FormContent extends React.Component {
             />
         } else if (data.type === 'hidden') {
             out = <Field key={key} id={data.id} name={data.name} type="hidden" component="input"/>
-        } else if (data.type === 'selection') {
+        } else if (data.type === 'select') {
             out = <Field key={key} id={data.id} name={data.name} type="select" label={data.label}
-                component={Selection} props={properties}
+                component={SelectBox} props={properties}
             />
         } else if (data.type === 'checkbox') {
             out = <Field key={key} id={data.id} name={data.name} type="checkbox"

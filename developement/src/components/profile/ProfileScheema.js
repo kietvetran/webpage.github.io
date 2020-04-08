@@ -5,7 +5,6 @@ export const ProfileScheema = {
   'formName': 'profileScheema',
   'content': [
     {
-      /*
       'id'          : 'customerNumber',
       'name'        : 'customerNumber',
       'type'        : 'telfield',
@@ -23,6 +22,7 @@ export const ProfileScheema = {
         }
       ]
     }, {
+      /*
       'id'          : 'company',
       'name'        : 'company',
       'type'        : 'textfield',
@@ -147,16 +147,17 @@ export const ProfileScheema = {
         }
       ]
     }, {
+    */
       'id'          : 'comment',
       'name'        : 'comment',
       'type'        : 'textarea',
       'label'       : 'Kommentar',
       'wrapperStyle': '-comment',
       'maxLength'   : 300,
-      'remainCharacterText': 'Gjenstår antall tegn'
+      'remainCharacterText': 'Gjenstår antall tegn',
       'id'          : 'countryCode',
       'name'        : 'countryCode',
-      'type'        : 'selection',
+      'type'        : 'select',
       'label'       : 'Landkode',
       'defaultValue': '',
       'wrapperStyle': '-country-code',
@@ -164,7 +165,7 @@ export const ProfileScheema = {
         {'id': '+47', 'name': '+47 Norge'},
         {'id': '+46', 'name': '+46 Danmark'},
         {'id': '+45', 'name': '+45 Sverige'},
-        {'id': '+44', 'name': '+44 Finland'},
+        {'id': '+44', 'name': '+44 Finland'}
       ]
     }, {
       'id'          : 'statement',
@@ -182,7 +183,6 @@ export const ProfileScheema = {
         }
       ]
     }, {
-    */
       'id'          : 'expired-date',
       'name'        : 'expiredDate',
       'type'        : 'radio',

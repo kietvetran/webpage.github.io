@@ -1,0 +1,309 @@
+@import './theme';
+@import './mixin';
+
+.input-radio, .input-checkbox {
+    opacity: .01;
+    filter: alpha(opacity=1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    margin: .45rem 0 0 .45rem;
+
+    &.-invalid {    
+        + label {
+            &, &:hover {
+                &:before {
+                    border-color: $color-error;
+                }
+            }
+        }
+    }
+
+    &:focus {
+        + label {
+            &:before {
+            border-color: $color-focus;        
+        }
+
+        &:after {
+            display: block;
+        }
+        }
+    }
+
+    &:disabled {
+        + label {
+              @include opacity(.5);
+              cursor: default;
+        }
+    }  
+
+    &.-box {
+        + label {
+            padding: .9rem 1rem .9rem 2.5rem;
+            border: 1px solid $color-border;
+            border-radius: $border-round;
+            background: $color-white none repeat 0 0;
+
+            &:before, &:after {
+                top: .9rem;
+                left: .3rem;
+                width: 1.15rem;
+                height: 1.15rem;
+                margin-top: 0;
+            }
+        }
+
+        &:checked + label {
+            border-color: $color-secondary;
+            background-color: $color-secondary; 
+            color: $color-white;
+        }
+
+        &.-full-width {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            + label {
+                max-width: none;
+                width: 100%;
+            }
+        }
+    }
+
+    &.-small {
+        + label {
+            padding: .15rem .45rem .15rem .7rem;
+            &:before, &:after {
+                width: 1.15rem;
+                height: 1.15rem;
+                margin-top: 0;
+            }
+
+            &:after {
+                margin-left: .15rem;
+            }
+        }
+    }
+  
+    + label {
+        max-width: $max-width-small;
+        display: inline-block;
+        position: relative;
+        white-space: normal;
+
+        &, + .input-label-description {
+            margin: 0 .3rem .3rem 0;      
+            padding: .25rem .9rem .125rem 2.8rem;
+        }
+
+        + .input-label-description {
+            margin-top: -.9rem;
+            @include opacity(.8);
+        }
+
+        &.normal {
+            font-weight: normal;
+        }
+
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        &:before {
+            height: 2rem;
+            width: 2rem;
+            margin: 0 0 0 .15rem;
+            background: $color-white none no-repeat center center / 1.15rem auto;
+            border: .125rem solid $color-border;
+            @include transition( all, .2s, ease-in-out); 
+        }
+
+        &:after {
+            height: 2.3rem;
+            width: 2.3rem;      
+            margin: 1px 0 0 0;      
+            border: 1px dotted $color-border;
+            display: none !important; /*Kiet force to hide focus option*/
+        }
+
+        &:hover {
+            &:before {
+                border-color: $color-focus;
+            }
+        }
+    }
+}
+
+.input-radio {
+    &.-radioboxes {
+        + label {
+            display: inline-block;
+            padding-left: 4.125rem;
+            min-width: 6.25rem;
+            max-width: 12.5rem;
+            border: 1px solid $color-border;
+            border-radius: $border-round;
+            background: $color-white none repeat 0 0;
+            font-weight: 500 ! important;
+            white-space: normal !important;
+
+            > span {
+                display: table-cell;
+                height: 3.3rem;
+                line-height: 120%;
+                width: 100%;
+                vertical-align: middle;
+            }
+
+            &:before {
+                top: 50%;
+                margin-top: -.5rem;
+                margin-left: .5rem;
+            }
+        }
+
+        &:checked {
+            + label {
+                border-color: $color-active;
+                box-shadow: inset 0 0 .125rem $color-active;
+            }
+        }
+
+        &:focus {
+            + label {
+                box-shadow: inset 0 0 .125rem $color-focus;
+                border-color: $color-focus;
+            }      
+        }
+    }
+
+    + label {
+        display: inline-block;
+        cursor: pointer;
+
+        &:before {
+            border-radius: 100%;
+        }
+    }
+
+    &:checked {
+        + label {
+            border-color: transparent;
+
+            &:before {
+                background-color: $color-active;
+                border: .25rem solid $color-white;
+                box-shadow: 0 0 0 .125rem $color-border;
+            }
+        }
+    }
+
+    &:focus {
+        + label {
+            &:before {
+                box-shadow: 0 0 .15rem .125rem $color-focus;
+            }
+        }
+    }
+}
+
+.input-checkbox {
+    + label {
+        display: inline-block;
+        border: 0 none;
+        cursor: pointer;
+
+        &:before {
+            background-size: 135% auto;
+        }
+    }
+
+    &:checked {
+        + label {
+            &:before {
+                border-color: $color-checkbox;
+                background-color: $color-checkbox;
+                background-image: url('../static/icon/checked/checked-white.svg');
+            }
+        }
+    }
+
+    &:focus {
+        + label {
+            &:before {
+                box-shadow: 0 0 .3rem $color-focus;
+                border-color: $color-focus;
+            }
+        }
+    }
+
+    &.-toggler {
+        &.-small {
+            + label {
+                height: 2.15rem;
+                border-radius: 2.125rem;
+                &:before {
+                    width: 2.125rem;
+                    height: 2.125rem;
+                }
+            }
+            &:checked {
+                + label:before {
+                margin-left: -2.125rem;          
+            }
+          }
+        }
+
+        + label {
+            position: relative;
+            background: #ccc none repeat 0 0; 
+            padding: 0;
+            margin: 0;
+            width: 6.25rem;
+            height: 3.15rem;
+            border-radius: 3.125rem;
+            &:before {
+                background: $color-white none repeat 0 0;
+                height: 3.125rem;
+                width: 3.125rem;
+                border-radius: 100%;
+                border: 1px solid #999;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 0 0 0 -1px;
+                @include transition( all, .2s, ease-in-out); 
+            }
+
+            > span {
+                position: absolute;
+                bottom: 100%;
+                right: 0;
+            }
+        }
+
+        &:checked {
+            + label {
+                background-color: $color-active;
+                &:before {
+                    left: 100%;
+                    margin-left: -3.125rem;
+                    border: 1px solid #999;
+                    background-image: none;
+                }
+            }
+        }
+    }
+}
+
+.input-radio-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

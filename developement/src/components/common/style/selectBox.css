@@ -1,7 +1,7 @@
 @import './theme';
 @import './mixin';
 
-.selector {
+.select-box {
     width: 100%;
     padding: 9px .5rem;    
     border: 1px solid $color-border;

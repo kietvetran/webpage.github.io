@@ -333,6 +333,17 @@ ul.table-row {
   }
 }
 
+fieldset {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+
+    legend  {
+        display: block;
+        margin: 0;
+    }
+}
+
 .search-field-holder {
   position: relative;
   min-width: 20rem;

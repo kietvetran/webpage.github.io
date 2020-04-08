@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const InputWrapper = ({children, fieldId, isInvalid, type, meta, source, legend, ...custom}) => {   // eslint-disable-line no-unused-vars
     if ( ! children ) { return null; }
 
-    let wrapperStyle = classNames('input-content', ('-'+type), (source.wrapperStyle || ''), {
+    let wrapperStyle = classNames('input-wrapper', ('-'+type), (source.wrapperStyle || ''), {
         '-required': custom.required || false,
         '-invalid' : isInvalid,
     });

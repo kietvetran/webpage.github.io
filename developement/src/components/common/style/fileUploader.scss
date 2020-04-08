@@ -1,0 +1,89 @@
+@import './theme';
+@import './mixin';
+
+input[type="file"].input-filefield,
+input[type="file"].file-uploader {
+    border-radius: $border-round;
+    background: $color-white none repeat 0 0;
+    display: block;
+    border: 1px solid $color-border;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+
+    &:hover, &:focus {
+        + label {
+            border-color: $color-focus;
+            box-shadow: 0 0 .3rem $color-focus;
+        }
+    }
+
+    &.-invalid {
+        + label {
+            border-color: $color-error;
+            box-shadow: 0 0 .3rem $color-error;
+
+            &:hover, &:focus, &:active {
+                border-color: $color-focus;
+                box-shadow: 0 0 .3rem $color-focus;
+            }
+        }
+    }
+
+  + label {
+    position: relative;
+    display: table;
+    width: 100%;
+    border-radius: $border-round;
+    background: $color-white none repeat 0 0;
+    display: block;
+    padding: 0;
+    border: .125rem dashed $color-border;
+    width: 100%;
+    cursor: pointer;
+
+    > span {
+        position: relative;
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+        text-align: left;
+        padding: 1rem 60px 1rem 1rem;
+        &:first-child {
+            width: auto;
+            padding-right: 1rem;
+            vertical-align: top;
+            border-right: 1px solid $color-border;
+            @include opacity(.8);        
+        }
+    }
+
+    .file-item {
+        display: block;
+        min-height: 30px;
+    }
+
+    &:hover, &:focus {
+        border-color: $color-focus;
+        box-shadow: 0 0 .3rem $color-focus;
+    }
+
+    + .file-remover {
+        position: absolute;
+        right: .3rem;
+        top: .7rem;
+
+        &.-index-1 { top: 4.125rem; }
+        &.-index-2 { top: 7.125rem; }
+        &.-index-3 { top: 10.125rem; }
+        &.-index-4 { top: 13.125rem; }
+        &.-index-5 { top: 16.125rem; }
+        &.-index-6 { top: 19.125rem; }
+        &.-index-7 { top: 22.125rem; }
+        &.-index-8 { top: 25.125rem; }
+        &.-index-9 { top: 28.125rem; }
+    }
+  }
+}
