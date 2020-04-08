@@ -1,14 +1,17 @@
 {
   "parser": "babel-eslint",
-  "extends": [ "standard", "standard-react"],
   "plugins": [
-    "babel",
-    "react",
+      "react"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "amd": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
   },
 	"rules":{
+    "indent": ["error", 4],
 		"linebreak-style": 0
 	}
 }
