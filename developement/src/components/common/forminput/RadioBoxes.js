@@ -47,7 +47,7 @@ const RadioBoxes = ({defaultValue, ...custom}) => {   // eslint-disable-line no-
             { labels.map( (label,i) => {
                 let pin = fieldId + '-' + i, value = values[i] || label;
                 return <li key={pin}>
-                    <Field {...input} {...rest} id={pin} value={values[i] || label} type="radio" component="input" className={inputStyle}/>
+                    <Field {...rest} name={input.name} id={pin} value={values[i] || label} type="radio" component="input" className={inputStyle}/>
                     <label htmlFor={pin} className='input-label'>{label}</label>
                 </li>
             })}

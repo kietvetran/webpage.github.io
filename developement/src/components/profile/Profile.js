@@ -25,14 +25,22 @@ class ProfileComponent extends Component {
                 onSubmit={handleSubmit(this._submit)} onChange={this._formChange}                
             >
                 <FormContent content={template.content} />
+
+                <div className="action-row">
+                    <div>
+                        <button type="submit" className="primary-btn">Submit</button>
+                    </div>
+                </div>
             </form>
         </div>
     }
 
-    _submit = () => {
+    _submit = ( values ) => {
+        console.log('=== SUBMiT ==='); console.log( values );
     }
 
     _formChange = () => {
+        //console.log('=== change.. ===');
     }
 }
 

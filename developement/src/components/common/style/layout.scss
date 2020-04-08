@@ -86,8 +86,8 @@ a {
   }
 
   &:focus {
-    outline: $color-border dotted 1px;
-    outline-offset: 2px;    
+    outline: $color-border dotted 0.06rem;
+    outline-offset: 0.12rem;    
   }
 
   &.link {
@@ -142,7 +142,7 @@ table {
   tr {
     padding: 0;
     td, th {
-      padding: 5px .6rem;
+      padding: .6rem;
     }
   }
 }
@@ -166,11 +166,11 @@ section, main, header, footer, article, nav, picture, figure, canvas, svg {
   &.-no-padding-right  { padding-right:  0; }
 
   &.-border-top {
-    border-top: 1px solid $color-border;
+    border-top: 0.06rem solid $color-border;
   }
 
   &.-border-bottom {
-    border-bottom: 1px solid $color-border;
+    border-bottom: 0.06rem solid $color-border;
   }
 }
 
@@ -241,81 +241,21 @@ section, main, header, footer, article, nav, picture, figure, canvas, svg {
 }
 
 .form-wrapper {
-  padding: 15px 0;
+  padding: 1rem 0;
 
   &.-no-padding {
     padding: 0;
   }
 
-  ul.action-holder {
-    padding: 25px 0 0 0;
-    margin: 0;
-    list-style: none;
-    > li {
-      padding: 0 15px 0 0;
-    }
-  }
-
-  .action-holder {
+  .action-row {
     clear: both;
-    padding: 25px 0 0 0;
-
-    &.-table {
-      display: table;
-      width: 100%;
-      > li {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    }
-
-    > li {
-      display: inline-block;
+    padding: 1.5rem 0;
+    display: table;
+    > div {
+      display: table-cell;
+      padding: 0 2rem 0 0;
     }
   }
-}
-
-.form-content {
-  &.-hide-required-star {
-    legend, label, .input-label {
-      &.-required:after{
-        display: none;
-      }
-    }
-  }
-}
-.rds-layer-base,
-.rds-layer-flat,
-.rds-layer-raised,
-.rds-layer-overlay,
-.rds-layer-sticky,
-.rds-layer-offcanvas,
-.rds-layer-popout {
-  &.-card-spacing {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
-}
-
-.layout-basic-T-view {
-  display: flex;
-  border-top: 1px solid #f0f0f0;
-
-  > .left-view, > .right-view {
-    padding-top: 1.9rem;
-  }
-
-  > .left-view {
-    padding-right: 1.9rem;
-  }
-
-  > .right-view {
-    width: 100%;
-    padding-left: 1.9rem;
-    border-left: 1px solid #f0f0f0;
-  }  
 }
 
 ul.table-row {
