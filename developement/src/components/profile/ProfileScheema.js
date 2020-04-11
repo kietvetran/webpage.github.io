@@ -4,7 +4,48 @@ export const ProfileScheema = {
   'leadText': '', // not in use jet
   'formName': 'profileScheema',
   'content': [
-    {
+    {      
+      'id'          : 'phone',
+      'name'        : 'phone',
+      'type'        : 'telfield',
+      'label'       : 'Telefonnummer',
+      'defaultValue': '',
+      'placeholder' : '',
+      'required'    : true,
+      'format'      : 'phone',
+      'wrapperStyle': '-phone',
+      'maxLength'   : 40,
+      'validation'  : [
+        {
+          'rule'   : 'required',
+          'message': 'Telefonnummer er påkrevd'
+        }, {
+          'rule'   : 'phone',
+          'message': 'Telefonnummer er ugyldig'
+        }
+      ]
+    }, {
+      'id'          : 'amount',
+      'name'        : 'amount',
+      'type'        : 'telfield',
+      'label'       : 'Beløp',
+      'defaultValue': '',
+      'placeholder' : '',
+      'unit'        : 'Kr',
+      'required'    : true,
+      'wrapperStyle': '-amount',
+      'format'      : 'amount',
+      'maxLength'   : 40,
+      'validation'  : [
+        {
+          'rule'   : 'required',
+          'message': 'Beløpet er påkrevd'
+        }, {
+          'rule' : 'amount',
+          'message': 'Beløpet er ugyldig'
+        }
+      ]
+    }, {
       'id'          : 'customerNumber',
       'name'        : 'customerNumber',
       'type'        : 'telfield',
@@ -14,7 +55,6 @@ export const ProfileScheema = {
       'required'    : true,
       'wrapperStyle': '-customer-number',
       'maxLength'   : 40,
-      'readOnly'    : 1,
       'validation'  : [
         {
           'rule'   : 'required',
@@ -31,7 +71,6 @@ export const ProfileScheema = {
       'required'    : true,
       'wrapperStyle': '-company',
       'maxLength'   : 70,
-      'readOnly'    : 1,
       'validation'  : [
         {
           'rule'   : 'required',
@@ -51,7 +90,6 @@ export const ProfileScheema = {
       'required'    : true,
       'wrapperStyle': '-person-id',
       'maxLength'   : 12,
-      'readOnly'    : 1,
       'validation'  : [
         {
           'rule'   : 'required',
@@ -97,26 +135,6 @@ export const ProfileScheema = {
         }, {
           'regex' : /^((?!.{2,}).)*$/,
           'message': 'Etternavn må minimum lengde 2 bokstaver'
-        }
-      ]
-    }, {
-      'id'          : 'phone',
-      'name'        : 'phone',
-      'type'        : 'telfield',
-      'label'       : 'Telefonnummer',
-      'defaultValue': '',
-      'placeholder' : '',
-      'required'    : true,
-      //'format'      : 'phone',
-      'wrapperStyle': '-phone',
-      'maxLength'   : 40,
-      'validation'  : [
-        {
-          'rule'   : 'required',
-          'message': 'Telefonnummer er påkrevd'
-        }, {
-          'rule'   : 'phone',
-          'message': 'Telefonnummer er ugyldig'
         }
       ]
     }, {
@@ -185,7 +203,7 @@ export const ProfileScheema = {
       'label'       : 'Kommentar',
       'wrapperStyle': '-comment',
       'maxLength'   : 300,
-      'remainCharacterText': 'Gjenstår antall tegn',       
+      'remainCharacterText': 'Gjenstår antall tegn',
     }
   ]
 }

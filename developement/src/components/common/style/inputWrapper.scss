@@ -31,7 +31,21 @@ input:-webkit-autofill:active {
         }
     }
 
-    > .input-content {
+    &.-cell-50 {
+        width: 49%;
+        float: left;
+        margin-right: 1%;
+        clear: none;
+        + .input-wrapper.-cell-50 {
+            float: left;
+            clear: none;
+            width: 49%;
+            margin-right: 0;
+            margin-left: 1%;
+        }
+    }
+
+    > .input-wrapper {
         padding-bottom: 0;
     }
 
@@ -67,27 +81,41 @@ input:-webkit-autofill:active {
             }
         }
 
-        > .input-content {
+        > .input-wrapper {
             padding-bottom: 0;
         }
     }
 
-    &.-cell-50 {
-        width: 49%;
-        float: left;
-        margin-right: 1%;
-        clear: none;
-        + .input-content.-cell-50 {
-            float: left;
-            clear: none;
-            width: 49%;
-            margin-right: 0;
-            margin-left: 1%;
-        }
-    }
+    .input-holder {
+        position: relative;
+        input.textfield {
+            position: relative;
+            z-index: 1;
+            color: transparent;
+            background: transparent;
 
-    @media screen and (max-width: $layout-breakpoint-xxs) {
-        padding-bottom: 1rem;
+            &:focus, &:active {
+                color: inherit;
+                + .formated-value {
+                    display: none;
+                }       
+            }
+        }
+
+        .formated-value {
+            position: absolute;
+            padding: 0 .5rem;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+            display: table;
+            > * {
+                display: table-cell;
+                vertical-align: middle;                
+            }
+        }
     }
 }
 

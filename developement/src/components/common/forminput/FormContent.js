@@ -1,12 +1,10 @@
 import React from "react";
-import { Field, change } from "redux-form";
+import { Field } from "redux-form";
 import Textfield from "./Textfield";
 import Textarea from "./Textarea";
 import SelectBox from "./SelectBox";
 import Checkbox from "./Checkbox";
 import RadioBoxes from "./RadioBoxes";
-import { TimeInterval } from "./timeInterval/TimeInterval";
-import { StopAndLine } from "./stopAndLine/StopAndLine";
 import { generateId } from "../General";
 import classNames from 'classnames';
 
@@ -72,12 +70,6 @@ export class FormContent extends React.Component {
             if ( ! data[key] ) { return; }
             properties[key] = isNaN(data[key]) ? true : data[key];
         });
-
-        if ( data.format ) {
-            properties.onKeyUp = this._keyup;
-            properties.onFocus = this._focus;
-            properties.onBlur  = this._blur;
-        }
 
         if ( data.type.match( /^(textfield|telfield|email|password)$/i) ) {
             out = <Field key={key} id={data.id} name={data.name} label={data.label}
@@ -172,34 +164,10 @@ export class FormContent extends React.Component {
 
     /****************************************************************************
     ****************************************************************************/
-    _keyup = (e) => {
-        let data = this._getContentData(e);
-        if ( ! data ) { return; }
-        this._updateDataFormate(data, data.config.format, "keyup");
-    }
-
-    _focus = (e) => {
-        let data = this._getContentData(e);
-        if (!data || data.config.format !== 'amount') { return; }
-        this._updateDataFormate(data, data.config.format, 'focus');
-    }
-
-    _blur = (e) => {
-        let data = this._getContentData(e);
-        if ( ! data ) { return; }
-        this._updateDataFormate(data, data.config.format, "blur");
-    }
-
-    _click = (e, key, data, fieldId) => {
-        if ( e ) { e.preventDefault(); }
-    }
-
-    /****************************************************************************
-    ****************************************************************************/
     _getContentData(e) {
         if ( ! e ) { return; }
 
-        let target = e.currentTarget, id = target.id, value = target.value || "";
+        let target = e.currentTarget, id = target.id, value = target.value || '';
         if ( ! id || ! value) { return; }
 
         let found = this.props.content.find(d => d.id === id);
@@ -209,6 +177,7 @@ export class FormContent extends React.Component {
             'e'     : e,
             'code'  : e.keyCode,
             'field' : target,
+            'name'  : found.name,
             'id'    : id,
             'value' : value,
             'config': found

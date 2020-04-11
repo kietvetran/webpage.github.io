@@ -1,3 +1,12 @@
+import  {
+    formatAmount,
+    formatBankAccount,
+    formatPersonalId,
+    formatCardnumber,
+    formatOrganization,
+    formatPhone
+} from './ValueFormat';
+
 import {
     validateNumber,
     validatePhone,
@@ -67,3 +76,15 @@ export const generateReduxFormValidation = (template) => {
         return errors;
     };
 }
+
+export const getFormat = (value, format) => {
+    let option = {
+        'amount': formatAmount,
+        'phone': formatPhone,
+        'bank-account': formatBankAccount,
+        'person-id': formatPersonalId,
+        'card-number': formatCardnumber,
+        'organization': formatOrganization
+    };
+    return option[format] ? option[format]( value ) : null;
+};

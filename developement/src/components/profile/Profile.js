@@ -18,13 +18,13 @@ class ProfileComponent extends Component {
 
     render() {
         const {formName, template} = this.state;
-        const {handleSubmit, dispatch, storage, params, noLayoutOuterStyle, animation, location} = this.props;
+        const {handleSubmit} = this.props;
 
         return <div className="profile-wrapper">
             <form name={formName} ref="eikaForm" noValidate className="form-wrapper"
                 onSubmit={handleSubmit(this._submit)} onChange={this._formChange}                
             >
-                <FormContent content={template.content} />
+                <FormContent content={template.content}/>
 
                 <div className="action-row">
                     <div>
@@ -52,7 +52,11 @@ const ProfileConnection = connect((state, props) => {
     return {
         //'deviation': state.deviation
     };
-}, null)(ProfileComponent);
+}, (dispatch) => {
+    return {
+        'dispatch': dispatch
+    };
+})(ProfileComponent);
 
 
 const validate = generateReduxFormValidation( ProfileScheema );
