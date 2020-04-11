@@ -10,16 +10,17 @@ import { reduxForm } from 'redux-form';
 /* component */
 import { Message } from '../common/util/message/Message';
 import { FormContent } from '../common/forminput/FormContent';
-import {generateReduxFormValidation, getFormTemplate} from '../common/Function';
+import {generateReduxFormValidation} from '../common/forminput/util/Function';
 import { getFormData } from '../common/General';
 import { Loading } from '../common/loading/Loading';
+import { SignInScheema } from './SignInScheema';
 import './SignIn.scss';
 
 class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      template: getFormTemplate('signin')
+      template: SignInScheema
     };
     this._submit = this._submit.bind(this);
   }
@@ -71,5 +72,5 @@ Signin.propTypes = {
   valid: PropTypes.bool.isRequired
 };
 
-const validate = generateReduxFormValidation(getFormTemplate('signin'));
+const validate = generateReduxFormValidation( SignInScheema );
 export default reduxForm({ form: 'rbForm', validate })(Signin);

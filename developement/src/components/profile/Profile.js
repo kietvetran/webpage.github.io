@@ -5,7 +5,7 @@ import {reduxForm, change} from 'redux-form';
 import Wizard from '../common/wizard/Wizard';
 
 import {FormContent} from '../common/forminput/FormContent';
-import {generateReduxFormValidation} from '../common/Function';
+import {generateReduxFormValidation} from '../common/forminput/util/Function';
 import { ProfileScheema } from './ProfileScheema';
 import './Profile.scss';
 

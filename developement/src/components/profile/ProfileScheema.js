@@ -22,7 +22,6 @@ export const ProfileScheema = {
         }
       ]
     }, {
-      /*
       'id'          : 'company',
       'name'        : 'company',
       'type'        : 'textfield',
@@ -43,27 +42,25 @@ export const ProfileScheema = {
         }
       ]
     }, {
-      'id'          : 'organizationNumber',
-      'name'        : 'organisationNumber',
+      'id'          : 'personId',
+      'name'        : 'personId',
       'type'        : 'telfield',
-      'label'       : 'Organisasjonsnummer',
+      'label'       : 'Fødselsnummer',
       'defaultValue': '',
       'placeholder' : '',
       'required'    : true,
-      'wrapperStyle': '-orginazation-number',
-      'maxLength'   : 40,
+      'wrapperStyle': '-person-id',
+      'maxLength'   : 12,
       'readOnly'    : 1,
       'validation'  : [
         {
           'rule'   : 'required',
-          'message': 'Organisasjonsnummer er påkrevd'
+          'message': 'Fødselsnummer er påkrevd'
         }, {
-          'rule'   : 'organization-number',
-          'message': 'Organisasjonsnummer er ugyldig'
+          'rule'   : 'person-id',
+          'message': 'Fødselsnummer er ugyldig'
         }
-      ],
-      'validation': null
-    /*
+      ]
     }, {
       'id'          : 'firstName',
       'name'        : 'firstName',
@@ -103,14 +100,6 @@ export const ProfileScheema = {
         }
       ]
     }, {
-      'id'          : 'countryCode',
-      'name'        : 'countryCode',
-      'type'        : 'selection',
-      'label'       : 'Landkode',
-      'defaultValue': '',
-      'wrapperStyle': '-country-code',
-      'selection'   : PhoneCountryCodeNB
-    }, {
       'id'          : 'phone',
       'name'        : 'phone',
       'type'        : 'telfield',
@@ -126,7 +115,7 @@ export const ProfileScheema = {
           'rule'   : 'required',
           'message': 'Telefonnummer er påkrevd'
         }, {
-          'rule'   : 'telephone',
+          'rule'   : 'phone',
           'message': 'Telefonnummer er ugyldig'
         }
       ]
@@ -147,14 +136,6 @@ export const ProfileScheema = {
         }
       ]
     }, {
-    */
-      'id'          : 'comment',
-      'name'        : 'comment',
-      'type'        : 'textarea',
-      'label'       : 'Kommentar',
-      'wrapperStyle': '-comment',
-      'maxLength'   : 300,
-      'remainCharacterText': 'Gjenstår antall tegn',
       'id'          : 'countryCode',
       'name'        : 'countryCode',
       'type'        : 'select',
@@ -197,6 +178,14 @@ export const ProfileScheema = {
           'message': 'Avsluttsdato er påkrevd'
         }
       ]
+    }, {
+      'id'          : 'comment',
+      'name'        : 'comment',
+      'type'        : 'textarea',
+      'label'       : 'Kommentar',
+      'wrapperStyle': '-comment',
+      'maxLength'   : 300,
+      'remainCharacterText': 'Gjenstår antall tegn',       
     }
   ]
 }

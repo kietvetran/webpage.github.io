@@ -1,4 +1,4 @@
-export const Signin = {
+export const SignInScheema = {
   'type'   : 'simple',
   'content': [
     {
