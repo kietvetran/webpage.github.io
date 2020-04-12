@@ -109,9 +109,9 @@ export default class Wizard extends React.Component {
 
         if ( ! display ) { display = i > index ? 'next' : 'previous'; }
 
-        let state = {'index': i, 'display': display, 'steps':  steps };
+        let state = {'index': i, 'display': display, 'steps': steps };
 
-        if ( typeof(navigate) === 'function' && navigate(state) === false ) {
+        if ( typeof(navigate) === 'function' && navigate({...state, 'current': index}) === false ) {
             return;
         } else if ( type === 'step-by-step' && ! fromStepEvent && state.steps[i].disabled ) {
             return;

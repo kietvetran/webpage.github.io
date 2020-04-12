@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {reduxForm, change} from 'redux-form';
 import Wizard from '../common/wizard/Wizard';
+import { Message } from '../common/util/message/Message';
 
 import {FormContent} from '../common/forminput/FormContent';
 import {generateReduxFormValidation} from '../common/forminput/util/Function';
@@ -12,12 +13,13 @@ import './Profile.scss';
 class ProfileComponent extends Component {
     //static defaultProps = {'mode': {} }
     state = {
+        'error': '',
         'formName': ProfileScheema.formName || 'eikaForm',
         'template': JSON.parse(JSON.stringify(ProfileScheema))
     }
 
     render() {
-        const {formName, template} = this.state;
+        const {formName, template, error} = this.state;
         const {handleSubmit} = this.props;
 
         return <div className="profile-wrapper">
@@ -26,9 +28,11 @@ class ProfileComponent extends Component {
             >
                 <FormContent content={template.content}/>
 
+                { !! error && <Message skin="danger" text={error}/> }
+
                 <div className="action-row">
                     <div>
-                        <button type="submit" className="primary-btn">Submit</button>
+                        <button onClick={(e)=>{this._click(e,'submit');}} type="submit" className="primary-btn">Submit</button>
                     </div>
                 </div>
             </form>
@@ -36,12 +40,25 @@ class ProfileComponent extends Component {
     }
 
     _submit = ( values ) => {
-        console.log('=== SUBMiT ==='); console.log( values );
+        console.log('=== SUBMiT ===');
+        console.log( values );
     }
 
     _formChange = () => {
         //console.log('=== change.. ===');
     }
+
+    _click = (e, key) => {
+        //if ( e && e.preventDefault ) { e.preventDefault(); }
+        if ( key === 'submit' ) {
+            if ( this.props.invalid ) {
+                this.setState({'error': 'Form has error.'});
+            } else if ( this.state.error ) {
+                this.setState({'error': ''});                
+            }
+        }
+    }
+
 }
 
 //Profile.propTypes = {

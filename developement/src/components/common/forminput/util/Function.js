@@ -53,41 +53,54 @@ export const isValid = (value, config) => {
 };
 
 export const generateReduxFormValidation = (template) => {
-    return (values) => {
-        let errors = template.content.reduce((prev, cnt) => {
-            if ( ! cnt ) { return prev; }
-              
-            (cnt instanceof Array ? cnt : [cnt]).forEach((data) => {
-                let { id, name, type, validation } = data;
-                if (!id || !name || !type || !(validation instanceof Array)) { return prev; }
-
-                let isBox = type.match(/(checkbox|file|image)/i) ? true : false;
-                let value = isBox ? values[name] : (values[name] || '').trim();
-                let i = 0, loop = validation.length;
-                for (i = 0; i < loop; i++) {
-                    if (validation[i].ignore) { continue; }
-
-                    let error = '';
-                    if (validation[i].rule === 'required') {
-                        if (!value) {
-                            error = validation[i].message || 'Required error';
-                        }
-                    } else if (validation[i].rule) {
-                        if (value && ! isValid(value, validation[i])) {
-                            error = validation[i].message || 'Invalid error';
-                        }
-                    } else if (validation[i].regex) {
-                        if (value && value.match(validation[i].regex)) {
-                            error = validation[i].message || 'Regex error';
-                        }
-                    }
-                    
-                    if (error) { prev[name] = error; i = loop; }
+    return (values={}) => {
+        let getContentList = ( cnt, list=[] ) => {
+            if ( ! cnt ) { return list; }
+            if ( cnt instanceof Array ) {
+                cnt.forEach( (d) => { getContentList( d, list ); });
+            } else if ( cnt ) {
+                if ( cnt.content ) {
+                    getContentList( cnt.content, list );
+                } else {
+                    list.push( cnt );
                 }
-            });
+            }
+ 
+            return list;
+        };
+
+        let list = getContentList( template.content );
+        let errors = list.reduce((prev, data) => {
+            if ( ! data ) { return prev; }
+
+            let { id, name, type, validation } = data;
+            if (!id || !name || !type || !(validation instanceof Array)) { return prev; }
+
+            let isBox = type.match(/(checkbox|file|image)/i) ? true : false;
+            let value = isBox ? values[name] : (values[name] || '').trim();
+            let i = 0, loop = validation.length;
+            for (i = 0; i < loop; i++) {
+                if (validation[i].ignore) { continue; }
+
+                let error = '';
+                if (validation[i].rule === 'required') {
+                    if (!value) {
+                        error = validation[i].message || 'Required error';
+                    }
+                } else if (validation[i].rule) {
+                    if (value && ! isValid(value, validation[i])) {
+                        error = validation[i].message || 'Invalid error';
+                    }
+                } else if (validation[i].regex) {
+                    if (value && value.match(validation[i].regex)) {
+                        error = validation[i].message || 'Regex error';
+                    }
+                }
+                
+                if (error) { prev[name] = error; i = loop; }
+            }
             return prev;
         }, {});
-
         return errors;
     };
 }

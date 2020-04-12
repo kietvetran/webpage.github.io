@@ -23,7 +23,7 @@ class Home extends Component {
   render() {
     return <div className="home-wrapper">
       <h1>Home</h1>
-      <ul className="application-list"  style={{'display': 'none'}}>
+      <ul className="application-list">
         <li className="application-item">
            <Chart data={[
               {'value': 10, 'reverse': true, 'stroke': 30 },
@@ -48,24 +48,6 @@ class Home extends Component {
           <Recognition {...this.props} />
         </li>
       </ul>
-
-      <div className="collcetion">
-          <h1>Registration test</h1>
-          <Wizard step="clickable">
-            <Wizard.Step title="Personal information">
-              <h2>Personal information</h2>
-            </Wizard.Step>
-            <Wizard.Step title="Account information">
-              <h2>Account information</h2>
-            </Wizard.Step>
-            <Wizard.Step title="Agreement and graph">
-              <h2>Agreement and graph</h2>
-            </Wizard.Step>
-             <Wizard.Step title="Summary">
-              <h2>Summary</h2>
-            </Wizard.Step>
-       </Wizard>
-      </div>
     </div>
   }
 

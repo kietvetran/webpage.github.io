@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {getPagingList} from '../common/Function';
 
@@ -56,6 +57,9 @@ class Demo extends Component {
             'xAxis': {'grid': 10, 'text': ['1.jan','2.jan','3.jan','4.jan']},
             'yAxis': {'grid': 10, 'separation': 4, 'unit': 'Kr' },
           }}},
+        ], [
+          {'id': 'profile',        'name': 'Profile',        'path': '/profile'},
+          {'id': 'profile-wizard', 'name': 'Profile-wizard', 'path': '/profileWizard'}
         ]
       ]
     };
@@ -75,7 +79,12 @@ class Demo extends Component {
           { menuList.map( (menu,j) => {
               return <li className="menu-item" key={'lab-menu-item-'+j}>
                 { (menu instanceof Array ? menu : [menu]).map( (data,i) => (
-                    <a key={'lab-menu-item-'+j+'-'+i} href="#" className="link" role="button" onClick={(e)=>{this._click(e,'menu-item', data)}}>{data.name}</a>
+                    data.path ?
+                      <Link to={data.path} key={'lab-menu-item-'+j+'-'+i} className="link">
+                        {data.name}
+                      </Link> : <a key={'lab-menu-item-'+j+'-'+i} href="#" className="link" role="button"
+                        onClick={(e)=>{this._click(e,'menu-item', data)}}
+                      >{data.name}</a>
                 ))}
               </li>
           })}
