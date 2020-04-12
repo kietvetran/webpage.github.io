@@ -17,10 +17,24 @@ import {
     validatePersonalId,
     validateEmail,
     validateURL,
-    validateCountryCode
+    validateCountryCode,
+    validateCardnumber
 } from './ValueValidation';
 
-const _isValid = (value, {rule}) => {
+export const getFormat = (value, format) => {
+    let option = {
+        'amount': formatAmount,
+        'phone': formatPhone,
+        'bank-account': formatBankAccount,
+        'person-id': formatPersonalId,
+        'card-number': formatCardnumber,
+        'organization': formatOrganization
+    };
+    return option[format] ? option[format]( value ) : null;
+};
+
+export const isValid = (value, config) => {
+    let rule   = typeof(config) === 'string' ? config : (config || {}).rule;
     let option = {
         'phone'       : validatePhone,
         'number'      : validateNumber,      // allow begin with 0
@@ -32,6 +46,7 @@ const _isValid = (value, {rule}) => {
         'email'       : validateEmail,
         'country-code': validateCountryCode, // eq. +47 | +46
         'organization': validateOrganization,
+        'card-number' : validateCardnumber,
     };
 
     return option[rule] ? option[rule](value) : true;
@@ -58,7 +73,7 @@ export const generateReduxFormValidation = (template) => {
                             error = validation[i].message || 'Required error';
                         }
                     } else if (validation[i].rule) {
-                        if (value && ! _isValid(value, validation[i])) {
+                        if (value && ! isValid(value, validation[i])) {
                             error = validation[i].message || 'Invalid error';
                         }
                     } else if (validation[i].regex) {
@@ -76,15 +91,3 @@ export const generateReduxFormValidation = (template) => {
         return errors;
     };
 }
-
-export const getFormat = (value, format) => {
-    let option = {
-        'amount': formatAmount,
-        'phone': formatPhone,
-        'bank-account': formatBankAccount,
-        'person-id': formatPersonalId,
-        'card-number': formatCardnumber,
-        'organization': formatOrganization
-    };
-    return option[format] ? option[format]( value ) : null;
-};

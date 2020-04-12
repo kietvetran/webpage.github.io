@@ -11,11 +11,9 @@ const mod11OfNumberWithControlDigit = (text) => {
 /******************************************************************************
   Number validation
 ******************************************************************************/
-export const validateNumber = ( value, notBeginWithZero ) =>{
+export const validateNumber = ( value ) =>{
     let text = ((value || '') + '').replace(/\s+/g, '');
-    if ( ! text.match(/^[0-9]+$/) ) { return false; }
-    if ( notBeginWithZero && text.match(/^0$/) ) { return false; }
-    return true;
+    return /^(\-)?[0-9,.]+$/.test( text );
 };
 
 /******************************************************************************
@@ -52,8 +50,7 @@ export const validateBirthday = (value) => {
 
     let list = _parseMatchedDate(matched), now = new Date();
     let date = new Date(list[3], list[2] - 1, list[1], 0, 0, 0);
-    let valid = _controlBirthday(date, list[3], list[2], list[1]);
-    return valid;
+    return _controlBirthday(date, list[3], list[2], list[1]);
 };
 
 /******************************************************************************
@@ -92,7 +89,16 @@ export const validatePhone = (value, country) => {
   Amount validation
 ******************************************************************************/
 export const validateAmount = (value) => {
-    return validateNumber(value, true);
+    if ( ! validateNumber(value) ) { return false; }
+
+    let text = ((value || '') + '').replace(/[\s]+/g, '');
+    if ( /^(\-)?0/.test(text) && ! /[,]/.test(text) ) {
+        return false;
+    }
+
+    let cloned = text.replace( /\,/, '.' );
+    let parsed = parseFloat( cloned );
+    return cloned === (parsed+'');
 };
 
 /******************************************************************************
@@ -100,36 +106,46 @@ export const validateAmount = (value) => {
 ******************************************************************************/
 export const validateBankAccount = (value) => {
     let text = (value || '').replace(/[\s\-]+/g, '');
-    if (text.length !== 11 || !text.match(/^[0-9]+$/)) { 
-        return false
-    }
-    return true
+    if ( ! validateNumber(text) ) { return false; }
+
+    return text.length === 11 &&
+        parseInt(text.charAt(text.length - 1), 10) === mod11OfNumberWithControlDigit(text);    
 };
 
 /******************************************************************************
   peronalId validation
 ******************************************************************************/
-export const validatePersonalId = (value, country) => {
+export const validatePersonalId = (value) => {
     let text = ((value || '') + '').replace(/[\s\-]+/g, '');
-    if ( ! validateNumber(text) ) { return false; }
+    if ( ! validateNumber(text) ||  text.length !== 11 ) { return false; }
 
-    let option = {'no': 11, 'sv': 10, 'da': 10};
-    let test = option[country] ? text.length === option[country] :
-        text.length === option.no;
+    const getSum = function(birthNumber, factors){
+        let sum = 0;
+        for( let i = 0, l = factors.length; i < l; ++i){
+            sum += parseInt(birthNumber.charAt(i),10) * factors[i];
+        }
+        return sum;
+    };
 
-    return test && validateBirthday(text.substring(0, 6),country);
+    let a = 11 - (getSum(text, [3, 7, 6, 1, 8, 9, 4, 5, 2]) % 11);
+    if (a === 11) { a = 0; }
+
+    let b = 11 - (getSum(text, [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]) % 11);
+    if (b === 11) { b = 0; }
+
+    return a === parseInt(text.charAt(9), 10) &&
+        b === parseInt(text.charAt(10), 10);
 };
 
 /******************************************************************************
   organization validation
 ******************************************************************************/
-export const validateOrganization = (value, country) => {
+export const validateOrganization = (value) => {
     let text = ((value || '') + '').replace(/\s+/g, '');
     if ( ! validateNumber(text) ) { return false; }
 
-    let option = {'no': 9, 'sv': 10, 'da': 8};
-    return option[country] ? text.length === option[country] :
-        text.length === option.no;
+    return text.length === 9 && 
+        parseInt(text.charAt(text.length - 1), 10) === mod11OfNumberWithControlDigit(text);
 };
 
 /******************************************************************************
@@ -154,4 +170,12 @@ export const validateCountryCode = (value) => {
 export const validateURL = (value) => {
     let text = ((value || '') + '').replace(/\s+/g, '');
     return /^(http[s]?:\/\/(www\.)?|ftp:\/\/(www\.)?|www\.){1}([0-9A-Za-z-\.@:%_\+~#=]+)+((\.[a-zA-Z]{2,3})+)(\/(.)*)?(\?(.)*)?/ig.test(text);
+};
+
+/******************************************************************************
+  Card number validation
+******************************************************************************/
+export const validateCardnumber = (value) => {
+    let text = ((value || '') + '').replace(/\s+/g, '');
+    return text.length === 16;
 };
