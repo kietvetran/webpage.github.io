@@ -2,8 +2,9 @@
 @import '../style/mixin';
 
 $activeBgColor: #00383D;
+
 $disabledBgColor: #CCC;
-$stepBgColor: #fff;
+$stepBgColor: $app-bg-color;
 $numberSize: 2.5rem;
 
 $sideSpace: 15rem;
@@ -11,7 +12,7 @@ $sideSpaceSmall: 4rem;
 
 .wizard-wrapper {
 	position: relative;
-	background: #fff none no-repeat 0 0;
+	background: $stepBgColor none no-repeat 0 0;
 
 	.wizard-header {
 		list-style: none;

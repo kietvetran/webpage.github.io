@@ -111,7 +111,7 @@ export const ProfileWizardScheema = {
       ]
     }, {
     */
-      'title': 'Bolig lån',
+      'title': 'Boliglån',
       'content': [
         {
           'id'          : 'mortgage',
@@ -199,6 +199,13 @@ export const ProfileWizardScheema = {
               'dependent': ['mortgage'],
             }
           ]
+        }, {
+          'id'          : 'button-add-mortgage',
+          'name'        : 'buttonAdd',
+          'type'        : 'button',
+          'value'       : '+ Legg til flere boliglån',
+          'inputStyle'  : 'secondary-btn -blue -fill', 
+          'action'      : 'add-step'
         }
       ]
     }, {

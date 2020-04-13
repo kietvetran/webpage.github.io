@@ -5,7 +5,7 @@ import Textarea from "./Textarea";
 import SelectBox from "./SelectBox";
 import Checkbox from "./Checkbox";
 import RadioBoxes from "./RadioBoxes";
-import { generateId } from "../General";
+import Button from "./Button";
 import classNames from 'classnames';
 
 export class FormContent extends React.Component {
@@ -100,15 +100,8 @@ export class FormContent extends React.Component {
             out = <Field key={key} id={data.id} name={data.name}
                 component={RadioBoxes} props={properties}
             />
-        } else if (data.type === 'time-interval') {
-            out = <TimeInterval key={key} {...data} properties={properties} />;
-        } else if (data.type === 'stop-and-line') {
-            if ((formData || {}).suggestion) {
-                data.suggestion = formData.suggestion;
-            }
-            out = <StopAndLine ref="stopAndLine" key={key} {...data} {...custom}
-                {...this.props} properties={properties}
-            />
+        } else if (data.type === 'button') {
+            out = <Button key={key} {...data} properties={properties} click={this._click} />;
         }
         return out;
     }
@@ -119,9 +112,19 @@ export class FormContent extends React.Component {
         return this.refs[key];
     }
 
+    _click = (e, key, data) => {
+        if ( e && typeof(e.preventDefault) === 'function' ) {
+            e.preventDefault();
+        }
+
+        if ( typeof(this.props.click) === 'function' ) {
+            this.props.click( e, key, data );
+        }
+    }
+
     /****************************************************************************
     ****************************************************************************/
-    _verifyDependent( properties=[], dependent=[] ) {
+    _verifyDependent = ( properties=[], dependent=[] ) =>{
         let {values={}} = this.props, depending = (dependent || []).find( (k) => {
             let d = typeof(k) === 'string' ? {'key': k} : k;
             return values[d.key] || typeof(values[d.key]) === 'number';
