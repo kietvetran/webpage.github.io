@@ -3,7 +3,7 @@
 
 .select-box {
     width: 100%;
-    padding: 9px .5rem;    
+    padding: .6rem .5rem;    
     border: 1px solid $color-border;
     border-radius: $border-round;
     position: relative;
@@ -44,7 +44,6 @@
     }
 
     &.-small {
-        padding-top: .3rem;
-        padding-bottom: .3rem;
+        padding: .35rem .5rem;    
     }
 }

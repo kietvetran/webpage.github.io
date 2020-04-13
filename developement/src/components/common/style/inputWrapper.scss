@@ -16,10 +16,9 @@ input:-webkit-autofill:active {
 ******************************************************************************/
 .input-wrapper {
     text-align: left;
-    padding: 0 0 1rem 0;
+    padding: 0 0 1.5rem 0;
     position: relative;
     margin: 0;
-    clear: both;
 
     &.-required {
         > label, > .input-holder label, > fieldset > legend {
@@ -67,7 +66,8 @@ input:-webkit-autofill:active {
 
 
     .input-label-description {
-        padding-bottom: .9rem;
+        padding-bottom: .3rem;
+        margin-top: -.3rem;
         a {
             @include asLink();
             display: inline-block;
@@ -116,6 +116,10 @@ input:-webkit-autofill:active {
                 vertical-align: middle;                
             }
         }
+    }
+
+    @media screen and (max-width: $breakpoint-sm) { 
+        padding-bottom: 1rem;
     }
 }
 

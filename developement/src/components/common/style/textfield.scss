@@ -7,7 +7,7 @@
     display: block;
     border: 1px solid $color-border;
     width: 100%;
-    padding: .35rem .5rem;    
+    padding: .6rem .5rem;    
 
     &:hover {
         border-color: $color-focus;
@@ -47,7 +47,7 @@
 
 .textfield {
     &.-small {
-        padding: .3rem .5rem;    
+        padding: .35rem .5rem;    
     }
 }
 

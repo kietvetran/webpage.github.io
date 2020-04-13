@@ -2,55 +2,201 @@ export const ProfileWizardScheema = {
   'headline': '', // not in use jet
   'leadText': '', // not in use jet
   'formName': 'profileScheema',
-  'wizard'  : 'left',
+  'wizard'  : 'right',
   'content': [
     {
-      'title': 'My first step',
+    /*
+      'title': 'Familie',
       'content': [
         {      
-          'id'          : 'phone',
-          'name'        : 'phone',
-          'type'        : 'telfield',
-          'label'       : 'Telefonnummer',
-          'defaultValue': '',
-          'placeholder' : '',
+          'id'          : 'relationship',
+          'name'        : 'relationship',
+          'type'        : 'radio',
+          'labels'      : ['Gift','Samboer','Enslig'],
+          'values'      : ['married','cohabitant','single'],
+          'legend'      : 'Sivilstatus',
+          'wrapperStyle': '-relationship',
+          'listStyle'   : '-inline',
+          'inputStyle'  : '-box',
           'required'    : true,
-          'format'      : 'phone',
-          'wrapperStyle': '-phone',
-          'maxLength'   : 40,
           'validation'  : [
             {
               'rule'   : 'required',
-              'message': 'Telefonnummer er påkrevd'
-            }, {
-              'rule'   : 'phone',
-              'message': 'Telefonnummer er ugyldig'
+              'message': 'Sivilstatus er påkrevd'
             }
           ]
+        }, {
+          'id'          : 'children',
+          'name'        : 'children',
+          'type'        : 'radio',
+          'labels'      : ['Ingen','1','2','3','4+'],
+          'values'      : ['0','1','2','3','4+'],
+          'legend'      : 'Barn under 18 år',
+          'wrapperStyle': '-children',
+          'listStyle'   : '-inline',
+          'inputStyle'  : '-box', 
+          'required'    : true,
+          'validation'  : [
+            {
+              'rule'   : 'required',
+              'message': 'Valget er påkrevd'
+            }
+          ]          
         }
       ]
     }, {
-      'title': 'My second step',
+      'title': 'Inntekt',
       'content': [
         {
-          'id'          : 'amount',
-          'name'        : 'amount',
+          'id'          : 'your-income',
+          'name'        : 'yourIncome',
           'type'        : 'telfield',
-          'label'       : 'Beløp',
+          'label'       : 'Lønn',
           'defaultValue': '',
           'placeholder' : '',
           'unit'        : 'Kr',
           'required'    : true,
-          'wrapperStyle': '-amount',
+          'wrapperStyle': '-your-income',
           'format'      : 'amount',
           'maxLength'   : 40,
           'validation'  : [
             {
               'rule'   : 'required',
-              'message': 'Beløpet er påkrevd'
+              'message': 'Lønn er påkrevd'
             }, {
               'rule' : 'amount',
-              'message': 'Beløpet er ugyldig'
+              'message': 'Lønn er ugyldig'
+            }
+          ]
+        }, {
+          'id'          : 'partner-income',
+          'name'        : 'partnerIncome',
+          'type'        : 'telfield',
+          'label'       : 'Ektefelle / Samboer lønn',
+          'defaultValue': '',
+          'placeholder' : '',
+          'unit'        : 'Kr',
+          'required'    : true,
+          'wrapperStyle': '-partner-income',
+          'format'      : 'amount',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule'   : 'required',
+              'message': 'Ektefelle / Samboer lønn er påkrevd'
+            }, {
+              'rule' : 'amount',
+              'message': 'Ektefelle / Samboer lønn er ugyldig'
+            }
+          ]          
+        }, {
+          'id'          : 'other-income',
+          'name'        : 'otherIncome',
+          'type'        : 'telfield',
+          'label'       : 'Annen årlig inntekt',
+          'description' : 'For eksempel airBnB, nobobil, utleie osv.',
+          'defaultValue': '',
+          'placeholder' : '',
+          'unit'        : 'Kr',
+          'wrapperStyle': '-other-income',
+          'format'      : 'amount',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule' : 'amount',
+              'message': 'Annen årlig inntekt er ugyldig'
+            }
+          ]          
+        }
+      ]
+    }, {
+    */
+      'title': 'Bolig lån',
+      'content': [
+        {
+          'id'          : 'mortgage',
+          'name'        : 'mortgage',
+          'type'        : 'telfield',
+          'label'       : 'Lånesum',
+          'unit'        : 'Kr',
+          'wrapperStyle': '-mortgage',
+          'format'      : 'amount',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule' : 'amount',
+              'message': 'Lånesum er ugyldig'
+            }
+          ]
+        }, {
+          'id'          : 'housing-value',
+          'name'        : 'housingValue',
+          'type'        : 'telfield',
+          'label'       : 'Boligverdi',
+          'unit'        : 'Kr',
+          'wrapperStyle': '-housing-value',
+          'format'      : 'amount',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule' : 'amount',
+              'message': 'Boligverdi er ugyldig'
+            }
+          ]
+        }, {
+          'id'          : 'interest',
+          'name'        : 'interest',
+          'type'        : 'telfield',
+          'label'       : 'Rente',
+          'defaultValue': '2,8',
+          'unit'        : '%',
+          'wrapperStyle': '-interest',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule'   : 'required',
+              'message': 'Gjenstående terminer er påkrevd',
+              'dependent': ['mortgage'],
+            }, {
+              'rule' : 'amount',
+              'message': 'Rente er ugyldig'
+            }
+          ]
+        }, {
+          'id'          : 'remaining-futures',
+          'name'        : 'remainingFutures',
+          'type'        : 'telfield',
+          'label'       : 'Gjenstående terminer',
+          'defaultValue': '20',
+          'unit'        : 'stk',
+          'wrapperStyle': '-remaining-futures',
+          'maxLength'   : 40,
+          'validation'  : [
+            {
+              'rule'   : 'required',
+              'message': 'Gjenstående terminer er påkrevd',
+              'dependent': ['mortgage'],
+            }, {
+              'rule' : 'amount',
+              'message': 'Rente er ugyldig'
+            }
+          ]
+        }, {
+          'id'          : 'payment-type',
+          'name'        : 'paymentType',
+          'type'        : 'radio',
+          'labels'      : ['Annuitet','Serielån'],
+          'values'      : ['0','1'],
+          'legend'      : 'Betalingstype',
+          'wrapperStyle': '-payment-type',
+          'listStyle'   : '-inline',
+          'inputStyle'  : '-box', 
+          'required'    : true,
+          'validation'  : [
+            {
+              'rule'   : 'required',
+              'message': 'Valget er påkrevd',
+              'dependent': ['mortgage'],
             }
           ]
         }

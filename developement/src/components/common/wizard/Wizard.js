@@ -26,7 +26,7 @@ export const Step = ({stepId, nextStep, prevStep, isLast, isPrevious, finish, ch
     </section>;
 };
 
-export const Header = ({index, steps, click}) => {
+export const Header = ({index, steps, headerSide, click}) => {
     return (steps || []).length ? <ul className="wizard-header" role="tablist">
         { steps.map( (data,i) => {
             let active = i === index;
@@ -37,8 +37,14 @@ export const Header = ({index, steps, click}) => {
                 <a hrref="#" className="header-btn" aria-controls={data.id}
                     onClick={(e)=>{click(e,'change-step',data)}}
                 >
-                    <span aria-hidden="true" className="number"><b>{i+1}</b></span>
-                    { !! data.title && <span className="title">{data.title}</span> }
+                    { headerSide === 'right' ? <React.Fragment>
+                            { !! data.title && <span className="title">{data.title}</span> }
+                            <span aria-hidden="true" className="number"><b>{i+1}</b></span>
+                        </React.Fragment> : <React.Fragment>
+                            <span aria-hidden="true" className="number"><b>{i+1}</b></span>
+                            { !! data.title && <span className="title">{data.title}</span> }
+                        </React.Fragment>
+                    }
                 </a>
             </li>
         }) }
@@ -54,10 +60,10 @@ export default class Wizard extends React.Component {
 
     render() {        
         const {children} = this.props;
-        const {index, display, steps, headerSide} = this.state; 
+        const {index, display, steps, headerPosition} = this.state; 
         const length = (children || []).length;
 
-        return length ? <div className={classNames('wizard-wrapper', '-count-'+length, '-'+headerSide)} role="application">
+        return length ? <div className={classNames('wizard-wrapper', '-count-'+length, '-'+headerPosition)} role="application">
             <Header {...this.props} {...this.state} click={this._click}/>
 
             { React.Children.map( children, (element, i) => {
@@ -130,11 +136,17 @@ export default class Wizard extends React.Component {
     /****************************************************************************
     ****************************************************************************/
     _initState( props ) {
-        let {children, type, index, headerSide} = props, state = {
+        let {children, type, index, headerSide} = props, headerOption = {
+            'left' : 'header-left',
+            'right': 'header-right',
+            'top'  : 'header-top'
+        };
+
+        let state = {
             'index' : isNaN(index) ? 0 : index,
             'type'  : type  || 'step-by-step',
             'steps' : [],
-            'headerSide': headerSide === 'left' ? 'header-left' : 'header-top',
+            'headerPosition': headerOption[headerSide] || headerOption.top,
         };
 
         for ( let i=0; i<(children || []).length; i++ ) {

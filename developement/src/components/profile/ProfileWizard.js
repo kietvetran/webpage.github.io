@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {reduxForm, change} from 'redux-form';
+import {reduxForm, change, getFormValues } from 'redux-form';
 import Wizard from '../common/wizard/Wizard';
 import { Message } from '../common/util/message/Message';
 import {fireEvent} from '../common/General';
 
 import {FormContent} from '../common/forminput/FormContent';
-import {generateReduxFormValidation} from '../common/forminput/util/Function';
+import {generateReduxFormValidation, getFormContentFlatList} from '../common/forminput/util/Function';
 import { ProfileWizardScheema } from './ProfileWizardScheema';
 
 import './Profile.scss';
@@ -21,7 +21,7 @@ class ProfileWizardComponent extends Component {
 
     render() {
         const {formName, template, errors} = this.state;
-        const {handleSubmit} = this.props;
+        const {handleSubmit, values} = this.props;
 
         return <div ref="wrapper" className="profile-wrapper">
             <Wizard ref="wizard" step="clickable" headerSide={template.wizard} navigate={this._navigate}>
@@ -29,9 +29,9 @@ class ProfileWizardComponent extends Component {
                     <Wizard.Step key={'step-'+i} title={cnt.title}>
                         <h2>{cnt.title}</h2>
                         <form name={formName} ref="eikaForm" noValidate className="form-wrapper"
-                            onSubmit={this._submit} onChange={this._formChange}                
+                            onSubmit={this._submit} onChange={this._formChange}
                         >
-                            <FormContent content={cnt.content}/>
+                            <FormContent content={cnt.content} values={values}/>
                             {!! errors[i] && <Message skin="danger" text={errors[i]}/> }
                         </form>
                     </Wizard.Step>
@@ -41,12 +41,26 @@ class ProfileWizardComponent extends Component {
         </div>
     }
 
+    componentDidMount() {
+        let {template} = this.state, formData = {};
+        let list = getFormContentFlatList( template.content );
+        list.forEach( (data) => {
+            let {name, defaultValue} = data;
+            if ( ! name || (!defaultValue && typeof(defaultValue) !== 'number')) {
+                return;
+            }
+            formData[name] = defaultValue;
+        });
+
+        this.props.initialize(formData);
+    }
+
     _submit = ( values ) => {
-        console.log('=== SUBMiT ==='); console.log( values );
+        //console.log('=== SUBMiT ==='); console.log( values );
     }
 
     _formChange = () => {
-        //console.log('=== change.. ===');
+        //console.log('=== change.. ==='); console.log( this.props.values );
     }
 
     _navigate = ( config ) => {
@@ -76,8 +90,9 @@ class ProfileWizardComponent extends Component {
 //};
 
 const ProfileWizardConnection = connect((state, props) => {
+    //console.log('=== CONNECT ==='); console.log( state ); console.log( props );
     return {
-        //'deviation': state.deviation
+        'values': getFormValues((ProfileWizardScheema.formName || 'eikaForm'))(state)
     };
 }, (dispatch) => {
     return {

@@ -71,6 +71,11 @@ export class FormContent extends React.Component {
             properties[key] = isNaN(data[key]) ? true : data[key];
         });
 
+        let validation = (data.validation || [])[0] || {};
+        if ( validation.rule === 'required' && validation.dependent ) {
+            this._verifyDependent( properties, validation.dependent );
+        }
+
         if ( data.type.match( /^(textfield|telfield|email|password)$/i) ) {
             out = <Field key={key} id={data.id} name={data.name} label={data.label}
                 autoComplete="off" spellCheck="false" autoCapitalize="off" autoCorrect="off"
@@ -108,54 +113,6 @@ export class FormContent extends React.Component {
         return out;
     }
 
-  /*
-  _initElement( data, pin, formData ) {
-    if ( ! data || ! data.id ) { return null; }
-
-    let out = null, key = pin || generateId(), properties = {'source': data, 'formData': formData};
-    if ( data.maxLength ) { properties.maxLength = data.maxLength; }
-    if ( data.required )  { properties.required = true; }
-    if ( data.disabled )  { properties.disabled = true; }
-    if ( data.format   )  {
-      properties.onKeyUp = this._keyup;
-      properties.onFocus = this._focus;
-      properties.onBlur  = this._blur;
-    }
-
-    if ( data.type === 'textfield' || data.type === 'telfield' || data.type === 'email' || data.type === 'password' ) {
-      out = <Field key={key} id={data.id} name={data.name} label={data.label}
-        autoComplete="off" spellCheck="false" autoCapitalize="off" autoCorrect="off" placeholder={data.placeholder}
-        component={Textfield} props={properties}/>
-    } else if ( data.type === 'textarea' ) {
-      out = <Field key={key} id={data.id} name={data.name} type="text" label={data.label}
-        autoComplete="off" spellCheck="false" autoCapitalize="off" autoCorrect="off" placeholder={data.placeholder}
-        component={Textarea} props={properties}/>
-    } else if ( data.type === 'hidden' ) {
-      out = <Field key={key} id={data.id} name={data.name} type="hidden" component="input"/>
-    } else if ( data.type === 'selection' && data.selection instanceof Array ) {
-      out  = <Field key={key} id={data.id} name={data.name} type="select" label={data.label}
-        component={Selection} props={properties}/>
-    } else if ( data.type === 'checkbox') {
-      out  = <Field key={key} id={data.id} name={data.name} type="checkbox" label={data.label}
-        component={Checkbox} props={properties}/>
-    } else if ( data.type === 'radioboxes' || data.type === 'radio' ) {
-      if ( ! data.labels ) {
-        data.labels = [getTranslation('button.accept'), getTranslation('button.notAccept')];
-      }
-      out  = <Field key={key} id={data.id} name={data.name} component={RadioBoxes} props={properties}/>
-    } else if ( data.type === 'leadtext' && data.text) {
-      out = <div key={key} className={'lead paragraph bold '+ data.id}>{data.text}</div>
-    } else if ( data.type === 'fileuploader') {
-      if (this.props.name && this.props.dispatch) {
-        properties.onClick  = this._click;
-      }
-      out = <Field key={key} id={data.id} name={data.name} label={data.label}
-        component={Filefield} props={properties}/>
-    }
-    return out;
-  }
-  */
-
     /****************************************************************************
     ****************************************************************************/
     getReference = (key) => {
@@ -164,24 +121,12 @@ export class FormContent extends React.Component {
 
     /****************************************************************************
     ****************************************************************************/
-    _getContentData(e) {
-        if ( ! e ) { return; }
-
-        let target = e.currentTarget, id = target.id, value = target.value || '';
-        if ( ! id || ! value) { return; }
-
-        let found = this.props.content.find(d => d.id === id);
-        if ( ! found ) { return; }
-
-        return {
-            'e'     : e,
-            'code'  : e.keyCode,
-            'field' : target,
-            'name'  : found.name,
-            'id'    : id,
-            'value' : value,
-            'config': found
-        };
+    _verifyDependent( properties=[], dependent=[] ) {
+        let {values={}} = this.props, depending = (dependent || []).find( (k) => {
+            let d = typeof(k) === 'string' ? {'key': k} : k;
+            return values[d.key] || typeof(values[d.key]) === 'number';
+        });
+        properties.required = depending ? true : false;
     }
 }
 

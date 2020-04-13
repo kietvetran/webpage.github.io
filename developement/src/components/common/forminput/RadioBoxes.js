@@ -43,7 +43,7 @@ const RadioBoxes = ({defaultValue, ...custom}) => {   // eslint-disable-line no-
     });
 
     return <InputWrapper {...custom} fieldId={fieldId} type={type} isInvalid={isInvalid} legend={legend}>
-        <ul className="input-radio-list">
+        <ul className={classNames('input-radio-list', (source.listStyle || ''))}>
             { labels.map( (label,i) => {
                 let pin = fieldId + '-' + i, value = values[i] || label;
                 return <li key={pin}>

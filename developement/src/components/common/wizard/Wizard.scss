@@ -1,12 +1,13 @@
 @import '../style/theme';
 @import '../style/mixin';
 
-$activeBgColor: #84BD00;
+$activeBgColor: #00383D;
 $disabledBgColor: #CCC;
 $stepBgColor: #fff;
 $numberSize: 2.5rem;
 
-$leftSpace: 15rem;
+$sideSpace: 15rem;
+$sideSpaceSmall: 4rem;
 
 .wizard-wrapper {
 	position: relative;
@@ -76,7 +77,6 @@ $leftSpace: 15rem;
 	}
 
 	.header-btn {
-		display: flex;
 		margin: .2rem .3rem;
 		padding: .2rem 0;
 		background-color: $stepBgColor;
@@ -111,6 +111,7 @@ $leftSpace: 15rem;
 		.title {
 			text-align: left;
 			padding-left: 0;
+			color: $activeBgColor;
 		}
 	}
 
@@ -136,53 +137,90 @@ $leftSpace: 15rem;
 		}
 	}
 
-	@media screen and (min-width: $breakpoint-md) { 
-		&.-header-left {
-			padding-left: $leftSpace;
-			float: left;
+
+	&.-header-right,
+	&.-header-left {
+		float: left;
+		width: 100%;
+		.wizard-header {
+			border: 0 none;
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.wizard-header, .header-item, .header-btn {
+			display: block;
+		}
+
+		.wizard-content {
+			&.-next {
+				@include opacity(0);
+				@include animation( top-appending, .2s, ease, 0s );
+				@include animation-forwards();
+			}
+
+			&.-previous {
+				@include opacity(0);
+				@include animation( bottom-appending, .2s, ease, 0s );
+				@include animation-forwards();			
+			}
+		}
+
+		.header-item {
+			max-width: $sideSpace;
+			&:first-child {
+				margin-top: .6rem;
+			}
+
+			&:before {
+				display: none;
+			}
+		}
+
+		.header-btn {
+			padding: 0;
+			margin: 0;
 			width: 100%;
-			.wizard-header {
-				border: 0 none;
+
+			.number, .title {
+				padding-top: .6rem;
+				padding-bottom: .6rem;
+			}
+		}
+	}
+
+	&.-header-right {
+		padding-right: $sideSpace;
+		.wizard-header {
+			float: right;
+			margin-right: $sideSpace * -1;
+		}
+
+		.header-btn {
+			padding-left: 1rem;
+			.number, .title {
+				padding-right: 0;				
+			}
+
+			.title {
+				width: 100%;
+				text-align: right;
+			}
+		}
+	}
+
+	&.-header-left {
+		padding-left: $sideSpace;
+		.wizard-header {
+			float: left;
+			margin-left: $sideSpace * -1;
+		}
+
+		.header-btn {
+			.number {
 				padding-left: 0;
-				padding-right: 0;
-				float: left;
-				margin-left: $leftSpace * -1;
 			}
-
-			.wizard-header, .header-item, .header-btn {
-				display: block;
-			}
-
-			.wizard-content {
-				&.-next {
-					@include opacity(0);
-					@include animation( top-appending, .2s, ease, 0s );
-					@include animation-forwards();
-				}
-
-				&.-previous {
-					@include opacity(0);
-					@include animation( bottom-appending, .2s, ease, 0s );
-					@include animation-forwards();			
-				}
-			}
-
-
-			.header-item {
-				max-width: $leftSpace;
-				&:before {
-					display: none;
-				}
-			}
-
-			.header-btn {
-				padding: 0;
-				margin: 0;
-				.number {
-					padding-left: 0;
-				}
-			}
-		}		
+		}
 	}
 
 	@media screen and (max-width: $breakpoint-md-p) { 
@@ -190,6 +228,34 @@ $leftSpace: 15rem;
 			.title {
 				@include ariaVisible();
 			}
-		}	
+
+			.title, .number {
+				padding: .6rem;
+			}
+		}
+
+		&.-header-right,
+		&.-header-left {
+			.header-btn {
+				.number, title {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+
+		&.-header-left {
+			padding-left: $sideSpaceSmall;
+			.wizard-header {
+				margin-left: $sideSpaceSmall * -1;
+			}
+		}
+
+		&.-header-right {
+			padding-right: $sideSpaceSmall;
+			.wizard-header {
+				margin-right: $sideSpaceSmall * -1;
+			}
+		}
 	}
 }
