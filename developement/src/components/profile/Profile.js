@@ -28,7 +28,7 @@ class ProfileComponent extends Component {
             >
                 <FormContent content={template.content}/>
 
-                { !! error && <Message skin="danger" text={error}/> }
+                { !! error && <Message skin="info" text={error}/> }
 
                 <div className="action-row">
                     <div>
@@ -66,6 +66,7 @@ class ProfileComponent extends Component {
 //};
 
 const ProfileConnection = connect((state, props) => {
+    console.log('=== CONNECT ===');
     return {
         //'deviation': state.deviation
     };

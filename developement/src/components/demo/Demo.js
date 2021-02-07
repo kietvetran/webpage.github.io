@@ -34,10 +34,10 @@ class Demo extends Component {
           {'id': 'chart-progress', 'name': 'Chart progress', 'config': {'type': 'chart', 'source': {'data': 40, 'type': 'progress'}}},
           {'id': 'chart-pie',      'name': 'Chart pie', 'config': {'type': 'chart', 'source': {
             'data': [
-              {'value': 20, 'text': 'Alfa' },
-              {'value': 50, 'text': 'Beta' },
-              {'value': 90, 'text': 'Gamma'},
-              {'value': 40, 'text': 'Delta'}
+              {'value': 25, 'text': 'Alfa' },
+              // {'value': 50, 'text': 'Beta' },
+              // {'value': 90, 'text': 'Gamma'},
+              {'value': 75, 'text': 'Delta'}
             ],
             'type': 'pie'
           }}},

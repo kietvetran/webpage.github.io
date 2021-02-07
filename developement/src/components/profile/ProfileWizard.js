@@ -133,9 +133,13 @@ class ProfileWizardComponent extends Component {
 
 const ProfileWizardConnection = connect((state, props) => {
     //console.log('=== CONNECT ==='); console.log( state ); console.log( props );
-    return {
+    let out = {
         'values': getFormValues((scheema.formName || 'eikaForm'))(state)
     };
+
+    console.log( out.values );
+
+    return out;
 }, (dispatch) => {
     return {
         'dispatch': dispatch
