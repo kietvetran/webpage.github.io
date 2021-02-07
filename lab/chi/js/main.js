@@ -5,6 +5,7 @@ try { CONFIG; } catch( error ){ CONFIG = {};   }
 try { HOMEGALLERY; } catch( error ){ HOMEGALLERY = null;   }
 try { MENUGALLERY; } catch( error ){ MENUGALLERY = null;   }
 try { ALACARTE; } catch( error ){ ALACARTE = [];   }
+try { TAKEAWAY; } catch( error ){ ALACARTE = [];   }
 try { SETMENU; } catch( error ){ SETMENU = [];   }
 try { GALLERY; } catch( error ){ GALLERY = [];   }
 try { MAPSTYLING; } catch( error ){ MAPSTYLING = [];   }
@@ -43,6 +44,7 @@ function startup() {
   initHomeGallary();
   initHome();
   initMenu( ALACARTE, 'a-la-carte');
+  initMenu( TAKEAWAY, 'take-away');
   initMenu( SETMENU, 'setmenu');
   initGallery();
 
@@ -106,7 +108,7 @@ function initMenu( menu, name ) {
 
   var output = [], category = [];
   for ( i=0; i<list.length; i++ ) { 
-    var id = 'm-'+list[i].name.substring(0,3) + i; 
+    var id = 'm-'+name+'-'+list[i].name.substring(0,3) + i; 
     var type = '-menu' + (i ? '' : ' -show') +  ' -'+name;
     category.push( 
       '<a href="#'+id+'" role="tab" id="tab-menu-'+id+'" aria-selected="false" aria-controls="panel-menu'+id+'" class="tab-btn '+type+'">'+
