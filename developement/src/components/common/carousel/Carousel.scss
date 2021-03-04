@@ -1,0 +1,9 @@
+@import '../style/theme';
+@import '../style/mixin';
+
+.carousel-wrapper {
+	position: relative;
+	.carousel-cnt {
+		border: 1px solid red;
+	}
+}

@@ -17,6 +17,7 @@ import * as DialogActions from './../actions/dialogActions';
 import Signin from '../components/signIn/SignIn';
 import Home from '../components/home/home';
 import Demo from '../components/demo/Demo';
+import Gym from '../components/gym/Gym';
 import Profile from '../components/profile/Profile';
 import ProfileWizard from '../components/profile/ProfileWizard';
 
@@ -45,7 +46,8 @@ class App extends Component {
       'menus': [
         {'id': 'home', 'path': '/home', 'name': 'Home'},
         //{'id': 'profile', 'path': '/profile', 'name': 'Profile'},
-        {'id': 'demo', 'path': '/demo', 'name': 'Demo' }
+        {'id': 'demo', 'path': '/demo', 'name': 'Demo' },
+        {'id': 'gym', 'path': '/gym', 'name': 'Gym' }
       ]
     };
 
@@ -88,9 +90,10 @@ class App extends Component {
           <div className="app-cnt layout-outer">
             <Switch>
               <Route exact path='/home' render={(e) => { return <Home {...e} {...common} /> }} />
-              <Route exact path='/Demo' render={(e) => { return <Demo {...e} {...common} /> }} />
-              <Route exact path='/Profile' render={(e) => { return <Profile {...e} {...common} /> }} />
-              <Route exact path='/ProfileWizard' render={(e) => { return <ProfileWizard {...e} {...common} /> }} />
+              <Route exact path='/demo' render={(e) => { return <Demo {...e} {...common} /> }} />
+              <Route exact path='/gym' render={(e) => { return <Gym {...e} {...common} /> }} />
+              <Route exact path='/profile' render={(e) => { return <Profile {...e} {...common} /> }} />
+              <Route exact path='/profileWizard' render={(e) => { return <ProfileWizard {...e} {...common} /> }} />
               <Route exact path='/signin' render={(e) => { return <Signin {...e} {...common} /> }} />              
               <Redirect from='/*' to='/home'/>
             </Switch>
