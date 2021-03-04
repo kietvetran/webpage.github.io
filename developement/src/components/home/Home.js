@@ -62,6 +62,11 @@ class Home extends Component {
         <a href="smartspar://home?action=settInnPenger&isin=NO0010126030&portfolioBaseCode=03290IPS000437">Smartspar - LG user - IPS konto  - Eika Egenkapitalbevis</a>
         <a href="smartspar://home?action=opprettNySparemaal">Smartspar - Ny sparemål - bare spare</a>
         <a href="smartspar://home?action=opprettNySparemaal&category=pension">Smartspar - Ny sparemål - pensjon</a>
+
+        <hr/>
+
+        <a href="#" role="button" onClick={(e)=>{this._click(e,'open-smartspar');}}>Script open smartspar</a>
+
       </div>
 
 
@@ -87,7 +92,31 @@ class Home extends Component {
           />
           <Chart data={[[20,50,90,40],[10,80,20,90]]} highest={120} type="line"/>
   ****************************************************************************/
-  _click( e, key, data) {
+  _click = ( e, key, data) => {
+    if ( e && typeof(e.preventDefault) === 'function') {
+      e.preventDefault();
+    }
+
+    if ( key === 'open-smartspar' ) {
+      this.openSmartspar();
+    }
+  }
+
+  openSmartspar = () => {
+    const iOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
+    const android = navigator.userAgent.match('Android');
+    if ( !iOS && !android ) { return; }
+
+    const appstore = iOS ? 'https://apps.apple.com/no/app/smartspar/id1450266656' : 
+      'https://play.google.com/store/apps/details?id=no.eika.smartspar';
+
+    const now = new Date().valueOf();
+    setTimeout(function () {
+        if (new Date().valueOf() - now > 100) { return; }
+        window.location = appstore;
+    }, 50);
+
+    window.location = 'smartspar://home';
   }
 }
 
