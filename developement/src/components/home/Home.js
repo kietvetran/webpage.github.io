@@ -124,6 +124,19 @@ class Home extends Component {
         if ( (v - time) > 200 ) { return; }
         window.location = appstore;
       }, 100);
+    } else if ( test === 3 ) {
+      const state = { 'timer': 0, stop: false };
+      const blur = () => {
+        clearTimeout( state.timer );
+        state.stop = true;
+      };
+      window.removeEventListener('blur', blur)
+      window.addEventListener('blur', blur);
+
+      state.timer = setTimeout( () => {
+        if (state.stop) { return; }
+        window.location = appstore;        
+      }, 300);
     }
 
     window.location = 'smartspar://home';
