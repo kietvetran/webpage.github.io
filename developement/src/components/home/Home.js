@@ -65,8 +65,9 @@ class Home extends Component {
 
         <hr/>
 
-        <a href="#" role="button" onClick={(e)=>{this._click(e,'open-smartspar');}}>Script open smartspar</a>
-
+        <a href="#" role="button" onClick={(e)=>{this._click(e,'open-smartspar', 1);}}>Script open smartspar - 1</a>
+        <a href="#" role="button" onClick={(e)=>{this._click(e,'open-smartspar', 2);}}>Script open smartspar - 2</a>
+        <a href="#" role="button" onClick={(e)=>{this._click(e,'open-smartspar', 3);}}>Script open smartspar - 3</a>
       </div>
 
 
@@ -98,11 +99,11 @@ class Home extends Component {
     }
 
     if ( key === 'open-smartspar' ) {
-      this.openSmartspar();
+      this.openSmartspar( data );
     }
   }
 
-  openSmartspar = () => {
+  openSmartspar = ( test ) => {
     const iOS = navigator.userAgent.match('iPad') || navigator.userAgent.match('iPhone') || navigator.userAgent.match('iPod');
     const android = navigator.userAgent.match('Android');
     if ( !iOS && !android ) { return; }
@@ -110,11 +111,20 @@ class Home extends Component {
     const appstore = iOS ? 'https://apps.apple.com/no/app/smartspar/id1450266656' : 
       'https://play.google.com/store/apps/details?id=no.eika.smartspar';
 
-    const now = new Date().valueOf();
-    setTimeout(function () {
-        if (new Date().valueOf() - now > 100) { return; }
+    if ( test === 1 ) {
+      const now = new Date().valueOf();
+      setTimeout( () => {
+          if ( (new Date().valueOf() - now) > 100) { return; }
+          window.location = appstore;
+      }, 25);
+    } else if ( test === 2 ) {
+      const time = (new Date()).getTime();
+      setTimeout( () => {
+        const v = (new Date()).getTime();
+        if ( (v - time) > 200 ) { return; }
         window.location = appstore;
-    }, 50);
+      }, 100);
+    }
 
     window.location = 'smartspar://home';
   }
