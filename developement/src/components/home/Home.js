@@ -48,6 +48,23 @@ class Home extends Component {
           <Recognition {...this.props} />
         </li>
       </ul>
+
+      <div className="test-content">
+        <a href="https://www.eika.no/smartspar/">Https - Smartspar</a>
+        <a href="https://www.eika.no/smartspar/?action=settInnPenger">Https - Smartspar - settInnPenger</a>
+        <a href="https://www.eika.no/smartspar/settInnPenger">Https - Smartspar - slash settInnPenger</a>
+
+        <hr/>
+
+        <a href="smartspar://home">Smartspar</a>
+        <a href="smartspar://home?action=settInnPenger">Smartspar - LG bruker - sett inn penger</a>
+        <a href="smartspar://home?action=settInnPenger&isin=NO0010003999&portfolioBaseCode=03290ASK004199">Smartspar - LG bruker - sett inn penger - Eika Aksjesparkonto I  - Eika Spar</a>
+        <a href="smartspar://home?action=settInnPenger&isin=NO0010126030&portfolioBaseCode=03290IPS000437">Smartspar - LG user - IPS konto  - Eika Egenkapitalbevis</a>
+        <a href="smartspar://home?action=opprettNySparemaal">Smartspar - Ny sparemål - bare spare</a>
+        <a href="smartspar://home?action=opprettNySparemaal&category=pension">Smartspar - Ny sparemål - pensjon</a>
+      </div>
+
+
     </div>
   }
 

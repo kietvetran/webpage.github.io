@@ -43,7 +43,19 @@
 		margin: 1rem 0;
 	}
 
-  @media screen and (max-width: $breakpoint-md) { 
+
+	.test-content {
+		clear: both;
+		padding: 2rem 0 0 0;
+		> a {
+			display: block;
+			margin: 0 0 1rem 0;
+			text-decoration: underline;
+		}
+	}
+
+
+ 	@media screen and (max-width: $breakpoint-md) { 
 		.application-list {
 			> li {
 				width: 100%;
@@ -51,5 +63,5 @@
 				height: auto;
 			}
 		}
-  }
+  	}
 }
